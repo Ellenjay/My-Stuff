@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Timers enabled="True">
+  <Timer>
+    <StartDateTime>12/27/2010 7:10:00 AM</StartDateTime>
+    <TimerLength>00:00:00</TimerLength>
+    <Item length="00:00:00" type="Program">Test Program.vpr</Item>
+  </Timer>
+</Timers>

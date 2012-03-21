@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--_SIG=X/QsV+hhuF8Bj/XNMHCJJ2DoYXD2+ln8Qz29Z7VQ+9Tuc1zQfIJLOVF49NlUuWZSVoEBFxiKIM6iUxI+0cDd9II/9oT8q11RvIbYCtKjJlhKgd1bQHQPHsLFjMLX0vlPMi/ryWplBXwdKQaPl16tYOkOm2krUhnoQG9ZNW/kqHw=-->
+<Package Id="InfoPathMUI.en-us" Type="MSI" Path="InfoPathMUI.MSI" Version="1.0" ProductCode="{90120000-0044-0409-0000-0000000FF1CE}" MSIVersion="12.0.4518.1014" Platform="x86">
+	<Feature Id="XDocsSolutionAbsenceRequestIntl_1033" Cost="25052">
+		<OptionRef Id="XDocsSolutionAbsenceRequest"/>
+	</Feature>
+	<Feature Id="XDocsSolutionSalesReportIntl_1033" Cost="22059">
+		<OptionRef Id="XDocsSolutionSalesReport"/>
+	</Feature>
+	<Feature Id="VSTAIDEFilesIntl_1033" Cost="65003981">
+		<OptionRef Id="VSTAIDEFiles"/>
+	</Feature>
+	<Feature Id="XDocsSolutionExpenseReportDomIntl_1033" Cost="23364">
+		<OptionRef Id="XDocsSolutionExpenseReportDom"/>
+	</Feature>
+	<Feature Id="XDocsSolutionTimeCardDetailedIntl_1033" Cost="27932">
+		<OptionRef Id="XDocsSolutionTimeCardDetailed"/>
+	</Feature>
+	<Feature Id="XDocsSolutionTravelRequestIntl_1033" Cost="24253">
+		<OptionRef Id="XDocsSolutionTravelRequest"/>
+	</Feature>
+	<Feature Id="XDocsSolutionTravelItineraryIntl_1033" Cost="23813">
+		<OptionRef Id="XDocsSolutionTravelItinerary"/>
+	</Feature>
+	<Feature Id="XDocsSolnInvoiceMultiTaxRatesIntl_1033" Cost="24238">
+		<OptionRef Id="XDocsSolutionInvoiceMultiTaxRates"/>
+	</Feature>
+	<Feature Id="XDocsSolutionPurchaseOrderIntl_1033" Cost="26669">
+		<OptionRef Id="XDocsSolutionPurchaseOrder"/>
+	</Feature>
+	<Feature Id="XDocsSolnInvoiceSingleTaxRateIntl_1033" Cost="24264">
+		<OptionRef Id="XDocsSolutionInvoiceSingleTaxRate"/>
+	</Feature>
+	<Feature Id="XDocsSolnPerformanceReviewIntl_1033" Cost="27732">
+		<OptionRef Id="XDocsSolutionPerformanceReview"/>
+	</Feature>
+	<Feature Id="XDOCSProgrammabilityFilesIntl_1033" Cost="267046">
+		<OptionRef Id="XDocsProgrammabilityFiles"/>
+	</Feature>
+	<Feature Id="XDocsSolutionInvoiceRequestIntl_1033" Cost="22814">
+		<OptionRef Id="XDocsSolutionInvoiceRequest"/>
+	</Feature>
+	<Feature Id="XDocsSampleSolutionsIntl_1033" Cost="92820">
+		<OptionRef Id="XDocsSolutionSamples"/>
+	</Feature>
+	<Feature Id="XDocsSolutionAssetTrackingIntl_1033" Cost="28187">
+		<OptionRef Id="XDocsSolutionAssetTracking"/>
+	</Feature>
+	<Feature Id="XDocsSolutionExpenseReportIntl_1033" Cost="23381">
+		<OptionRef Id="XDocsSolutionExpenseReport"/>
+	</Feature>
+	<Feature Id="SetupControllerFiles" Cost="9736">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="XDocsSolnVendorInformationIntl_1033" Cost="27452">
+		<OptionRef Id="XDocsSolutionVendorInformation"/>
+	</Feature>
+	<Feature Id="XDocsSolutionResumeIntl_1033" Cost="26022">
+		<OptionRef Id="XDocsSolutionResume"/>
+	</Feature>
+	<Feature Id="XDOCSFilesIntl_1033" Cost="1326808">
+		<OptionRef Id="XDOCSFiles"/>
+	</Feature>
+	<Feature Id="XDocsSolutionServiceRequestIntl_1033" Cost="23539">
+		<OptionRef Id="XDocsSolutionServiceRequest"/>
+	</Feature>
+	<Feature Id="Gimme_OnDemandData" Cost="0">
+		<OptionRef Id="Gimme_OnDemandData"/>
+	</Feature>
+	<Feature Id="XDocsSolutionChangeOrderIntl_1033" Cost="26411">
+		<OptionRef Id="XDocsSolutionChangeOrder"/>
+	</Feature>
+	<Feature Id="MsoInstalledPackagesScopedIntl_1033" Cost="0">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="XDocsSolutionProjectPlanIntl_1033" Cost="33077">
+		<OptionRef Id="XDocsSolutionProjectPlan"/>
+	</Feature>
+	<Feature Id="XDocsSolutionApplicantRatingIntl_1033" Cost="26579">
+		<OptionRef Id="XDocsSolutionApplicantRating"/>
+	</Feature>
+	<Feature Id="XDocsSolutionIssueTrackingDtlIntl_1033" Cost="22144">
+		<OptionRef Id="XDocsSolutionIssueTrackingDtl"/>
+	</Feature>
+	<Feature Id="XDocsSolutionMeetingAgendaIntl_1033" Cost="37798">
+		<OptionRef Id="XDocsSolutionMeetingAgenda"/>
+	</Feature>
+	<Feature Id="SetupXmlFiles" Cost="9736">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="XDocsSolnIssueTrackingSimpleIntl_1033" Cost="22171">
+		<OptionRef Id="XDocsSolutionIssueTrackingSimple"/>
+	</Feature>
+	<Feature Id="XDocsSolutionPurchaseRequestIntl_1033" Cost="26316">
+		<OptionRef Id="XDocsSolutionPurchaseRequest"/>
+	</Feature>
+	<Feature Id="XDOCSHelpFilesIntl_1033" Cost="6881922">
+		<OptionRef Id="XDOCSHelpFiles"/>
+	</Feature>
+	<Feature Id="XDocsSolutionStatusReportIntl_1033" Cost="23592">
+		<OptionRef Id="XDocsSolutionStatusReport"/>
+	</Feature>
+	<Feature Id="XDocsSolutionTimeCardSimpleIntl_1033" Cost="25731">
+		<OptionRef Id="XDocsSolutionTimeCardSimple"/>
+	</Feature>
+</Package>

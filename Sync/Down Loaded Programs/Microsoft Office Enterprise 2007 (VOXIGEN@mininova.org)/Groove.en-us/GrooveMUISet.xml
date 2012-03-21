@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--_SIG=V+Bfn2IE6zMcTvwaHtG5dQUhsoTS7XXjFOjlnbFl4C4dF2bSWbMSGuoUdT6BYxhvlOVXAS83Lf24qPZklZvQq/CunUottC5pgjUKOKGXTmyZ4XNNBVkVa7ChyBrACEpZcS/I0nXUidLb5thMefFzZMbutKyex7tCNakSD2J/Wow=-->
+<Package Id="GrooveMUISet.en-us" Type="MSI" Path="GrooveMUISet.MSI" Version="1.0" ProductCode="{90120000-0114-0409-0000-0000000FF1CE}" MSIVersion="12.0.4518.1014" Platform="x86">
+	<Feature Id="Gimme_OnDemandData" Cost="0">
+		<OptionRef Id="Gimme_OnDemandData"/>
+	</Feature>
+	<Feature Id="SetupXmlFiles" Cost="1017">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="SetupControllerFiles" Cost="1017">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="MsoInstalledPackagesScopedIntl_1033" Cost="0">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+</Package>

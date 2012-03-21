@@ -1,0 +1,57 @@
+CORE=14					; CORE type (12 - 14 - 16)
+MAXVAR=68				; Amount of RAM SPACE
+MAXMEM=1024				; Amount of CODE SPACE
+PAGES=1					; Amount of CODE PAGES (1 - 4)
+BANKS=1					; Amount of SYSTEM RAM banks (0 - 3)
+PORTS=2					; Amount of PORTS (1 - 8)
+ADC=0					; Amount of ADC channels (0 - 8)
+ADRES=0					; Resolution of the on-board ADC 0, 8, 10, or 12
+EEPROM=64				; Amount of on-board eeprom (0 - 1024)
+BANK0_START=12			; RAM BANK0 start address
+BANK0_END=79			; RAM BANK0 end address
+BANK1_START=0			; RAM BANK1 start address
+BANK1_END=0				; RAM BANK1 end address
+BANK2_START=0			; RAM BANK2 start address
+BANK2_END=0				; RAM BANK2 end address
+BANK3_START=0			; RAM BANK3 start address
+BANK3_END=0				; RAM BANK3 end address
+RAM_BANKS=1				; Amount of USER RAM banks (1 - 4)
+UART=0					; Whether the PIC has MSSP USART support (0 - 1)
+USB=0					; Whether the PIC has USB support (0 - 1)
+FLASH_WRITE=0			; Whether the PIC has SELF MODIFYING support (0 - 1)
+MSSP=0					; MSSP type 0=none, 1=SSP, 2=MSSP
+EEPROM_START=0x2100		; Start address of the on-board EEPROM
+OSCCALADDR=0			; OSCCAL register address (0 - n)
+CONFIG_ADDR=0X2007		; Configuration address
+DEBUG=0					; DEBUG support (0 - 1)
+ICD_MEM_RES=0X0000		; Memory Reserved address at top of BANK 0 (Not implemented on this device)
+
+** HARDWARE REGISTERS **
+INDF=0x0000
+TMR0=0x0001
+PCL=0x0002
+STATUS=0x0003
+FSR=0x0004
+PORTA=0x0005
+PORTB=0x0006
+EEDATA=0x0008
+EEDAT=0x0008
+EEADR=0x0009
+PCLATH=0x000A
+INTCON=0x000B
+OPTION_REG=0x0081
+TRISA=0x0085
+TRISB=0x0086
+EECON1=0x0088
+EECON2=0x0089
+CP_ON=0x3FEF
+CP_OFF=0x3FFF
+PWRTE_ON=0x3FFF
+PWRTE_OFF=0x3FF7
+WDT_ON=0x3FFF
+WDT_OFF=0x3FFB
+LP_OSC=0x3FFC
+XT_OSC=0x3FFD
+HS_OSC=0x3FFE
+RC_OSC=0x3FFF
+

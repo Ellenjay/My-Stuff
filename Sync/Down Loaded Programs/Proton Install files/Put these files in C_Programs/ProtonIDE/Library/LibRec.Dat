@@ -1,0 +1,30 @@
+*** Proton Library Data File ****
+@LIBS
+* List of Library Files
+* FilePath, Name, Shared{Local Vars(bytes), Start, End}, Notes, Timestamp
+"C:\Program Files\ProtonIDE\Library\SD_File_System.pbp",SD_File_System,0,5,540,,1015234671
+@MACROS
+* List of Macros
+* LibPtr, Name, HelpLink ,Target, Enabled, Local{Vars(Bytes), Start, End}
+0,SD_Check_For_File,SD_File_System.chm->SD_Check_For_File.htm,16,-1,0,547,574
+0,SD_Close_File,SD_File_System.chm->SD_Close_File.htm,16,-1,0,581,666
+0,SD_Init,SD_File_System.chm->SD_Init.htm,16,-1,0,673,761
+0,SD_Init_FS,SD_File_System.chm->SD_Init_FS.htm,16,-1,0,768,853
+0,SD_Init_MSSP,SD_File_System.chm->SD_Init_MSSP.htm,16,-1,0,862,995
+0,SD_Init_FS_MSSP,SD_File_System.chm->SD_Init_FS_MSSP.htm,16,-1,0,1002,1106
+0,SD_New_File,SD_File_System.chm->SD_New_File.htm,16,-1,1,1115,1201
+0,SD_Read,SD_File_System.chm->SD_Read.htm,16,-1,0,1208,1229
+0,SD_Sector,SD_File_System.chm->SD_Sector.htm,16,-1,0,1236,1291
+0,SD_Write,SD_File_System.chm->SD_Write.htm,16,-1,0,1298,1338
+0,SD_Write_Byte_To_File,SD_File_System.chm->SD_Write_Byte_To_File.htm,16,-1,0,1345,1401
+0,SD_Write_String_To_File,SD_File_System.chm->SD_Write_String_To_File.htm,16,-1,202,1408,1446
+0,SD_Open_File,SD_File_System.chm->SD_Open_File.htm,16,-1,0,1452,1512
+0,SD_Seek,SD_File_System.chm->SD_Seek.htm,16,-1,0,1518,1644
+0,SD_Read_Byte_From_File,SD_File_System.chm->SD_Read_Byte_From_File.htm,16,-1,0,1650,1718
+0,SD_Dir,SD_File_System.chm->SD_Dir.htm,16,-1,0,1725,1786
+0,SD_Append_File,SD_File_System.chm->SD_Append_File.htm,16,-1,0,1793,1876
+0,SD_Free_Space,SD_File_System.chm->SD_Free_Space.htm,16,-1,0,1883,1923
+0,SD_Disk_Size,SD_File_System.chm->SD_Disk_Size.htm,16,-1,0,1930,1961
+0,SD_Delete_File,SD_File_System.chm->SD_Delete_File.htm,16,-1,0,1968,2023
+0,SD_Psuedo_Format,SD_File_System.chm->SD_Psuedo_Format.htm,16,-1,0,2030,2066
+0,SD_Save_File,SD_File_System.chm->SD_Save_File.htm,16,-1,8,2073,2099

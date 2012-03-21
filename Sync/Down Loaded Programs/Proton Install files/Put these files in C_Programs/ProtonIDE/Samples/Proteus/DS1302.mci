@@ -1,0 +1,26 @@
+[Project]
+Filename=C:\Programming\Borland\ProtonIDE\Samples\Proteus\DS1302.BAS
+[Environment]
+CaretX=1
+CaretY=1
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=3
+[Results]
+Visible=0
+Height=117
+View=2
+[Status]
+Message=Ready
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC16_18PIN_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC16_18PIN_VHB.DSN

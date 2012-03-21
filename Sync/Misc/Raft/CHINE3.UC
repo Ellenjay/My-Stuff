@@ -1,0 +1,533 @@
+start_plot
+/* Hull Xscale: 266.3478 Yscale: 266.3478 03-15-2010 */
+0 0 acut
+1 pendown
+-1429 856 acut
+1 penup
+3301 -16 acut
+1 pendown
+2351 1113 acut
+1 penup
+6596 -34 acut
+1 pendown
+6123 1359 acut
+1 penup
+9799 -47 acut
+1 pendown
+9796 1570 acut
+1 penup
+17247 -62 acut
+1 pendown
+17252 1859 acut
+1 penup
+24666 -79 acut
+1 pendown
+24674 1969 acut
+1 penup
+32000 -104 acut
+1 pendown
+32007 1954 acut
+1 penup
+39929 -141 acut
+1 pendown
+39937 1853 acut
+1 penup
+47864 -182 acut
+1 pendown
+47874 1672 acut
+1 penup
+55732 -215 acut
+1 pendown
+55742 1407 acut
+1 penup
+59329 -226 acut
+1 pendown
+59597 1246 acut
+1 penup
+62930 -236 acut
+1 pendown
+63455 1072 acut
+1 penup
+1 penup
+-719 566 acut
+1 pendown
+-741 530 acut
+-712 513 acut
+-694 542 acut
+-712 513 acut
+-683 496 acut
+1 penup
+1 penup
+9829 831 acut
+1 pendown
+9772 865 acut
+9789 893 acut
+9800 896 acut
+9815 887 acut
+9817 876 acut
+9800 848 acut
+9817 876 acut
+9828 879 acut
+9843 870 acut
+9846 859 acut
+9829 831 acut
+1 penup
+1 penup
+9806 921 acut
+1 pendown
+9863 887 acut
+9834 904 acut
+9856 940 acut
+9884 923 acut
+9828 957 acut
+1 penup
+1 penup
+9851 981 acut
+1 pendown
+9849 993 acut
+9906 959 acut
+9901 952 acut
+9910 966 acut
+1 penup
+1 penup
+32034 994 acut
+1 pendown
+31978 1027 acut
+31995 1057 acut
+32006 1059 acut
+32021 1051 acut
+32023 1040 acut
+32006 1010 acut
+32023 1040 acut
+32034 1042 acut
+32049 1034 acut
+32052 1023 acut
+32034 994 acut
+1 penup
+1 penup
+32012 1085 acut
+1 pendown
+32069 1051 acut
+32040 1068 acut
+32062 1104 acut
+32090 1087 acut
+32034 1121 acut
+1 penup
+1 penup
+32053 1138 acut
+1 pendown
+32051 1149 acut
+32063 1171 acut
+32074 1173 acut
+32089 1165 acut
+32092 1154 acut
+32103 1108 acut
+32124 1144 acut
+32117 1148 acut
+1 penup
+1 penup
+32095 1989 acut
+1 pendown
+32117 2025 acut
+32104 2003 acut
+32161 1969 acut
+1 penup
+1 penup
+31975 -1 acut
+1 pendown
+31917 33 acut
+31934 62 acut
+31945 64 acut
+31960 56 acut
+31962 45 acut
+31945 16 acut
+31962 45 acut
+31974 47 acut
+31988 39 acut
+31992 27 acut
+31975 -1 acut
+1 penup
+1 penup
+55768 664 acut
+1 pendown
+55711 698 acut
+55729 727 acut
+55740 730 acut
+55754 721 acut
+55757 710 acut
+55740 681 acut
+55757 710 acut
+55768 713 acut
+55783 704 acut
+55785 693 acut
+55768 664 acut
+1 penup
+1 penup
+55746 756 acut
+1 pendown
+55802 722 acut
+55774 739 acut
+55796 775 acut
+55824 758 acut
+55767 792 acut
+1 penup
+1 penup
+55787 809 acut
+1 pendown
+55784 820 acut
+55797 841 acut
+55808 844 acut
+55823 835 acut
+55825 824 acut
+55813 803 acut
+55825 824 acut
+55836 827 acut
+55851 818 acut
+55854 807 acut
+55841 786 acut
+55830 783 acut
+1 penup
+1 penup
+66772 222 acut
+1 pendown
+66723 251 acut
+66719 263 acut
+66732 284 acut
+66744 287 acut
+66766 275 acut
+66744 239 acut
+66766 275 acut
+66794 258 acut
+1 penup
+0 0 acut
+0 pendown
+/* hand plot */
+-1429 856 acut
+-1429 856 acut
+-1059 881 acut
+-688 906 acut
+-316 932 acut
+57 958 acut
+432 984 acut
+810 1009 acut
+1190 1035 acut
+1573 1061 acut
+1960 1086 acut
+2351 1113 acut
+/* hand plot */
+2351 1113 acut
+2351 1113 acut
+2746 1139 acut
+3144 1165 acut
+3542 1192 acut
+3937 1217 acut
+4327 1242 acut
+4709 1267 acut
+5083 1292 acut
+5445 1315 acut
+5792 1338 acut
+6123 1359 acut
+/* hand plot */
+6123 1359 acut
+6123 1359 acut
+6436 1380 acut
+6738 1400 acut
+7038 1419 acut
+7345 1439 acut
+7667 1459 acut
+8012 1478 acut
+8390 1499 acut
+8806 1521 acut
+9273 1545 acut
+9796 1570 acut
+/* hand plot */
+9796 1570 acut
+9796 1570 acut
+10383 1598 acut
+11026 1627 acut
+11719 1658 acut
+12452 1688 acut
+13219 1720 acut
+14010 1751 acut
+14817 1781 acut
+15632 1809 acut
+16446 1835 acut
+17251 1860 acut
+/* hand plot */
+17251 1860 acut
+17251 1860 acut
+18041 1881 acut
+18817 1899 acut
+19578 1915 acut
+20327 1928 acut
+21067 1940 acut
+21798 1948 acut
+22522 1956 acut
+23242 1962 acut
+23958 1967 acut
+24674 1969 acut
+/* hand plot */
+24674 1969 acut
+24674 1969 acut
+25389 1972 acut
+26106 1974 acut
+26825 1975 acut
+27548 1974 acut
+28275 1974 acut
+29006 1971 acut
+29745 1968 acut
+30490 1965 acut
+31244 1960 acut
+32007 1955 acut
+/* hand plot */
+32007 1955 acut
+32007 1955 acut
+32780 1948 acut
+33561 1941 acut
+34350 1933 acut
+35144 1924 acut
+35943 1914 acut
+36743 1903 acut
+37544 1892 acut
+38344 1880 acut
+39142 1867 acut
+39937 1854 acut
+/* hand plot */
+39937 1854 acut
+39937 1854 acut
+40726 1839 acut
+41512 1824 acut
+42295 1809 acut
+43079 1792 acut
+43864 1775 acut
+44653 1757 acut
+45446 1738 acut
+46246 1717 acut
+47054 1695 acut
+47874 1672 acut
+/* hand plot */
+47874 1672 acut
+47874 1672 acut
+48703 1647 acut
+49539 1622 acut
+50375 1596 acut
+51205 1568 acut
+52025 1541 acut
+52826 1513 acut
+53605 1486 acut
+54353 1459 acut
+55069 1433 acut
+55742 1407 acut
+/* hand plot */
+55742 1407 acut
+55742 1407 acut
+56370 1383 acut
+56949 1361 acut
+57477 1339 acut
+57953 1319 acut
+58375 1301 acut
+58740 1286 acut
+59046 1272 acut
+59292 1261 acut
+59477 1252 acut
+59597 1246 acut
+/* hand plot */
+59597 1246 acut
+59597 1246 acut
+59654 1244 acut
+59660 1244 acut
+59628 1245 acut
+59574 1248 acut
+59512 1250 acut
+59458 1253 acut
+59424 1255 acut
+59426 1254 acut
+59479 1252 acut
+59597 1246 acut
+/* hand plot */
+59597 1246 acut
+59597 1246 acut
+59790 1238 acut
+60054 1226 acut
+60376 1212 acut
+60749 1195 acut
+61160 1176 acut
+61601 1157 acut
+62061 1136 acut
+62530 1114 acut
+62998 1093 acut
+63455 1072 acut
+/* hand plot */
+63455 1072 acut
+63455 1072 acut
+63893 1051 acut
+64312 1032 acut
+64715 1013 acut
+65102 995 acut
+65476 977 acut
+65841 960 acut
+66196 943 acut
+66545 926 acut
+66891 910 acut
+67235 894 acut
+/* hand plot */
+67235 894 acut
+/* hand plot */
+66453 -244 acut
+66453 -244 acut
+66111 -244 acut
+65768 -242 acut
+65425 -242 acut
+65079 -241 acut
+64731 -240 acut
+64380 -239 acut
+64024 -239 acut
+63665 -238 acut
+63301 -236 acut
+62930 -236 acut
+/* hand plot */
+62930 -236 acut
+62930 -236 acut
+62555 -235 acut
+62176 -234 acut
+61796 -233 acut
+61417 -232 acut
+61044 -231 acut
+60676 -230 acut
+60319 -229 acut
+59973 -228 acut
+59642 -227 acut
+59329 -226 acut
+/* hand plot */
+59329 -226 acut
+59329 -226 acut
+59035 -226 acut
+58751 -225 acut
+58467 -224 acut
+58176 -223 acut
+57868 -223 acut
+57531 -222 acut
+57160 -221 acut
+56743 -219 acut
+56269 -218 acut
+55732 -215 acut
+/* hand plot */
+55732 -215 acut
+55732 -215 acut
+55124 -212 acut
+54451 -211 acut
+53724 -207 acut
+52950 -204 acut
+52140 -201 acut
+51302 -197 acut
+50446 -193 acut
+49581 -189 acut
+48718 -185 acut
+47864 -182 acut
+/* hand plot */
+47864 -182 acut
+47864 -182 acut
+47027 -177 acut
+46208 -173 acut
+45403 -169 acut
+44608 -165 acut
+43822 -161 acut
+43042 -157 acut
+42265 -153 acut
+41490 -149 acut
+40711 -145 acut
+39929 -141 acut
+/* hand plot */
+39929 -141 acut
+39929 -141 acut
+39140 -137 acut
+38345 -133 acut
+37546 -129 acut
+36745 -125 acut
+35944 -121 acut
+35145 -118 acut
+34349 -114 acut
+33558 -111 acut
+32775 -107 acut
+32000 -104 acut
+/* hand plot */
+32000 -104 acut
+32000 -104 acut
+31235 -101 acut
+30479 -98 acut
+29732 -96 acut
+28994 -93 acut
+28262 -90 acut
+27535 -87 acut
+26813 -85 acut
+26095 -83 acut
+25380 -81 acut
+24666 -79 acut
+/* hand plot */
+24666 -79 acut
+24666 -79 acut
+23953 -77 acut
+23239 -75 acut
+22522 -73 acut
+21800 -72 acut
+21071 -70 acut
+20332 -68 acut
+19583 -67 acut
+18820 -66 acut
+18042 -64 acut
+17247 -62 acut
+/* hand plot */
+17247 -62 acut
+17247 -62 acut
+16435 -60 acut
+15613 -59 acut
+14791 -57 acut
+13978 -56 acut
+13182 -54 acut
+12413 -53 acut
+11682 -51 acut
+10996 -49 acut
+10365 -48 acut
+9799 -47 acut
+/* hand plot */
+9799 -47 acut
+9799 -47 acut
+9304 -45 acut
+8872 -44 acut
+8496 -42 acut
+8164 -41 acut
+7869 -40 acut
+7600 -40 acut
+7347 -37 acut
+7102 -36 acut
+6854 -35 acut
+6596 -34 acut
+/* hand plot */
+6596 -34 acut
+6596 -34 acut
+6318 -32 acut
+6021 -30 acut
+5710 -29 acut
+5384 -27 acut
+5047 -25 acut
+4704 -23 acut
+4355 -22 acut
+4003 -20 acut
+3650 -18 acut
+3301 -16 acut
+/* hand plot */
+3301 -16 acut
+3301 -16 acut
+2956 -15 acut
+2616 -13 acut
+2280 -11 acut
+1948 -10 acut
+1618 -8 acut
+1291 -6 acut
+967 -5 acut
+644 -3 acut
+321 -3 acut
+1 -1 acut
+/* hand plot */
+0 0 acut
+1 penup

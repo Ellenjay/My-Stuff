@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--_SIG=YXmHM7pe4JDAg7TO5eUKcyIyEI8EKg6xAFZPrHNPnRKEmLi35v7DfWf1MLZI3bISeE+HCifXMgIz1oiOiyuekaRKPdBJRJKWkfEgMlbKGDerGcGyMjuxXf/F2AQJm4T8HT3P3U8Oj2JfJ3jpt92ZjlFAZQ41lQA9heyf8uE3ti4=-->
+<Setup Id="OneNote.en-us" Type="AddOn" Keyword="OneNoteMUI" Culture="en-us">
+	<Option Id="AlwaysInstalled" DefaultState="Local" DisallowAbsent="yes" DisallowAdvertise="yes" Hidden="yes"/>
+	<Option Id="Gimme_OnDemandData" DefaultState="Local" DisallowAbsent="yes" DisallowAdvertise="yes" Hidden="yes"/>
+	<Option Id="ProductFiles" DefaultState="Local" DisallowAbsent="yes" DisallowAdvertise="no">
+		<Option Id="OneNoteFiles" DefaultState="Local" DisallowAbsent="no" DisallowAdvertise="no" PreReq="IsEnterprise;IsEnterpriseR;IsHomeStudentR;IsOneNoteHS;IsOneNote;IsOneNoteR;IsUltimate;IsUltimateR;IsMondo">
+			<Option Id="OneNoteHelpFiles" DefaultState="FollowParent" DisallowAbsent="yes" DisallowAdvertise="no" Hidden="yes"/>
+			<Option Id="OneNoteToAddIns" DefaultState="Local" DisallowAbsent="no" DisallowAdvertise="yes">
+				<Option Id="OneNoteToIEAddin" DefaultState="Local" DisallowAbsent="no" DisallowAdvertise="yes"/>
+			</Option>
+			<Option Id="OneNoteMobile" DefaultState="Local" DisallowAbsent="no" DisallowAdvertise="no">
+				<Option Id="OneNoteMobileDeviceFiles" DefaultState="Local" DisallowAbsent="no" DisallowAdvertise="no"/>
+			</Option>
+		</Option>
+	</Option>
+	<PackageRef Path="OneNoteMUI.xml"/>
+	<LocalCache DownloadCode="{90120000-00A1-0409-0000-0000000FF1CE}" SkuComponentDirectory="OneNote.en-us">
+		<File Id="OneNoteMUI.xml" MD5="B0CD2B40E8B24CA734A1F974CA0B674C" Size="1359" RelativeCachePath="OneNoteMUI.xml" RelativeSourcePath="OneNoteMUI.xml"/>
+		<File Id="OneNoteMUI.msi" MD5="E2716B9A130B1B4C1B8D93D31EEDED56" Size="1642496" RelativeCachePath="OneNoteMUI.msi" RelativeSourcePath="OneNoteMUI.msi"/>
+		<File Id="OnoteLR.cab" MD5="3FF974EC16906B1C86C9B79120EF437A" Size="31009136" RelativeCachePath="OnoteLR.cab" RelativeSourcePath="OnoteLR.cab"/>
+		<File Id="Setup.xml" MD5="" Size="" RelativeCachePath="Setup.xml" RelativeSourcePath="Setup.xml"/>
+	</LocalCache>
+</Setup>

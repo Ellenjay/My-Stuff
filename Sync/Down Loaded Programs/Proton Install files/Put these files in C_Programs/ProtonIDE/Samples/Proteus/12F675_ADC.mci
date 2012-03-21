@@ -1,0 +1,26 @@
+[Project]
+Filename=C:\Programming\Borland\ProtonIDE\Samples\PROTEUS\12F675_ADC.bas
+[Environment]
+CaretX=1
+CaretY=1
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=6
+[Results]
+Visible=1
+Height=117
+View=2
+[Status]
+Message=Success : 235 program words used, 15 variable bytes used
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC12_8PIN_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC12_8PIN_VHB.DSN

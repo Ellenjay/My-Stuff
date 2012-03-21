@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--_SIG=wW5LYMWkL4rX9HGpGPZIIdqw+I0KpwVKu3kBiSgWtGxB0d5Z2rIclvO+n8jYeQ4t53lTgcZPftq2uQDA1UByQt0slo0HZ+Zt/m2ewU/T/TWXBLYV0upgLxjluxAU6PK/I+8FcHumUnlDIqDnsQzSflBcS3xjs4Qot+GVvz8BoZ4=-->
+<Package Id="PowerPointMUI.en-us" Type="MSI" Path="PowerPointMUI.MSI" Version="1.0" ProductCode="{90120000-0018-0409-0000-0000000FF1CE}" MSIVersion="12.0.4518.1014" Platform="x86">
+	<Feature Id="Gimme_OnDemandData" Cost="0">
+		<OptionRef Id="Gimme_OnDemandData"/>
+	</Feature>
+	<Feature Id="ExcelConverter12Intl_1033" Cost="1879976">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="PPTNonBootFilesIntl_1033" Cost="24576">
+		<OptionRef Id="PPTFiles"/>
+	</Feature>
+	<Feature Id="PPTFilesIntl_1033" Cost="952628">
+		<OptionRef Id="PPTFiles"/>
+	</Feature>
+	<Feature Id="OrgChartFilesIntl_1033" Cost="128680">
+		<OptionRef Id="OrgChartFiles"/>
+	</Feature>
+	<Feature Id="MsoInstalledPackagesScopedIntl_1033" Cost="0">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="PPTHelpFilesIntl_1033" Cost="8406333">
+		<OptionRef Id="PPTHelpFiles"/>
+	</Feature>
+	<Feature Id="PPTPresentationTemplatesIntl_1033" Cost="4123760">
+		<OptionRef Id="PPTPresentationTemplates"/>
+	</Feature>
+	<Feature Id="PPTViewerFilesIntl_1033" Cost="342172">
+		<OptionRef Id="PPTViewerFiles"/>
+	</Feature>
+	<Feature Id="SetupControllerFiles" Cost="3557">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="SetupXmlFiles" Cost="3557">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+</Package>

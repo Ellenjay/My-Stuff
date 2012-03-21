@@ -1,0 +1,158 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<title>Update Required</title>
+</head>
+
+<body>
+
+<p><strong><font face="Verdana" color="#808080">IDE Update Information</font></strong></p>
+
+<div align="left">
+
+<div align="left">
+  <div align="left">
+
+<div align="left">
+
+<div align="left">
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.4.6</font></small></b></p>
+
+</div>
+
+<ul>
+  <li><font face="Verdana" size="2">Enhanced Library Manager support.</font></li>
+</ul>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.4.2</font></small></b></p>
+
+</div>
+
+<ul>
+  <li><font face="Verdana" size="2">Bitnames now part of the IDE, not compiler 
+  INF file.</font></li>
+</ul>
+
+    <b><small><font face="Verdana" color="#808080">Version 1.0.4.0</font></small></b></div>
+  <ul>
+    <li><font face="Verdana" size="2">Fixed problem with ISIS not recognising 
+    empty project file</font></li>
+    <li><font face="Verdana" size="2">On error, a file that does not have an 
+    include file was generating a file called '.pbe'. This problem has now been 
+    fixed.</font></li>
+    <li><font face="Verdana" size="2">If a file had multiple include files, each 
+    with an error, the error window was not being opened when you clicked on a 
+    result item. This should now work OK.</font></li>
+    <li><font face="Verdana" size="2">Added support for a SetPageReload() plugin 
+    call</font></li>
+    <li><font face="Verdana" size="2">Added 'override' keyword to *.mcd. If 
+    false, no default XTAL or DEVICE declares are passed to the compiler. </font>
+    </li>
+  </ul>
+  <b><small><font face="Verdana" color="#808080">Version 1.0.3.5</font></small></b></div>
+<ul>
+  <li><font face="Verdana" size="2">Added <i>what's new</i> option to HELP menu
+  </font></li>
+  <li><font face="Verdana" size="2">Display device clock frequency in results 
+  window</font></li>
+</ul>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.3.4</font></small></b></p>
+
+<ul>
+  <li><font face="Verdana" size="2">Added user site link to the main help menu</font></li>
+  <li><font face="Verdana" size="2">Errors found in include files during 
+  compilation will receive a copy of the main project error file.</font></li>
+  <li><font face="Verdana" size="2">The IDE will now pass a default device name 
+  and crystal speed to the compiler.</font></li>
+</ul>
+
+<p><b><font face="Verdana" size="2">Changing Default Device Name and XTAL</font></b></p>
+<p><font face="Verdana" size="2">You can now get the IDE to use a default device 
+name and crystal setting for your project. These values will be passed to the 
+compiler, unless overridden in your main program. For example, the default 
+device and crystal settings are 16F84 and 4MHz. If you want you defaults to be 
+18F452 and 20MHz, then add the following entries to '<i>user.mcd</i>' under the 
+DATABASE keyword</font></p>
+<p><font face="Courier New" size="2">Core = dc16<br>
+Device = &quot;18F452&quot;<br>
+OSC = 20</font></p>
+<p><font face="Verdana" size="2">You could of course just modify '<i>database.mcd</i>', 
+but this will be overwritten every time you perform an online update.</font></p>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.3.3</font></small></b></p>
+
+<ul>
+  <li><font face="Verdana" size="2">Changes made to IDE to support new compiler 
+  release.</font></li>
+  <li><font face="Verdana" size="2">Database manager file updated.</font></li>
+  <li><font face="Verdana" size="2">New sample files for USB support.</font></li>
+</ul>
+
+<b><small><font face="Verdana" color="#808080">Version 1.0.3.2</font></small></b><ul>
+  <li><font face="Verdana" size="2">Removes 'uninstall' plugin files from 
+  customise plugin toolbar dialog.</font></li>
+  <li><font face="Verdana" size="2">Proton compiler changes case of filename in 
+  error results view, IDE now uses original file formatting.</font></li>
+  <li><font face="Verdana" size="2">Export to clipboard problem - losing CR on 
+  selected text. This should now work OK.</font></li>
+</ul>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.3.0</font></small></b></p>
+
+<ul>
+  <li><font face="Verdana" size="2">Additional command support for plugin API.</font></li>
+  <li><font face="Verdana" size="2">Fixed problem when switching IDE 'empty 
+  page' tabs not being restored correctly.</font></li>
+  <li><font face="Verdana" size="2">Updated IDE keyword database to support new 
+  compiler commands.</font></li>
+</ul>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.2.1</font></small></b></p>
+
+<ul>
+  <li><font face="Verdana" size="2">Bug with lock toolbar option, due to update 
+  of plugin toolbar. This should now work OK.</font></li>
+</ul>
+
+<b><small><font face="Verdana" color="#808080">Version 1.0.2.0</font></small></b><ul>
+  <li><font face="Verdana" size="2">Plugin toolbar added.</font></li>
+  <li><font face="Verdana" size="2">Lock toolbar option added</font></li>
+  <li><font face="Verdana" size="2">File permissions added to editor options to 
+  give administrators the ability to make PDS available to user account holders.</font></li>
+  <li><font face="Verdana" size="2">Fixed commit export error for empty files.</font></li>
+</ul>
+
+<p><b>
+<small><font face="Verdana" color="#808080">Version 1.0.1.0</font></small></b></p>
+
+<ul>
+  <li><font face="Verdana" size="2">Memory leak observed when running the IDE 
+  for long periods of time. This should now work OK.</font></li>
+  <li><font face="Verdana" size="2">IDE now single instance only</font></li>
+  <li><font face="Verdana" size="2">Search and Replace not updating code 
+  explorer window. This should now work OK.</font></li>
+  <li><font face="Verdana" size="2">Fixed label detection to ignore label if a 
+  ':' symbol does not immediately follow it</font></li>
+  <li><font face="Verdana" size="2">Loader defaulting to incorrect com port from 
+  IDE. This should now work OK.</font></li>
+  <li><font face="Verdana" size="2">Added 'commit' format changes. This feature 
+  retains case change formatting when saving or copying text.</font></li>
+  <li><font face="Verdana" size="2">If file is located on a floppy, it is not 
+  added to MRU list and it is not added to the main tab bar when the IDE 
+  reloads.</font></li>
+  <li><font face="Verdana" size="2">Changes made to IDE plugin architecture.</font></li>
+</ul>
+
+</div>
+
+</body>
+</html>

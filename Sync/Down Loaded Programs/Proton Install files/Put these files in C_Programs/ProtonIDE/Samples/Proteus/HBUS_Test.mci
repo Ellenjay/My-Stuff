@@ -1,0 +1,26 @@
+[Project]
+Filename=HBUS_Test.Bas
+[Environment]
+CaretX=89
+CaretY=4
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=2
+[Results]
+Visible=0
+Height=117
+View=2
+[Status]
+Message=Success : 555 program words used, 19 variable bytes used
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN

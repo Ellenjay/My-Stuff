@@ -1,0 +1,1 @@
+Bootloader NOT available for the 16F872, because it does not contain a USART

@@ -1,0 +1,472 @@
+
+ NOLIST
+
+W = 0
+F = 1
+
+;[START OF REGISTER FILES]
+
+INDF                         EQU 0X0000
+TMR0                         EQU 0X0001
+PCL                          EQU 0X0002
+STATUS                       EQU 0X0003
+FSR                          EQU 0X0004
+PORTA                        EQU 0X0005
+PORTB                        EQU 0X0006
+PORTC                        EQU 0X0007
+PORTD                        EQU 0X0008
+PORTE                        EQU 0X0009
+PCLATH                       EQU 0X000A
+INTCON                       EQU 0X000B
+PIR1                         EQU 0X000C
+PIR2                         EQU 0X000D
+TMR1L                        EQU 0X000E
+TMR1LH                       EQU 0X000F
+TMR1H                        EQU 0X000F
+T1CON                        EQU 0X0010
+TMR2                         EQU 0X0011
+T2CON                        EQU 0X0012
+SSPBUF                       EQU 0X0013
+SSPCON                       EQU 0X0014
+CCPR1L                       EQU 0X0015
+CCPR1LH                      EQU 0X0016
+CCPR1H                       EQU 0X0016
+CCP1CON                      EQU 0X0017
+RCSTA                        EQU 0X0018
+TXREG                        EQU 0X0019
+RCREG                        EQU 0X001A
+CCPR2L                       EQU 0X001B
+CCPR2LH                      EQU 0X001C
+CCPR2H                       EQU 0X001C
+CCP2CON                      EQU 0X001D
+ADRESLH                      EQU 0X001E
+ADRESH                       EQU 0X001E
+ADCON0                       EQU 0X001F
+OPTION_REG                   EQU 0X0081
+TRISA                        EQU 0X0085
+TRISB                        EQU 0X0086
+TRISC                        EQU 0X0087
+TRISD                        EQU 0X0088
+TRISE                        EQU 0X0089
+PIE1                         EQU 0X008C
+PIE2                         EQU 0X008D
+PCON                         EQU 0X008E
+OSCCON						 EQU 0X008F
+OSCTUNE						 EQU 0X0090
+SSPCON2                      EQU 0X0091
+PR2                          EQU 0X0092
+SSPADD                       EQU 0X0093
+SSPSTAT                      EQU 0X0094
+CCPR3L						 EQU 0X0095
+CCPR3LH						 EQU 0X0096
+CCPR3H						 EQU 0X0096
+CCP3CON   					 EQU 0X0097
+TXSTA                        EQU 0X0098
+SPBRG                        EQU 0X0099
+ADCON2						 EQU 0X009B
+CMCON                        EQU 0X009C
+CVRCON                       EQU 0X009D
+ADRES                        EQU 0X009E
+ADRESL                       EQU 0X009E
+ADCON1                       EQU 0X009F
+WDTCON					  	 EQU 0X0105
+LVDCON						 EQU 0X0109
+PMDATA	                     EQU 0X010C
+PMDAT	                     EQU 0X010C
+PMADR                        EQU 0X010D
+PMDATH                       EQU 0X010E
+PMADRH                       EQU 0X010F
+PMCON1                       EQU 0X018C
+EEDATA						 EQU 0X010C
+EEDAT						 EQU 0X010C
+EEADR						 EQU 0X010D
+EEDATH						 EQU 0X010E
+EEADRH						 EQU 0X010F
+EECON1						 EQU 0X018C
+
+;[END OF REGISTER FILES]
+
+; Define the Hardware I2C PORT and Bits
+
+_I2C_SCL_PORT = TRISC
+_I2C_SCL_PIN = 3
+_I2C_SDA_PORT = TRISC
+_I2C_SDA_PIN = 4
+
+; STATUS Bits
+
+IRP= 7
+RP1= 6
+RP0= 5
+NOT_TO = 4
+NOT_PD = 3
+Z= 2
+DC = 1
+C= 0
+
+; INTCON Bits
+
+GIE= 7
+PEIE = 6
+T0IE = 5
+TMR0IE = 5
+INTE = 4
+RBIE = 3
+T0IF = 2
+TMR0IF = 2
+INTF = 1
+RBIF = 0
+
+; PIR1 Bits
+
+PSPIF= 7
+ADIF = 6
+RCIF = 5
+TXIF = 4
+SSPIF= 3
+CCP1IF = 2
+TMR2IF = 1
+TMR1IF = 0
+
+; PIR2 Bits
+
+OSFIF = 7
+CMIF= 6
+LVDIF= 5
+BCLIF= 3
+CCP3IF = 1
+CCP2IF = 0
+
+; T1CON Bits
+
+T1RUN = 6
+T1CKPS1= 5
+T1CKPS0= 4
+T1OSCEN= 3
+NOT_T1SYNC = 2
+T1INSYNC = 2
+T1SYNC = 2
+TMR1CS = 1
+TMR1ON = 0
+
+; T2CON Bits
+
+TOUTPS3= 6
+TOUTPS2= 5
+TOUTPS1= 4
+TOUTPS0= 3
+TMR2ON = 2
+T2CKPS1= 1
+T2CKPS0= 0
+
+; SSPCON Bits
+
+WCOL = 7
+SSPOV= 6
+SSPEN= 5
+CKP= 4
+SSPM3= 3
+SSPM2= 2
+SSPM1= 1
+SSPM0= 0
+
+; CCP1CON Bits
+
+CCP1X= 5
+CCP1Y= 4
+CCP1M3 = 3
+CCP1M2 = 2
+CCP1M1 = 1
+CCP1M0 = 0
+
+; RCSTA Bits
+
+SPEN = 7
+RX9= 6
+RC9= 6
+NOT_RC8= 6
+RC8_9= 6
+SREN = 5
+CREN = 4
+ADDEN= 3
+FERR = 2
+OERR = 1
+RX9D = 0
+RCD8 = 0
+
+; CCP2CON Bits
+
+CCP2X= 5
+CCP2Y= 4
+CCP2M3 = 3
+CCP2M2 = 2
+CCP2M1 = 1
+CCP2M0 = 0
+
+; ADCON0 Bits
+
+ADCS1= 7
+ADCS0= 6
+CHS2 = 5
+CHS1 = 4
+CHS0 = 3
+GO = 2
+NOT_DONE = 2
+GO_DONE= 2
+CHS3 = 1
+ADON = 0
+
+; OPTION_REG Bits
+
+NOT_RBPU = 7
+INTEDG = 6
+T0CS = 5
+T0SE = 4
+PSA= 3
+PS2= 2
+PS1= 1
+PS0= 0
+
+; TRISE Bits
+
+IBF= 7
+OBF= 6
+IBOV = 5
+PSPMODE= 4
+TRISE3 = 3
+TRISE2 = 2
+TRISE1 = 1
+TRISE0 = 0
+
+; PIE1 Bits
+
+PSPIE= 7
+ADIE = 6
+RCIE = 5
+TXIE = 4
+SSPIE= 3
+CCP1IE = 2
+TMR2IE = 1
+TMR1IE = 0
+
+; PIE2 Bits
+
+OSFIE= 7
+CMIE= 6
+LVDIE = 5
+BCLIE= 3
+CCP3IE = 1
+CCP2IE = 0
+
+; PCON Bits
+
+SBOREN = 2
+NOT_POR= 1
+NOT_BO = 0
+NOT_BOR= 0
+
+; OSCCON Bits
+IRCF2= 6
+IRCF1= 5
+IRCF0 = 4
+OSTS = 3
+IOFS = 2
+SCS1 = 1
+SCS0 = 0
+
+; OSCTUNE Bits
+TUN5 = 5
+TUN4 = 4
+TUN3 = 3
+TUN2 = 2
+TUN1 = 1
+TUN0 = 0
+
+; SSPCON2 Bits
+
+GCEN = 7
+ACKSTAT= 6
+ACKDT= 5
+ACKEN= 4
+RCEN = 3
+PEN= 2
+RSEN = 1 
+SEN= 0 
+
+; SSPSTAT Bits
+
+SMP = 7
+CKE = 6
+D = 5
+I2C_DTA = 5
+NOT_A = 5
+_NOT_ADDRESS = 5
+D_A = 5
+DATA_ADDR = 5
+P = 4
+I2C_STP = 4
+S = 3
+I2C_STRT = 3
+R = 2
+I2C_RD = 2
+NOT_W = 2
+NOT_WRT = 2
+R_W = 2
+READ_WRT = 2
+UA = 1
+BF = 0
+
+; CCP3CON Bits
+
+CCP3X= 5
+CCP3Y= 4
+CCP3M3 = 3
+CCP3M2 = 2
+CCP3M1 = 1
+CCP3M0 = 0
+
+; TXSTA Bits
+
+CSRC = 7
+TX9= 6
+NOT_TX8= 6
+TX8_9= 6
+TXEN = 5
+SYNC = 4
+BRGH = 2
+TRMT = 1
+TX9D = 0
+TXD8 = 0
+
+; ADCON2 Bits
+
+ACQT2= 5
+ACQT1= 4
+ACQT0= 3
+
+; CMCON Bits
+
+C2OUT= 7
+C1OUT= 6
+C2INV= 5
+C1INV= 4
+CIS= 3
+CM2= 2
+CM1= 1
+CM0= 0
+
+; CVRCON Bits
+
+CVREN= 7
+CVROE= 6
+CVRR = 5
+CVR3 = 3
+CVR2 = 2
+CVR1 = 1
+CVR0 = 0
+
+; ADCON1 Bits
+
+ADFM = 7
+ADCS2 = 6
+VCFG1 = 5
+VCFG0 = 4
+PCFG3= 3
+PCFG2= 2
+PCFG1= 1
+PCFG0= 0
+
+; WDTCON Bits
+
+WDTPS3 = 4
+WDTPS2 = 3
+WDTPS1 = 2
+WDTPS0 = 1
+SWDTEN = 0
+SWDTE= 0
+
+; LVDCON Bits
+
+IRVST= 5
+LVDEN= 4
+LVDL3= 3
+LVDL2= 2
+LVDL1= 1
+LVDL0= 0
+
+; PMCON1 Bits
+
+RD = 0
+
+        __MAXRAM 0X1FF
+        __BADRAM 0X08
+        __BADRAM 0X88, 0X9A
+        __BADRAM 0X107-0X108
+        __BADRAM 0X185, 0X187-0X189, 0X18D-0X18F
+
+; [START OF CONFIGURATION BITS]
+
+_CONFIG1                    EQU 0X2007
+_CONFIG2                    EQU 0X2008
+
+;Configuration Byte 1 Options
+CP_ALL                      EQU 0X1FFF
+CP_OFF	                    EQU 0X3FFF
+CCP2_RC1		    		EQU 0X3FFF
+CCP2_RB3                    EQU 0X2FFF
+DEBUG_OFF                   EQU 0X3FFF
+DEBUG_ON                    EQU 0X37FF
+VBOR_2_0		            EQU 0X3FFF
+VBOR_2_7					EQU 0X3F7F
+VBOR_4_2					EQU 0X3EFF
+VBOR_4_5 					EQU 0X3E7F
+BOREN_1	      			 	EQU 0X3FFF	;MUST BE CONFIGURED IN CONJUCTION W/ BORSEN (CONFIG2)
+BOREN_0					 	EQU 0X3FBF	;MUST BE CONFIGURED IN CONJUCTION W/ BORSEN (CONFIG2)
+MCLR_ON		   		     	EQU 0X3FFF
+MCLR_OFF                    EQU 0X3FDF
+PWRTE_OFF                   EQU 0X3FFF
+PWRTE_ON                    EQU 0X3FF7
+WDT_ON                      EQU 0X3FFF
+WDT_OFF                     EQU 0X3FFB
+EXTRC_CLKOUT		    	EQU 0X3FFF
+EXTRC_IO		    		EQU 0X3FFE
+INTRC_CLKOUT                EQU 0X3FFD
+INTRC_IO		    		EQU 0X3FFC
+EXTCLK			    		EQU 0X3FEF
+HS_OSC                      EQU 0X3FEE
+XT_OSC                      EQU 0X3FED
+LP_OSC                      EQU 0X3FEC
+
+;Configuration Byte 2 Options
+BORSEN_1					EQU 0X3FFF	;MUST BE CONFIGURED IN CONJUCTION W/ BOREN (CONFIG1)
+BORSEN_0					EQU 0X3FBF	;MUST BE CONFIGURED IN CONJUCTION W/ BOREN (CONFIG1)
+IESO_ON                     EQU 0X3FFF
+IESO_OFF                    EQU 0X3FFD
+FCMEN_ON                    EQU 0X3FFF
+FCMEN_OFF                   EQU 0X3FFE
+
+
+;**** Brown-out Reset configurations **** (Refer to the 16F7x7 Data Sheet for more details)
+;BOREN_1 & BORSEN_1	=	BOR enabled and always on
+;BOREN_1 & BORSEN_0 = 	BOR enabled during operation and disabled during sleep by hardware
+;BOREN_0 & BORSEN_1 = 	BOR controlled by software bit SBOREN (PCON,2)
+;BOREN_0 & BORSEN_0 =   BOR disabled
+
+
+; [SET THE DEFAULT FUSE CONFIGURATION]
+		ifndef CONFIG_REQ
+			ifdef WATCHDOG_REQ
+				ifdef DEBUG@REQ ; Do we require DEBUG ?
+					__CONFIG _CONFIG1, HS_OSC & WDT_ON & PWRTE_ON & CCP2_RC1 & BOREN_0 & PWRTE_ON & CP_OFF & DEBUG_ON
+				else
+					__CONFIG _CONFIG1, HS_OSC & WDT_ON & PWRTE_ON & CCP2_RC1 & BOREN_0 & PWRTE_ON & CP_OFF & DEBUG_OFF
+				endif
+			else
+				ifdef DEBUG@REQ
+					__CONFIG _CONFIG1, HS_OSC & WDT_OFF & PWRTE_ON & CCP2_RC1 & BOREN_0 & PWRTE_ON & CP_OFF & DEBUG_ON
+				else
+					__CONFIG _CONFIG1, HS_OSC & WDT_OFF & PWRTE_ON & CCP2_RC1 & BOREN_0 & PWRTE_ON & CP_OFF & DEBUG_OFF
+				endif
+			endif 
+		endif
+ LIST

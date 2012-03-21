@@ -1,0 +1,31 @@
+// Crownhill Associates Ltd. Language Tools Configuration File
+// PROTON+ Compiler
+// 03/08/04 LJ
+
+[Tool]
+Tool = PROTON+ Compiler
+SourceExtension = bas;inc
+HeaderExtension = inc
+DefaultOptions = -z
+MultipleNodes = 0
+
+[0]
+Description = Processor
+Switch = -p
+Data = 1
+MultipleOptions = 0
+ProcessorSwitch = Switch
+Hidden = 0
+
+[1]
+Description = MPLAB
+Switch = -z
+Data = 0
+Hidden = 1
+
+[2] 
+Description = SwitchToEnableSpecialSTUBehavior 
+Switch = -ArbitraryUnreferencedString 
+Data = 0 
+ObjectSwitch = Switch 
+Hidden = 1

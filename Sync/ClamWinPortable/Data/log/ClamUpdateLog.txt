@@ -1,0 +1,27 @@
+--------------------------------------
+freshclam 0.92 (OS: win32, ARCH: x86, CPU: i686)
+ClamAV update process started at Sat Feb 27 09:19:45 2010
+WARNING: Your ClamAV installation is OUTDATED!
+WARNING: Local version: 0.92 Recommended version: 0.95.3
+DON'T PANIC! Read http://www.clamav.net/support/faq
+nonblock_connect: giving up due to excessive bogus loops
+Can't connect to port 80 of host database.clamav.net (IP: 24.215.0.24)
+Trying host database.clamav.net (208.70.244.158)...
+Control+C pressed, aborting...
+--------------------------------------
+freshclam 0.92 (OS: win32, ARCH: x86, CPU: i686)
+ClamAV update process started at Sun Feb 28 07:28:16 2010
+WARNING: Your ClamAV installation is OUTDATED!
+WARNING: Local version: 0.92 Recommended version: 0.95.3
+DON'T PANIC! Read http://www.clamav.net/support/faq
+
+main.cvd updated (version: 52, sigs: 704727, f-level: 44, builder: sven)
+WARNING: Your ClamAV installation is OUTDATED!
+WARNING: Current functionality level = 25, recommended = 44
+DON'T PANIC! Read http://www.clamav.net/support/faq
+
+daily.cvd updated (version: 10465, sigs: 19678, f-level: 44, builder: guitar)
+WARNING: Your ClamAV installation is OUTDATED!
+WARNING: Current functionality level = 25, recommended = 44
+DON'T PANIC! Read http://www.clamav.net/support/faq
+Database updated (724405 signatures) from database.clamav.net (IP: 24.215.0.24)

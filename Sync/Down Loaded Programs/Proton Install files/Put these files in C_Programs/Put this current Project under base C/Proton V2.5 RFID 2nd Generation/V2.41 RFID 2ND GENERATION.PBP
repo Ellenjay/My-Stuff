@@ -1,0 +1,923 @@
+ NOLIST
+;----------------------------------------------------------
+; Code Produced by the PROTON+ Compiler. Version 3.2.5.5
+; Copyright Rosetta Technologies/Crownhill Associates
+; Written by Les Johnson. February 2007
+;----------------------------------------------------------
+ LIST
+	LIST
+;{
+;FILE F1 = C:\PROTON V2.5 RFID 2ND GENERATION\V2.41 RFID 2ND GENERATION.BAS
+;FILE F2 = C:\PROTON V2.5 RFID 2ND GENERATION\V2.41 RFID 2ND GENERATION.PRP
+;FILE F3 = C:\PROTON V2.5 RFID 2ND GENERATION\V2.41 RFID 2ND GENERATION_FWD.PBP
+;FILE F4 = C:\PROTON V2.5 RFID 2ND GENERATION\V2.41 RFID 2ND GENERATION_LIB.PBP
+;FILE F5 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\INITIALIZE.INC
+;FILE F6 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\READ TAG.INC
+;FILE F7 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\READ SD.INC
+;FILE F8 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\WRITE SD.INC
+;FILE F9 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\INIT SD.INC
+;FILE F10 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\CHECK TAG.INC
+;FILE F11 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\WRITE_U_H.INC
+;FILE F12 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\WRITE_M_H.INC
+;FILE F13 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\WRITE_M_SD.INC
+;FILE F14 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\WRITE_USERS_SD.INC
+;FILE F15 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\READ_MOD.INC
+;FILE F16 = C:\PROTON V2.5 RFID 2ND GENERATION\INC\GOSLEEP.INC
+;}
+;[Variable Listing]
+;SD_BYTER,0032,DT_BYTE,1
+;SD_IDX,0033,DT_BYTE,1
+;SD_SECTOR_NUM,0034,DT_DWORD,4
+;SD_ADDRESS,0038,DT_DWORD,4
+;SD_SEEK_RESPONSE_IDX,003C,DT_WORD,2
+;SD_SEEK_RESPONSE_REQD,003E,DT_BYTE,1
+;SD_SEEK_RESPONSE_RETURN,003F,DT_BYTE,1
+;SD_RETURN,0040,DT_BYTE,1
+;SD_BUFFER0,0041,DT_BYTE,256
+;SD_BUFFER1,0141,DT_BYTE,256
+;SD_BYTE0,0241,DT_BYTE,1
+;SD_BYTE1,0242,DT_BYTE,1
+;SD_BYTE2,0243,DT_BYTE,1
+;SD_BYTE3,0244,DT_BYTE,1
+;SD_BYTE4,0245,DT_BYTE,1
+;SD_BYTE5,0246,DT_BYTE,1
+;SD_BUFFER_IDX,0247,DT_WORD,2
+;SD_BYTE_RW,0249,DT_BYTE,1
+;SD_RW_OPTION,024A,DT_BYTE,1
+;SD_EXTENDED_RETURN,024B,DT_BYTE,1
+;SD_EXTENDED_RETURN_ROOT_DIR,024C,DT_BYTE,1
+;SD_DATA_IO,024D,DT_BYTE,1
+;SD_BUFFER_POS,024E,DT_WORD,2
+;SD_ROOT_DIR_FILE_POS,0250,DT_BYTE,1
+;SD_SEC_NUM,0251,DT_DWORD,4
+;SD_SECS_PER_CLUSTER,0255,DT_BYTE,1
+;SD_RESERVED_SECS,0256,DT_WORD,2
+;SD_SECS_PER_FAT,0258,DT_WORD,2
+;SD_NUM_OF_FATS,025A,DT_BYTE,1
+;SD_NUM_OF_SECS,025B,DT_DWORD,4
+;SD_BYTES_PER_SEC,025F,DT_WORD,2
+;SD_NUM_OF_ROOT_ENTRIES,0261,DT_WORD,2
+;SD_SECS_IN_ROOT,0263,DT_WORD,2
+;SD_BOOT_RECORD,0265,DT_WORD,2
+;SD_FAT1,0267,DT_DWORD,4
+;SD_FAT2,026B,DT_DWORD,4
+;SD_ROOT_DIR,026F,DT_DWORD,4
+;SD_DATA_AREA,0273,DT_DWORD,4
+;SD_FAT_ENTRY,0277,DT_WORD,2
+;SD_FAT_SEC,0279,DT_DWORD,4
+;SD_FAT_BUFFER_POS,027D,DT_WORD,2
+;SD_FAT_SEC_PREV,027F,DT_DWORD,4
+;SD_FAT_BUFFER_POS_PREV,0283,DT_WORD,2
+;SD_ROOT_DIR_SEC,0285,DT_DWORD,4
+;SD_ROOT_DIR_POS,0289,DT_WORD,2
+;SD_DATA_SEC,028B,DT_DWORD,4
+;SD_DATA_BUFFER_POS,028F,DT_WORD,2
+;SD_FILE_NAME,0291,DT_STRING,9
+;SD_FILE_EXT,029A,DT_STRING,4
+;SD_ROOT_DIR_FILE,029E,DT_BYTE,32
+;SD_WRITE_SEC_NUM,02BE,DT_DWORD,4
+;SD_WRITE_BUFFER_POS,02C2,DT_WORD,2
+;SD_NULL_F,02C4,DT_BYTE,1
+;SD_CLUSTER_NUM,02C5,DT_WORD,2
+;SD_CLUSTER_NUM_PREV,02C7,DT_WORD,2
+;SD_LAST_CLUSTER,02C9,DT_WORD,2
+;SD_SEC_IN_CLUSTER,02CB,DT_BYTE,1
+;SD_FILE_SIZE,02CC,DT_DWORD,4
+;SD_IO_BYTE,02D0,DT_BYTE,1
+;SD_TEMP_BYTE,02D1,DT_BYTE,1
+;SD_TEMP,02D2,DT_WORD,2
+;SD_TEMP_DWORD,02D4,DT_DWORD,4
+;SD_CLUSTER_SEQ_NUM,02D8,DT_WORD,2
+;SD_CLUSTER_SEQ_IDX,02DA,DT_WORD,2
+;SD_CLUSTER_SEQ_NUM_PREV,02DC,DT_WORD,2
+;SD_CLUSTER_SEQ_IDX_PREV,02DE,DT_WORD,2
+;SD_FIND_ROOT_DIR_ENTRY_F,02E0,DT_BYTE,1
+;SD_BYTES_READ,02E1,DT_DWORD,4
+;_B#VR1,0000,DT_BYTE,1
+;SD_FILE_NUM,02E6,DT_WORD,2
+;SD_DIR_DIRECTION,02E8,DT_BYTE,1
+;SD_EXTENDED_RETURN_INT,02E9,DT_BYTE,1
+;SD_FILE_SIZE_LEFT,02EA,DT_DWORD,4
+;SD_TIMEOUT,02EE,DT_BYTE,1
+;SD_DAY,02EF,DT_BYTE,1
+;SD_MONTH,02F0,DT_BYTE,1
+;SD_YEAR,02F1,DT_BYTE,1
+;SD_MSECONDS,02F2,DT_BYTE,1
+;SD_SECONDS,02F3,DT_BYTE,1
+;SD_MINUTES,02F4,DT_BYTE,1
+;SD_HOURS,02F5,DT_BYTE,1
+;SD_IS_DIRTY,02F6,DT_BYTE,1
+;SD_SSPSTAT,02F7,DT_BYTE,1
+;SD_RETURN_F,02F8,DT_BYTE,1
+;SD_IO_STRING_LENGTH,02F9,DT_BYTE,1
+;SD_IO_STRING_POS,02FA,DT_BYTE,1
+;SD_IO_STRING,02FB,DT_STRING,201
+;USER_POINTER,03C4,DT_WORD,2
+;TAGIN,03C6,DT_BYTE,10
+;USERIN,03D0,DT_BYTE,4
+;UTAG,03D4,DT_BYTE,16
+;MODNUM,03E4,DT_BYTE,7
+;RESPONSE,03EB,DT_BYTE,1
+;MYCOUNT,03EC,DT_BYTE,1
+;INDEX,03ED,DT_BYTE,1
+;INDEX2,03EE,DT_BYTE,1
+;TV1,03EF,DT_BYTE,1
+;WORD_VAR,03F0,DT_WORD,2
+;MYNUM,03F2,DT_STRING,4
+;SD_CS,0F82.2,DT_BIT
+;SD_DI,0F82.5,DT_BIT
+;SD_CLK,0F82.3,DT_BIT
+;SD_DO,0F82.4,DT_BIT
+;SD_EOF,02E5.0,DT_BIT
+;SD_RW_PTR,02E1,DT_DWORD,4
+;SD_FREE_CLUSTER_NUM,02D8,DT_WORD,2
+;SD_FREE_SPACE_KB,02E1,DT_DWORD,4
+;SD_DISK_SIZE_KB,02E1,DT_DWORD,4
+;SD_SPI_BF,0FC7.0,DT_BIT
+;SD_SPI_IF,0F9E.3,DT_BIT
+;SD_DETECT,0F80.1,DT_BIT
+;RFIDENABLE,0F83.4,DT_BIT
+;[End Listing]
+ #define CONFIG_REQ 1
+ #define _USELFSR 1
+ LIST  P = 18F4525,f = INHX32 ,w = 2, x = on, r = DEC, mm = ON, n = 0, c = 255
+ #include "C:\PROGRA~1\CROWNH~1\pds\INC\P18F4525.lpb"
+ #define __18F4525 1
+ #define XTAL 4
+ #define _CORE 16
+ #define _MAXRAM 3968
+ #define _RAM_END 3839
+ #define _MAXMEM 49152
+ #define _ADC 13
+ #define _ADC_RES 10
+ #define _EEPROM 1024
+ #define RAM_BANKS 15
+ #define _USART 1
+ #define _USB 0
+ #define _FLASH 1
+ #define _CWRITE_BLOCK 8
+ #define BANK0_START 128
+ #define BANK0_END 255
+ #define BANK1_START 256
+ #define BANK1_END 511
+ #define BANK2_START 512
+ #define BANK2_END 767
+ #define BANK3_START 768
+ #define BANK3_END 1023
+ #define BANK4_START 1024
+ #define BANK4_END 1279
+ #define BANK5_START 1280
+ #define BANK5_END 1535
+ #define BANK6_START 1536
+ #define BANK6_END 1791
+ #define BANK7_START 1792
+ #define BANK7_END 2047
+ #define BANK8_START 2048
+ #define BANK8_END 2303
+ #define BANK9_START 2304
+ #define BANK9_END 2559
+ #define BANK10_START 2560
+ #define BANK10_END 2815
+ #define BANK11_START 2816
+ #define BANK11_END 3071
+ #define BANK12_START 3072
+ #define BANK12_END 3200
+ #define BANK13_START 3328
+ #define BANK13_END 3583
+ #define BANK14_START 3584
+ #define BANK14_END 3839
+ #define BANKA_START 0
+ #define BANKA_END 127
+ #define _SYSTEM_VARIABLE_COUNT 50
+ram_bank = 0
+ #define LCD#DTPORT PORTD
+ #define LCD#DTPIN 0
+ #define LCD#RSPORT PORTD
+ #define LCD#RSPIN 7
+ #define LCD#ENPORT PORTD
+ #define LCD#ENPIN 6
+ #define LCD#INTERFACE 4
+ #define LCD#LINES 2
+ #define LCD#TYPE 0
+ ifdef HLVDCON
+  ifndef LVDCON
+   #define LVDCON HLVDCON
+  endif
+ endif
+ #define SD_INIT_MSSP#REQ 1
+ #define SD_CLOSE_FILE#REQ 1
+ #define SD_OPEN_FILE#REQ 1
+ #define SD_READ_BYTE_FROM_FILE#REQ 1
+ #define SD_CHECK_FOR_FILE#REQ 1
+ #define SD_NEW_FILE#REQ 1
+ #define SD_APPEND_FILE#REQ 1
+ #define SD_DELETE_FILE#REQ 1
+ #define SD_INIT_FS_MSSP#REQ 1
+ #define SD_WRITE_BYTE_TO_FILE#REQ 1
+ #define SD_WRITE_STRING_TO_FILE#REQ 1
+INT@3232_REQ = 1
+ #include "C:\PROGRA~1\CROWNH~1\pds\INC\REG_LD16.INC"
+BPF = 0
+BPFH = 1
+GEN = 2
+GEN3H = 3
+GEN4 = 4
+GEN4H = 5
+GENH = 6
+GPR = 7
+PBP#VAR0 = 8
+PBP#VAR0H = 9
+PBP#VAR0HH = 10
+PBP#VAR0HHH = 11
+PBP#VAR1 = 12
+PBP_AARG = 13
+PBP_AARGH = 14
+PBP_AARGHH = 15
+PBP_AARGHHH = 16
+PP0 = 17
+PP0H = 18
+PP0HH = 19
+PP0HHH = 20
+PP1 = 21
+PP1H = 22
+PP1HH = 23
+PP1HHH = 24
+PP2 = 25
+PP2H = 26
+PP2HH = 27
+PP2HHH = 28
+PP3 = 29
+PP3H = 30
+PP4 = 31
+PP5 = 32
+PP6 = 33
+PP6H = 34
+PP7 = 35
+PP7H = 36
+PP7HH = 37
+PP7HHH = 38
+PP8 = 39
+PP8H = 40
+PPZ = 41
+PPZH = 42
+PPZHH = 43
+PPZHHH = 44
+SP#P9 = 45
+_AEXP = 46
+_FP_FLAGS = 47
+_FP_TEMP = 48
+_SIGN = 49
+_B#VR1 = 741
+HSERIAL_SPBRG = 6
+HSERIAL_TXSTA = 32
+HSERIAL_RCSTA = 144
+HSERIAL_BAUD = 9600
+	org 0X00
+	goto Start@
+	org 0X08
+t@eb
+	clrf 18
+t@ew
+	clrf 22
+t@e
+	movwf 21
+	movlw 2
+	bra t@st
+t@ge
+	movwf 21
+	movlw 3
+	bra t@st
+t@st
+	movwf 7
+	movf 22,w
+	subwf 18,w
+	bnz cn@eq
+	movf 21,w
+	subwf 17,w
+cn@eq
+	movlw 4
+	btfsc 4056,0
+	movlw 1
+	btfsc 4056,2
+	movlw 2
+	andwf 7,w
+	btfss 4056,2
+	movlw 1
+	return
+lcd@cls
+	movlw 128
+	movwf 1
+cls
+	movlw 254
+	call ch@snd
+	movlw 1
+	call ch@snd
+	movlw 117
+	movwf 18
+	movlw 48
+	goto dlus@w
+lcd@crs
+	clrf 1
+	bsf 1,7
+curs@
+	movwf 32
+	movlw 254
+	call ch@snd
+	movf 32,w
+	goto ch@snd
+out@decb
+	clrf 5
+out@decc
+	movwf 25
+	clrf 26
+out@dec
+	bcf 0,3
+	movf 5,w
+	btfsc 4056,2
+	bsf 0,3
+	movlw 5
+	movwf 4
+	movlw 39
+	movwf 22
+	movlw 16
+	rcall d@dig
+	movlw 3
+	movwf 22
+	movlw 232
+	rcall d@dig
+	clrf 22
+	movlw 100
+	rcall d@dig
+	clrf 22
+	movlw 10
+	rcall d@dig
+	movf 25,w
+	bra send@it
+d@dig
+	movwf 21
+	movf 26,w
+	movwf 18
+	movf 25,w
+	movwf 17
+	call d@vd
+	movf 17,w
+send@it
+	movwf 17
+	dcfsnz 4,f
+	bcf 0,3
+	movf 5,w
+	bz $ + 8
+	subwf 4,w
+	btfsc 4056,0
+	bra ex@send@it
+	movf 17,w
+	btfss 4056,2
+	bcf 0,3
+	btfsc 0,3
+	bra ex@send@it
+	addlw 48
+	goto ch@snd
+ex@send@it
+	return
+sb@strout
+	movwf 25
+sb@stroutlp
+	movf 4,w
+	btfsc 4056,2
+	return
+	movff 25,4073
+	movff 26,4074
+	movf 4079,w
+	btfsc 4056,2
+	return
+	call ch@snd
+	infsnz 25,f
+	incf 26,f
+	decf 4,f
+	bra sb@stroutlp
+print@mstr
+print@mstrL
+	clrf 4006
+	bsf 4006,EEPGD
+prt@mtl1
+	tblrd*+
+	movf 4085,w
+	bz prt@mtext
+	rcall Print
+	bra prt@mtl1
+prt@mtext
+	return
+print
+	movwf 30
+	bcf 3971,6
+	bcf 3971,7
+	bcf 3989,6
+	bcf 3989,7
+	movlw 240
+	andwf 3989,f
+	movf 30,w
+	btfsc 0,1
+	goto prt@1
+	movlw 58
+	movwf 18
+	movlw 152
+	call dlus@w
+	movlw 51
+	movwf 29
+	rcall pr@lp
+	movlw 19
+	movwf 18
+	movlw 136
+	call dlus@w
+	rcall pr@lp
+	movlw 100
+	call dl@us
+	rcall pr@lp
+	movlw 100
+	call dl@us
+	movlw 34
+	movwf 29
+	rcall pr@lp
+	movlw 40
+	rcall pr@cm
+	movlw 12
+	rcall pr@cm
+	movlw 6
+	rcall pr@cm
+	bsf 0,1
+	movf 30,w
+	bra prt@1
+pr@cm
+	bsf 0,0
+prt@1
+	movwf 29
+	btfss 0,0
+	bra pr@cc
+	bcf 3971,7
+	sublw 3
+	bnc pr@sd
+	rcall pr@sd
+	movlw 7
+	movwf 18
+	movlw 208
+	call dlus@w
+	bsf 4056,0
+	return
+pr@cc
+	bsf 0,0
+	sublw 254
+	bz pr@ex
+	bsf 3971,7
+pr@sd
+	swapf 29,f
+	btfss 0,0
+pr@lp
+	bcf 0,0
+	bsf 3971,6
+	movlw 240
+	andwf 3971,f
+	movf 29,w
+	andlw 15
+	iorwf 3971,f
+	bcf 3971,6
+	swapf 29,f
+	btfsc 0,0
+	bra pr@lp
+	movlw 50
+	call dl@us
+	bsf 4056,0
+pr@ex
+	movf 30,w
+	return
+hrsin2
+	btfsc 4011,OERR
+	bcf 4011,CREN
+	bsf 4011,CREN
+	movff 2,17
+	movff 6,18
+	clrf 21
+	clrf 22
+hri@l0
+	nop
+	bra $ + 2
+hri@l
+	nop
+	btfsc 3998,RCIF
+	bra h@rsin
+	setf 4072
+	addwf 21,f
+	addwfc 22,f
+	addwfc 17,f
+	addwfc 18,f
+	btfss 4056,0
+	return
+	infsnz 21,w
+	incfsz 22,w
+	bra hri@l0
+	movlw 61
+	movwf 21
+	clrf 22
+	bra hri@l
+hrsin
+	btfsc 4011,OERR
+	bcf 4011,CREN
+	bsf 4011,CREN
+	btfss 3998,RCIF
+	bra $ - 2
+h@rsin
+	movf 4014,w
+	bsf 4056,0
+	return
+ch@snd
+	btfsc 1,7
+	goto print
+	btfss 1,1
+	bra $ + 12
+	btfsc 1,0
+	bra $ + 8
+	btfsc 1,1
+	movwf 4078
+	return
+Ee@rd
+	clrf 4010
+	movwf 4009
+Ee@rd@w
+	clrf 4006
+	bsf	4006,RD
+	movf 4008,w
+	infsnz 4009,f
+	incf 4010,f
+	return
+ee@wr
+	clrf 4010
+ee@wr@w
+	movwf 4008
+	clrf 4006
+	bsf	4006,WREN
+	movlw 85
+	movwf 4007
+	movlw 170
+	movwf 4007
+	bsf	4006,WR
+	btfsc 4006,WR
+	bra $ - 2
+	bcf	4006,WREN
+	infsnz 4009,f
+	incf 4010,f
+	return
+c@write
+	movwf 4085
+	tblwt*
+	incf 4086,w
+	andlw 7
+	bnz cr@exit
+	movlw 132
+	movwf 4006
+	movlw 85
+	movwf 4007
+	movlw 170
+	movwf 4007
+	bsf 4006,WR
+	bra $ + 2
+	bcf 4006,WREN
+cr@exit
+	infsnz 4086,f
+	incf 4087,f
+	return
+dl@ms
+	clrf 22
+dly@w
+	movwf 21
+dly@p
+	movlw 255
+	addwf 21,f
+	addwfc 22,f
+	bra $ + 2
+	btfss 4056,0
+	return
+	movlw 3
+	movwf 18
+	movlw 223
+	rcall dlus@w
+	bra dly@p
+dl@us
+	clrf 18
+dlus@w
+	addlw 232
+	movwf 17
+	comf 18,f
+	movlw 252
+	btfss 4056,0
+	bra dl@h
+dlus@lp
+	addwf 17,f
+	btfsc 4056,0
+	bra dlus@lp
+dl@h
+	addwf 17,f
+	nop
+	incfsz 18,f
+	bra dlus@lp
+	btfsc 17,0
+	bra $ + 2
+	btfss 17,1
+	bra dlus@d
+	nop
+	bra $ + 2
+dlus@d
+	return
+l@div
+l@mod
+	movf 20,w
+	xorwf 28,w
+	andlw 128
+	movwf 4084
+	btfss 20,7
+	bra divs@32X32SKIP1
+	bsf 4056,C
+	movlw 0
+	subfwb 17,f
+	subfwb 18,f
+	subfwb 19,f
+	subfwb 20,f
+divs@32X32SKIP1
+	btfss 28,7
+	bra divs@32X32SKIP2
+	bsf 4056,C
+	movlw 0
+	subfwb 25,f
+	subfwb 26,f
+	subfwb 27,f
+	subfwb 28,f
+divs@32X32SKIP2
+	clrf 21
+	clrf 22
+	clrf 23
+	clrf 24
+	clrf 41
+	clrf 42
+	clrf 43
+	clrf 44
+	movf 28,w
+	iorwf 27,w
+	iorwf 26,w
+	iorwf 25,w
+	bz divs@32X32SKIP5
+	movlw 32
+	movwf 4083
+divs@32X32LOOP
+	bcf 4056,C
+	rlcf 17,f
+	rlcf 18,f
+	rlcf 19,f
+	rlcf 20,f
+	rlcf 41,f
+	rlcf 42,f
+	rlcf 43,f
+	rlcf 44,f
+	movf 25,w
+	subwf 41,w
+	movf 26,w
+	subwfb 42,w
+	movf 27,w
+	subwfb 43,w
+	movf 28,w
+	subwfb 44,w
+	bnc divs@32X32SKIP4
+	movf 25,w
+	subwf 41,f
+	movf 26,w
+	subwfb 42,f
+	movf 27,w
+	subwfb 43,f
+	movf 28,w
+	subwfb 44,f
+	bsf 4056,C
+divs@32X32SKIP4
+	rlcf 21,f
+	rlcf 22,f
+	rlcf 23,f
+	rlcf 24,f
+	decfsz 4083,f
+	bra divs@32X32LOOP
+divs@32X32SKIP5
+	btfss 4084,7
+	bra divs@32X32EXIT
+	bsf 4056,C
+	movlw 0
+	subfwb 21,f
+	subfwb 22,f
+	subfwb 23,f
+	subfwb 24,f
+divs@32X32EXIT
+	movff 21,17
+	movff 22,18
+	movff 23,19
+	movff 24,20
+	movff 41,25
+	movff 42,26
+	movff 43,27
+	movff 44,28
+	return
+d@vd
+	clrf 26
+	clrf 25
+d@vd2
+	movlw 16
+	movwf 4083
+dv@lp
+	rlcf 18,w
+	rlcf 25,f
+	rlcf 26,f
+	movf 21,w
+	subwf 25,w
+	movf 22,w
+	subwfb 26,w
+	bnc d@k
+	movf 21,w
+	subwf 25,f
+	movf 22,w
+	subwfb 26,f
+	bsf 4056,0
+d@k
+	rlcf 17,f
+	rlcf 18,f
+	decfsz 4083,f
+	bra dv@lp
+	movf 17,w
+	return
+al@mul
+	movlw 32
+	movwf 29
+	clrf 41
+	clrf 42
+	clrf 43
+	clrf 44
+mlt32@lp
+	bcf 4056,0
+	btfss 17,0
+	bra mlt32@br
+	movf 25,w
+	addwf 41,f
+	movf 26,w
+	btfsc 4056,0
+	incfsz 26,w
+	addwf 42,f
+	movf 27,w
+	btfsc 4056,0
+	incfsz 27,w
+	addwf 43,f
+	movf 28,w
+	btfsc 4056,0
+	incfsz 28,w
+	addwf 44,f
+mlt32@br
+	rrcf 44,f
+	rrcf 43,f
+	rrcf 42,f
+	rrcf 41,f
+	rrcf 20,f
+	rrcf 19,f
+	rrcf 18,f
+	rrcf 17,f
+	decfsz 29,f
+	bra mlt32@lp
+	return
+load@mstr
+load@mstrL
+	clrf 4006
+	bsf 4006,EEPGD
+	tblrd*+
+	movf 4085,w
+	bz $ + 6
+	movwf 4078
+	bra $ - 8
+	return
+ #include "C:\PROGRA~1\CROWNH~1\pds\INC\FL_SRC.INC"
+;---------------------------------------------
+; Null Terminated Strings
+
+; String         
+str@lb1
+	DB 32,32,32,32,32,32,32,32,0
+;---------------------------------------------
+; String Detected!
+str@lb2
+	DB 68,101,116,101,99,116,101,100,33,0
+;---------------------------------------------
+; String Checking TAG
+str@lb3
+	DB 67,104,101,99,107,105,110,103,32,84,65,71,0
+;---------------------------------------------
+; String Got a match
+str@lb4
+	DB 71,111,116,32,97,32,109,97,116,99,104,0
+;---------------------------------------------
+; String History DONE!
+str@lb5
+	DB 72,105,115,116,111,114,121,32,68,79,78,69,33,0
+;---------------------------------------------
+; String No Match
+str@lb6
+	DB 78,111,32,77,97,116,99,104,0
+;---------------------------------------------
+; String ATTEMPTING TO
+str@lb7
+	DB 65,84,84,69,77,80,84,73,78,71,32,84,79,0
+;---------------------------------------------
+; String READ TAG....
+str@lb8
+	DB 82,69,65,68,32,84,65,71,46,46,46,46,0
+;---------------------------------------------
+; String Thank You
+str@lb9
+	DB 84,104,97,110,107,32,89,111,117,0
+;---------------------------------------------
+; String No Tag Detected
+str@lb10
+	DB 78,111,32,84,97,103,32,68,101,116,101,99,116,101,100,0
+;---------------------------------------------
+; String File not found
+str@lb11
+	DB 70,105,108,101,32,110,111,116,32,102,111,117,110,100,0
+;---------------------------------------------
+; String No 5E (^)
+str@lb12
+	DB 78,111,32,53,69,32,40,94,41,0
+;---------------------------------------------
+; String Stopped!
+str@lb13
+	DB 83,116,111,112,112,101,100,33,0
+;---------------------------------------------
+; String No 3A (:)..
+str@lb14
+	DB 78,111,32,51,65,32,40,58,41,46,46,0
+;---------------------------------------------
+; String Stopped!
+str@lb15
+	DB 83,116,111,112,112,101,100,33,0
+;---------------------------------------------
+; String File not found
+str@lb16
+	DB 70,105,108,101,32,110,111,116,32,102,111,117,110,100,0
+;---------------------------------------------
+; String No Init!
+str@lb17
+	DB 78,111,32,73,110,105,116,33,0
+;---------------------------------------------
+; String No Users
+str@lb18
+	DB 78,111,32,85,115,101,114,115,0
+;---------------------------------------------
+; String Manager Done
+str@lb19
+	DB 77,97,110,97,103,101,114,32,68,111,110,101,0
+;---------------------------------------------
+; String No Manager History
+str@lb20
+	DB 78,111,32,77,97,110,97,103,101,114,32,72,105,115,116,111,114,121,0
+;---------------------------------------------
+; String No Users
+str@lb21
+	DB 78,111,32,85,115,101,114,115,0
+;---------------------------------------------
+; String No Users Exist
+str@lb22
+	DB 78,111,32,85,115,101,114,115,32,69,120,105,115,116,0
+;---------------------------------------------
+; String Done Users
+str@lb23
+	DB 68,111,110,101,32,85,115,101,114,115,0
+;---------------------------------------------
+; String Going to sleep..
+str@lb24
+	DB 71,111,105,110,103,32,116,111,32,115,108,101,101,112,46,46,0
+;---------------------------------------------
+; String I just woke up!!
+str@lb25
+	DB 73,32,106,117,115,116,32,119,111,107,101,32,117,112,33,33,0
+;---------------------------------------------
+; User Constants
+__XTAL = 4
+__LCD_TYPE = 0
+__LCD_DTPIN = 0
+__LCD_ENPIN = 6
+__LCD_RSPIN = 7
+__LCD_INTERFACE = 4
+__LCD_LINES = 2
+__HSERIAL_BAUD = 9600
+__HSERIAL_RCSTA = 144
+__HSERIAL_TXSTA = 32
+Start@
+	clrf 4088
+	movlw B'01000000'
+	movwf 47
+	clrf 0
+	movlw 6
+	movwf 4015
+	movlw 32
+	movwf 4012
+	movlw 144
+	movwf 4011
+ LIST
+main@prog@start

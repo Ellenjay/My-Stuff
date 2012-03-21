@@ -1,0 +1,31 @@
+start_plot
+/* HULLS: 03-15-2010 Xscale: 266.3478 Yscale: 266.3478 */
+731 5 acut
+0 pendown
+4522 449 acut
+8430 1021 acut
+12374 1544 acut
+19779 2287 acut
+27184 2692 acut
+34510 2791 acut
+42437 2618 acut
+50365 2196 acut
+58212 1564 acut
+62271 1166 acut
+66323 664 acut
+70274 164 acut
+70274 -165 acut
+66323 -665 acut
+62271 -1167 acut
+58212 -1565 acut
+50365 -2197 acut
+42437 -2619 acut
+34510 -2792 acut
+27184 -2693 acut
+19779 -2288 acut
+12374 -1545 acut
+8430 -1022 acut
+4522 -450 acut
+731 -6 acut
+0 penup
+end_plot

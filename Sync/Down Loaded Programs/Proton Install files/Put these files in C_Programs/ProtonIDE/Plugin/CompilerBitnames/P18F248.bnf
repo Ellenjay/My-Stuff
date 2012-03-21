@@ -1,0 +1,792 @@
+** BITNAMES **
+TOSU="Top-of-Stack Upper Byte (TOS<20:16>)",[0..4]
+TOSH="Top-of-Stack High Byte (TOS<15:8>)"
+TOSL="Top-of-Stack Low Byte (TOS<7:0>)"
+
+STKFUL=STKPTR.7,"Stack Full Flag bit"
+STKUN=STKPTR.6,"Stack Underflow Flag bit"
+SP4=STKPTR.4,"Stack Pointer Location bit"
+SP3=STKPTR.3,"Stack Pointer Location bit"
+SP2=STKPTR.2,"Stack Pointer Location bit"
+SP1=STKPTR.1,"Stack Pointer Location bit"
+SP0=STKPTR.0,"Stack Pointer Location bit"
+
+PCLATU="Holding Register for PC<20:16>",[0..4]
+BIT21=PCLATU.5
+PCLATH="Holding Register for PC<15:8>"
+PCL="PC Low Byte (PC<7:0>)"
+
+TBLPTRU="Program Memory Table Pointer<br>Upper Byte (TBLPTR<20:16>",[0..4]
+TBLPTRH="Program Memory Table Pointer High Byte (TBLPTR<15:8>)"
+TBLPTRLH="Program Memory Table Pointer High Byte (TBLPTR<15:8>)"
+TBLPTRL="Program Memory Table Pointer Low Byte (TBLPTR<7:0>)"
+TABLAT="Program Memory Table Latch"
+
+PRODH="Product Register High Byte"
+PRODL="Product Register Low Byte"
+
+GIE=INTCON.7,"Global Interrupt Enable<BR>use in conjunction with IPEN (RCON<7>)"
+GIEH=INTCON.7," Enable all high priority interrupts<br>use in conjunction with IPEN (RCON<7>)"
+PEIE=INTCON.6,"Peripheral Interrupt Enable<br>use in conjunction with IPEN (RCON<7>)"
+GIEL=INTCON.6,"Low priority peripheral interrupt<br>use in conjunction with IPEN (RCON<7>)"
+TMR0IE=INTCON.5,"TMR0 Overflow Interrupt Enable"
+INT0IE=INTCON.4,"INT0 External Interrupt Enable"
+RBIE=INTCON.3,"RB Port Change Interrupt Enable"
+TMR0IF=INTCON.2,"TMR0 Overflow Interrupt Flag"
+INT0IF=INTCON.1,"INT0 External Interrupt Flag"
+RBIF=INTCON.0,"RB Port Interrupt Flag"
+
+INTCON1="Aliased to INTCON"
+
+NOT_RBPU=INTCON2.7,"PORTB Pull-up Enable bit"
+INTEDG0=INTCON2.6,"External Interrupt0 Edge Select bit"
+INTEDG1=INTCON2.5,"External Interrupt1 Edge Select bit"
+TMR0IP=INTCON2.2,"TMR0 Overflow Interrupt Priority bit"
+RBIP=INTCON2.0,"RB Port Change Interrupt Priority bit"
+
+INT2IP=INTCON3.7,"INT2 External Interrupt Priority bit"
+INT1IP=INTCON3.6,"INT1 External Interrupt Priority bit"
+INT2IE=INTCON3.4,"INT2 External Interrupt Enable"
+INT1IE=INTCON3.3,"INT1 External Interrupt Enable"
+INT2IF=INTCON3.1,"INT2 External Interrupt Flag"
+INT1IF=INTCON3.0,"INT1 External Interrupt Flag"
+
+INDF0="Uses contents of FSR0 to address data memory value of FSR0 not changed (not a physical register)"
+
+POSTINC0="Uses contents of FSR0 to address data memory value of FSR0 post-incremented<br>(not a physical register)"
+POSTDEC0="Uses contents of FSR0 to address data memory - value of FSR0 post-decremented <br>(not a physical register)"
+PREINC0="Uses contents of FSR0 to address data memory - value of FSR0 pre-incremented <br>(not a physical register)"
+PLUSW0="Uses contents of FSR0 to address data memory - value of FSR0 pre-incremented<BR>(not a physical register) - value of FSR0 offset by value in WREG"
+
+FSR0H="Indirect Data Memory Address Pointer 0 High Byte",[0..3]
+FSR0L="Indirect Data Memory Address Pointer 0 Low Byte"
+
+WREG="Working Register"
+
+INDF1="Uses contents of FSR1 to address data memory value of FSR1 not changed (not a physical register)"
+
+POSTINC1="Uses contents of FSR1 to address data memory value of FSR1 post-incremented<br>(not a physical register)"
+POSTDEC1="Uses contents of FSR1 to address data memory - value of FSR1 post-decremented <br>(not a physical register)"
+PREINC1="Uses contents of FSR1 to address data memory - value of FSR1 pre-incremented <br>(not a physical register)"
+PLUSW1="Uses contents of FSR1 to address data memory - value of FSR1 pre-incremented<BR>(not a physical register) - value of FSR1 offset by value in WREG"
+
+FSR1H="Indirect Data Memory Address Pointer 1 High Byte",[0..3]
+FSR1L="Indirect Data Memory Address Pointer 1 Low Byte"
+
+BSR="Bank Select Register",[0..3]
+
+INDF2="Uses contents of FSR2 to address data memory value of FSR2 not changed (not a physical register)"
+
+POSTINC2="Uses contents of FSR2 to address data memory value of FSR2 post-incremented<br>(not a physical register)"
+POSTDEC2="Uses contents of FSR2 to address data memory - value of FSR2 post-decremented <br>(not a physical register)"
+PREINC2="Uses contents of FSR2 to address data memory - value of FSR2 pre-incremented <br>(not a physical register)"
+PLUSW2="Uses contents of FSR2 to address data memory - value of FSR2 pre-incremented<BR>(not a physical register) - value of FSR2 offset by value in WREG"
+
+FSR2H="Indirect Data Memory Address Pointer 2 High Byte",[0..3]
+FSR2L="Indirect Data Memory Address Pointer 2 Low Byte"
+
+N=STATUS.4,"Negative bit"
+OV=STATUS.3,"Overflow bit"
+Z=STATUS.2,"Zero flag"
+DC=STATUS.1,[protect], "Digit Carry flag"
+C=STATUS.0,"Carry flag"
+
+TMR0L="Timer0 Module Low Byte Register"
+TMR0H="Timer0 Module High Byte Register"
+
+TMR0ON=T0CON.7,"Timer0 On/Off Control bit"
+T08BIT=T0CON.6,"Timer0 8-bit/16-bit Control bit"
+T0CS=T0CON.5,"Timer0 Clock Source Select bit"
+T0SE=T0CON.4,"Timer0 Source Edge Select bit"
+PSA=T0CON.3,"Timer0 Prescaler Assignment bit"
+T0PS2=T0CON.2,"Timer0 Prescaler Select bit"
+T0PS1=T0CON.1,"Timer0 Prescaler Select bit"
+T0PS0=T0CON.0,"Timer0 Prescaler Select bit"
+
+OSCCON="OSCCON REGISTER"
+SCS=OSCCON.0,"System Clock Switch bit"
+
+IRVST=LVDCON.5,"Internal Reference Voltage Stable Flag"
+LVDEN=LVDCON.4,"Low Voltage Detect Power Enable bit"
+LVDL3=LVDCON.3,"Low Voltage Detection Limit bit"
+LVDL2=LVDCON.2,"Low Voltage Detection Limit bit"
+LVDL1=LVDCON.1,"Low Voltage Detection Limit bit"
+LVDL0=LVDCON.0,"Low Voltage Detection Limit bit"
+
+SWDTEN=WDTCON.0,"Software Controlled Watchdog Timer Enable bit"
+
+IPEN=RCON.7,"Interrupt Priority Enable bit"
+NOT_RI=RCON.4,"RESET Instruction Flag bit"
+NOT_TO=RCON.3,"Watchdog Time-out Flag bit"
+NOT_PD=RCON.2,"Power-down Detection Flag bit"
+NOT_POR=RCON.1,"Power-on Reset Status bit"
+NOT_BOR=RCON.0,"Brown-out Reset Status bit"
+
+TMR1H="Timer1 Register High Byte"
+TMR1L="Timer1 Register Low Byte"
+
+RD16=T1CON.7,"16-bit Read/Write Mode Enable bit"
+T1CKPS1=T1CON.5,"Timer1 Input Clock Prescale Select bits"
+T1CKPS0=T1CON.4,"Timer1 Input Clock Prescale Select bits"
+T1OSCEN=T1CON.3,"Timer1 Oscillator Enable Control"
+NOT_T1SYNC=T1CON.2,"Timer1 External Clock Input Synchronization Control"
+TMR1CS=T1CON.1,"Timer1 Clock Source Select"
+TMR1ON=T1CON.0,"Timer1 ON"
+
+TMR2="Timer2 module's register"
+PR2="Timer2 period register"
+
+TOUTPS3=T2CON.6,"Timer2 Output Postscale Select bits"
+TOUTPS2=T2CON.5,"Timer2 Output Postscale Select bits"
+TOUTPS1=T2CON.4,"Timer2 Output Postscale Select bits"
+TOUTPS0=T2CON.3,"Timer2 Output Postscale Select bits"
+TMR2ON=T2CON.2,"Timer2 ON"
+T2CKPS1=T2CON.1,"Timer2 Clock Prescale Select bits"
+T2CKPS0=T2CON.0,"Timer2 Clock Prescale Select bits"
+
+SSPBUF="Synchonous serial port receive buffer or transmit register"
+SSPADD="Synchronous serial port (I2C mode) address register"
+
+SMP=SSPSTAT.7,"Sample bit"
+CKE=SSPSTAT.6,"SPI Clock Edge Select"
+D_A=SSPSTAT.5,"Data/NOT_Address bit "
+P=SSPSTAT.4,"Stop bit"
+S=SSPSTAT.3,"Start bit"
+R_W=SSPSTAT.2,"Read/Write bit information bit"
+UA=SSPSTAT.1,"Update Address bit"
+BF=SSPSTAT.0,"Buffer Full Status flag"
+
+WCOL=SSPCON1.7," Write Collision Detect bit"
+SSPOV=SSPCON1.6," Receive Overflow Indicator bit "
+SSPEN=SSPCON1.5," Synchronous Serial Port Enable bit"
+CKP=SSPCON1.4,"SCK Release Control bit"
+SSPM3=SSPCON1.3,"Synchronous Serial Port Mode Select bits"
+SSPM2=SSPCON1.2,"Synchronous Serial Port Mode Select bits"
+SSPM1=SSPCON1.1,"Synchronous Serial Port Mode Select bits"
+SSPM0=SSPCON1.0,"Synchronous Serial Port Mode Select bits"
+
+GCEN=SSPCON2.7,"General Call Enable bit (Slave mode only)"
+ACKSTAT=SSPCON2.6,"Acknowledge Status bit (Master Transmit mode only)"
+ACKDT=SSPCON2.5," Acknowledge Data bit (Master Receive mode only)"
+ACKEN=SSPCON2.4," Acknowledge Sequence Enable bit (Master Receive mode only)"
+RCEN=SSPCON2.3,"Receive Enable bit (Master mode only)"
+PEN=SSPCON2.2,"Stop Condition Enable bit (Master mode only) "
+RSEN=SSPCON2.1,"Repeated Start Condition Enabled bit (Master mode only) "
+SEN=SSPCON2.0," Start Condition Enabled/Stretch Enabled bit"
+
+ADRESL="A/D Register low byte" 
+ADRESH="A/D Register high byte" 
+ADRES="A/D result as a 16 bit value <br> This feature is specific to the PROTON compiler",[0..0]
+
+ADCS1=ADCON0.7,"A/D Conversion Clock Select bits"
+ADCS0=ADCON0.6,"A/D Conversion Clock Select bits"
+CHS3=ADCON0.5,"Analog Channel Select bits"
+CHS2=ADCON0.4,"Analog Channel Select bits"
+CHS1=ADCON0.3,"Analog Channel Select bits"
+CHS0=ADCON0.2,"Analog Channel Select bits"
+NOT_DONE=ADCON0.1,"A/D Conversion Status flag"
+GO=ADCON0.1,"A/D Conversion Enable"
+ADON=ADCON0.0,"A/D ON bit"
+
+ADFM=ADCON1.7,"A/D Result Format Select bit"
+ADCS2=ADCON1.6,"A/D Conversion Clock Select bit"
+PCFG3=ADCON1.3,"A/D Port Configuration Control bits"
+PCFG2=ADCON1.2,"A/D Port Configuration Control bits"
+PCFG1=ADCON1.1,"A/D Port Configuration Control bits"
+PCFG0=ADCON1.0,"A/D Port Configuration Control bits"
+
+CCPR1H="Capture/Compare/PWM register1 (MSB)"
+CCPR1L="Capture/Compare/PWM register1 (LSB)"
+CCPR1="Capture/Compare/PWM Register"
+
+DC1B1=CCP1CON.5,"PWM1 Least Significant bits"
+DC1B0=CCP1CON.4,"PWM1 Least Significant bits"
+CCP1M3=CCP1CON.3,"CCP1 Mode Select"
+CCP1M2=CCP1CON.2,"CCP1 Mode Select"
+CCP1M1=CCP1CON.1,"CCP1 Mode Select"
+CCP1M0=CCP1CON.0,"CCP1 Mode Select"
+
+CCPR2H="Capture/Compare/PWM register2 (MSB)"
+CCPR2L="Capture/Compare/PWM register2 (LSB)"
+CCPR2="Capture/Compare/PWM register"
+
+ECCP1DEL=" PWM Delay Count for Half-Bridge Output Mode bits",[0..7]
+
+ECCPASE=ECCPAS.7,"ECCP Auto-Shutdown Event Status bit"
+ECCPAS2=ECCPAS.6,"ECCP Auto-Shutdown bit 2"
+ECCPAS1=ECCPAS.5,"ECCP Auto-Shutdown bit 1"
+ECCPAS0=ECCPAS.4,"ECCP Auto-Shutdown bit 0"
+PSSAC1=ECCPAS.3,"Pins A and C Shutdown State Control bits"
+PSSAC0=ECCPAS.2,"Pins A and C Shutdown State Control bits"
+PSSBD1=ECCPAS.1,"Pins B and D Shutdown State Control bits<br>Unimplemented on 28-pin devices and read as ‘0’"
+PSSBD0=ECCPAS.0,"Pins B and D Shutdown State Control bits<br>Unimplemented on 28-pin devices and read as ‘0’"
+
+CVREN=CVRCON.7,"Comparator Voltage Reference Enable bit"
+CVROE=CVRCON.6,"Comparator VREF Output Enable bit<br>CVROE overrides the TRISA<2> bit setting"
+CVRR=CVRCON.5,"Comparator VREF Range Selection bit"
+CVRSS=CVRCON.4,"Comparator VREF Source Selection bit"
+CVR3=CVRCON.3,"CVREF value selection"
+CVR2=CVRCON.2,"CVREF value selection"
+CVR1=CVRCON.1,"CVREF value selection"
+CVR0=CVRCON.0,"CVREF value selection"
+
+C2OUT=CMCON.7,"Comparator 1 Output"
+C1OUT=CMCON.6,"Comparator 1 Output"
+C2INV=CMCON.5,"Comparator 2 Output Inversion"
+C1INV=CMCON.4,"Comparator 1 Output Inversion"
+CIS=CMCON.3,"Comparator Input Switch"
+CM2=CMCON.2,"Comparator Mode bit"
+CM1=CMCON.1,"Comparator Mode bit"
+CM0=CMCON.0,"Comparator Mode bit"
+
+TMR3H="Timer3 Register High Byte"
+TMR3="Timer3 Register"
+TMR3L="Timer3 Register Low Byte"
+
+RD16=T3CON.7,"16-bit Read/Write Mode Enable bit"
+T3ECCP1=T3CON.6,"Timer3 and Timer1 to CCP1/ECCP1 Enable bits"
+T3CKPS1=T3CON.5,"Timer3 Input Clock Prescale Select bits" 
+T3CKPS0=T3CON.4,"Timer3 Input Clock Prescale Select bits" 
+T3CCP1=T3CON.3,"Timer3 and Timer1 to CCP1/ECCP1 Enable bits"
+NOT_T3SYNC=T3CON.2,"Timer3 External Clock Input Synchronization Control bit"
+TMR3CS=T3CON.1,"Timer3 Clock Source Select bit"
+TMR3ON=T3CON.0,"Timer3 On enable bit"
+
+SPBRG="Baud Rate Generator Register, Low Byte"
+RCREG="USART Receive Register"
+TXREG="USART Transmit Register"
+
+CSRC=TXSTA.7,"Clock Source Select bit "
+TX9=TXSTA.6,"9-bit Transmit Enable "
+TXEN=TXSTA.5,"Transmit Enable "
+SYNC=TXSTA.4,"USART Mode Select bit "
+BRGH=TXSTA.2,"High Baud Rate Select bit"
+TRMT=TXSTA.1,"Transmit Shift Register Status flag "
+TX9D=TXSTA.0,"9th bit of transmit data. Can be parity bit. )"
+
+SPEN=RCSTA.7,"Serial Port Enable (Usart 1)"
+RX9=RCSTA.6,"9-bit Receive Enable (Usart 1)"
+SREN=RCSTA.5,"Single Receive Enable (Usart 1)"
+CREN=RCSTA.4,"Continuous Receive Enable (Usart 1)"
+ADDEN=RCSTA.3,"Address Detect Enable (Usart 1)"
+FERR=RCSTA.2,"Framing Error (Usart 1)"
+OERR=RCSTA.1,"Overrun Error (Usart 1)"
+RX9D=RCSTA.0,"9th bit of received data (Can be parity bit) (Usart 1)"
+
+EECON2="EEPROM control register2 (not a physical register)"
+EEADR="Data EEPROM Address Register"
+EEDATA="Data EEPROM Data Register"
+
+EEPGD=EECON1.7,"FLASH Program or Data EEPROM Memory Select bit"
+CFGS=EECON1.6,"FLASH Program/Data EEPROM or Configuration Select bit"
+FREE=EECON1.4,"FLASH Row Erase Enable bit"
+WRERR=EECON1.3,"EEPROM Error Flag"
+WREN=EECON1.2,"EEPROM Write/Enable"
+NOT_WR=EECON1.1,"Write Control"
+NOT_RD=EECON1.0,"Read Control"
+
+IRXIP=IPR3.7,"Invalid Message Received Interrupt Priority bit"
+WAKIP=IPR3.6,"Bus Activity Wake-up Interrupt Priority bit"
+ERRIP=IPR3.5,"CAN bus Error Interrupt Priority bit"
+TXB2IP=IPR3.4,"Transmit Buffer 2 Interrupt Priority bit"
+TXB1IP=IPR3.3,"Transmit Buffer 1 Interrupt Priority bit"
+TXB0IP=IPR3.2,"Transmit Buffer 0 Interrupt Priority bit"
+RXB1IP=IPR3.1,"Receive Buffer 1 Interrupt Priority bit"
+RXB0IP=IPR3.0,"Receive Buffer 0 Interrupt Priority bit "
+
+IRXIF=PIR3.7,"CAN Invalid Received Message Interrupt Flag bit"
+WAKIF=PIR3.6,"CAN bus Activity Wake-up Interrupt Flag bit"
+ERRIF=PIR3.5,"CAN bus Error Interrupt Flag bit"
+TXB2IF=PIR3.4,"CAN Transmit Buffer 2 Interrupt Flag bit"
+TXB1IF=PIR3.3,"CAN Transmit Buffer 1 Interrupt Flag bit"
+TXB0IF=PIR3.2,"CAN Transmit Buffer 0 Interrupt Flag bit"
+RXB1IF=PIR3.1,"CAN Receive Buffer 1 Interrupt Flag bit"
+RXB0IF=PIR3.0,"CAN Receive Buffer 0 Interrupt Flag bit"
+
+IRXIE=PIE3.7,"CAN Invalid Received Message Interrupt Enable bit"
+WAKIE=PIE3.6,"CAN bus Activity Wake-up Interrupt Enable bit"
+ERRIE=PIE3.5,"CAN bus Error Interrupt Enable bit"
+TXB2IE=PIE3.4,"CAN Transmit Buffer 2 Interrupt Enable bit"
+TXB1IE=PIE3.3,"CAN Transmit Buffer 1 Interrupt Enable bit"
+TXB0IE=PIE3.2,"CAN Transmit Buffer 0 Interrupt Enable bit"
+RXB1IE=PIE3.1,"CAN Receive Buffer 1 Interrupt Enable bit"
+RXB0IE=PIE3.0,"CAN Receive Buffer 0 Interrupt Enable bit"
+
+'CMIP=IPR2.6,"Comparator Interrupt Flag bit"
+EEIP=IPR2.4,"Data EEPROM/Flash Write Operation Interrupt Enable bit"
+BCLIP=IPR2.3,"Bus Collision Interrupt Flag bit"
+LVDIP=IPR2.2,"Low Voltage Detect Interrupt Flag bit"
+TMR3IP=IPR2.1,"TMR3 Overflow Interrupt Flag bit"
+'ECCP1IP=IPR2.0,"ECCP1 Interrupt Flag bit"
+
+'CMIF=PIR2.6,"Comparator Interrupt Flag bit"
+EEIF=PIR2.4,"Data EEPROM/Flash Write Operation Interrupt Enable bit"
+BCLIF=PIR2.3,"Bus Collision Interrupt Flag bit"
+LVDIF=PIR2.2,"Low Voltage Detect Interrupt Flag bit"
+TMR3IF=PIR2.1,"TMR3 Overflow Interrupt Flag bit"
+'ECCP1IF=PIR2.0,"ECCP1 Interrupt Flag bit"
+
+'CMIE=PIE2.6,"Comparator Interrupt Enable bit"
+EEIE=PIE2.4,"Data EEPROM/Flash Write Operation Interrupt Enable bit"
+BCLIE=PIE2.3,"Bus Collision Interrupt Enable bit"
+LVDIE=PIE2.2,"Low Voltage Detect Interrupt Enable bit"
+TMR3IE=PIE2.1,"TMR3 Overflow Interrupt Enable bit"
+'ECCP1IE=PIE2.0,"ECCP1 Interrupt Enable bit"
+
+'PSPIP=IPR1.7,"Parallel Slave Port Read/Write Interrupt Priority bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIP=IPR1.6,"A/D Converter Interrupt Priority bit"
+RCIP=IPR1.5,"EUSART Receive Interrupt Priority bit"
+TXIP=IPR1.4,"EUSART Transmit Interrupt Priority bit"
+SSPIP=IPR1.3,"Master Synchronous Serial Port Interrupt Priority bit"
+CCP1IP=IPR1.2,"CCP1 Interrupt Priority bit"
+TMR2IP=IPR1.1,"TMR2 to PR2 Match Interrupt Priority bit"
+TMR1IP=IPR1.0,"TMR1 Overflow Interrupt Priority bit"
+
+'PSPIF=PIR1.7,"Parallel Slave Port Read/Write Interrupt Flag bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIF=PIR1.6,"A/D Converter Interrupt Flag bit"
+RCIF=PIR1.5,"EUSART Receive Interrupt Flag bit"
+TXIF=PIR1.4,"EUSART Transmit Interrupt Flag bit"
+SSPIF=PIR1.3,"Master Synchronous Serial Port Interrupt Flag bit"
+CCP1IF=PIR1.2,"CCP1 Interrupt Flag bit"
+TMR2IF=PIR1.1,"TMR2 to PR2 Match Interrupt Flag bit"
+TMR1IF=PIR1.0,"TMR1 Overflow Interrupt Flag bit"
+
+'PSPIE=PIE1.7,"Parallel Slave Port Read/Write Interrupt Enable bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIE=PIE1.6,"A/D Converter Interrupt Enable bit"
+RCIE=PIE1.5,"EUSART Receive Interrupt Enable bit"
+TXIE=PIE1.4,"EUSART Transmit Interrupt Enable bit"
+SSPIE=PIE1.3,"Master Synchronous Serial Port Interrupt Enable bit"
+CCP1IE=PIE1.2,"CCP1 Interrupt Enable bit"
+TMR2IE=PIE1.1,"TMR2 to PR2 Match Interrupt Enable bit"
+TMR1IE=PIE1.0,"TMR1 Overflow Interrupt Enable bit"
+
+TRISA="Data Direction Control Register for PORTA"
+TRISB="Data Direction Control Register for PORTB"
+TRISC="Data Direction Control Register for PORTC"
+
+LATC="Read PORTC Data Latch, Write PORTC Data Latch"
+LATB="Read PORTB Data Latch, Write PORTB Data Latch"
+LATA="Read PORTA Data Latch, Write PORTA Data Latch"
+
+RA0=PORTA.0,"Bidirectional I/O pin"
+AN0=PORTA.0,"Analog input 0"
+CVREF=PORTA.0,"Comparator voltage reference output"
+RA1=PORTA.1,"Bidirectional I/O pin"
+AN1=PORTA.1,"Analog input 1"
+RA2=PORTA.2,"Bidirectional I/O pin"
+AN2=PORTA.2,"Analog input 2"
+VREF_MINUS=PORTA.2,"A/D reference voltage (Low) input"
+RA3=PORTA.3,"Bidirectional I/O pin"
+AN3=PORTA.3,"Analog input 3"
+VREF_PLUS=PORTA.3,"A/D reference voltage (High) input"
+RA4=PORTA.4,"Bidirectional I/O pin"
+T0CKI=PORTA.4,"Timer0 external clock input"
+RA5=PORTA.5,"Bidirectional I/O pin"
+AN4=PORTA.5,"Analog input 4"
+NOT_SS=PORTA.5,"SPI™ slave select input"
+LVDIN=PORTA.5,"Low-Voltage Detect input"
+RA6=PORTA.6,"Bidirectional I/O pin"
+CLKO=PORTA.6,"In RC mode, OSC2 pin outputs CLKO, which has 1/4 the <br>frequency of OSC1 and denotes the instruction cycle rate"
+OSC2=PORTA.6,"Oscillator crystal output. Connects to crystal or <br>resonator in Crystal Oscillator mode."
+
+RB0=PORTB.0,"Bidirectional I/O pin"
+INT0=PORTB.0,"External interrupt 0"
+RB1=PORTB.1,"Bidirectional I/O pin"
+INT1=PORTB.1,"External interrupt 1"
+RB2=PORTB.2,"Bidirectional I/O pin"
+CANTX=PORTB.2,"Transmit signal for CAN bus"
+INT2=PORTB.2,"External interrupt 2"
+RB3=PORTB.3,"Bidirectional I/O pin"
+CANRX=PORTB.3,"Receive signal for CAN bus"
+RB4=PORTB.4,"Bidirectional I/O pin<br> Interrupt-on-change pin"
+RB5=PORTB.5,"Bidirectional I/O pin<br> Interrupt-on-change pin"
+PGM=PORTB.5,"Low-voltage ICSP™ programming enable"
+RB6=PORTB.6,"Bidirectional I/O pin<br>In-Circuit Debugger pin<br>Interrupt-on-change pin"
+PGC=PORTB.6,"ICSP programming clock"
+RB7=PORTB.7,"Bidirectional I/O pin<br>In-Circuit Debugger pin<br>Interrupt-on-change pin"
+PGD=PORTB.7,"ICSP programming data"
+
+RC0=PORTC.0,"Bidirectional I/O pin"
+T1OSO=PORTC.0,"Timer1 oscillator output"
+T1CKI=PORTC.0,"Timer1/Timer3 external clock input"
+RC1=PORTC.1,"Bidirectional I/O pin"
+T1OSI=PORTC.1,"Timer1 oscillator input"
+RC2=PORTC.2,"Bidirectional I/O pin"
+CCP1=PORTC.2,"Capture 1 input/Compare 1 output/PWM1 output"
+RC3=PORTC.3,"Bidirectional I/O pin"
+SCK=PORTC.3,"Synchronous serial clock input/output for SPI™ mode"
+SCL=PORTC.3,"Synchronous serial clock 2 input/output for I2C™ mode"
+RC4=PORTC.4,"Bidirectional I/O pin"
+SDI=PORTC.4,"SPI data in"
+SDA=PORTC.4,"I2C data I/O"
+RC5=PORTC.5,"Bidirectional I/O pin"
+SDO=PORTC.5,"SPI data out"
+RC6=PORTC.6,"Bidirectional I/O pin"
+TX=PORTC.6,"USART asynchronous transmit"
+CK=PORTC.6,"USART synchronous clock"
+RC7=PORTC.7,"Bidirectional I/O pin"
+RX=PORTC.7,"USART asynchronous receive"
+DT=PORTC.7,"USART synchronous data"
+
+TXERRCNT="Transmit Error Counter bits",[0..7]
+RXERRCNT="Receive Error Counter bits",[0..7]
+
+RXB0OVFL=COMSTAT.7,"Receive Buffer 0 Overflow bit"
+RXB1OVFL=COMSTAT.6,"Receive Buffer 1 Overflow bit"
+TXBO=COMSTAT.5,"Transmitter Bus-Off bit"
+TXBP=COMSTAT.4,"Transmitter Bus Passive bit"
+RXBP=COMSTAT.3,"Receiver Bus Passive bit"
+TXWARN=COMSTAT.2,"Transmitter Warning bit"
+RXWARN=COMSTAT.1,"Receiver Warning bit"
+EWARN=COMSTAT.0,"Error Warning bit"
+
+ENDRHI=CIOCON.5,"Enable Drive High bit"
+CANCAP=CIOCON.4,"CAN Message Receive Capture Enable bit"
+
+WAKFIL=BRGCON3.6,"Selects CAN bus Line Filter for Wake-up bit"
+SEG2PH2=BRGCON3.2,"Phase Segment 2 Time Select bits"
+SEG2PH1=BRGCON3.1,"Phase Segment 2 Time Select bits"
+SEG2PH0=BRGCON3.0,"Phase Segment 2 Time Select bits"
+
+SEG2PHTS=BRGCON2.7,"Phase Segment 2 Time Select bit"
+SAM=BRGCON2.6,"Sample of the CAN bus Line bit"
+SEG1PH2=BRGCON2.5,"Phase Segment 1 bits"
+SEG1PH1=BRGCON2.4,"Phase Segment 1 bits"
+SEG1PH0=BRGCON2.3,"Phase Segment 1 bits"
+PRSEG2=BRGCON2.2,"Propagation Time Select bits"
+PRSEG1=BRGCON2.1,"Propagation Time Select bits"
+PRSEG0=BRGCON2.0,"Propagation Time Select bits"
+
+SJW1=BRGCON1.7,"Synchronized Jump Width bits"
+SJW0=BRGCON1.6,"Synchronized Jump Width bits"
+BRP5=BRGCON1.5,"Baud Rate Prescaler bits"
+BRP4=BRGCON1.4,"Baud Rate Prescaler bits"
+BRP3=BRGCON1.3,"Baud Rate Prescaler bits"
+BRP2=BRGCON1.2,"Baud Rate Prescaler bits"
+BRP1=BRGCON1.1,"Baud Rate Prescaler bits"
+BRP0=BRGCON1.0,"Baud Rate Prescaler bits"
+
+REQOP2=CANCON.7,"Request CAN Operation Mode bits"
+REQOP1=CANCON.6,"Request CAN Operation Mode bits"
+REQOP0=CANCON.5,"Request CAN Operation Mode bits"
+ABAT=CANCON.4,"Abort All Pending Transmissions bit"
+WIN2=CANCON.3,"Window Address bits"
+WIN1=CANCON.2,"Window Address bits"
+WIN0=CANCON.1,"Window Address bits"
+
+OPMODE2=CANSTAT.7,"Operation Mode Status bits"
+OPMODE1=CANSTAT.6,"Operation Mode Status bits"
+OPMODE0=CANSTAT.5,"Operation Mode Status bits"
+ICODE2=CANSTAT.3,"Interrupt Code bits"
+ICODE1=CANSTAT.2,"Interrupt Code bits"
+ICODE0=CANSTAT.1,"Interrupt Code bits"
+
+RXB0D7="RECEIVE BUFFER 0 DATA FIELD BYTE 7 REGISTER"
+RXB0D6="RECEIVE BUFFER 0 DATA FIELD BYTE 6 REGISTER"
+RXB0D5="RECEIVE BUFFER 0 DATA FIELD BYTE 5 REGISTER"
+RXB0D4="RECEIVE BUFFER 0 DATA FIELD BYTE 4 REGISTER"
+RXB0D3="RECEIVE BUFFER 0 DATA FIELD BYTE 3 REGISTER"
+RXB0D2="RECEIVE BUFFER 0 DATA FIELD BYTE 2 REGISTER"
+RXB0D1="RECEIVE BUFFER 0 DATA FIELD BYTE 1 REGISTER"
+RXB0D0="RECEIVE BUFFER 0 DATA FIELD BYTE 0 REGISTER"
+
+RXB0DLC="RECEIVE BUFFER 0 DATA LENGTH CODE REGISTER"
+RXB0EIDL="RECEIVE BUFFER 0 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXB0EIDH="RECEIVE BUFFER 0 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+RXB0SIDL="RECEIVE BUFFER 0 STANDARD IDENTIFIER, LOW BYTE REGISTER"
+SID2=RXB0SIDL.7,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SID1=RXB0SIDL.6,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SID0=RXB0SIDL.5,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SRR=RXB0SIDL.4,"Substitute Remote Request bit"
+EXID=RXB0SIDL.3,"Extended Identifier bit"
+EID17=RXB0SIDL.1,"Extended Identifier bits"
+EID16=RXB0SIDL.0,"Extended Identifier bits"
+
+RXB0SIDH="RECEIVE BUFFER 0 STANDARD IDENTIFIER, HIGH BYTE REGISTER"
+
+RXFUL=RXB0CON.7,"Receive Full Status bit"
+RXM1=RXB0CON.6,"Receive Buffer Mode bits"
+RXM0=RXB0CON.5,"Receive Buffer Mode bits"
+RXRTRRO=RXB0CON.3,"Receive Remote Transfer Request Read-Only bit"
+RXB0DBEN=RXB0CON.2,"Receive Buffer 0 Double-Buffer Enable bit"
+JTOFF=RXB0CON.1,"Jump Table Offset bit (read-only copy of RXB0DBEN)"
+FILHIT0=RXB0CON.0,"Filter Hit bit"
+
+OPMODE2=CANSTAT_RO1.7,"Operation Mode Status bits"
+OPMODE1=CANSTAT_RO1.6,"Operation Mode Status bits"
+OPMODE0=CANSTAT_RO1.5,"Operation Mode Status bits"
+ICODE2=CANSTAT_RO1.3,"Interrupt Code bits"
+ICODE1=CANSTAT_RO1.2,"Interrupt Code bits"
+ICODE0=CANSTAT_RO1.1,"Interrupt Code bits"
+
+RXB1D7="RECEIVE BUFFER 1 DATA FIELD BYTE 7 REGISTER"
+RXB1D6="RECEIVE BUFFER 1 DATA FIELD BYTE 6 REGISTER"
+RXB1D5="RECEIVE BUFFER 1 DATA FIELD BYTE 5 REGISTER"
+RXB1D4="RECEIVE BUFFER 1 DATA FIELD BYTE 4 REGISTER"
+RXB1D3="RECEIVE BUFFER 1 DATA FIELD BYTE 3 REGISTER"
+RXB1D2="RECEIVE BUFFER 1 DATA FIELD BYTE 2 REGISTER"
+RXB1D1="RECEIVE BUFFER 1 DATA FIELD BYTE 1 REGISTER"
+RXB1D0="RECEIVE BUFFER 1 DATA FIELD BYTE 0 REGISTER"
+
+RXB1DLC="RECEIVE BUFFER 1 DATA LENGTH CODE REGISTER"
+RXB1EIDL="RECEIVE BUFFER 1 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXB1EIDH="RECEIVE BUFFER 1 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+RXB1SIDL="RECEIVE BUFFER 1 STANDARD IDENTIFIER, LOW BYTE REGISTER"
+SID2=RXB1SIDL.7,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SID1=RXB1SIDL.6,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SID0=RXB1SIDL.5,"Standard Identifier bits if EXID = 0 or<br>Extended Identifier bits EID20:EID18 if EXID = 1"
+SRR=RXB1SIDL.4,"Substitute Remote Request bit"
+EXID=RXB1SIDL.3,"Extended Identifier bit"
+EID17=RXB1SIDL.1,"Extended Identifier bits"
+EID16=RXB1SIDL.0,"Extended Identifier bits"
+
+RXB1SIDH="RECEIVE BUFFER 1 STANDARD IDENTIFIER, HIGH BYTE REGISTER"
+
+RXFUL=RXB1CON.7,"Receive Full Status bit"
+RXM1=RXB1CON.6,"Receive Buffer Mode bits"
+RXM0=RXB1CON.5,"Receive Buffer Mode bits"
+RXRTRRO=RXB1CON.3,"Receive Remote Transfer Request Read-Only bit"
+FILHIT2=RXB1CON.2,"Filter Hit Bit"
+FILHIT1=RXB1CON.1,"Filter Hit Bit"
+FILHIT0=RXB1CON.0,"Filter Hit bit"
+
+OPMODE2=CANSTAT_RO2.7,"Operation Mode Status bits"
+OPMODE1=CANSTAT_RO2.6,"Operation Mode Status bits"
+OPMODE0=CANSTAT_RO2.5,"Operation Mode Status bits"
+ICODE2=CANSTAT_RO2.3,"Interrupt Code bits"
+ICODE1=CANSTAT_RO2.2,"Interrupt Code bits"
+ICODE0=CANSTAT_RO2.1,"Interrupt Code bits"
+
+TXB0D7="Transmit Buffer 0 Data Field Byte 7 bits"
+TXB0D6="Transmit Buffer 0 Data Field Byte 6 bits"
+TXB0D5="Transmit Buffer 0 Data Field Byte 5 bits"
+TXB0D4="Transmit Buffer 0 Data Field Byte 4 bits"
+TXB0D3="Transmit Buffer 0 Data Field Byte 3 bits"
+TXB0D2="Transmit Buffer 0 Data Field Byte 2 bits"
+TXB0D1="Transmit Buffer 0 Data Field Byte 1 bits"
+TXB0D0="Transmit Buffer 0 Data Field Byte 0 bits"
+
+TXRTR=TXB0DLC.6,"Transmission Frame Remote Transmission Request bit"
+DLC3=TXB0DLC.3,"Data Length Code bits"
+DLC2=TXB0DLC.2,"Data Length Code bits"
+DLC1=TXB0DLC.1,"Data Length Code bits"
+DLC0=TXB0DLC.0,"Data Length Code bits"
+
+TXB0EIDL="TRANSMIT BUFFER 0 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+TXB0EIDH="TRANSMIT BUFFER 0 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=TXB0SIDL.7,"Standard Identifier bits"
+SID1=TXB0SIDL.6,"Standard Identifier bits"
+SID0=TXB0SIDL.5,"Standard Identifier bits"
+EXIDE=TXB0SIDL.3,"Extended Identifier enable bit"
+EID17=TXB0SIDL.1,"Extended Identifier bits"
+EID16=TXB0SIDL.0,"Extended Identifier bits"
+
+TXB0SIDH="TRANSMIT BUFFER 0 STANDARD IDENTIFIER, HIGH BYTE REGISTER"
+
+TXABT=TXB0CON.6,"Transmission Aborted Status bit"
+TXLARB=TXB0CON.5,"Transmission Lost Arbitration Status bit"
+TXERR=TXB0CON.4,"Transmission Error Detected Status bit"
+TXREQ=TXB0CON.3,"Transmit Request Status bit"
+TXPRI1=TXB0CON.1,"Transmit Priority bits"
+TXPRI0=TXB0CON.0,"Transmit Priority bits"
+
+OPMODE2=CANSTAT_RO3.7,"Operation Mode Status bits"
+OPMODE1=CANSTAT_RO3.6,"Operation Mode Status bits"
+OPMODE0=CANSTAT_RO3.5,"Operation Mode Status bits"
+ICODE2=CANSTAT_RO3.3,"Interrupt Code bits"
+ICODE1=CANSTAT_RO3.2,"Interrupt Code bits"
+ICODE0=CANSTAT_RO3.1,"Interrupt Code bits"
+
+TXB1D7="Transmit Buffer 1 Data Field Byte 7 bits"
+TXB1D6="Transmit Buffer 1 Data Field Byte 6 bits"
+TXB1D5="Transmit Buffer 1 Data Field Byte 5 bits"
+TXB1D4="Transmit Buffer 1 Data Field Byte 4 bits"
+TXB1D3="Transmit Buffer 1 Data Field Byte 3 bits"
+TXB1D2="Transmit Buffer 1 Data Field Byte 2 bits"
+TXB1D1="Transmit Buffer 1 Data Field Byte 1 bits"
+TXB1D0="Transmit Buffer 1 Data Field Byte 0 bits"
+
+TXRTR=TXB1DLC.6,"Transmission Frame Remote Transmission Request bit"
+DLC3=TXB1DLC.3,"Data Length Code bits"
+DLC2=TXB1DLC.2,"Data Length Code bits"
+DLC1=TXB1DLC.1,"Data Length Code bits"
+DLC0=TXB1DLC.0,"Data Length Code bits"
+
+TXB1EIDL="TRANSMIT BUFFER 1 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+TXB1EIDH="TRANSMIT BUFFER 1 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=TXB1SIDL.7,"Standard Identifier bits"
+SID1=TXB1SIDL.6,"Standard Identifier bits"
+SID0=TXB1SIDL.5,"Standard Identifier bits"
+EXIDE=TXB1SIDL.3,"Extended Identifier enable bit"
+EID17=TXB1SIDL.1,"Extended Identifier bits"
+EID16=TXB1SIDL.0,"Extended Identifier bits"
+
+TXB1SIDH="TRANSMIT BUFFER 1 STANDARD IDENTIFIER, HIGH BYTE REGISTER"
+
+TXABT=TXB1CON.6,"Transmission Aborted Status bit"
+TXLARB=TXB1CON.5,"Transmission Lost Arbitration Status bit"
+TXERR=TXB1CON.4,"Transmission Error Detected Status bit"
+TXREQ=TXB1CON.3,"Transmit Request Status bit"
+TXPRI1=TXB1CON.1,"Transmit Priority bits"
+TXPRI0=TXB1CON.0,"Transmit Priority bits"
+
+OPMODE2=CANSTAT_RO4.7,"Operation Mode Status bits"
+OPMODE1=CANSTAT_RO4.6,"Operation Mode Status bits"
+OPMODE0=CANSTAT_RO4.5,"Operation Mode Status bits"
+ICODE2=CANSTAT_RO4.3,"Interrupt Code bits"
+ICODE1=CANSTAT_RO4.2,"Interrupt Code bits"
+ICODE0=CANSTAT_RO4.1,"Interrupt Code bits"
+
+TXB2D7="Transmit Buffer 2 Data Field Byte 7 bits"
+TXB2D6="Transmit Buffer 2 Data Field Byte 6 bits"
+TXB2D5="Transmit Buffer 2 Data Field Byte 5 bits"
+TXB2D4="Transmit Buffer 2 Data Field Byte 4 bits"
+TXB2D3="Transmit Buffer 2 Data Field Byte 3 bits"
+TXB2D2="Transmit Buffer 2 Data Field Byte 2 bits"
+TXB2D1="Transmit Buffer 2 Data Field Byte 1 bits"
+TXB2D0="Transmit Buffer 2 Data Field Byte 0 bits"
+
+TXRTR=TXB2DLC.6,"Transmission Frame Remote Transmission Request bit"
+DLC3=TXB2DLC.3,"Data Length Code bits"
+DLC2=TXB2DLC.2,"Data Length Code bits"
+DLC1=TXB2DLC.1,"Data Length Code bits"
+DLC0=TXB2DLC.0,"Data Length Code bits"
+
+TXB2EIDL="TRANSMIT BUFFER 2 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+TXB2EIDH="TRANSMIT BUFFER 2 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=TXB2SIDL.7,"Standard Identifier bits"
+SID1=TXB2SIDL.6,"Standard Identifier bits"
+SID0=TXB2SIDL.5,"Standard Identifier bits"
+EXIDE=TXB2SIDL.3,"Extended Identifier enable bit"
+EID17=TXB2SIDL.1,"Extended Identifier bits"
+EID16=TXB2SIDL.0,"Extended Identifier bits"
+
+TXB2SIDH="TRANSMIT BUFFER 2 STANDARD IDENTIFIER, HIGH BYTE REGISTER"
+
+TXABT=TXB2CON.6,"Transmission Aborted Status bit"
+TXLARB=TXB2CON.5,"Transmission Lost Arbitration Status bit"
+TXERR=TXB2CON.4,"Transmission Error Detected Status bit"
+TXREQ=TXB2CON.3,"Transmit Request Status bit"
+TXPRI1=TXB2CON.1,"Transmit Priority bits"
+TXPRI0=TXB2CON.0,"Transmit Priority bits"
+
+RXM1EIDL="RECEIVE ACCEPTANCE MASK 1 EXTENDED IDENTIFIER MASK, LOW BYTE REGISTER"
+RXM1EIDH="RECEIVE ACCEPTANCE MASK 1 EXTENDED IDENTIFIER MASK, HIGH BYTE REGISTER"
+
+SID2=RXM1SIDL.7,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+SID1=RXM1SIDL.6,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+SID0=RXM1SIDL.5,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+EID17=RXM1SIDL.1,"Extended Identifier Mask bits"
+EID16=RXM1SIDL.0,"Extended Identifier Mask bits"
+
+RXM1SIDH="RECEIVE ACCEPTANCE MASK 1 STANDARD IDENTIFIER MASK, HIGH BYTE REGISTER"
+
+RXM0EIDL="RECEIVE ACCEPTANCE MASK 0 EXTENDED IDENTIFIER MASK, LOW BYTE REGISTER"
+RXM0EIDH="RECEIVE ACCEPTANCE MASK 0 EXTENDED IDENTIFIER MASK, HIGH BYTE REGISTER"
+
+SID2=RXM0SIDL.7,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+SID1=RXM0SIDL.6,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+SID0=RXM0SIDL.5,"Standard Identifier Mask bits or Extended Identifier Mask bits EID20:EID18"
+EID17=RXM0SIDL.1,"Extended Identifier Mask bits"
+EID16=RXM0SIDL.0,"Extended Identifier Mask bits"
+
+RXM0SIDH="RECEIVE ACCEPTANCE MASK 0 STANDARD IDENTIFIER MASK, HIGH BYTE REGISTER"
+
+RXF5EIDL="RECEIVE ACCEPTANCE FILTER 5 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF5EIDH="RECEIVE ACCEPTANCE FILTER 5 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF5SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF5SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF5SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF5SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF5SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF5SIDL.0,"Extended Identifier Filter bits"
+
+RXF5SIDH="RECEIVE ACCEPTANCE FILTER 5 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+RXF4EIDL="RECEIVE ACCEPTANCE FILTER 4 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF4EIDH="RECEIVE ACCEPTANCE FILTER 4 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF4SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF4SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF4SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF4SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF4SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF4SIDL.0,"Extended Identifier Filter bits"
+
+RXF4SIDH="RECEIVE ACCEPTANCE FILTER 4 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+RXF3EIDL="RECEIVE ACCEPTANCE FILTER 3 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF3EIDH="RECEIVE ACCEPTANCE FILTER 3 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF3SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF3SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF3SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF3SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF3SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF3SIDL.0,"Extended Identifier Filter bits"
+
+RXF3SIDH="RECEIVE ACCEPTANCE FILTER 3 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+RXF2EIDL="RECEIVE ACCEPTANCE FILTER 2 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF2EIDH="RECEIVE ACCEPTANCE FILTER 2 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF2SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF2SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF2SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF2SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF2SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF2SIDL.0,"Extended Identifier Filter bits"
+
+RXF2SIDH="RECEIVE ACCEPTANCE FILTER 2 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+RXF1EIDL="RECEIVE ACCEPTANCE FILTER 1 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF1EIDH="RECEIVE ACCEPTANCE FILTER 1 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF1SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF1SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF1SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF1SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF1SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF1SIDL.0,"Extended Identifier Filter bits"
+
+RXF1SIDH="RECEIVE ACCEPTANCE FILTER 1 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+RXF0EIDL="RECEIVE ACCEPTANCE FILTER 0 EXTENDED IDENTIFIER, LOW BYTE REGISTER"
+RXF0EIDH="RECEIVE ACCEPTANCE FILTER 0 EXTENDED IDENTIFIER, HIGH BYTE REGISTER"
+
+SID2=RXF0SIDL.7,"Standard Identifier Filter bits"
+SID1=RXF0SIDL.6,"Standard Identifier Filter bits"
+SID0=RXF0SIDL.5,"Standard Identifier Filter bits"
+EXIDEN=RXF0SIDL.3,"Extended Identifier Filter Enable bit"
+EID17=RXF0SIDL.1,"Extended Identifier Filter bits"
+EID16=RXF0SIDL.0,"Extended Identifier Filter bits"
+
+RXF0SIDH="RECEIVE ACCEPTANCE FILTER 0 STANDARD IDENTIFIER FILTER, HIGH BYTE REGISTER"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

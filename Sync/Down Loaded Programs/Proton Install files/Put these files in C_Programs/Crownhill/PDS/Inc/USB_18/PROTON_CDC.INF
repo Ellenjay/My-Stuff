@@ -1,0 +1,60 @@
+; Windows USB CDC ACM Setup File
+; Copyright (c) 2000 Microsoft Corporation
+; Copyright (C) 2004 Microchip Technology Inc.
+
+[Version] 
+Signature="$Windows NT$" 
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318} 
+Provider=%crownhill% 
+LayoutFile=layout.inf
+DriverVer=08/17/2001,5.1.2600.0
+
+[Manufacturer] 
+%MFGNAME%=DeviceList
+
+[DestinationDirs] 
+DefaultDestDir=12  									; 12 means "C:\Windows\system32\drivers"
+
+[SourceDisksFiles]
+
+[SourceDisksNames]
+
+[DeviceList] 
+%DESCRIPTION%=DriverInstall, USB\VID_04D8&PID_000A   ; VID, PID match device descriptor
+
+;------------------------------------------------------------------------------
+;  Windows 2000/XP Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.nt] 
+CopyFiles=DriverCopyFiles
+AddReg=DriverInstall.nt.AddReg 
+
+[DriverCopyFiles]
+usbser.sys,,,0x20  									; 0x20 means "Don't overwrite a newer version"
+
+[DriverInstall.nt.AddReg] 
+HKR,,DevLoader,,*ntkern 
+HKR,,NTMPDriver,,usbser.sys 
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider" 
+
+[DriverInstall.nt.Services] 
+AddService=usbser, 0x00000002, DriverService  		; 0x02 means "Mark this as driver for this device"
+
+[DriverService] 
+DisplayName=%SERVICE% 
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\usbser.sys 						; %12% means "C:\Windows\system32\drivers"
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings] 
+crownhill="Crownhill Associates Ltd."
+MFGNAME="Crownhill Associates Ltd."
+DESCRIPTION="PROTON CDC Virtual Com Port" 
+SERVICE="PROTON RS232 Emulation Driver"

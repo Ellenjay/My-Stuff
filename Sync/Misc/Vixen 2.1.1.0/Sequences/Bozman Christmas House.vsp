@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Program>
+  <Time>0</Time>
+  <EventPeriodInMilliseconds>100</EventPeriodInMilliseconds>
+  <MinimumLevel>0</MinimumLevel>
+  <MaximumLevel>255</MaximumLevel>
+  <AudioDevice>-1</AudioDevice>
+  <AudioVolume>0</AudioVolume>
+  <Channels>
+    <Channel color="-1" output="0" id="634291204435996000" enabled="True">C1</Channel>
+    <Channel color="-1" output="1" id="634291204436096000" enabled="True">C2</Channel>
+    <Channel color="-1" output="2" id="634291204436196000" enabled="True">C3</Channel>
+    <Channel color="-1" output="3" id="634291204436296000" enabled="True">C4</Channel>
+    <Channel color="-1" output="4" id="634291204436396000" enabled="True">C5</Channel>
+    <Channel color="-1" output="5" id="634291204436496000" enabled="True">C6</Channel>
+    <Channel color="-1" output="6" id="634291204436596000" enabled="True">C7</Channel>
+    <Channel color="-1" output="7" id="634291204436696000" enabled="True">C8</Channel>
+    <Channel color="-1" output="8" id="634291204436796000" enabled="True">C9</Channel>
+    <Channel color="-1" output="9" id="634291204436896000" enabled="True">C10</Channel>
+    <Channel color="-1" output="10" id="634291204436996000" enabled="True">C11</Channel>
+    <Channel color="-1" output="11" id="634291204437096000" enabled="True">C12</Channel>
+    <Channel color="-1" output="12" id="634291204437196000" enabled="True">C13</Channel>
+    <Channel color="-1" output="13" id="634291204437296000" enabled="True">C14</Channel>
+    <Channel color="-1" output="14" id="634291204437396000" enabled="True">C15</Channel>
+    <Channel color="-1" output="15" id="634291204437496000" enabled="True">C16</Channel>
+    <Channel color="-1" output="16" id="634291204437596000" enabled="True">C17</Channel>
+    <Channel color="-1" output="17" id="634291204437696000" enabled="True">C18</Channel>
+    <Channel color="-1" output="18" id="634291204437796000" enabled="True">C19</Channel>
+    <Channel color="-1" output="19" id="634291204437896000" enabled="True">C20</Channel>
+    <Channel color="-1" output="20" id="634291204437996000" enabled="True">C21</Channel>
+    <Channel color="-1" output="21" id="634291204438096000" enabled="True">C22</Channel>
+    <Channel color="-1" output="22" id="634291204438196000" enabled="True">C23</Channel>
+    <Channel color="-1" output="23" id="634291204438296000" enabled="True">C24</Channel>
+    <Channel color="-1" output="24" id="634291204438396000" enabled="True">C25</Channel>
+  </Channels>
+  <PlugInData>
+    <PlugIn name="Adjustable preview" key="-1193625963" id="0" enabled="True" from="1" to="25">
+      <BackgroundImage />
+      <RedirectOutputs>False</RedirectOutputs>
+      <Display>
+        <Height>100</Height>
+        <Width>100</Width>
+        <PixelSize>8</PixelSize>
+        <Brightness>10</Brightness>
+      </Display>
+      <Channels>
+        <Channel number="12">CgAtAA==</Channel>
+        <Channel number="11">CwArAA==</Channel>
+        <Channel number="10">DAApAA==</Channel>
+        <Channel number="9">DQAnAA==</Channel>
+        <Channel number="8">DgAlAA==</Channel>
+        <Channel number="7">DwAjAA==</Channel>
+        <Channel number="6">EAAhAA==</Channel>
+        <Channel number="5">EQAfAA==</Channel>
+        <Channel number="4">EgAdAA==</Channel>
+        <Channel number="3">EwAbAA==</Channel>
+        <Channel number="2">FAAZAA==</Channel>
+        <Channel number="1">FQAXAA==</Channel>
+        <Channel number="0">FgAVABYAFgA=</Channel>
+        <Channel number="13">CwAvAA==</Channel>
+        <Channel number="14">DAAxAA==</Channel>
+        <Channel number="15">DQAzAA==</Channel>
+        <Channel number="16">DgA1AA==</Channel>
+        <Channel number="17">DwA3AA==</Channel>
+        <Channel number="18">EAA5AA==</Channel>
+        <Channel number="19">EQA7AA==</Channel>
+        <Channel number="20">EgA9AA==</Channel>
+        <Channel number="21">EwA/AA==</Channel>
+        <Channel number="22">FABBAA==</Channel>
+        <Channel number="23">FQBDAA==</Channel>
+        <Channel number="24">FgBFABYARAA=</Channel>
+      </Channels>
+    </PlugIn>
+  </PlugInData>
+  <SortOrders lastSort="-1" />
+  <EventValues>
+  </EventValues>
+  <LoadableData />
+  <EngineType>Procedural</EngineType>
+  <Extensions>
+    <Extension type=".vsp">
+      <ModuleReferences>
+        <ModuleReference>Standard.dll</ModuleReference>
+      </ModuleReferences>
+      <SourceFiles>
+        <SourceFile>Main.cs</SourceFile>
+        <SourceFile>Routine1.cs</SourceFile>
+        <SourceFile>Routine2.cs</SourceFile>
+      </SourceFiles>
+      <SourceDirectory>Bozman Christmas House</SourceDirectory>
+      <AssemblyReferences />
+    </Extension>
+  </Extensions>
+</Program>

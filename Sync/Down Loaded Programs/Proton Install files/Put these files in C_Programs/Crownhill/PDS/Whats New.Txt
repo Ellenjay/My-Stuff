@@ -1,0 +1,669 @@
+--------------------------------------------------------------------------------------------------
+** Additions, amendments and fixes made in version 3.1 of the PROTON+ Compiler. (28th June 2005) **
+
+**** ADDITIONS ****
+
+Added release version of the optimiser with 6 levels. Still rather experimental but seems to work well, especially with 16-bit core 18F devices.
+Added DECLARE LCD_COMMANDUS to choose the delay (in microseconds) between commands sent to an alphanumeric LCD.
+Added DECLARE LCD_DATAUS to choose the delay (in microseconds) between data sent to an alphanumeric LCD.
+Added support for RF12F675, 16F54, 16F57, 16F716, 16F785, 16F685, 16F687, 16F689, 16F890, 16F913
+                  16F914, 16F915, 16F916,  
+
+**** AMENDMENTS ****
+
+Printing or serial transmission of quoted strings of characters on devices that can
+access their own code memory now places the ASCII text in code memory as a string of text.
+INCLUDE directive is now able to place the exact path of an INCLUDE file. i.e. INCLUDE "C:\MY_PROGRAMS\TEST.INC"
+Tightened IF-THEN-ELSE-ENDIF syntax checking.
+ALL_DIGITAL can now be used as an actual DECLARE or compiler directive.
+
+**** FIXES ****
+
+Fixed error checking for casting a constant value's alias.
+Fixed OSCCAL address for 16F630 and 16F676.
+Fixed reference to RE3 with devices: - 18F2220, 18F2320, 18F2331, 18F2431, 18F2439, 18F2455, 18F2520
+                                       18F2525, 18F2539, 18F2550, 18F2585, 18F2620, 18F2680.
+Fixed ADIN command with 12F683.
+Fixed recognition of the RF12C509 device.
+Fixed EEADRH register recognition with 18F4620 device.
+ 
+--------------------------------------------------------------------------------------------------
+** Additions, amendments and fixes made in version 3.08 of the PROTON+ Compiler. (11th April 2005) **
+
+**** ADDITIONS ****
+
+Added an optimising pass in the compiler.
+The optimiser has 3 levels enabled by the declare: -
+OPTIMISER_LEVEL = 0, 1, or 2
+Level 0 Disables the optimiser
+Level 1 Re-arranges Page boundary settings with 12 and 14-bit core devices and chooses appropriate mnemonics for 16-bit core devices.
+Level 2 Manipulates the way some conditional jumps are performed on all devices.
+
+The compiler defaults to the optimiser DISABLED.
+
+**** Note that the optimiser is still a Beta version. ****
+ 
+If you experience any difficulties that are a direct result of using the optimiser please contact me at ljohnson@crownhill.co.uk.
+But please ensure that it is the optimiser at fault before doing so.
+
+**** AMENDMENTS ****
+
+None
+
+**** FIXES ****
+
+None
+
+--------------------------------------------------------------------------------------------------
+** Additions, amendments and fixes made in version 3.07 of the PROTON+ Compiler. (29th March 2005) **
+
+**** ADDITIONS ****
+
+Added support for a Toshiba T6963 graphic LCD of any size up to 256 x 256 pixels.
+Added TOSHIBA_COMMAND command for the above Toshiba LCD.
+Added TOSHIBA_UDG command for the above Toshiba LCD. This allows User Defined Graphics to be created.
+Added TEXT modifier to LCDREAD in order for it to read Text Data from a Toshiba LCD.
+Added USB 2.0 commands for suitable 18F devices.
+Added support for 18F2520, 18F4520, 18F2455, 18F2550, 18F4455, 18F4550 devices.
+
+**** AMENDMENTS ****
+
+Altered the way STRING variables hold a BYTE or a BYTE array variable. Now, instead of the BYTE variable
+being used as a pointer, the contents of the variable will be placed within the STRING. However, WORD, and DWORD variables will
+still be used as pointers. This only applies to STRING loading and concatenation.
+
+When using a STRING variable within commands SERIN, HSERIN, HSERIN2 and RSIN, either a CR (13) or a NULL (0) will terminate the string.
+This allows a terminal program to be used to load a STRING variable, and terminate when the RETURN key is detected. 
+Note that the CR (Carriage Return) value (13) will NOT be placed within the STRING, and it will be replaced by a NULL (0).
+
+Altered the mnemonics produced by ALL_DIGITAL for the 16F87 and 16F88 devices. It does not alter ADCON1 now.
+Altered the LINE and CIRCLE commands library subroutines for larger resolution graphic LCDs. 
+PUSH and GOSUB with parameters can now push a pointer to an array: -
+
+PUSH ARRAY
+
+If an array without an index is used in POP, the contents of the pushed array will be copied into the destination array: -
+
+POP ARRAY
+
+**** FIXES ****
+
+Fixed FLOAT = FLOAT + BYTE expression not finding system variable PPZ.
+Fixed Context Saving\Restoring of FSR1L\H when STRING variables are declared within a program.
+Fixed MCLRE_OFF fuse value for devices 18F1220 and 18F1320.
+Fixed mnemonic NEGF not being recognised.
+Fixed assembler label PRT@MTL2 not being found when printing a quoted string of characters with an 18F device.
+Fixed CLEAR word array when using an 18F device.
+Fixed wrong variable name error being produced with array variable names over 20 characters used within expressions.
+Fixed TXSTA and SPBRG bank selection with certain 14-bit core devices.
+Fixed bank selection for hardware registers starting at address 0X0F60 with 16-bit core devices.
+Fixed EEPROM access using the ESTR modifier when PICmicro has eeprom larger than 256 bytes.
+Fixed final program byte count with 16-bit core devices when eeprom data is an uneven amount.
+
+--------------------------------------------------------------------------------------------------
+** Amendments and fixes made in version 3.06 of the PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+Altered default CONFIG fuses of devices 18F2410, 18F2525, 18F2610, 18F2620, 18F4410, 18F4525, 18F4610, and 18F4620
+to Enhanced Instruction Set OFF, and PORTB 0-4 digital mode on reset.
+
+**** FIXES ****
+
+Fixed Word Arrays when loaded with the value 0.
+Fixed PPRINT not finding some system variables.
+
+--------------------------------------------------------------------------------------------------
+** Amendments and fixes made in version 3.05 of the PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+Added C language type formatters to a quoted string of characters: -
+
+\a  Bell (alert) character  	$07  
+\b  Backspace character  		$08  
+\f  Form feed character  		$0C  
+\n  New line character  		$0A  
+\r  Carriage return character  	$0D  
+\t  Horizontal tab character  	$09  
+\v  Vertical tab character  	$0B  
+\\  Backslash  					$5C     
+\"  Double quote character  	$22 
+
+Example: -
+
+PRINT "HELLO WORLD\n\r"
+    
+Altered the way macros handle quoted strings of characters for 14 and 16-bit core devices.
+CLEAR command now clears (resets to 0) all of an array if the array's name is used without the square braces: -
+
+CLEAR ARRAY NAME
+
+SET command now fills (sets to 255 or 65535) all of an array if the array's name is used without the square braces: -
+
+SET ARRAY NAME
+
+Compiler now recognises an empty quoted string of characters and will place a NULL in the string where found: -
+
+STRING1 = "" + "HELLO"
+
+relates to: -
+
+STRING1 = 0,"H" "E" "L" "L" "O"
+
+The above line would be nonsense as the NULL would terminate the string and any characters after it will be ignored.
+ 
+When used within a comparison, a value of 0 will be used.
+
+IF STRING1 = "" THEN STOP
+
+relates to: -
+
+IF STRING1#0 = 0 THEN STOP
+
+Optimised RSIN, HRSIN, HSERIN STR modifier when using a 16-bit core device.
+
+**** ADDITIONS ****
+
+Added SONYIN command to receive Sony SIRC infrared remote control data.
+Added RC5IN command to receive Philips RC5 infrared remote control data.
+Added special detection of 16F87 and 16F88 config settings. This sets CONFIG1 only.
+Added support for devices 18F6585, 18F6680, 18F8585, and 18F8680
+
+**** FIXES ****
+
+Fixed return parameter from GOSUB when the parameter is a byte array.
+Fixed POP command when the parameter is a byte array.
+Fixed STR modifier when used with BUSIN and HBUSIN (also optimised it's operation on 16-bit core devices).
+Fixed compiler lockup when extra characters are used after a "THEN label" type IF-THEN operation.
+Fixed the AT modifier with certain expressions.
+Fixed the 16F872.INF file that stated the device had a USART.
+Fixed the 18F248, 18F448, 18F258, 18F458 INF files that incorrectly assigned ADCON2.
+
+--------------------------------------------------------------------------------------------------
+** Amendments and fixes made in version 3.0 of PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+Added Compact Flash interfacing commands, CF_INIT, CF_SECTOR, CF_READ, and CF_WRITE.
+Increased the speed of compilation.
+Optimised some shift operations.
+Optimised LREAD command with 16-bit core devices.
+Optimised Array operations with 16-bit core devices.
+Optimised Integer ORing when using constants.
+Optimised Integer ANDing when using constants and bits.
+Optimised Negation of variables.
+Altered Error message format for FOR without NEXT, and MACRO without ENDM.
+Compiler now shortens the path of the BASIC file if more than 62 characters are detected.
+It then tests the shortened path and filename to see if these exceed 62 characters before an error is produced.
+Added extra info to the .INF files in order to allow conditional syntax highlighting in the new editor.
+Added DT_MCHP_FLOAT,4 and DT_STRING to the .LST file for use with the ISIS simulator.
+Added support for the 10F20x 6-pin PICmicro devices and 12F508, 12F509 8-pin flash PICmicro devices.
+Added support for the 18F2545, 18F4545, 18F262, and 18F4620 PICmicro devices
+Added three extra commands for efficient reading of LDATA tables. These are: -
+LREAD8, LREAD16, and LREAD32. See helpfile for details.
+The compiler now builds the full path and filename internally, in order to compensate for MPLAB only sending the filename.
+This resulted in an error whenever a BASIC include file was used.
+The compiler will now automatically use BRANCH instead of BRANCHL when used on PICmicros with only 1 code page.
+
+**** FIXES ****
+
+Fixed LOOKDOWNL.
+Fixed LOOKUPL when using an array as the index variable.
+Fixed HSERIN/HRSIN when the assignment is a byte array.
+Fixed double ASM label name DIG@LP error when using both WORD and DWORD DIG operator in the same program.
+Fixed bank boundary crossing WARNING messages. 
+Fixed DWORD expressions within comparisons.
+Fixed the length of entries for BRANCH, BRANCHL, ON GOTO, ON GOTOL, ON GOSUB, LOOKUP, LOOKUPL, LOOKDOWN, and LOOKDOWNL.
+Fixed SHOUT data pin set to output.
+Fixed BUTTON auto repeat with 14-bit core devices.
+Fixed 32-bit multiply library subroutine.
+Fixed FOR-NEXT Word loops with the STEP value as a variable.
+Fixed FREQOUT with 16-bit core devices.
+Fixed Shift Right operations from a DWORD into a BYTE or WORD.
+Fixed 18F8720 recognition of USART2.
+Fixed recognition of ports H and J on the larger 18Fxxxx devices.
+Fixed HSERIN and HRSIN with a timeout label.
+Fixed WORD to BYTE multiply where the Assignement Word variable is the same as the Expression Word variable. With 16-bit core devices 
+i.e.
+WORDOUT = WORDOUT * BYTEIN 
+
+and
+
+WORDOUT = BYTEIN * WORDOUT
+
+Fixed Float into WORD or BYTE array assignments. i.e. MYARRAY[1] = FLOAT
+Fixed LOOKUP, LOOKUPL, LOOKDOWN, LOOKDOWNL when using PBP or STAMP syntax.
+Fixed Variable declaration when using PBP or STAMP syntax.
+Fixed ALL_DIGITAL command for 12F675, 12F629, 12F683, 16F630, 16F676.
+Fixed anomaly with DELAYMS on 16-bit core devices.
+Fixed compiler giving PROTECTED COMMAND error when not applicable.
+Fixed ABS function when used with floating point variables on a 16-bit core device.
+Fixed SLEEP command with a parameter following it.
+Fixed floating point constants used with SYMBOL. Now accepts a value without a preceding zero for fractional values.
+Fixed Negation of a floating point variable.
+Fixed the AT modifier with RSOUT.
+Fixed FLOAT to WORD conversion for 14-bit core devices. 
+Fixed SEROUT with flow control on 16-bit core devices.
+Fixed DWORD addition with a WORD variable on 16-bit core devices:- DWORD = DWORD + WORD
+Fixed Floating Point Greater Than, Less Than, Greater or Equal, Less or Equal comparisons in boolean conditions.
+Fixed REPEAT-UNTIL condition checking when used on a single line. 
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 8 of PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+The compiler is now split into two entities. The loader and the compiler.
+The loader incorporates any include files, sorts variables and labels. Extracts the PICmicro device,
+checks for valid compiler files, then sends the resultant parsed code to the compiler's second executable.
+
+This opens the door to having three seperate executables for the 12, 14, and 16-bit core devices.
+Which will streamline the operation of the compiler, and also allow newer architecture devices, such as the dsPICs.
+
+Error, Reminder, and Warning messages now contain the full path name of the offending file.
+
+The Loader now produces an error if the BASIC filename's path is deeper than 62 characters.
+This is an issue with the MPASM assembler and not the compiler.
+
+At long last, the MPASM assembler is able to handle long filenames, so the compiler now passes long filenames to the assembler.
+This means that any ancillary files produced by the compiler and assembler will also be the same.
+
+When the compiler is used within MPLAB, it will compile for the PICmicro chosen in MPLAB's IDE and ignore any
+DEVICE commands within the BASIC program.
+
+**** FIXES ****
+
+Fixed BUTTON auto repeat with 14-bit core devices.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 7 of PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+Most General syntax Errors are now reported on pass 3 of the compiler instead of pass 4. With all devices.
+Added warning of default BYTE size if the AS keyword is missing from a DIM statement.
+
+**** FIXES ****
+
+Fixed LOOKUP and LOOKUPL with 16-bit core devices.
+Fixed HSERIN and HRSIN with a timeout label.
+Fixed WORD to BYTE multiply where the Assignement Word variable is the same as the Expression Word variable. With 16-bit core devices 
+i.e.
+WORDOUT = WORDOUT * BYTEIN 
+
+and
+
+WORDOUT = BYTEIN * WORDOUT
+
+Fixed Float into WORD or BYTE array assignments. i.e. MYARRAY[1] = FLOAT
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 6 of PROTON+ Compiler. **
+
+**** ADDITIONS ****
+
+Added reminder whenever variable or constant declarations are recognised as PBP or STAMP syntax.
+Added compatability for device 12F683.
+
+**** FIXES ****
+
+Fixed LOOKUP, LOOKUPL, LOOKDOWN, LOOKDOWNL when using PBP or STAMP syntax.
+Fixed Variable declaration when using PBP or STAMP syntax.
+Fixed ALL_DIGITAL command for 12F675, 12F629, 12F683, 16F630, 16F676.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 5 of PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+Floating point expressions will now always calculate as floating point whenever a FLOAT type variable is the assignment.
+Even if the expression variables are not FLOAT types.
+
+**** FIXES ****
+Fixed anomaly with DELAYMS on 16-bit core devices.
+Fixed compiler giving PROTECTED COMMAND error when not applicable.
+Fixed ABS function when used with floating point variables on a 16-bit core device.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 4 of PROTON+ Compiler. **
+
+**** ADDITIONS ****
+
+Added support for 3.58MHz and 14.32MHz (3.58 * 4) crystals. Use XTAL = 3 or XTAL = 14 accordingly.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 3 of PROTON+ Compiler. **
+
+**** ADDITIONS ****
+
+Added ON GOTO and ON GOTOL commands. These have the same funtionality as BRANCH and BRANCHL but are
+more in-keeping with standard BASIC syntax.
+Added ON GOSUB for 16-bit core devices. This Calls a subroutine based on an indexed value.
+Added new devices. 16F684, 16F688, 16F737, 16F747, 16F767, 16F777, 18F2439, 18F4439, 18F2539, 18F4525, 18F4539
+
+**** AMENDMENTS ****
+
+Updated the Help File in order to correct some typos.
+
+**** FIXES ****
+
+Fixed string comparisons where the contents of a quoted string of characters contains a keyword's text.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 2 of PROTON+ Compiler. **
+
+**** AMENDMENTS ****
+
+The compiler now recognises empty quotes as a space when used in strings. i.e.
+
+STRING1 = ""
+
+Altered the way DATA memory is presented in the .PBP file. Allowing correct alignment in the HEX file for 16-bit core devices.
+
+**** FIXES ****
+
+Fixed the access violation anomaly when quoted character strings of approximately 50 characters are used.
+Fixed an internal error produced when lines of code are extremely long. i.e over 500 characters.
+
+**** IMPORTANT NOTICE ****
+
+The compiler is now compiled using Borland Builder C++ version 6.0, in order to increase its speed and allow extra functionality.
+However, this does mean that the compiler may not work with a 486 microprocessor, a minimum requirement is a Pentium.
+It also means that it may not be compatible with Windows 95 and Windows 98 (First Edition).
+This is a necessary change in order to keep up with current technologies.
+
+--------------------------------------------------------------------------------------------------
+** Changes, fixes and additions made in version 2.2.0 BETA 1 of PROTON+ Compiler. **
+
+**** ADDITIONS ****
+ 
+Added PUSH command. For 16-bit devices only. PUSH can also push multiple parameters: -
+
+PUSH VAR1 , VAR2 , etc.
+
+Added POP command. For 16-bit devices only.
+Added parameters to the GOSUB command when using a software stack. For 16-bit devices only: -
+
+GOSUB LABEL [VAR1 , VAR2, etc]
+
+GOSUB also returns a variable from the stack: -
+
+GOSUB LABEL [VAR1 , VAR2] , RET_VAR 
+
+It can also return a value without passing any parameters by placing two empty square brackets after the label name: -
+
+GOSUB LABEL [] , RET_VAR
+
+Added a parameter to RETURN in order to push a variable to the stack before returning from a subroutine. For 16-bit devices only: -
+
+RETURN RET_VAR
+
+Added STACK_SIZE declare in order to reserve memory at the top of RAM to be used by PUSH, POP and GOSUB/RETURN with parameters: -
+
+STACK_SIZE = Amount of bytes to reserve.
+
+Added STRING variables. For 16-bit devices only. Declared using the syntax: -
+
+DIM String's Name AS STRING * 20
+
+The value after the asterisk determines the length of the string.
+
+Added MID$, LEFT$, RIGHT$. For 16-bit devices only.
+Added LEN and STRCMP. For 16-bit devices only.
+Added TOUPPER and TOLOWER for Strings with 16-bit core devices only. They convert uppercase to lowercase and vice-versa.
+Added SBREAK to use the BRA mnemonic instead of the GOTO mnemonic with 16-bit core devices.
+Added a second method of displaying floating point values. This allows more accurate and larger numbers to be displayed
+but requires more memory. However it does operate much faster than the standard routine. 
+Enabled/Disabled by DECLARE FLOAT_DISPLAY_TYPE LARGE/STANDARD.
+If the declare is not issued within the program, the default is the STANDARD display routine.
+
+Added floating point EXP function for 16-bit core devices.
+Added floating point POW function for 16-bit core devices.
+
+Added ESTR modifier to allow character strings to be displayed or transmitted
+that are stored in DATA memory. Same functionality and syntax as the CSTR modifier.
+
+Example: -
+STRING1 EDATA "HELLO WORLD",0
+PRINT ESTR STRING1
+
+Added the ability for PROTON+ to be integrated into MPLAB IDE, Version 6.40 onwards. More info to follow.
+
+Added support for new PICmicro devices: -
+
+16CE625, 16F87, 16F88
+
+**** AMENDMENTS ****
+
+Added extra functionality to WAIT modifier. It can now wait for a series of
+variables or values seperated by commas. i.e. WAIT (65,66,67).
+
+CONTEXT SAVE/RESTORE now saves/restores the FSR1 register as well as FSR0 if strings are used in the program
+and also saves/restores FSR2 if a STACK is set up. For 16-bit devices only.
+These can be enabled/disabled by using the FSR_SAVE declare
+
+Ammended P16F870.LPB file with TMRL1LH, ADRESLH and CCPR1LH for combining registers.
+
+Improved floating point accuracy.
+
+Added clock frequencies 25, 32, 40 and 64 for 14-bit core devices when using the Xilinx FPGA model.
+This devices is named 16X76.
+
+Added the ability for RSOUT, PRINT, HRSOUT etc to automatically output a string held in CODE memory
+whenever they encounter a LABEL name within their parameters. This is the same functioanlity to using CSTR
+but without placing the CSTR text in front of the label. This only applies to devices that can
+read/modify their own code memory. i.e. 16F87x and 18Fxxx: -
+
+PRINT LABEL
+
+LABEL: CDATA "HELLO WORLD" , 0
+
+Altered the way quoted strings are displayed on an LCD with 16-bit core devices.
+The string is now placed in high memory as a data table, and a subroutine scans
+and displays the characters. This can save many hundreds of bytes of code memory
+with large programs.
+
+Altered the way SEROUT, RSOUT, HRSOUT, HSEROUT, HRSOUT2 and HSEROUT2 send variables.
+Instead of simply sending a single byte, all the elements of the variable are sent.
+For example, a WORD variable will send 2 bytes, the low byte then the high byte.
+A DWORD or a FLOAT variable will send 4 bytes, again, low byte first.
+
+Also altered the way SERIN, RSIN, HRSIN, HSERIN, HRSIN2 and HSERIN receive variables.
+Instead of simply receiving a single byte, all elements of a variable type will be received.
+For example, a WORD variable will expect to receive 2 bytes, the low byte then the high byte.
+A DWORD or a FLOAT variable will expect to receive 4 bytes, again, low byte first.
+
+Added another formatter for EDATA, CDATA and LDATA. If all the values are required to have the same byte count
+an AS keyword can be used: -
+
+CDATA AS WORD 1,100,100
+
+Formatters are BYTE, WORD, DWORD, and FLOAT.
+
+Improved ICD2 support for the compiler. 
+The declare, ICD_REQ = TRUE will reserve the correct amount of memory within the PICmicro.
+
+**** FIXES ****
+
+Fixed SLEEP command with a parameter following it.
+Fixed floating point constants used with SYMBOL. Now accepts a value without a preceding zero for fractional values.
+Fixed Negation of a floating point variable.
+Fixed the AT modifier with RSOUT.
+Fixed FLOAT to WORD conversion for 14-bit core devices. 
+Fixed SEROUT with flow control on 16-bit core devices.
+Fixed DWORD addition with a WORD variable on 16-bit core devices:- DWORD = DWORD + WORD
+Fixed Floating Point Greater Than, Less Than, Greater or Equal, Less or Equal comparisons in boolean conditions.
+Fixed REPEAT-UNTIL condition checking when used on a single line.
+
+**** KNOWN PROBLEMS ****
+
+Compiler does not complain with a syntax error if a quoted string of characters is used
+within an expression and is not the first part. This will produce no code for the expression.
+STR and STRN accept multiple paramters but do not produce the correct code
+if STR or STRN are used as parameters before a quoted character string, or value.
+ 
+--------------------------------------------------------------------------------------------------
+** Changes and additions made in revised version 2.1.3 of PROTON+ Compiler.
+
+Fixed HPWM duty cycle anomaly.
+Fixed 32-bit subtraction anomaly on 16-bit core devices.
+Also optimised both subtraction and addition routines using 16-bit core specific mnemonics.
+Fixed expressions in CDATA with 16-bit core devices.
+Fixed ABS with 32-bit expressions and float expressions.
+Fixed floating point being enabled when SIN used on a 14-bit core device.
+Fixed LOOKUP, LOOKUPL, LOOKDOWN, LOOKDOWNL when using two consecutive
+commands with differing array variable types.
+Fixed ALL_DIGITAL directive with 12F629 device.
+Fixed Compiler lock up with a comment on the same line as CALL
+
+Added Identifying names for EDATA addressing.
+Added command RESET_BANK to manually force the RAM bank to zero.
+Added command SET_BANK to manually set the RAM bank of a variable.
+Added new DECLARE to enable/disable RAM bank resets on all BASIC labels.
+
+LABEL_BANK_RESETS = ON/OFF or TRUE/FALSE or 1/0 
+
+Added new declare to enable/disable compiler reminders.
+
+REMINDERS = ON/OFF or TRUE/FALSE or 1/0
+
+See the help file for more details.
+
+--------------------------------------------------------------------------------------------------
+** Changes and additions made in revised version 2.1.1 of PROTON+ Compiler.
+
+Fixed BANK switching anomaly when using single page PICmicro devices.
+Fixed subtraction expression in an array with no white spaces present.
+Fixed 16-bit Greater than or Equal expression of constant value 65535.
+
+
+Added new declare to choose either ODD or EVEN parity when using SERIN and SEROUT.
+
+SERIAL_PARITY = ODD-EVEN , 1-0
+
+Fixed Code and Data memory windows in Editor. They now correctly show 14 and 16 bit core device info.
+Added an ASCII area within Code and Data windows.
+Updated help file to include SERIAL_PARITY declare, and fixed BUSIN reference to MSSP typo.
+
+--------------------------------------------------------------------------------------------------
+** Changes and additions made in Released version 2.1 of PROTON+ Compiler.
+
+Added LINETO command to draw a line starting from a previous LINE command's end position.
+Added Compile then Download option to the editor. Pressing F12 initiates it, or use the OPTIONS menu.
+
+
+Fixed STR modifier with 16-bit core devices and arrays that cross over BANKA.
+Fixed intermittent lock-up if label names and variable names duplicated.
+Fixed aliasing parts of a larger variable. i.e
+
+DIM DWD as DWORD
+DIM VAR1 as DWD.BYTE3
+DIM VAR2 as DWD.BYTE2
+DIM VAR1 as DWD.BYTE1
+DIM VAR0 as DWD.BYTE0
+
+Fixed expressions in FOR-NEXT loops.
+
+Optimised FOR-NEXT loops that use expressions.
+Added Graphic LCD Space Invaders game to the samples folder.
+Also added several macro examples to the samples folder.
+
+--------------------------------------------------------------------------------------------------
+** Changes and additions made in version 2.1 Beta 6 of PROTON+ Compiler.
+
+Fixed word arrays being loaded with word arrays.
+Fixed Stack underflow error when expressions used as array index.
+Fixed DWORD > DWORD comparison.
+Fixed inline CASE constructs.
+Fixed DWORD variable loaded with an array.
+Fixed floating point subtract by 0 with 14-bit core devices.
+Fixed floating point ACOS.
+Fixed comment directly after certain commands (without spaces). Compiler now traps them succesfully.
+(but I still think it is bad programming practice).
+Fixed sign comparison warning message when not applicable.
+
+Added ability to place labels in 14-bit core CDATA tables.
+Thanks to Tim, the PPRINT subroutine is now available for 14-bit core FLASH devices.
+
+Replaced some warnings with reminders. Especially those concerning floating point SIN and COS.
+Updated help file with some information concerning interrupt context saving/restoring with 16-bit core devices.
+
+
+
+I would like to take this opportunity to thank Tim Box for his on going support and invaluable
+help in improving the functionality of the compiler. My task would have been a lot harder
+without his insatiable appetite for experimenting, and his patience and eagerness to help others.
+
+And I would like to thank all those who have spotted and reported anomalies. 
+Without your constant vigilance the compiler would not be the programming aid that it is today.
+ 
+
+I take my hat off to you all!!!
+
+------------------------------------------------------------------------------------------
+PROTON Compiler Version 2.1 Beta 5 Fix's and Optimisations
+
+Fixed ADIN with certain devices.
+Fixed LOOKDOWN for 16-bit core devices.
+Fixed LOOKUPL when label names are used in the table.
+Fixed ALL_DIGITAL directive with 12F675 device.
+Fixed expressions in CWRITE for 16-bit core devices.
+Fixed CERASE for 16-bit core devices.
+
+Optimised ASM code produced for REPEAT..UNTIL construct.
+Optimised ASM code produced for BRANCH and BRANCHL with 16-bit core devices.
+Optimised graphic LCD library subroutines.
+Optimised floating point library for 16-bit core devices.
+Various tweeks of existing commands and expression calculations.
+Updated Editor to match new KEYWORDS added.
+Updated help file to explain the new constructs.
+
+------------------------------------------------------------------------------------------
+** Changes and additions made in version 2.1 Beta 5 of PROTON+ Compiler.
+
+Added SELECT..CASE..ENDSELECT construct (see helpfile).
+Added ELSEIF to IF..THEN construct (see helpfile).
+Added BREAK command to prematurely exit FOR..NEXT, REPEAT..UNTIL or WHILE..WEND loops.
+Added LINE command for graphic LCD.
+Added CIRCLE command for graphic LCD.
+Added BOX command for graphic LCD.
+Added HRSIN2, HRSOUT2, HSERIN2 and HSEROUT2 for 16-bit core devices that contain a second USART. 
+
+Added floating point SIN for 16-bit core devices.
+Added floating point COS for 16-bit core devices.
+Added floating point TAN for 16-bit core devices.
+Added floating point ATAN for 16-bit core devices.
+Added floating point ACOS for 16-bit core devices.
+Added floating point ASIN for 16-bit core devices.
+Added floating point LOG for 16-bit core devices.
+Added floating point LOG10 for 16-bit core devices.
+Added floating point SQR for 16-bit core devices.
+
+Added VAL command to convert a string into an Integer.
+Added STR$ command to convert a value into a string.
+Added STRN command to create a null terminated character array. i.e. A string
+
+Added Formatters for DATA, LDATA, EDATA, and 16-bit core device CDATA tables.
+All the data tables allow label names as entries.
+
+Added support for newer 16F and 18F devices (see helpfile for list).
+Added support for 16-bit core PICmicros that contain up to 1K of DATA (eeprom) memory.
+Added auto context saving/restoring for 16-bit core device interrupts (if required).
+
+Added WARNINGS declare to enable/disable compiler warnings (see helpfile).
+Added a reminder message on some messages that were previously warnings.
+
+Added an error message if PCL, TOSL or TOSH is the destination of mnemonic MOVFF.
+If the compiler senses this internally, it will use the two part mnemonics: -
+
+MOVFW
+MOVWF
+
+and issue a warning that it is doing so. This should not be encountered in normal BASIC
+progamming, but could be if used for more advanced coding.
+
+Added improved MACRO support (more details on this to follow).
+Incorporated Tim's PPRINT design into compiler's PRINT command (more details on this to follow).
+(This really has to be seen to be believed!).
+

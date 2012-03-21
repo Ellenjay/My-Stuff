@@ -1,0 +1,1225 @@
+
+ NOLIST
+
+FSR0 = 0
+FSR1 = 1
+FSR2 = 2
+FAST = 1
+W = 0
+A = 0
+ACCESS = 0
+BANKED = 1
+
+;[START OF REGISTER FILES]
+SPPDATA          EQU  0x0F62
+SPPCFG           EQU  0x0F63
+SPPEPS           EQU  0x0F64
+SPPCON           EQU  0x0F65
+UFRM             EQU  0x0F66
+UFRML            EQU  0x0F66
+UFRMLH           EQU  0x0F67
+UFRMH            EQU  0x0F67
+UIR              EQU  0x0F68
+UIE              EQU  0x0F69
+UEIR             EQU  0x0F6A
+UEIE             EQU  0x0F6B
+USTAT            EQU  0x0F6C
+UCON             EQU  0x0F6D
+UADDR            EQU  0x0F6E
+UCFG             EQU  0x0F6F
+UEP0             EQU  0x0F70
+UEP1             EQU  0x0F71
+UEP2             EQU  0x0F72
+UEP3             EQU  0x0F73
+UEP4             EQU  0x0F74
+UEP5             EQU  0x0F75
+UEP6             EQU  0x0F76
+UEP7             EQU  0x0F77
+UEP8             EQU  0x0F78
+UEP9             EQU  0x0F79
+UEP10            EQU  0x0F7A
+UEP11            EQU  0x0F7B
+UEP12            EQU  0x0F7C
+UEP13            EQU  0x0F7D
+UEP14            EQU  0x0F7E
+UEP15            EQU  0x0F7F
+PORTA            EQU  0x0F80
+PORTB            EQU  0x0F81
+PORTC            EQU  0x0F82
+PORTD            EQU  0x0F83
+PORTE            EQU  0x0F84
+LATA             EQU  0x0F89
+LATB             EQU  0x0F8A
+LATC             EQU  0x0F8B
+LATD             EQU  0x0F8C
+LATE             EQU  0x0F8D
+TRISA            EQU  0x0F92
+TRISB            EQU  0x0F93
+TRISC            EQU  0x0F94
+TRISD            EQU  0x0F95
+TRISE            EQU  0x0F96
+OSCTUNE          EQU  0x0F9B
+PIE1             EQU  0x0F9D
+PIR1             EQU  0x0F9E
+IPR1             EQU  0x0F9F
+PIE2             EQU  0x0FA0
+PIR2             EQU  0x0FA1
+IPR2             EQU  0x0FA2
+EECON1           EQU  0x0FA6
+EECON2           EQU  0x0FA7
+EEDAT          	 EQU  0x0FA8
+EEDATA           EQU  0x0FA8
+EEADR            EQU  0x0FA9
+RCSTA            EQU  0x0FAB
+TXSTA            EQU  0x0FAC
+TXREG            EQU  0x0FAD
+RCREG            EQU  0x0FAE
+SPBRG            EQU  0x0FAF
+SPBRGLH          EQU  0x0FB0
+SPBRGH           EQU  0x0FB0
+T3CON            EQU  0x0FB1
+TMR3L            EQU  0x0FB2
+TMR3LH           EQU  0x0FB3
+TMR3H            EQU  0x0FB3
+CMCON            EQU  0x0FB4
+CVRCON           EQU  0x0FB5
+CCP1AS           EQU  0x0FB6
+ECCP1AS          EQU  0x0FB6
+CCP1DEL          EQU  0x0FB7
+ECCP1DEL         EQU  0x0FB7
+BAUDCON          EQU  0x0FB8
+CCP2CON          EQU  0x0FBA
+CCPR2            EQU  0x0FBB
+CCPR2L           EQU  0x0FBB
+CCPR2LH          EQU  0x0FBC
+CCPR2H           EQU  0x0FBC
+CCP1CON          EQU  0x0FBD
+ECCP1CON         EQU  0x0FBD
+CCPR1            EQU  0x0FBE
+CCPR1L           EQU  0x0FBE
+CCPR1LH          EQU  0x0FBF
+CCPR1H           EQU  0x0FBF
+ADCON2           EQU  0x0FC0
+ADCON1           EQU  0x0FC1
+ADCON0           EQU  0x0FC2
+ADRES            EQU  0x0FC3
+ADRESL           EQU  0x0FC3
+ADRESLH          EQU  0x0FC4
+ADRESH           EQU  0x0FC4
+SSPCON2          EQU  0x0FC5
+SSPCON1          EQU  0x0FC6
+SSPSTAT          EQU  0x0FC7
+SSPADD           EQU  0x0FC8
+SSPBUF           EQU  0x0FC9
+T2CON            EQU  0x0FCA
+PR2              EQU  0x0FCB
+TMR2             EQU  0x0FCC
+T1CON            EQU  0x0FCD
+TMR1L            EQU  0x0FCE
+TMR1LH           EQU  0x0FCF
+TMR1H            EQU  0x0FCF
+RCON             EQU  0x0FD0
+WDTCON           EQU  0x0FD1
+HLVDCON          EQU  0x0FD2
+OSCCON           EQU  0x0FD3
+T0CON            EQU  0x0FD5
+TMR0L            EQU  0x0FD6
+TMR0LH           EQU  0x0FD7
+TMR0H            EQU  0x0FD7
+STATUS           EQU  0x0FD8
+FSR2L            EQU  0x0FD9
+FSR2LH           EQU  0x0FDA
+FSR2H            EQU  0x0FDA
+PLUSW2           EQU  0x0FDB
+PREINC2          EQU  0x0FDC
+POSTDEC2         EQU  0x0FDD
+POSTINC2         EQU  0x0FDE
+INDF2            EQU  0x0FDF
+BSR              EQU  0x0FE0
+FSR1L            EQU  0x0FE1
+FSR1LH           EQU  0x0FE2
+FSR1H            EQU  0x0FE2
+PLUSW1           EQU  0x0FE3
+PREINC1          EQU  0x0FE4
+POSTDEC1         EQU  0x0FE5
+POSTINC1         EQU  0x0FE6
+INDF1            EQU  0x0FE7
+WREG             EQU  0x0FE8
+FSR0L            EQU  0x0FE9
+FSR0LH           EQU  0x0FEA
+FSR0H            EQU  0x0FEA
+PLUSW0           EQU  0x0FEB
+PREINC0          EQU  0x0FEC
+POSTDEC0         EQU  0x0FED
+POSTINC0         EQU  0x0FEE
+INDF0            EQU  0x0FEF
+INTCON3          EQU  0x0FF0
+INTCON2          EQU  0x0FF1
+INTCON           EQU  0x0FF2
+PROD             EQU  0x0FF3
+PRODL            EQU  0x0FF3
+PRODLH           EQU  0x0FF4
+PRODH            EQU  0x0FF4
+TABLAT           EQU  0x0FF5
+TBLPTR           EQU  0x0FF6
+TBLPTRL          EQU  0x0FF6
+TBLPTRLH         EQU  0x0FF7
+TBLPTRH          EQU  0x0FF7
+TBLPTRU          EQU  0x0FF8
+TBLPTRLHH        EQU  0x0FF8
+PC               EQU  0x0FF9
+PCL              EQU  0x0FF9
+PCLATH           EQU  0x0FFA
+PCLATU           EQU  0x0FFB
+STKPTR           EQU  0x0FFC
+TOS              EQU  0x0FFD
+TOSL             EQU  0x0FFD
+TOSLH            EQU  0x0FFE
+TOSH             EQU  0x0FFE
+TOSU             EQU  0x0FFF
+
+;[END OF REGISTER FILES]
+
+; Define the Hardware I2C PORT and Bits
+
+_I2C_SCL_PORT = TRISB
+_I2C_SCL_PIN = 1
+_I2C_SDA_PORT = TRISB
+_I2C_SDA_PIN = 0
+
+; SPPCFG Bits
+WS0 = 0
+WS1 = 1
+WS2 = 2
+WS3 = 3
+CLK1EN = 4
+CSEN = 5
+CLKCFG0 = 6
+CLKCFG1 = 7
+
+; SPPEPS Bits
+ADDR0 = 0
+ADDR1 = 1
+ADDR2 = 2
+ADDR3 = 3
+BUSY = 4
+WRSPP = 6
+RDSPP = 7
+
+; SPPCON Bits
+SPPEN = 0
+USBOWN = 1
+
+; UIR Bits
+URSTIF = 0
+UERRIF = 1
+ACTVIF = 2
+TRNIF = 3
+IDLEIF = 4
+STALLIF = 5
+SOFIF = 6
+
+; UIE Bits
+URSTIE = 0
+UERRIE = 1
+ACTVIE = 2
+TRNIE = 3
+IDLEIE = 4
+STALLIE = 5
+SOFIE = 6
+
+; UEIR Bits
+PIDEF = 0
+CRC5EF = 1
+CRC16EF = 2
+DFN8EF = 3
+BTOEF = 4
+BTSEF = 7
+
+; UEIE Bits
+PIDEE = 0
+CRC5EE = 1
+CRC16EE = 2
+DFN8EE = 3
+BTOEE = 4
+BTSEE = 7
+
+; USTAT Bits
+PPBI = 1
+DIR = 2
+ENDP0 = 3
+ENDP1 = 4
+ENDP2 = 5
+ENDP3 = 6
+
+; UCON Bits
+SUSPND = 1
+RESUME = 2
+USBEN = 3
+PKTDIS = 4
+SE0 = 5
+PPBRST = 6
+
+; UADDR Bits
+ADDR0 = 0
+ADDR1 = 1
+ADDR2 = 2
+ADDR3 = 3
+ADDR4 = 4
+ADDR5 = 5
+ADDR6 = 6
+
+; UCFG Bits
+UPP0 = 0
+UPP1 = 1
+FSEN = 2
+UTRDIS = 3
+UPUEN = 4
+UOEMON = 6
+UTEYE = 7
+
+; UEP0 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP1 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP2 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP3 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP4 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP5 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP6 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP7 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP8 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP9 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP10 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP11 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP12 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP13 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP14 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; UEP15 Bits
+EPSTALL = 0
+EPINEN = 1
+EPOUTEN = 2
+EPCONDIS = 3
+EPHSHK = 4
+
+; PORTA Bits
+RA0 = 0
+RA1 = 1
+RA2 = 2
+RA3 = 3
+RA4 = 4
+RA5 = 5
+RA6 = 6
+AN0 = 0
+AN1 = 1
+AN2 = 2
+AN3 = 3
+T0CKI = 4
+AN4 = 5
+OSC2 = 6
+VREFM = 3
+VREFP = 4
+LVDIN = 6
+
+; PORTB Bits
+RB0 = 0
+RB1 = 1
+RB2 = 2
+RB3 = 3
+RB4 = 4
+RB5 = 5
+RB6 = 6
+RB7 = 7
+INT0 = 0
+INT1 = 1
+INT2 = 2
+PGM = 5
+PGC = 6
+PGD = 7
+
+; PORTC Bits
+RC0 = 0
+RC1 = 1
+RC2 = 2
+RC4 = 4
+RC5 = 5
+RC6 = 6
+RC7 = 7
+T1OSO = 0
+T1OSI = 1
+CCP1 = 2
+TX = 6
+RX = 7
+T13CKI = 0
+P1A = 2
+CK = 6
+
+; PORTD Bits
+RD0 = 0
+RD1 = 1
+RD2 = 2
+RD3 = 3
+RD4 = 4
+RD5 = 5
+RD6 = 6
+RD7 = 7
+SPP0 = 0
+SPP1 = 1
+SPP2 = 2
+SPP3 = 3
+SPP4 = 4
+SPP5 = 5
+SPP6 = 6
+SPP7 = 7
+
+; PORTE Bits
+RE0 = 0
+RE1 = 1
+RE2 = 2
+RE3 = 3
+RDPU = 7
+CK1SPP = 0
+CK2SPP = 1
+OESPP = 2
+
+; LATA Bits
+LATA0 = 0
+LATA1 = 1
+LATA2 = 2
+LATA3 = 3
+LATA4 = 4
+LATA5 = 5
+LATA6 = 6
+
+; LATB Bits
+LATB0 = 0
+LATB1 = 1
+LATB2 = 2
+LATB3 = 3
+LATB4 = 4
+LATB5 = 5
+LATB6 = 6
+LATB7 = 7
+
+; LATC Bits
+LATC0 = 0
+LATC1 = 1
+LATC2 = 2
+LATC6 = 6
+LATC7 = 7
+
+; LATD Bits
+LATD0 = 0
+LATD1 = 1
+LATD2 = 2
+LATD3 = 3
+LATD4 = 4
+LATD5 = 5
+LATD6 = 6
+LATD7 = 7
+
+; LATE Bits
+LATE0 = 0
+LATE1 = 1
+LATE2 = 2
+
+; DDRA Bits
+RA0 = 0
+RA1 = 1
+RA2 = 2
+RA3 = 3
+RA4 = 4
+RA5 = 5
+RA6 = 6
+
+; TRISA Bits
+TRISA0 = 0
+TRISA1 = 1
+TRISA2 = 2
+TRISA3 = 3
+TRISA4 = 4
+TRISA5 = 5
+TRISA6 = 6
+
+; DDRB Bits
+RB0 = 0
+RB1 = 1
+RB2 = 2
+RB3 = 3
+RB4 = 4
+RB5 = 5
+RB6 = 6
+RB7 = 7
+
+; TRISB Bits
+TRISB0 = 0
+TRISB1 = 1
+TRISB2 = 2
+TRISB3 = 3
+TRISB4 = 4
+TRISB5 = 5
+TRISB6 = 6
+TRISB7 = 7
+
+; DDRC Bits
+RC0 = 0
+RC1 = 1
+RC2 = 2
+RC6 = 6
+RC7 = 7
+
+; TRISC Bits
+TRISC0 = 0
+TRISC1 = 1
+TRISC2 = 2
+TRISC6 = 6
+TRISC7 = 7
+
+; DDRD Bits
+RD0 = 0
+RD1 = 1
+RD2 = 2
+RD3 = 3
+RD4 = 4
+RD5 = 5
+RD6 = 6
+RD7 = 7
+
+; TRISD Bits
+TRISD0 = 0
+TRISD1 = 1
+TRISD2 = 2
+TRISD3 = 3
+TRISD4 = 4
+TRISD5 = 5
+TRISD6 = 6
+TRISD7 = 7
+
+; DDRE Bits
+RE0 = 0
+RE1 = 1
+RE2 = 2
+
+; TRISE Bits
+TRISE0 = 0
+TRISE1 = 1
+TRISE2 = 2
+
+; OSCTUNE Bits
+TUN0 = 0
+TUN1 = 1
+TUN2 = 2
+TUN3 = 4
+TUN4 = 5
+INTSRC = 8
+
+; PIE1 Bits
+TMR1IE = 0
+TMR2IE = 1
+CCP1IE = 2
+SSPIE = 3
+TXIE = 4
+RCIE = 5
+ADIE = 6
+SPPIE = 7
+
+; PIR1 Bits
+TMR1IF = 0
+TMR2IF = 1
+CCP1IF = 2
+SSPIF = 3
+TXIF = 4
+RCIF = 5
+ADIF = 6
+SPPIF = 7
+
+; IPR1 Bits
+TMR1IP = 0
+TMR2IP = 1
+CCP1IP = 2
+SSPIP = 3
+TXIP = 4
+RCIP = 5
+ADIP = 6
+SPPIP = 7
+
+; PIE2 Bits
+CCP2IE = 0
+TMR3IE = 1
+LVDIE = 2
+BCLIE = 3
+EEIE = 4
+USBIE = 5
+CMIE = 6
+OSCFIE = 7
+
+; PIR2 Bits
+CCP2IF = 0
+TMR3IF = 1
+LVDIF = 2
+BCLIF = 3
+EEIF = 4
+USBIF = 5
+CMIF = 6
+OSCFIF = 7
+
+; IPR2 Bits
+CCP2IP = 0
+TMR3IP = 1
+LVDIP = 2
+BCLIP = 3
+EEIP = 4
+USBIP = 5
+CMIP = 6
+OSCFIP = 7
+
+; EECON1 Bits
+RD = 0
+WR = 1
+WREN = 2
+WRERR = 3
+FREE = 4
+CFGS = 6
+EEPGD = 7
+
+; RCSTA Bits
+RX9D = 0
+OERR = 1
+FERR = 2
+ADEN = 3
+CREN = 4
+SREN = 5
+RX9 = 6
+SPEN = 7
+
+; TXSTA Bits
+TX9D = 0
+TRMT = 1
+BRGH = 2
+SENDB = 3
+SYNC = 4
+TXEN = 5
+TX9 = 6
+CSRC = 7
+
+; T3CON Bits
+TMR3ON = 0
+TMR3CS = 1
+T3SYNC = 2
+T3CCP1 = 3
+T3CKPS0 = 4
+T3CKPS1 = 5
+T3CCP2 = 6
+RD16 = 7
+T3NSYNC = 2
+NOT_T3SYNC = 2
+
+; CMCON Bits
+CM0 = 0
+CM1 = 1
+CM2 = 2
+CIS = 3
+C1INV = 4
+C2INV = 5
+C1OUT = 6
+C2OUT = 7
+
+; CVRCON Bits
+CVR0 = 0
+CVR1 = 1
+CVR2 = 2
+CVR3 = 3
+CVREF = 4
+CVRR = 5
+CVROE = 6
+CVREN = 7
+CVRSS = 4
+
+; CCP1AS Bits
+PSSAC0 = 2
+PSSAC1 = 3
+ECCPAS0 = 4
+ECCPAS1 = 5
+ECCPAS2 = 6
+ECCPASE = 7
+
+; ECCP1AS Bits
+PSSBD0 = 0
+PSSBD1 = 1
+PSSAC0 = 2
+PSSAC1 = 3
+ECCPAS0 = 4
+ECCPAS1 = 5
+ECCPAS2 = 6
+ECCPASE = 7
+
+; CCP1DEL Bits
+filler0 = 0
+PRSEN = 7
+
+; ECCP1DEL Bits
+PDC0 = 0
+PDC1 = 1
+PDC2 = 2
+PDC3 = 3
+PDC4 = 4
+PDC5 = 5
+PDC6 = 6
+PRSEN = 7
+
+; BAUDCON Bits
+ABDEN = 0
+WUE = 1
+BRG16 = 3
+SCKP = 4
+RCMT = 6
+ABDOVF = 7
+
+; CCP2CON Bits
+CCP2M0 = 0
+CCP2M1 = 1
+CCP2M2 = 2
+CCP2M3 = 3
+DC2B0 = 4
+DC2B1 = 5
+
+; CCP1CON Bits
+CCP1M0 = 0
+CCP1M1 = 1
+CCP1M2 = 2
+CCP1M3 = 3
+DC1B0 = 4
+DC1B1 = 5
+
+; ECCP1CON Bits
+CCP1M0 = 0
+CCP1M1 = 1
+CCP1M2 = 2
+CCP1M3 = 3
+DC1B0 = 4
+DC1B1 = 5
+P1M0 = 6
+P1M1 = 7
+
+; ADCON2 Bits
+ADCS0 = 0
+ADCS1 = 1
+ADCS2 = 2
+ACQT0 = 3
+ACQT1 = 4
+ACQT2 = 5
+ADFM = 7
+
+; ADCON1 Bits
+PCFG0 = 0
+PCFG1 = 1
+PCFG2 = 2
+PCFG3 = 3
+VCFG0 = 4
+VCFG1 = 5
+
+; ADCON0 Bits
+ADON = 0
+GO_DONE = 1
+CHS0 = 2
+CHS1 = 3
+CHS2 = 4
+CHS3 = 5
+DONE = 1
+GO = 1
+NOT_DONE = 1
+
+; SSPCON2 Bits
+SEN = 0
+RSEN = 1
+PEN = 2
+RCEN = 3
+ACKEN = 4
+ACKDT = 5
+ACKSTAT = 6
+GCEN = 7
+
+; SSPCON1 Bits
+SSPM0 = 0
+SSPM1 = 1
+SSPM2 = 2
+SSPM3 = 3
+CKP = 4
+SSPEN = 5
+SSPOV = 6
+WCOL = 7
+
+; SSPSTAT Bits
+BF = 0
+UA = 1
+R_W = 2
+S = 3
+P = 4
+D_A = 5
+CKE = 6
+SMP = 7
+
+_I2C_RD = 2
+_I2C_STRT = 3
+_I2C_STP = 4
+I2C_DAT = 5
+NOT_W = 2
+NOT_A = 5
+NOT_WRITE = 2
+NOT_ADDRESS = 5
+READ_WRITE = 2
+DATA_ADDRESS = 5
+R = 2
+D = 5
+
+; T2CON Bits
+T2CKPS0 = 0
+T2CKPS1 = 1
+TMR2ON = 2
+TOUTPS0 = 3
+TOUTPS1 = 4
+TOUTPS2 = 5
+TOUTPS3 = 6
+
+; T1CON Bits
+TMR1ON = 0
+TMR1CS = 1
+T1SYNC = 2
+T1OSCEN = 3
+T1CKPS0 = 4
+T1CKPS1 = 5
+T1RUN = 6
+RD16 = 7
+NOT_T1SYNC = 2
+
+; RCON Bits
+NOT_BOR = 0
+NOT_POR = 1
+NOT_PD = 2
+NOT_TO = 3
+NOT_RI = 4
+SBOREN = 6
+NOT_IPEN = 7
+BOR = 0
+POR = 1
+PD = 2
+TO = 3
+RI = 4
+IPEN = 7
+
+; WDTCON Bits
+SWDTEN = 0
+SWDTE = 0
+
+; HLVDCON Bits
+LVDL0 = 0
+LVDL1 = 1
+LVDL2 = 2
+LVDL3 = 3
+LVDEN = 4
+IRVST = 5
+VDIRMAG = 7
+LVV0 = 0
+LVV1 = 1
+LVV2 = 2
+LVV3 = 3
+BGST = 5
+
+; OSCCON Bits
+SCS0 = 0
+SCS1 = 1
+FLTS = 2
+OSTS = 3
+IRCF0 = 4
+IRCF1 = 5
+IRCF2 = 6
+IDLEN = 7
+
+
+; T0CON Bits
+T0PS0 = 0
+T0PS1 = 1
+T0PS2 = 2
+T0PS3 = 3
+T0SE = 4
+T0CS = 5
+T08BIT = 6
+TMR0ON = 7
+
+
+; STATUS Bits
+C = 0
+DC = 1
+Z = 2
+OV = 3
+N = 4
+
+
+; INTCON3 Bits
+INT1IF = 0
+INT2IF = 1
+INT1IE = 3
+INT2IE = 4
+INT1IP = 6
+INT2IP = 7
+
+INT1F = 0
+INT2F = 1
+INT1E = 3
+INT2E = 4
+INT1P = 6
+INT2P = 7
+
+
+; INTCON2 Bits
+RBIP = 0
+TMR0IP = 2
+INTEDG2 = 4
+INTEDG1 = 5
+INTEDG0 = 6
+NOT_RBPU = 7
+T0IP = 2
+RBPU = 7
+
+; INTCON Bits
+RBIF = 0
+INT0IF = 1
+TMR0IF = 2
+RBIE = 3
+INT0IE = 4
+TMR0IE = 5
+PEIE = 6
+GIE = 7
+INT0F = 1
+T0IF = 2
+INT0E = 4
+T0IE = 5
+GIEL = 6
+GIEH = 7
+
+; STKPTR Bits
+STKPTR0 = 0
+STKPTR1 = 1
+STKPTR2 = 2
+STKPTR3 = 3
+STKPTR4 = 4
+STKUNF = 6
+STKOVF = 7
+
+;
+; RAM Definition
+;
+       __MAXRAM  0x0FFF
+       __BADRAM  0x0800-0x0F5F
+       __BADRAM  0x0F83
+       __BADRAM  0x0F85-0x0F88
+       __BADRAM  0x0F8C-0x0F91
+       __BADRAM  0x0F95-0x0F9A
+       __BADRAM  0x0F9C
+       __BADRAM  0x0FA3-0x0FA5
+       __BADRAM  0x0FAA
+       __BADRAM  0x0FB9
+       __BADRAM  0x0FD4
+;
+; [START OF CONFIGURATION BITS]
+;
+CONFIG1L        EQU  0x300000
+CONFIG1H        EQU  0x300001
+CONFIG2L        EQU  0x300002
+CONFIG2H        EQU  0x300003
+CONFIG3H        EQU  0x300005
+CONFIG4L        EQU  0x300006
+CONFIG5L        EQU  0x300008
+CONFIG5H        EQU  0x300009
+CONFIG6L        EQU  0x30000A
+CONFIG6H        EQU  0x30000B
+CONFIG7L        EQU  0x30000C
+CONFIG7H        EQU  0x30000D
+
+; CONFIG1L Options
+PLLDIV_1_1         EQU  0xF8    ; Oscillator not divided
+PLLDIV_2_1         EQU  0xF9    ; Oscillator divided by 2
+PLLDIV_3_1         EQU  0xFA    ; Oscillator divided by 3
+PLLDIV_4_1         EQU  0xFB    ; Oscillator divided by 4
+PLLDIV_5_1         EQU  0xFC    ; Oscillator divided by 5
+PLLDIV_6_1         EQU  0xFD    ; Oscillator divided by 6
+PLLDIV_10_1        EQU  0xFE    ; Oscillator divided by 10
+PLLDIV_12_1        EQU  0xFF    ; Oscillator divided by 12
+
+CPUDIV_1_1         EQU  0xE7    ; CPU system clock not divided
+CPUDIV_2_1         EQU  0xEF    ; CPU system clock divided by 2
+CPUDIV_3_1         EQU  0xF7    ; CPU system clock divided by 3
+CPUDIV_4_1         EQU  0xFF    ; CPU system clock divided by 4
+
+USBDIV_1_1         EQU  0xDF    ; USB system clock not divided
+USBDIV_2_1         EQU  0xFF    ; USB system clock divided by 2 w/ PLL
+
+; CONFIG1H Options
+FOSC_XT_XT_1       EQU  0xF0    ; XT oscillator, XT used by USB
+FOSC_XTPLL_XT_1    EQU  0xF2    ; XT oscillator, PLL enabled, XT used by USB
+FOSC_ECIO_EC_1     EQU  0xF4    ; External clock, port function on RA6, EC used by USB
+FOSC_EC_EC_1       EQU  0xF5    ; External clock, CLKOUT on RA6, EC used by USB
+FOSC_ECPLLIO_EC_1  EQU  0xF6    ; External clock, PLL enabled, port function on RA6, EC used by USB
+FOSC_ECPLL_EC_1    EQU  0xF7    ; External clock, PLL enabled, CLKOUT on RA6, EC used by USB
+FOSC_INTOSCIO_EC_1 EQU  0xF8    ; Internal oscillator, port function on RA6, EC used by USB
+FOSC_INTOSC_EC_1   EQU  0xF9    ; Internal oscillator, CLKOUT on RA6, EC used by USB
+FOSC_INTOSC_XT_1   EQU  0xFA    ; Internal oscillator, XT used by USB
+FOSC_INTOSC_HS_1   EQU  0xFB    ; Internal oscillator, HS used by USB
+FOSC_HS_1          EQU  0xFC    ; HS oscillator, HS used by USB
+FOSC_HSPLL_HS_1    EQU  0xFE    ; HS oscillator, PLL enabled, HS used by USB
+
+FCMEM_OFF_1        EQU  0xBF    ; Disabled
+FCMEM_ON_1         EQU  0xFF    ; Enabled
+
+IESO_OFF_1         EQU  0x7F    ; Disabled
+IESO_ON_1          EQU  0xFF    ; Enabled
+
+; CONFIG2L Options
+PWRT_ON_2          EQU  0xFE    ; Enabled
+PWRT_OFF_2         EQU  0xFF    ; Disabled
+
+BOR_OFF_2          EQU  0xF9    ; Disabled
+BOR_SOFT_2         EQU  0xFB    ; Controled by SBOREN
+BOR_ON_ACTIVE_2    EQU  0xFD    ; Enabled when the device is not in SLEEP, SBOREN bit is disabled
+BOR_ON_2           EQU  0xFF    ; Enabled, SBOREN bit is disabled
+
+BORV_45_2          EQU  0xE7    ; 4.6V
+BORV_42_2          EQU  0xEF    ; 4.3V
+BORV_27_2          EQU  0xF7    ; 2.8V
+BORV_20_2          EQU  0xFF    ; 2.1V
+
+VREGEN_OFF_2       EQU  0xDF    ; Disabled
+VREGEN_ON_2        EQU  0xFF    ; Enabled
+
+; CONFIG2H Options
+WDT_OFF_2          EQU  0xFE    ; HW Disabled - SW Controlled
+WDT_ON_2           EQU  0xFF    ; HW Enabled - SW Disabled
+
+WDTPS_1_2          EQU  0xE1    ; 1:1
+WDTPS_2_2          EQU  0xE3    ; 1:2
+WDTPS_4_2          EQU  0xE5    ; 1:4
+WDTPS_8_2          EQU  0xE7    ; 1:8
+WDTPS_16_2         EQU  0xE9    ; 1:16
+WDTPS_32_2         EQU  0xEB    ; 1:32
+WDTPS_64_2         EQU  0xED    ; 1:64
+WDTPS_128_2        EQU  0xEF    ; 1:128
+WDTPS_256_2        EQU  0xF1    ; 1:256
+WDTPS_512_2        EQU  0xF3    ; 1:512
+WDTPS_1024_2       EQU  0xF5    ; 1:1024
+WDTPS_2048_2       EQU  0xF7    ; 1:2048
+WDTPS_4096_2       EQU  0xF9    ; 1:4096
+WDTPS_8192_2       EQU  0xFB    ; 1:8192
+WDTPS_16384_2      EQU  0xFD    ; 1:16384
+WDTPS_32768_2      EQU  0xFF    ; 1:32768
+
+; CONFIG3H Options
+MCLRE_OFF_3        EQU  0x7F    ; Disabled
+MCLRE_ON_3         EQU  0xFF    ; Enabled
+
+LPT1OSC_OFF_3      EQU  0xFB    ; Timer1 oscillator configured for high power
+LPT1OSC_ON_3       EQU  0xFF    ; Timer1 oscillator configured for low power
+
+PBADEN_OFF_3       EQU  0xFD    ; PortB<4:0> pins are configured as digital I/O on RESET
+PBADEN_ON_3        EQU  0xFF    ; PortB<4:0> pins are configured as analog input on RESET
+
+CCP2MX_OFF_3       EQU  0xFE    ; CCP2 input/output is multiplexed with RB3
+CCP2MX_ON_3        EQU  0xFF    ; CCP2 input/output is multiplexed with RC1
+
+; CONFIG4L Options
+STVREN_OFF_4       EQU  0xFE    ; Disabled
+STVREN_ON_4        EQU  0xFF    ; Enabled
+
+LVP_OFF_4          EQU  0xFB    ; Disabled
+LVP_ON_4           EQU  0xFF    ; Enabled
+
+ICPRT_OFF_4        EQU  0xDF    ; Disabled
+ICPRT_ON_4         EQU  0xFF    ; Enabled
+
+XINST_OFF_4        EQU  0xBF    ; Disabled
+XINST_ON_4         EQU  0xFF    ; Enabled
+
+DEBUG_ON_4         EQU  0x7F    ; Enabled
+DEBUG_OFF_4        EQU  0xFF    ; Disabled
+
+; CONFIG5L Options
+CP0_ON_5           EQU  0xFE    ; Enabled
+CP0_OFF_5          EQU  0xFF    ; Disabled
+
+CP1_ON_5           EQU  0xFD    ; Enabled
+CP1_OFF_5          EQU  0xFF    ; Disabled
+
+CP2_ON_5           EQU  0xFB    ; Enabled
+CP2_OFF_5          EQU  0xFF    ; Disabled
+
+CP3_ON_5           EQU  0xF7    ; Enabled
+CP3_OFF_5          EQU  0xFF    ; Disabled
+
+; CONFIG5H Options
+CPB_ON_5           EQU  0xBF    ; Enabled
+CPB_OFF_5          EQU  0xFF    ; Disabled
+
+CPD_ON_5           EQU  0x7F    ; Enabled
+CPD_OFF_5          EQU  0xFF    ; Disabled
+
+; CONFIG6L Options
+WRT0_ON_6          EQU  0xFE    ; Enabled
+WRT0_OFF_6         EQU  0xFF    ; Disabled
+
+WRT1_ON_6          EQU  0xFD    ; Enabled
+WRT1_OFF_6         EQU  0xFF    ; Disabled
+
+WRT2_ON_6          EQU  0xFB    ; Enabled
+WRT2_OFF_6         EQU  0xFF    ; Disabled
+
+WRT3_ON_6          EQU  0xF7    ; Enabled
+WRT3_OFF_6         EQU  0xFF    ; Disabled
+
+; CONFIG6H Options
+WRTB_ON_6          EQU  0xBF    ; Enabled
+WRTB_OFF_6         EQU  0xFF    ; Disabled
+
+WRTC_ON_6          EQU  0xDF    ; Enabled
+WRTC_OFF_6         EQU  0xFF    ; Disabled
+
+WRTD_ON_6          EQU  0x7F    ; Enabled
+WRTD_OFF_6         EQU  0xFF    ; Disabled
+
+; CONFIG7L Options
+EBTR0_ON_7         EQU  0xFE    ; Enabled
+EBTR0_OFF_7        EQU  0xFF    ; Disabled
+
+EBTR1_ON_7         EQU  0xFD    ; Enabled
+EBTR1_OFF_7        EQU  0xFF    ; Disabled
+
+EBTR2_ON_7         EQU  0xFB    ; Enabled
+EBTR2_OFF_7        EQU  0xFF    ; Disabled
+
+EBTR3_ON_7         EQU  0xF7    ; Enabled
+EBTR3_OFF_7        EQU  0xFF    ; Disabled
+
+; CONFIG7H Options
+EBTRB_ON_7         EQU  0xBF    ; Enabled
+EBTRB_OFF_7        EQU  0xFF    ; Disabled
+
+_DEVID1          EQU  0x3FFFFE
+_DEVID2          EQU  0x3FFFFF
+
+_IDLOC0          EQU  0x200000
+_IDLOC1          EQU  0x200001
+_IDLOC2          EQU  0x200002
+_IDLOC3          EQU  0x200003
+_IDLOC4          EQU  0x200004
+_IDLOC5          EQU  0x200005
+_IDLOC6          EQU  0x200006
+_IDLOC7          EQU  0x200007
+
+; Set the default fuse configuration
+	ifndef CONFIG_REQ
+		ifdef PLL@REQ 								; Do we require the PLL ?
+			__config CONFIG1L, PLLDIV_5_1 & CPUDIV_1_1 & USBDIV_2_1
+			__config CONFIG1H, FOSC_HSPLL_HS_1
+		else
+			__config CONFIG1H, FOSC_HSPLL_HS_1
+		endif
+		ifdef WATCHDOG_REQ
+			__config CONFIG2H, WDT_ON_2 & WDTPS_128_2
+		else
+			__config CONFIG2H, WDT_OFF_2 & WDTPS_128_2
+		endif
+		__config    CONFIG3H, PBADEN_OFF_3
+		ifdef DEBUG@REQ 							; Do we require DEBUG ?
+			__config CONFIG4L, LVP_OFF_4 & ICPRT_OFF_4 & XINST_OFF_4 & DEBUG_ON_4
+		else
+			__config CONFIG4L, LVP_OFF_4 & ICPRT_OFF_4 & XINST_OFF_4 & DEBUG_OFF_4
+		endif
+	endif
+	
+ LIST

@@ -1,0 +1,744 @@
+DATABASE
+
+' *********************************
+' * COMPILER DEFAULT
+' *********************************
+Core    = dc14
+Device 	= "16F84"
+
+' *********************************
+' * Keywords
+' * Current highlighter types:
+' *    Keyword
+' *    KeywordUser
+' *    KeywordDeclare
+' *    KeywordASM
+' *    KeywordMacroParam
+' *    KeywordImportant
+' *
+' *********************************
+
+KEY ("define")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("else")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("endm")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("endif")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("exitm")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("if")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("ifdef")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("ifndef")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("include")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("local")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("macro")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+KEY ("variable")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = Keyword
+   	Hint = ""
+ENDKEY
+
+' *********************************
+' * ASM
+' *********************************
+KEY ("equ")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("addlw")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("addwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("addwfc")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("andlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("andwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bcf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bk")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bn")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnn")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnov")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bov")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bra")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bsf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btfsc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btfss")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btg")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("call")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrwdt")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("comf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config1h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config1l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config2h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config2l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config3h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config3l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config4h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config4l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config5h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config5l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config6h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config6l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config7h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config7l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfseq")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfsgt")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfslt")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("daw")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("dcfsnz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("decf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("decfsz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("fast")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("goto")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("high")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("incf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("incfsz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("infsnz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("iorlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("iorwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("jump")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lfsr")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("low")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movff")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movfw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movlb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("mullw")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("mulwf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("negf")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("nop")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rcall")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("reset")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("return")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("retfie")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("retlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlncf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rol")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ror")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrncf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpndc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subdcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subfwb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("sublw")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subwfb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("swapf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tblrd")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tblwt")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tstf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tstfsz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("xorlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("xorwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+END DATABASE

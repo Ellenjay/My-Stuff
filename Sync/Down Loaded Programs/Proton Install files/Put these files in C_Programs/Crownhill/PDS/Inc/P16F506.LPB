@@ -1,0 +1,148 @@
+
+ NOLIST
+
+W = 0
+F = 1
+
+;[START OF REGISTER FILES]
+INDF                         EQU     0X0000
+TMR0                         EQU     0X0001
+PCL                          EQU     0X0002
+STATUS                       EQU     0X0003
+FSR                          EQU     0X0004
+OSCCAL                       EQU     0X0005
+PORTB                        EQU     0X0006
+PORTC                        EQU     0X0007
+CM1CON0                      EQU     0X0008
+ADCON0                       EQU     0X0009
+ADRES                        EQU     0X000A
+CM2CON0                      EQU     0X000B	
+VRCON                        EQU     0X000C
+OPTION_REG		= 0X01FF
+;[END OF REGISTER FILES]
+
+; STATUS Bits
+
+RBWUF = 7
+CWUF = 6
+PA0 = 5
+NOT_TO = 4
+NOT_PD = 3
+Z = 2
+DC = 1
+C = 0
+
+; OPTION Bits
+
+NOT_RBWU = 7
+NOT_RBPU = 6
+T0CS = 5
+T0SE = 4
+PSA = 3
+PS2 = 2
+PS1 = 1
+PS0 = 0
+
+; OSCCAL Bits
+
+CAL6 = 7 
+CAL5 = 6
+CAL4 = 5
+CAL3 = 4
+CAL2 = 3
+CAL1 = 2
+CAL0 = 1
+
+; CM1CON0 Bits
+
+C1OUT = 7 
+NOT_C1OUTEN = 6
+C1POL = 5
+NOT_C1T0CS = 4
+C1ON = 3
+C1NREF = 2
+C1PREF = 1 
+NOT_C1WU = 0
+
+; ADCON0 Bits
+
+ANS1 = 7 
+ANS0 = 6
+ADCS1 = 5
+ADCS0 = 4
+CHS1 = 3
+CHS0 = 2
+GO = 1 
+NOT_DONE = 1
+ADON = 0
+
+; CM2CON0 Bits
+
+C2OUT = 7 
+NOT_C2OUTEN = 6
+C2POL = 5
+C2PREF2 = 4
+C2ON = 3
+C2NREF = 2
+C2PREF1 = 1 
+NOT_C2WU = 0
+
+; VRCON Bits
+
+VREN = 7 
+VROE = 6
+VRR = 5
+VR3 = 3
+VR2 = 2
+VR1 = 1 
+VR0 = 0
+
+; PORTB Bits
+RB0 = 0
+RB1 = 1
+RB2 = 2
+RB3 = 3
+RB4 = 4
+RB5 = 5
+
+; PORTC Bits
+RC0 = 0
+RC1 = 1
+RC2 = 2
+RC3 = 3
+RC4 = 4
+RC5 = 5
+;
+; RAM Definition
+;
+        __MAXRAM 0X7F
+;
+; [START OF CONFIGURATION BITS]
+;
+IOSCFS_ON                   EQU     0X0FFF
+IOSCFS_OFF                  EQU     0X0FBF	
+MCLRE_ON                    EQU     0X0FFF
+MCLRE_OFF                   EQU     0X0FDF
+CP_ON                       EQU     0X0FEF
+CP_OFF                      EQU     0X0FFF
+WDT_ON                      EQU     0X0FFF
+WDT_OFF                     EQU     0X0FF7
+LP_OSC                      EQU     0X0FF8
+XT_OSC                      EQU     0X0FF9
+HS_OSC                      EQU     0X0FFA
+EC_OSC                      EQU     0X0FFB
+IntRC_OSC_RB4EN             EQU     0X0FFC
+IntRC_OSC_CLKOUTEN          EQU     0X0FFD
+ExtRC_OSC_RB4EN             EQU     0X0FFE
+ExtRC_OSC_CLKOUTEN          EQU     0X0FFF
+
+; [SET THE DEFAULT FUSE CONFIGURATION]
+	ifndef CONFIG_REQ
+		ifdef WATCHDOG_REQ
+			__config MCLRE_ON & XT_OSC & WDT_ON  & CP_OFF & IOSCFS_OFF
+		else
+			__config MCLRE_ON & XT_OSC & WDT_OFF & CP_OFF & IOSCFS_OFF
+		endif
+	endif
+ 
+ LIST

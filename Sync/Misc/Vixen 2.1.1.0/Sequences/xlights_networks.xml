@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Networks computer="SONOFBC-PC">
+  <network NetworkType="D-Light" ComPort="COM1" BaudRate="115200" MaxChannels=""/>
+</Networks>

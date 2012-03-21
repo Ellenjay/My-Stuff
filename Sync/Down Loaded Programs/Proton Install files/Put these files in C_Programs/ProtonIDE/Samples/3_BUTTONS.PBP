@@ -1,0 +1,382 @@
+ NOLIST
+;----------------------------------------------------------
+; Code Produced by the PROTON+ Compiler. Version 3.2.5.5
+; Copyright Rosetta Technologies/Crownhill Associates
+; Written by Les Johnson. February 2007
+;----------------------------------------------------------
+ LIST
+	LIST
+;{
+;FILE F1 = C:\PROGRAM FILES\PROTONIDE\SAMPLES\3_BUTTONS.BAS
+;FILE F2 = C:\PROGRAM FILES\PROTONIDE\SAMPLES\3_BUTTONS.PRP
+;FILE F3 = c:\program files\crownhill\pds\INC\PROTON_20.INC
+;}
+;[Variable Listing]
+;BUF1,002C,DT_BYTE,1
+;BUF2,002D,DT_BYTE,1
+;BUF3,002E,DT_BYTE,1
+;SW1,0006.4,DT_BIT
+;SW2,0006.5,DT_BIT
+;SW3,0006.6,DT_BIT
+;LED1,0008.5,DT_BIT
+;LED2,0008.6,DT_BIT
+;LED3,0008.7,DT_BIT
+;[End Listing]
+ LIST  P = 16F877,f = INHX8M ,w = 2, x = on, r = DEC, mm = ON, n = 0, c = 255
+ #include "C:\PROGRA~1\CROWNH~1\pds\INC\P16F877.lpb"
+ #define __16F877 1
+ #define XTAL 20
+ #define _CORE 14
+ #define _MAXRAM 368
+ #define _RAM_END 495
+ #define _MAXMEM 8192
+ #define _ADC 8
+ #define _ADC_RES 10
+ #define _EEPROM 256
+ #define _PAGES 4
+ #define _BANKS 3
+ #define RAM_BANKS 4
+ #define _USART 1
+ #define _USB 0
+ #define _FLASH 1
+ #define BANK0_START 32
+ #define BANK0_END 127
+ #define BANK1_START 160
+ #define BANK1_END 239
+ #define BANK2_START 272
+ #define BANK2_END 367
+ #define BANK3_START 400
+ #define BANK3_END 495
+ #define _SYSTEM_VARIABLE_COUNT 12
+ram_bank = 0
+current@page = 0
+dest@page = 0
+ #define LCD#DTPORT PORTD
+ #define LCD#DTPIN 4
+ #define LCD#RSPORT PORTE
+ #define LCD#RSPIN 0
+ #define LCD#ENPORT PORTE
+ #define LCD#ENPIN 1
+ #define LCD#INTERFACE 4
+ #define LCD#LINES 2
+ #define LCD#TYPE 0
+f@call macro dest
+	if (dest < 1)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if (dest > $)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if ((dest & 6144) == 0)
+	clrf 10
+	else
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endif
+	endif
+	endif
+	call dest
+	endm
+f@jump macro dest
+	if (dest < 1)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if (dest > $)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if ((dest & 6144) == 0)
+	clrf 10
+	else
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endif
+	endif
+	endif
+	goto dest
+	endm
+set@page macro dest
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endm
+s@b	macro varin
+	if((varin & 384) == 0)
+	if(ram_bank == 1)
+	bcf 3,5
+	endif
+	if(ram_bank == 2)
+	bcf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,5
+	bcf 3,6
+	endif
+ram_bank = 0
+	endif
+	if((varin & 384) == 128)
+	if(ram_bank == 0)
+	bsf 3,5
+	endif
+	if(ram_bank == 2)
+	bsf 3,5
+	bcf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,6
+	endif
+ram_bank = 1
+	endif
+	if((varin & 384) == 256)
+	if(ram_bank == 0)
+	bsf 3,6
+	endif
+	if(ram_bank == 1)
+	bcf 3,5
+	bsf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,5
+	endif
+ram_bank = 2
+	endif
+	if((varin & 384) == 384)
+	if(ram_bank == 0)
+	bsf 3,5
+	bsf 3,6
+	endif
+	if(ram_bank == 1)
+	bsf 3,6
+	endif
+	if(ram_bank == 2)
+	bsf 3,5
+	endif
+ram_bank = 3
+	endif
+	endm
+r@b	macro
+	if((ram_bank & 1) != 0)
+	bcf 3,5
+	endif
+	if((ram_bank & 2) != 0)
+	bcf 3,6
+	endif
+ram_bank = 0
+	endm
+ #include "C:\PROGRA~1\CROWNH~1\pds\INC\REG_LD14.INC"
+GEN = 32
+GENH = 33
+PP0 = 34
+PP0H = 35
+PP1 = 36
+PP1H = 37
+PP2 = 38
+PP4 = 39
+PP5 = 40
+PP5H = 41
+PP6 = 42
+PP6H = 43
+	org 0
+	nop
+	movlw (Start@ >> 8) & 255
+	movwf 10
+	goto Start@
+	org 4
+but@n	movwf 38
+	movf 32,w
+	movwf 4
+	movf 33,w
+	bsf 4,7
+	iorwf 0,f
+	bcf 4,7
+	andwf 0,w
+	btfss 42,0
+	xorwf 33,w
+	skpnz
+	goto $ + 20
+	movf 38,w
+	skpz
+	goto $ + 9
+	movf 40,w
+	addlw 255
+	skpc
+	goto $ + 14
+	movlw 50
+	call dl@ms
+	movf 40,w
+	goto $ + 10
+	incf 38,w
+	movlw 255
+	skpnz
+	goto $ + 5
+	decfsz 38,w
+	goto $ + 3
+	movf 41,w
+	goto $ + 2
+	comf 43,f
+	rrf 43,f
+	goto i@nt
+cl@rh bsf 3,7
+cl@r clrf 0
+	incf 4,F
+	addlw 255
+	skpz
+	goto $ - 4
+	goto i@nt
+dl@ms clrf 37
+dly@w movwf 36
+dly@p movlw 255
+	addwf 36,f
+	skpc
+	addwf 37,f
+	skpc
+	goto i@nt
+	movlw 3
+	movwf 35
+	movlw 231
+	call dlus@w
+	goto dly@p
+dl@us clrf 35
+dlus@w addlw 252
+	movwf 34
+	comf 35,f
+	skpc
+	goto $ + 7
+	movlw 255
+	nop
+	addwf 34,f
+	skpnc
+	goto $ - 3
+	addwf 34,f
+	nop
+	incfsz 35,f
+	goto $ - 8
+	return
+i@nt bcf 3,7
+i@nt2 bcf 3,5
+	bcf 3,6
+	nop
+	return
+__XTAL = 20
+__LCD_DTPIN = 4
+__LCD_RSPIN = 0
+__LCD_ENPIN = 1
+__LCD_INTERFACE = 4
+__LCD_LINES = 2
+__LCD_TYPE = 0
+__LCD_COMMANDUS = 2000
+__LCD_DATAUS = 50
+__SCL_PIN = 3
+__SDA_PIN = 4
+__SERIAL_BAUD = 9600
+__RSOUT_PIN = 6
+__RSOUT_MODE = 0
+__RSOUT_PACE = 1
+__RSIN_PIN = 7
+__RSIN_MODE = 0
+__HSERIAL_BAUD = 9600
+__HSERIAL_RCSTA = 160
+__HSERIAL_TXSTA = 36
+T300 = 3313
+T300H = 12
+N300 = 19697
+N300H = 76
+T600 = 1646
+T600H = 6
+N600 = 18030
+N600H = 70
+T1200 = 813
+T1200H = 3
+N1200 = 17197
+N1200H = 67
+T2400 = 400
+T2400H = 1
+N2400 = 16780
+N2400H = 65
+T4800 = 188
+N4800 = 16572
+N4800H = 64
+T9600 = 84
+N9600 = 16468
+N9600H = 64
+OT2400 = 33164
+OT2400H = 160
+OT1200 = 33581
+OT1200H = 160
+OT9600 = 32852
+OT9600H = 160
+OT300 = 36081
+OT300H = 160
+ON2400 = 49548
+ON2400H = 193
+ON1200 = 49965
+ON1200H = 195
+ON9600 = 49236
+ON9600H = 192
+ON300 = 52465
+ON300H = 204
+HOME = 1
+BELL = 7
+BKSP = 8
+TAB = 9
+CR = 13
+Start@
+main@prog@start

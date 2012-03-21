@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--_SIG=jJe79E92XNud6ESXyS5WfHSB722Q/8f7hyERAvEQKg8X8/iWCmNseRDCQY60SsBE0frHPzzS1jHhSSKS1lQNOM51jiN+CDg0eD80FKe0rdqmzXz/Iers1rx3GUipDLAKvxNvkMFdE6yU2JZ2yiZep0edII2NzZEaFyuPiF/wPUI=-->
+<Package Id="OneNoteMUI.en-us" Type="MSI" Path="OneNoteMUI.MSI" Version="1.0" ProductCode="{90120000-00A1-0409-0000-0000000FF1CE}" MSIVersion="12.0.4518.1014" Platform="x86">
+	<Feature Id="OneNoteMobileDeviceFiles_1033" Cost="443384">
+		<OptionRef Id="OneNoteMobileDeviceFiles"/>
+	</Feature>
+	<Feature Id="OneNoteNonBootFilesIntl_1033" Cost="25563034">
+		<OptionRef Id="OneNoteFiles"/>
+	</Feature>
+	<Feature Id="Gimme_OnDemandData" Cost="0">
+		<OptionRef Id="Gimme_OnDemandData"/>
+	</Feature>
+	<Feature Id="OneNoteFilesIntl_1033" Cost="11749504">
+		<OptionRef Id="OneNoteFiles"/>
+	</Feature>
+	<Feature Id="OneNoteToIEAddinIntl_1033" Cost="0">
+		<OptionRef Id="OneNoteToIEAddin"/>
+	</Feature>
+	<Feature Id="MsoInstalledPackagesScopedIntl_1033" Cost="0">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="OneNoteHelpFilesIntl_1033" Cost="949253">
+		<OptionRef Id="OneNoteHelpFiles"/>
+	</Feature>
+	<Feature Id="SetupControllerFiles" Cost="3503">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+	<Feature Id="SetupXmlFiles" Cost="3503">
+		<OptionRef Id="AlwaysInstalled"/>
+	</Feature>
+</Package>

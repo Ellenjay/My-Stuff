@@ -1,0 +1,21 @@
+Updated Plugins/UI/StandardSequence.dll
+Updated Plugins/Output/MiniSSC.dll
+Updated Vixen.exe
+
+* Bug 71: When playing only a selection, it will no longer go one event past the selection.
+* When a sequence stops due to reaching its end, the call to Shutdown() for plugins
+  is no longer on a worker thread.
+
+
+* Bug 86: Fixed Enttec Open plugin stability issues.
+* Bug 91: Channel order dialog repaint issue.
+
+
+* Bug 119: Resizing the profile edit form caused control placement issues.
+* Bug 107: Intermittent "Object reference not set to an instance of an object" exception when stopping a sequence.
+
+
+Updated Vixen.exe
+Updated Vixen.exe
+Updated Plugins/Output/IDMX.dll
+Updated Vixen.exe

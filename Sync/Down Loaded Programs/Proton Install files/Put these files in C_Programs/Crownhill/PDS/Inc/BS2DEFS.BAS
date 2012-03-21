@@ -1,0 +1,107 @@
+'  BS2DEFS.BAS                                                 
+'  Compatability variable naming for BS2 and MELABS compiler           
+
+
+	INCLUDE "MODEDEFS.BAS"  ' Include Mode definitions
+
+	Symbol INS  = PORTLO	NO_LIST
+	Symbol OUTS = PORTLO	NO_LIST
+
+	Symbol INL  = PORTLO	NO_LIST
+	Symbol INH  = PORTHI	NO_LIST
+
+	Symbol OUTL = PORTLO	NO_LIST
+	Symbol OUTH = PORTHI	NO_LIST
+
+	Symbol IN0  = INL.0	NO_LIST
+	Symbol IN1  = INL.1	NO_LIST
+	Symbol IN2  = INL.2	NO_LIST
+	Symbol IN3  = INL.3	NO_LIST
+	Symbol IN4  = INL.4	NO_LIST
+	Symbol IN5  = INL.5	NO_LIST
+	Symbol IN6  = INL.6	NO_LIST
+	Symbol IN7  = INL.7	NO_LIST
+	Symbol IN8  = INH.0	NO_LIST
+	Symbol IN9  = INH.1	NO_LIST
+	Symbol IN10 = INH.2	NO_LIST
+	Symbol IN11 = INH.3	NO_LIST
+	Symbol IN12 = INH.4	NO_LIST
+	Symbol IN13 = INH.5	NO_LIST
+	Symbol IN14 = INH.6	NO_LIST
+	Symbol IN15 = INH.7	NO_LIST
+
+	Symbol OUT0 = OUTL.0	NO_LIST
+	Symbol OUT1 = OUTL.1	NO_LIST
+	Symbol OUT2 = OUTL.2	NO_LIST
+	Symbol OUT3 = OUTL.3	NO_LIST
+	Symbol OUT4 = OUTL.4	NO_LIST
+	Symbol OUT5 = OUTL.5	NO_LIST
+	Symbol OUT6 = OUTL.6	NO_LIST
+	Symbol OUT7 = OUTL.7	NO_LIST
+	Symbol OUT8 = OUTH.0	NO_LIST
+	Symbol OUT9 = OUTH.1	NO_LIST
+	Symbol OUT10 = OUTH.2	NO_LIST
+	Symbol OUT11 = OUTH.3	NO_LIST
+	Symbol OUT12 = OUTH.4	NO_LIST
+	Symbol OUT13 = OUTH.5	NO_LIST
+	Symbol OUT14 = OUTH.6	NO_LIST
+	Symbol OUT15 = OUTH.7	NO_LIST
+
+	Dim W0  as WORD	NO_LIST
+	Dim W1  as WORD	NO_LIST
+	Dim W2  as WORD	NO_LIST
+	Dim W3  as WORD	NO_LIST
+	Dim W4  as WORD	NO_LIST
+	Dim W5  as WORD	NO_LIST
+	Dim W6  as WORD	NO_LIST
+	Dim W7  as WORD	NO_LIST
+	Dim W8  as WORD	NO_LIST
+	Dim W9  as WORD	NO_LIST
+	Dim W10  as WORD	NO_LIST
+	Dim W11  as WORD	NO_LIST
+	Dim W12  as WORD	NO_LIST
+    
+	Symbol B0 = W0.LOWBYTE	NO_LIST
+	Symbol B1 = W0.HIGHBYTE	NO_LIST
+	Symbol B2 = W1.LOWBYTE	NO_LIST
+	Symbol B3 = W1.HIGHBYTE	NO_LIST
+	Symbol B4 = W2.LOWBYTE	NO_LIST
+	Symbol B5 = W2.HIGHBYTE	NO_LIST
+	Symbol B6 = W3.LOWBYTE	NO_LIST
+	Symbol B7 = W3.HIGHBYTE	NO_LIST
+	Symbol B8 = W4.LOWBYTE	NO_LIST
+	Symbol B9 = W4.HIGHBYTE	NO_LIST
+	Symbol B10 = W5.LOWBYTE	NO_LIST
+	Symbol B11 = W5.HIGHBYTE	NO_LIST
+	Symbol B12 = W6.LOWBYTE	NO_LIST
+	Symbol B13 = W6.HIGHBYTE	NO_LIST
+	Symbol B14 = W0.HIGHBYTE	NO_LIST
+	Symbol B15 = W1.LOWBYTE	NO_LIST
+	Symbol B16 = W1.HIGHBYTE	NO_LIST
+	Symbol B17 = W2.LOWBYTE	NO_LIST
+	Symbol B18 = W2.HIGHBYTE	NO_LIST
+	Symbol B19 = W3.LOWBYTE	NO_LIST
+	Symbol B20 = W3.HIGHBYTE	NO_LIST
+	Symbol B21 = W4.LOWBYTE	NO_LIST
+	Symbol B22 = W4.HIGHBYTE	NO_LIST
+	Symbol B23 = W5.LOWBYTE
+	Symbol B24 = W5.HIGHBYTE	NO_LIST
+	Symbol B25 = W6.LOWBYTE	NO_LIST
+
+	Symbol BIT0 = B0.0	NO_LIST
+	Symbol BIT1 = B0.1	NO_LIST
+	Symbol BIT2 = B0.2	NO_LIST
+	Symbol BIT3 = B0.3	NO_LIST
+	Symbol BIT4 = B0.4	NO_LIST 
+	Symbol BIT5 = B0.5	NO_LIST
+	Symbol BIT6 = B0.6	NO_LIST
+	Symbol BIT7 = B0.7	NO_LIST
+	Symbol BIT8 = B1.0	NO_LIST
+	Symbol BIT9 = B1.1	NO_LIST
+	Symbol BIT10 = B1.2	NO_LIST
+	Symbol BIT11 = B1.3	NO_LIST
+	Symbol BIT12 = B1.4	NO_LIST
+	Symbol BIT13 = B1.5	NO_LIST
+	Symbol BIT14 = B1.6	NO_LIST
+	Symbol BIT15 = B1.7	NO_LIST
+

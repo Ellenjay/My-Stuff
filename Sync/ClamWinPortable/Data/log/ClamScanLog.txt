@@ -1,0 +1,142 @@
+
+Scan Started Sun Feb 28 07:35:41 2010
+-------------------------------------------------------------------------------
+
+WARNING: Can't open file \\?\C:\Boot\BCD, Permission denied
+WARNING: Can't open file \\?\C:\hiberfil.sys, Permission denied
+WARNING: Can't open file \\?\C:\pagefile.sys, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\0ba3c746e4350d2489ded113f6327052_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\0dccf129038391cb86dcee9ca92b58cc_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\0e248e23010d0e18acac0ef888047c96_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\0f01bf009f255f391c0424d503f35645_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\222e33ff2e1ab6908e73a10f6aa77717_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\29161c212d22114f0425afbd1ef4dda5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\2de780560993c144c76295243eda64f5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\336180ba23c7e2d054a4a18704a22765_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\33dc5850ea8e27bbd7a4ec39333c509c_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\3e58df4905d0b91b491f33364a964315_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\3fe1c0e4f57199bae308e5265247f1c6_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\408e40b5a9cf74ff6c9628638ded2dfe_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\45c1798bffe76a5a5472cab528c12bed_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\55a26f5af0e16c19174db4d2bfbee41f_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\5939de079d60616e8e72f493bb3fb560_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\5a27d788db3eb8e645147430834775a5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\622e7b6ebfd518061d6538aeed1fc7c5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\63305406210f3c91d21ae19d978db273_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\63782f5849d0f6d881fb26e21d3ee47a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\667663738fe46328e73485c03f380e63_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\667a8172fd114d04fd1b2051057e05dd_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\668beca5b535c3e4cc5941d968e58b1f_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\78bae67da7c7d4fdda67358dd06adae1_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\7ead0da9fc20ce4c5c9948595870b6ab_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\847b7fbca56b0ce3808e5f6b67bb811a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\84f45cb0231a0474e05efd1610ba78f3_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\86838772ca78ad41b7fd2b0105c9b553_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\897c396e6ae7a98bc5a789d7de1f6d4b_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\89deb7e9c168f1c4ca671216f01e5f21_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\9899c819326bc76c243b1ad3f800e661_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\a2b1b34d791b67af15b1853c37d8210e_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\ad0e8ec1c8b2e56fa87096f1a45be1aa_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\b2cdca748c91796fd9b4b8f82b58a366_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\b5a6b01e7f7a95d28e7daea40326f0e4_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\bb15c1250157e126a16fc14582fba17c_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\bde783503010949d5d12470e55515b14_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\c02a4e0aacdfc2f5d2df2fcc2bbf46c1_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\c49720ed5e423aa70a75017c9679b61a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\dce771ab5b309a5dd32f2535fb57e1f0_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\e2666c595211486966c883bfae81aecb_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\e8ef804817f88a7f946ffec15b72bf8b_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\ea8045e5b21696aa689c2accced2b5a3_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\edbdbbea5306815a53c520a28b0725b4_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\ff8aed4b4a3820d14f89658577de1bf2_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\ProgramData\Microsoft\Crypto\RSA\MachineKeys\ff8c61b6c844560cb56db46053f4d0eb_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{0ca3922f-198e-11df-901f-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{0ca3989e-198e-11df-901f-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{0ca39dab-198e-11df-901f-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{1bee313b-07ce-11df-983d-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{1bee3165-07ce-11df-983d-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{53bb007a-1fda-11df-841a-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{6fd74751-124f-11df-84ee-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{6fd750b9-124f-11df-84ee-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a90f-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a962-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a966-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a97d-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a981-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6a988-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{a0e6aba6-0c17-11df-9c19-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{b36f3d1e-1529-11df-bdaf-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\System Volume Information\{b36f4647-1529-11df-bdaf-001fd05a0e1f}{3808876b-c176-4e48-b7ae-04046e6cc752}, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\0ba3c746e4350d2489ded113f6327052_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\0dccf129038391cb86dcee9ca92b58cc_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\0e248e23010d0e18acac0ef888047c96_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\0f01bf009f255f391c0424d503f35645_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\222e33ff2e1ab6908e73a10f6aa77717_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\29161c212d22114f0425afbd1ef4dda5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\2de780560993c144c76295243eda64f5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\336180ba23c7e2d054a4a18704a22765_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\33dc5850ea8e27bbd7a4ec39333c509c_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\3e58df4905d0b91b491f33364a964315_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\3fe1c0e4f57199bae308e5265247f1c6_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\408e40b5a9cf74ff6c9628638ded2dfe_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\45c1798bffe76a5a5472cab528c12bed_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\55a26f5af0e16c19174db4d2bfbee41f_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\5939de079d60616e8e72f493bb3fb560_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\5a27d788db3eb8e645147430834775a5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\622e7b6ebfd518061d6538aeed1fc7c5_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\63305406210f3c91d21ae19d978db273_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\63782f5849d0f6d881fb26e21d3ee47a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\667663738fe46328e73485c03f380e63_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\667a8172fd114d04fd1b2051057e05dd_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\668beca5b535c3e4cc5941d968e58b1f_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\78bae67da7c7d4fdda67358dd06adae1_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\7ead0da9fc20ce4c5c9948595870b6ab_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\847b7fbca56b0ce3808e5f6b67bb811a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\84f45cb0231a0474e05efd1610ba78f3_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\86838772ca78ad41b7fd2b0105c9b553_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\897c396e6ae7a98bc5a789d7de1f6d4b_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\89deb7e9c168f1c4ca671216f01e5f21_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\9899c819326bc76c243b1ad3f800e661_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\a2b1b34d791b67af15b1853c37d8210e_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\ad0e8ec1c8b2e56fa87096f1a45be1aa_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\b2cdca748c91796fd9b4b8f82b58a366_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\b5a6b01e7f7a95d28e7daea40326f0e4_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\bb15c1250157e126a16fc14582fba17c_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\bde783503010949d5d12470e55515b14_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\c02a4e0aacdfc2f5d2df2fcc2bbf46c1_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\c49720ed5e423aa70a75017c9679b61a_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\dce771ab5b309a5dd32f2535fb57e1f0_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\e2666c595211486966c883bfae81aecb_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\e8ef804817f88a7f946ffec15b72bf8b_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\ea8045e5b21696aa689c2accced2b5a3_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\edbdbbea5306815a53c520a28b0725b4_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\ff8aed4b4a3820d14f89658577de1bf2_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\All Users\Microsoft\Crypto\RSA\MachineKeys\ff8c61b6c844560cb56db46053f4d0eb_c2502d65-b33e-448e-9ead-c41e7b7043b9, Permission denied
+WARNING: Can't open file \\?\C:\Users\Sam\AppData\Local\Microsoft\Windows\UsrClass.dat.LOG1, Permission denied
+WARNING: Can't open file \\?\C:\Users\Sam\ntuser.dat.LOG1, Permission denied
+WARNING: Can't open file \\?\C:\Windows\ServiceProfiles\LocalService\NTUSER.DAT.LOG1, Permission denied
+WARNING: Can't open file \\?\C:\Windows\ServiceProfiles\NetworkService\NTUSER.DAT.LOG1, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\catroot2\{127D0A1D-4EF2-11D1-8608-00C04FC295EE}\catdb, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\catroot2\{F750E6C3-38EE-11D1-85E5-00C04FC295EE}\catdb, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\config\RegBack\DEFAULT, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\config\RegBack\SAM, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\config\RegBack\SECURITY, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\config\RegBack\SOFTWARE, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\config\RegBack\SYSTEM, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\drivers\uwaucdp.sys, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\Microsoft\Protect\Recovery\Recovery.dat.LOG1, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\Microsoft\Protect\Recovery\Recovery.dat{bcdab5d5-f8dd-11de-8980-001fd05a0e1f}.TM.blf, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\Microsoft\Protect\Recovery\Recovery.dat{bcdab5d5-f8dd-11de-8980-001fd05a0e1f}.TMContainer00000000000000000001.regtrans-ms, Permission denied
+WARNING: Can't open file \\?\C:\Windows\System32\Microsoft\Protect\Recovery\Recovery.dat{bcdab5d5-f8dd-11de-8980-001fd05a0e1f}.TMContainer00000000000000000002.regtrans-ms, Permission denied
+
+Scanning aborted...
+
+----------- SCAN SUMMARY -----------
+Known viruses: 720181
+Engine version: 0.92
+Scanned directories: 27081
+Scanned files: 189543
+Skipped non-executable files: 2131
+Infected files: 0
+Data scanned: 64006.95 MB

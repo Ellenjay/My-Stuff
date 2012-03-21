@@ -1,0 +1,326 @@
+Follow the steps below to install the version 3.3.4.8 update to the Proton+ compiler.
+
+*** Important Note ***
+If you are NOT confident performing the following steps then please do NOT attempt it,
+as NO official support will be given on the installation of this pre-release.
+
+
+*** Installation of the Proton+ Compiler pre-release update version 3.3.4.8 ***
+
+The following steps will install the Proton update without overwriting the existing compiler version.
+
+(Step 1)
+
+Unzip the file "Proton Ver 3.3.4.8 Release.zip" into a convenient place on your hard drive. i.e. "C:\Temp"
+This will create a folder of the same name.
+
+(Step 2)
+
+Open the newly created folder "Proton Ver 3.3.4.8 Release.zip" and you will find it contains 2 folders and this readme text file:
+
+PDS
+ProtonIDE Version 1.0.6.4
+Proton - 3.3.4.8 Pre-release readme.txt
+
+(Step 3)
+
+** Important **
+Backup (using Winzip, WinRar or something similar) the original "PDS" folder located in the default location "C:\Program Files\Crownhill".
+This will ensure that you do not overwrite the existing compiler. Then Delete the original PDS folder.
+
+(Step 4)
+
+Copy the new Pre-Release folder "PDS" into Folder "C:\Program Files\Crownhill", if this is the location of your compiler.
+Note that "C:\Program Files\Crownhill" is the default location of the compiler.
+
+(Step 5)
+
+** Important **
+The IDE and Help File also need replacing with the newer versions (version 1.0.6.4):
+
+Open the IDE's folder, default location "C:\Program Files\ProtonIDE", and rename the existing file "ProtonIDE.exe" to "ProtonIDE_ORIG.exe"
+This will ensure that your original IDE is safe.
+
+Copy the "CONTENTS" of the new folder "ProtonIDE Version 1.0.6.4" into "C:\Program Files\ProtonIDE", overwriting the "ProtonIDE.exe", "ProtonIDE.chm", and "database.mcd" files
+
+(Step 6)
+
+Open the IDE and point it to the original location of the compiler, if you were previously using any of the Beta versions:
+
+Click on "View->Compile and Program Options", located on the toolbar.
+
+Make sure you are on the "Compiler" tag of the window and click the "Find Manually" button.
+Locate the newly copied compiler (default location): "C:\Program Files\Crownhill\PDS"
+Then Click OK
+
+The IDE is now pointing to the new compiler version 3.3.4.8
+
+
+The updated PDF manual is located within the "PDS" folder.
+There are additional BASIC samples located in the "NEW_SAMPLES" folder, within in the "PDS" folder:
+
+16F CONTEXT SAVED INTERRUPT.BAS
+18F CONTEXT SAVED INTERRUPTS.BAS
+ACOS_ASIN_SQRT.BAS
+ADIN WITH 18F4431.BAS
+ADD FLOATING POINT.BAS
+ARCTAN.BAS
+ARRAY EXPRESSION.BAS
+BUFFERED_HSERIN_TEST.BAS
+CODE MEMORY CONCATENATE.BAS
+CODE MEMORY STRINGS.BAS
+COMPARE SPECIAL EVENT INTERRUPT.BAS
+DATA MEMORY CONCATENATE.BAS
+DATA MEMORY STRINGS.BAS
+DFT 128 DEMO.BAS
+DFT 256 DEMO.BAS
+DIGITAL VOLTMETER.BAS
+FFT.BAS
+FLOAT ARRAY TEST.BAS
+INTEGER RESULT.BAS
+INTEGER TO STRING.BAS
+LEFT STRING CONCATENATION.BAS
+MID STRING CONCATENATION.BAS
+MULTIPLY FLOATING POINT.BAS
+POINTERS TO CODE MEMORY.BAS
+PWM RGB LEDS.BAS
+RIGHT STRING CONCATENATION.BAS
+SIMPLE ARRAY EXAMPLE 2.BAS
+SIMPLE ARRAY EXAMPLE.BAS
+SIMPLE STRING COMPARISON.BAS
+STRING COMPARISON EXAMPLE 1.BAS
+STRING COMPARISON EXAMPLE 2.BAS
+STRING CONCATENATION.BAS
+STRING LOADING WITH A POINTER.BAS
+STRING SLICING.BAS
+TOUPPER - TOLOWER EXAMPLE.BAS
+
+*** Additions, amendments and fixes made in version 3.3.4.8 of the PROTON+ Compiler. (1st July 2008) ***
+
+** ADDITIONS **
+COF file generation for use with simulators such as MPLAB. More details to follow.
+WREG tracking optimisation is now implemented as standard for all devices.
+This monitors the value held within the WREG and eliminates any unnecessary MOVLW mnemonics.
+For example, a sequence of ASM mnemonics such as:
+
+MOVLW 7
+MOVWF VAR1
+MOVLW 7
+MOVWF VAR2
+
+will be shortened to:
+
+MOVLW 7
+MOVWF VAR1
+MOVWF VAR2
+
+Added oscillator frequency 64MHz for use with the 16 MIPS (Million Instructions Per Second) 18F(K) devices (Not yet fully tested because K devices not released at this time).
+Added full interrupt context saving and restoring with 14-bit core and 16-bit core (18F) devices by the use of four new directives: -
+
+HIGH_INT_SUB_START, HIGH_INT_SUB_END
+LOW_INT_SUB_START, LOW_INT_SUB_END
+
+When each of the above pair of directives surrounds a Hardware Generated Interrupt subroutine, any of the compiler's system variables used will be saved to reserved RAM
+when the commands CONTEXT SAVE and CONTEXT RESTORE are issued.
+Both high and low priority interrupts are catered for. For example: -
+
+' High Priority Interrupt Subroutine for a 16-bit core (18F) device
+HIGH_INT_SUB_START
+InterruptSubHigh:
+  CONTEXT SAVE
+  ' Interrupt Code goes Here !
+  CONTEXT RESTORE
+HIGH_INT_SUB_END
+
+' Low Priority Interrupt Subroutine for a 16-bit core (18F) device
+LOW_INT_SUB_START
+InterruptSubLow:
+  CONTEXT SAVE
+  ' Interrupt Code goes Here !
+  CONTEXT RESTORE
+LOW_INT_SUB_END
+
+Several of the PICmicro's SFR's (Special Funtion Registers) will also be context saved along with the compiler's System Variables.
+This is unavoidable, and essential for the seemless operation of the program.
+The SFR's in mention are: -
+
+WREG, STATUS, BSR, FSR0L\FSR0H, FSR1L\FSR1H, FSR2L\ FSR2H, PRODL\PRODH, TBLPTRL\TBLPTRH, and TABLAT
+
+When using 14-bit core devices, the declares INT_SUB_START, INT_SUB_END can be used as well as HIGH_INT_SUB_START, HIGH_INT_SUB_END.
+
+' Interrupt Subroutine for a 14-bit core (16F) device
+INT_SUB_START
+InterruptSub:
+  CONTEXT SAVE
+  ' Interrupt Code goes Here !
+  CONTEXT RESTORE
+INT_SUB_END
+
+All of this takes RAM space, so the compiler reserves just enough RAM at the top of memory to cater for the amount of variables and SFR's used.
+A hint (reminder) will be issued when this is accomplished, which can be disabled using the REMINDERS declare.
+Added a simple cast for expressions within Conditions.
+
+For example:
+A comparison that contains an expression will always evaluate the expression with a DWORD (32-bit) product if the left hand variable is a WORD (16-bit).
+
+IF WORDIN = (100 * WORDVAR) + 60000 THEN
+
+A comparison that contains an expression will always evaluate the expression with a WORD (16-bit) product if the left hand variable is a BIT or BYTE (8-bit).
+
+IF BYTEIN = (100 * BYTEVAR) THEN
+
+The addition of a BYTE, WORD, DWORD or FLOAT keyword at the start of an expression within a condition will ensure that the expression will have the appropriate result. i.e.
+
+IF DWORD WORDIN = (100 * WORDIN) + 60000 THEN
+
+or
+
+IF BYTE BYTEIN = BYTE (BYTEVAR - 20) THEN
+
+Note: This will not become an official part of the language until it has been extensively tested.
+
+The SIZEOF_TABLE directive has been added that will calculate the size of a table it is within.
+For example:
+
+CDATA SIZEOF_TABLE, 10, 20, 30, 40
+
+The above table will contain 5 items. i.e. 5, 10, 20, 30, 40.
+
+The same applies to LDATA and EDATA tables.
+
+The SIZEOF_TABLE directive can be placed anywhere within the table and can be preceded by a casting directive:
+
+LDATA as Word 10, 20, 30, 40, SIZEOF_TABLE
+
+** AMENDMENTS **
+The compiler's PPI and Source files are now contained in the folder "Includes" instead of "INC".
+Implemented The USB Stack version 1.2 for USB 18F devices.
+Tightened bank switching when using software interrupts.
+For the third party Library Manager software, the macros NUM_FSR, NUM_FSR0, NUM_FSR1, NUM_FSR2, and LABEL_WORD can now be accessed from
+the BASIC file without a preceding ampersand. This ensures that they follow the rules of macro generation and usage and will help the optimiser do its job.
+Added support for long BASIC file names and file paths that exceed 62 characters. However, the full path should be kept less than 230 characters when using ISIS.
+The compiler now produces a single ASM file containing all the information necessary for the PICmicro used.
+The compiler now implements dead code removal, further tightening the ASM produced by the declare:
+
+DEAD_CODE_REMOVE ON-OFF or TRUE-FALSE or 1-0
+
+This means that the optimiser now has only three levels (four including 0). Note 14-bit core devices now only have two levels of optimisation. See the "KNOWN ISSUES" section
+The first two levels optimise the main code. The third optimise pass (18F devices only) tightens loops and branches further, but at a cost of another assembler pass.
+Optimised Boolean conditions.
+The CONFIG directive can no longer be used with a following equals character with 14-bit (16F) devices. i..e. CONFIG = xxxxx
+Added preceding 0 to floating point display when using the faster, but larger library routine initiated by the declare:-
+
+FLOAT_DISPLAY_TYPE = LARGE or FAST
+
+Word arrays can now have up to 256 elements when using 16-bit core (18F) devices.
+Support for the, now obsolete, One Time Programmable (OTP) 18C devices has been removed. Chiefly due to the lack of the essential LFSR mnemonic.
+Altered library ASM code for 32-bit multiply to use the hardware multiplier with 18F devices. The code produced is slightly larger but the speed increase is tremendous.
+The compiler now uses a single configuration file with the extension .PPI instead of the .INF and .LPB files.
+Important
+The PPI files are semi-automatically created from Microchip .INC files, however, Microchip have changed some of  the fuse configuration  names.
+To view the valid fuse names, open the relevant PPI file, found in the compiler's "Includes\PPI" folder, and scroll down to the bottom of the texts.
+
+The names are in the [CONFIGSTART]/[CONFIGEND] section.
+For 16-bit core (18F) devices, the fuse names for the new CONFIG_START/CONFIG_END block can be found in the [FUSESTART]/[FUSEEND] section.
+18F devices containing built-in ethernet hardware such as the 18F97J60 have an SFR (Special Function Register) named EDATA which clashes with the compiler's eeprom data Keyword.
+The EDATA SFR has to be addressed as _EDATA or PP_EDATA
+
+Implemented support using PPI files for devices: -
+
+12-bit core.
+10F200, 10F202, 10F204, 10F206, 10F220, 10F222, 12C508, 12C508A, 12C509, 12C509A, 12CE518, 12CE519
+12F508, 12F509, 12F510, 16F54, 16F57, 16C505, 16C54, 16C54A, 16C54B, 16C54C, 16C55, 16C554
+16C558, 16C55A, 16C56, 16C56A, 16C57, 16C57C, 16C58A, 16C58B, RF509AF, RF509AG
+
+14-bit core.
+12C671, 12C672, 12CE673, 12CE674, 12F629, 12F635, 12F675, 12F683, RF675F, RF675H, RF675K
+16C432, 16C433, 16C61, 16C62, 16C620, 16C620A, 16C621, 16C621A, 16C622, 16C622A, 16C62A, 16C62B, 16C63, 16C63A, 16C64, 16C642
+16C64A, 16C65, 16C65A, 16C65B, 16C66, 16C662, 16C67, 16C71, 16C710, 16C711, 16C712, 16C715, 16C716, 16C717, 16C72, 16C72A
+16C73, 16C73A, 16C73B, 16C74, 16C745, 16C74A, 16C74B, 16C76, 16C765, 16C77, 16C770, 16C771, 16C773, 16C774, 16C781, 16C782
+16C84, 16C923, 16C924, 16CE623, 16CE624, 16CE625, 16CR54, 16CR54A, 16CR57A, 16CR57B, 16CR57C, 16CR58A, 16CR58B, 16CR62, 16CR63, 16CR64
+16CR65, 16CR72, 16CR83, 16CR84, 16F506, 16F610, 16F616, 16F627, 16F627A, 16F628, 16F628A, 16F630, 16F636, 16F639, 16F648A, 16F676
+16F684, 16F685, 16F687, 16F688, 16F689, 16F690, 16F716, 16F72, 16F73, 16F737, 16F74, 16F747, 16F76, 16F767, 16F77, 16F777
+16F785, 16F818, 16F819, 16F83, 16F84, 16F84A, 16F87, 16F870, 16F871, 16F872, 16F873, 16F873A, 16F874, 16F874A, 16F876, 16F876A
+16F877, 16F877A, 16F88, 16F882, 16F883, 16F884, 16F886, 16F887, 16F913, 16F914, 16F916, 16F917, 16HV610, 16HV616
+
+16-bit core.
+18F1220, 18F1230, 18F1320, 18F1330, 18F2220, 18F2320, 18F2331, 18F2410, 18F242, 18F2423, 18F2431, 18F2439, 18F2455, 18F248
+18F24J10, 18F24K20, 18F2510, 18F2515, 18F252, 18F2520, 18F2523, 18F2525, 18F2539, 18F2550, 18F258, 18F2580, 18F2585, 18F25K20
+18F2610, 18F2620, 18F2680, 18F4220, 18F4320, 18F4331, 18F4410, 18F442, 18F4423, 18F4431, 18F4439, 18F4455, 18F448, 18F44J10
+18F44K20, 18F4510, 18F4515, 18F452, 18F4520, 18F4523, 18F4525, 18F4539, 18F4550, 18F458, 18F4580, 18F4585, 18F45J10, 18F45K20
+18F4610, 18F4620, 18F4680, 18F6310, 18F6390, 18F63J90, 18F6410, 18F6490, 18F64J90, 18F6520, 18F6525, 18F6585, 18F65J10, 18F65J15
+18F65J50, 18F65J90, 18F6620, 18F6621, 18F6622, 18F6627, 18F6680, 18F66J10, 18F66J15, 18F66J50, 18F66J55, 18F66J60, 18F66J65, 18F6720
+18F6722, 18F67J10, 18F67J50, 18F67J60, 18F8310, 18F8390, 18F83J90, 18F8410, 18F8490, 18F84J90, 18F8520, 18F8525, 18F8585, 18F85J10
+18F85J15, 18F85J50, 18F85J90, 18F8620, 18F8621, 18F8627, 18F8680, 18F86J10, 18F86J15, 18F86J50, 18F86J55, 18F86J60, 18F86J65, 18F8720
+18F8722, 18F87J10, 18F87J50, 18F87J60, 18F96J60, 18F96J65, 18F97J60
+
+For 18LF devices use the standard 18F device. This list of devices will be amended when final datasheets for a specific device are available from Microchip.
+
+** FIXES **
+Corrected the loading of a Word array with a label's address. i.e. MYARRAY[1] = LABEL.
+Corrected some typo's in the PPI files for devices: 16F685, 18F1230, 18F1330, 18F2331, 18F2431, 18F4331, and 18F4431
+Corrected Byte array into Byte array whn both index values are constants. i.e. MYARRAY1[1] = MYARRAY2[1].
+IDE now recognises the RF PICmicro devices.
+Corrected the floating point POW command. It now traps the first parameter if 0.
+Corrected Less-Than condition of a Dword and a Constant less than 65535 and above 256 for 14-bit core devices. i.e. DWORD < 32000
+Corrected floating point trigonometry negation where a single Constant value is used. i.e. VAR = SIN -2.15
+Corrected the creation of system loop variable PBL#VARnHHH
+Corrected expression FLOAT = FLOAT * 2
+Corrected STR command. It skipped an element in the array after a Quoted String was issued as an item.
+Corrected ALL_DIGITAL directive for 16F88x and some 18F devices containing ANSEL0 and ANSEL1 SFRs
+Corrected the DIV32 command.
+Corrected POT command with a comment following it.
+Corrected String slicing. i.e. STRING1[INDEX].
+Corrected Integer DWORD = DWORD + WORD for 14-bit core devices where any of the variables are not in the same bank and the operator is not the same as the assignment.
+Corrected RC5IN command with 16-bit core (18F) devices.
+Corrected Complement and Negation within expressions.
+Corrected Keyboard mapping for countries other than UK and American English when using Floating Point Constants.
+Corrected BRANCHL with 16-bit core (18F) devices where the list of labels is too long to be jumped over.
+Slowed down OREAD library routine when using an 8MHz crystal.
+Corrected SERIN with timeout, Sometimes not loading a variable with the received data.
+Corrected CREAD and CWRITE with 14-bit core devices containing SFR EECON1 in bank1 of RAM.
+Corrected ADIN with devices 16F883, 16F883, 16F886 and 16F887.
+Corrected WORD Array results within expressions when the Array has an expression for its index.
+Corrected some obscure bank anomalies with certain 16-bit core (18F)  DWORD compares.
+Corrected the creation of a floating point constant when using an expression containing alias's to floating point constants: -
+
+SYMBOL X = 2.0
+SYMBOL Y = 100.0
+SYMBOL Z = X * Y
+
+Z will represent the floating point constant 200.0
+
+If a mix of floating point constants and  integer constants are in the expression, the compiler will implement a floating point calculation: -
+
+SYMBOL X = 2 '(integer)
+SYMBOL Y = 100.0
+SYMBOL Z = X * Y
+
+Z with represent the floating point constant 200.0
+
+KNOWN ISSUES
+1).
+Compiler does not complain with a syntax error if a quoted string of characters is used within an expression and is not the first part. This will produce no code for the expression.
+
+2).
+STR and STRN accept multiple parameters but do not produce the correct code if STR or STRN are used as parameters before a quoted character string, or value.
+
+3).
+Important Note: The optimiser for 14-bit core devices is no longer a supported feature of the compiler and is only retained because of user pressure.
+
+4).
+A deeply nested inline command as a LOOKUPL parameter will cause an internal stack underflow error.
+
+5).
+STRING concatenations where the assignment string is also one of the operators after the first operator will produce an incorrect assignment result.
+For example: -
+
+STRING1 = "TEXT"
+STRING1 = "1234" + STRING1
+will leave STRING1 holding "12341234TEXT"
+
+The workaround is to assign STRING1 to a temporary string first: -
+
+STRING1 = "TEXT"
+TEMP_STRING = STRING1
+STRING1 = "1234" + TEMP_STRING

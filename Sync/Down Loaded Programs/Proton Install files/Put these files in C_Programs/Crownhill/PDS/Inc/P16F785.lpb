@@ -1,0 +1,414 @@
+
+ NOLIST
+
+W = 0
+F = 1
+
+;[START OF REGISTER FILES]
+INDF                         EQU     0X0000
+TMR0                         EQU     0X0001
+PCL                          EQU     0X0002
+STATUS                       EQU     0X0003
+FSR                          EQU     0X0004
+PORTA                        EQU     0X0005
+PORTB                        EQU     0X0006
+PORTC                        EQU     0X0007
+PCLATH                       EQU     0X000A
+INTCON                       EQU     0X000B
+PIR1                         EQU     0X000C
+TMR1L                        EQU     0X000E
+TMR1LH                       EQU     0X000F		
+TMR1H                        EQU     0X000F		
+T1CON                        EQU     0X0010		
+TMR2                         EQU     0X0011
+T2CON                        EQU     0X0012
+CCPR1L                       EQU     0X0013
+CCPR1LH                      EQU     0X0014
+CCPR1H                       EQU     0X0014
+CCP1CON                      EQU     0X0015
+WDTCON                       EQU     0X0018
+ADRESLH                      EQU     0X001E	
+ADRESH                       EQU     0X001E		
+ADCON0                       EQU     0X001F		
+OPTION_REG                   EQU     0X0081
+TRISA                        EQU     0X0085
+TRISB                        EQU     0X0086
+TRISC                        EQU     0X0087
+PIE1                         EQU     0X008C
+PCON                         EQU     0X008E
+OSCCON                       EQU     0X008F
+OSCTUNE	               	     EQU     0X0090
+ANSEL                        EQU     0X0091
+ANSEL0                       EQU     0X0091
+PR2                          EQU     0X0092
+ANSEL1                       EQU     0X0093
+WPU                          EQU     0X0095
+WPUA                         EQU     0X0095
+IOC                          EQU     0X0096
+IOCA                         EQU     0X0096
+REFCON                       EQU     0X0098
+VRCON                        EQU     0X0099
+EEDAT                        EQU     0X009A	
+EEDATA                       EQU     0X009A	
+EEADR                        EQU     0X009B	
+EECON1                       EQU     0X009C
+EECON2                       EQU     0X009D
+ADRES                        EQU     0X009E
+ADRESL                       EQU     0X009E		
+ADCON1                       EQU     0X009F
+PWMCON1                      EQU     0X0110
+PWMCON0                      EQU     0X0111
+PWMCLK                       EQU     0X0112
+PWMPH1                       EQU     0X0113
+PWMPH2                       EQU     0X0114
+CM1CON0                      EQU     0X0119
+CM2CON0                      EQU     0X011A
+CM2CON1                      EQU     0X011B
+OPA1CON                      EQU     0X011C
+OPA2CON                      EQU     0X011D
+;[END OF REGISTER FILES]
+
+; STATUS Bits
+
+IRP                          EQU     0X0007
+RP1                          EQU     0X0006
+RP0                          EQU     0X0005
+NOT_TO                       EQU     0X0004
+NOT_PD                       EQU     0X0003
+Z                            EQU     0X0002
+DC                           EQU     0X0001
+C                            EQU     0X0000
+
+; INTCON Bits
+
+GIE                          EQU     0X0007
+PEIE                         EQU     0X0006
+T0IE                         EQU     0X0005
+INTE                         EQU     0X0004
+RAIE                         EQU     0X0003
+T0IF                         EQU     0X0002
+INTF                         EQU     0X0001
+RAIF                         EQU     0X0000
+
+; PIR1 Bits
+
+EEIF                         EQU     0X0007
+ADIF                         EQU     0X0006
+CCP1IF                       EQU     0X0005
+C2IF                         EQU     0X0004
+C1IF                         EQU     0X0003
+OSFIF                        EQU     0X0002
+T2IF                         EQU     0X0001
+TMR2IF                       EQU     0X0001
+T1IF                         EQU     0X0000
+TMR1IF                       EQU     0X0000
+
+; T1CON Bits
+
+T1GINV                       EQU     0X0007
+TMR1GE                       EQU     0X0006
+T1GE                         EQU     0X0006
+T1CKPS1                      EQU     0X0005
+T1CKPS0                      EQU     0X0004
+T1OSCEN                      EQU     0X0003
+NOT_T1SYNC                   EQU     0X0002
+TMR1CS                       EQU     0X0001
+TMR1ON                       EQU     0X0000
+
+; T2CON Bits
+
+TOUTPS3                      EQU     0X0006
+TOUTPS2                      EQU     0X0005
+TOUTPS1                      EQU     0X0004
+TOUTPS0                      EQU     0X0003
+TMR2ON                       EQU     0X0002
+T2CKPS1                      EQU     0X0001
+T2CKPS0                      EQU     0X0000
+
+; CCP1CON Bits
+
+DC1B1                        EQU     0X0005
+DC1B0                        EQU     0X0004
+CCP1M3                       EQU     0X0003
+CCP1M2                       EQU     0X0002
+CCP1M1                       EQU     0X0001
+CCP1M0                       EQU     0X0000
+
+; WDTCON Bits
+
+WDTPS3                       EQU     0X0004
+WDTPS2                       EQU     0X0003
+WDTPS1                       EQU     0X0002
+WDTPS0                       EQU     0X0001
+SWDTEN                       EQU     0X0000
+
+; ADCON0 Bits
+
+ADFM                         EQU     0X0007
+VCFG                         EQU     0X0006
+CHS3                         EQU     0X0005
+CHS2                         EQU     0X0004
+CHS1                         EQU     0X0003
+CHS0                         EQU     0X0002
+GO                           EQU     0X0001
+NOT_DONE                     EQU     0X0001
+GO_DONE                      EQU     0X0001
+ADON                         EQU     0X0000
+
+; OPTION Bits
+
+NOT_RAPU            	     EQU     0X0007
+INTEDG                       EQU     0X0006
+T0CS                         EQU     0X0005
+T0SE                         EQU     0X0004
+PSA                          EQU     0X0003
+PS2                          EQU     0X0002
+PS1                          EQU     0X0001
+PS0                          EQU     0X0000
+
+; PIE1 Bits
+
+EEIE                         EQU     0X0007
+ADIE                         EQU     0X0006
+CCP1IE                       EQU     0X0005
+C2IE                         EQU     0X0004
+C1IE                         EQU     0X0003
+OSFIE                        EQU     0X0002
+T2IE                         EQU     0X0001
+TMR2IE                       EQU     0X0001
+T1IE                         EQU     0X0000
+TMR1IE                       EQU     0X0000
+
+; PCON Bits
+
+SBODEN                       EQU     0X0004
+SBOREN                       EQU     0X0004
+NOT_POR                      EQU     0X0001
+NOT_BOD                      EQU     0X0000
+NOT_BOR                      EQU     0X0000
+
+; OSCCON Bits
+
+IRCF2                        EQU     0X0006
+IRCF1                        EQU     0X0005
+IRCF0                        EQU     0X0004
+OSTS                         EQU     0X0003
+HTS                          EQU     0X0002
+LTS                          EQU     0X0001
+SCS                          EQU     0X0000
+
+; OSCTUNE Bits
+
+TUN4                         EQU     0X0004
+TUN3                         EQU     0X0003
+TUN2                         EQU     0X0002
+TUN1                         EQU     0X0001
+TUN0                         EQU     0X0000
+
+; ANSEL or ANSEL0 
+
+ANS7                         EQU     0X0007
+ANS6                         EQU     0X0006
+ANS5                         EQU     0X0005
+ANS4                         EQU     0X0004
+ANS3                         EQU     0X0003
+ANS2                         EQU     0X0002
+ANS1                         EQU     0X0001
+ANS0                         EQU     0X0000
+
+; ANSEL1
+
+ANS11                        EQU     0X0003
+ANS10                        EQU     0X0002
+ANS9                         EQU     0X0001
+ANS8                         EQU     0X0000
+
+; WPUA 
+
+WPUA5                        EQU     0X0005
+WPUA4                        EQU     0X0004
+WPUA3                        EQU     0X0003
+WPUA2                        EQU     0X0002
+WPUA1                        EQU     0X0001
+WPUA0                        EQU     0X0000
+
+; IOC 
+
+IOC5                         EQU     0X0005
+IOC4                         EQU     0X0004
+IOC3                         EQU     0X0003
+IOC2                         EQU     0X0002
+IOC1                         EQU     0X0001
+IOC0                         EQU     0X0000
+
+; IOCA 
+
+IOCA5                        EQU     0X0005
+IOCA4                        EQU     0X0004
+IOCA3                        EQU     0X0003
+IOCA2                        EQU     0X0002
+IOCA1                        EQU     0X0001
+IOCA0                        EQU     0X0000
+
+; REFCON
+
+BGST                         EQU     0X0005
+VRBB                         EQU     0X0004
+VREN                         EQU     0X0003
+VROE                         EQU     0X0002
+CVROE                        EQU     0X0001
+
+; VRCON Bits
+
+C1VREN                       EQU     0X0007
+C2VREN                       EQU     0X0006
+VRR                          EQU     0X0005
+VR3                          EQU     0X0003
+VR2                          EQU     0X0002
+VR1                          EQU     0X0001
+VR0                          EQU     0X0000
+
+; EECON1
+
+WRERR                        EQU     0X0003
+WREN                         EQU     0X0002
+WR                           EQU     0X0001
+RD                           EQU     0X0000
+
+; ADCON1
+
+ADCS2                        EQU     0X0006
+ADCS1                        EQU     0X0005
+ADCS0                        EQU     0X0004
+
+; PWMCON1
+
+COMOD1                       EQU     0X0006
+COMOD0                       EQU     0X0005
+CMDLY4                       EQU     0X0004
+CMDLY3                       EQU     0X0003
+CMDLY2                       EQU     0X0002
+CMDLY1                       EQU     0X0001
+CMDLY0                       EQU     0X0000
+
+; PWMCON0
+
+PRSEN                        EQU     0X0007
+PASEN                        EQU     0X0006
+BLANK2                       EQU     0X0005
+BLANK1                       EQU     0X0004
+SYNC1                        EQU     0X0003
+SYNC0                        EQU     0X0002
+PH2EN                        EQU     0X0001
+PH1EN                        EQU     0X0000
+
+; PWMCLK
+
+PWMASE                       EQU     0X0007
+PWMP1                        EQU     0X0006
+PWMP0                        EQU     0X0005
+PER4                         EQU     0X0004
+PER3                         EQU     0X0003
+PER2                         EQU     0X0002
+PER1                         EQU     0X0001
+PER0                         EQU     0X0000
+
+; PWMPH1 & PWMPH2 
+
+POL                          EQU     0X0007
+C2EN                         EQU     0X0006
+C1EN                         EQU     0X0005
+PH4                          EQU     0X0004
+PH3                          EQU     0X0003
+PH2                          EQU     0X0002
+PH1                          EQU     0X0001
+PH0                          EQU     0X0000
+
+; CM1CON0
+
+C1ON                         EQU     0X0007
+C1OUT                        EQU     0X0006
+C1OE                         EQU     0X0005
+C1POL                        EQU     0X0004
+C1SP                         EQU     0X0003
+C1R                          EQU     0X0002
+C1CH1                        EQU     0X0001
+C1CH0                        EQU     0X0000
+
+; CM2CON0
+
+C2ON                         EQU     0X0007
+C2OUT                        EQU     0X0006
+C2OE                         EQU     0X0005
+C2POL                        EQU     0X0004
+C2SP                         EQU     0X0003
+C2R                          EQU     0X0002
+C2CH1                        EQU     0X0001
+C2CH0                        EQU     0X0000
+
+; CM2CON1
+
+MC1OUT                       EQU     0X0007
+MC2OUT                       EQU     0X0006
+T1GSS                        EQU     0X0001
+C2SYNC                       EQU     0X0000
+
+; OPA1CON & OPA2CON 
+
+OPAON                        EQU     0X0007
+;
+; RAM Definition
+;
+        __MAXRAM 0X1FF
+        __BADRAM  0X08-0X09, 0X0D, 0X16-0X17, 0X19-0X1D
+        __BADRAM  0X88-0X89, 0X8D, 0X94, 0X97, 0XC0-0XEF
+        __BADRAM  0X108-0X109, 0X10C-0X10F, 0X115-0X118, 0X11E-0X16F
+        __BADRAM  0X188-0X189, 0X18C-0X1EF
+;
+; [START OF CONFIGURATION BITS]
+;		
+FCMEN_ON                    EQU     0X3FFF
+FCMEN_OFF                   EQU     0X37FF
+IESO_ON                     EQU     0X3FFF
+IESO_OFF                    EQU     0X3BFF
+BOD_ON                      EQU     0X3FFF
+BOD_NSLEEP                  EQU     0X3EFF
+BOD_SBODEN                  EQU     0X3DFF
+BOD_OFF                     EQU     0X3CFF
+BOR_ON                      EQU     0X3FFF
+BOR_NSLEEP                  EQU     0X3EFF
+BOR_SBOREN                  EQU     0X3DFF
+BOR_OFF                     EQU     0X3CFF
+CPD_ON                      EQU     0X3F7F
+CPD_OFF                     EQU     0X3FFF
+CP_ON                       EQU     0X3FBF
+CP_OFF                      EQU     0X3FFF
+MCLRE_ON                    EQU     0X3FFF
+MCLRE_OFF                   EQU     0X3FDF
+PWRTE_OFF                   EQU     0X3FFF
+PWRTE_ON                    EQU     0X3FEF
+WDT_ON                      EQU     0X3FFF
+WDT_OFF                     EQU     0X3FF7
+LP_OSC                      EQU     0X3FF8
+XT_OSC                      EQU     0X3FF9
+HS_OSC                      EQU     0X3FFA
+EC_OSC                      EQU     0X3FFB
+INTRC_OSC_NOCLKOUT          EQU     0X3FFC
+INTRC_OSC_CLKOUT            EQU     0X3FFD
+EXTRC_OSC_NOCLKOUT          EQU     0X3FFE
+EXTRC_OSC_CLKOUT            EQU     0X3FFF
+INTOSCIO                    EQU     0X3FFC
+INTOSC                      EQU     0X3FFD
+EXTRCIO                     EQU     0X3FFE
+EXTRC                       EQU     0X3FFF
+
+; [SET THE DEFAULT FUSE CONFIGURATION]
+	ifndef CONFIG_REQ
+		ifdef WATCHDOG_REQ
+			__config FCMEN_OFF & IESO_OFF & MCLRE_ON & BOD_OFF & XT_OSC & WDT_ON & PWRTE_ON & BOR_ON & CP_OFF & CPD_OFF
+		else
+			__config FCMEN_OFF & IESO_OFF & MCLRE_ON & BOD_OFF & XT_OSC & WDT_OFF & PWRTE_ON & BOR_ON & CP_OFF & CPD_OFF
+		endif
+	endif
+ 
+ LIST

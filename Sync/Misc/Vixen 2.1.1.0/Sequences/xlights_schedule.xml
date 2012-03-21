@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xSchedule computer="SONOFBC-PC">
+  <schedule/>
+  <playlists>
+    <playlist name="Testplay" Audio="0" Video="0" LOR="0" Vixen="1" MovieMode="0">
+      <listitem name="Mysequence.vix" enabled="1"/>
+      <listitem name="Peak Sequence.vix" enabled="1"/>
+      <listitem name="Peak Sequence2.vix" enabled="1"/>
+      <listitem name="Test.vix" enabled="1"/>
+      <script>
+</script>
+    </playlist>
+  </playlists>
+</xSchedule>

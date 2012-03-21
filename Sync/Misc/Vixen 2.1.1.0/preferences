@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<User>
+  <EventPeriod default="100">100</EventPeriod>
+  <MinimumLevel default="0">0</MinimumLevel>
+  <MaximumLevel default="255">255</MaximumLevel>
+  <MaxColumnWidth default="30">30</MaxColumnWidth>
+  <MaxRowHeight default="20">20</MaxRowHeight>
+  <ShowPositionMarker default="True">True</ShowPositionMarker>
+  <AutoScrolling default="True">True</AutoScrolling>
+  <SavePlugInDialogPositions default="True">True</SavePlugInDialogPositions>
+  <EventSequenceAutoSize default="True">True</EventSequenceAutoSize>
+  <WizardForNewSequences default="True">True</WizardForNewSequences>
+  <SaveZoomLevels default="True" column="100%" row="100%">True</SaveZoomLevels>
+  <ShowSaveConfirmation default="True">True</ShowSaveConfirmation>
+  <ClearAtEndOfSequence default="True">True</ClearAtEndOfSequence>
+  <TimerCheckFrequency default="10">10</TimerCheckFrequency>
+  <BackgroundSequence default="">
+  </BackgroundSequence>
+  <EnableBackgroundSequence default="False">False</EnableBackgroundSequence>
+  <BackgroundSequenceDelay default="10">1</BackgroundSequenceDelay>
+  <SecondaryEngine default="ScriptEngine.dll">ScriptEngine.dll</SecondaryEngine>
+  <MouseWheelVerticalDelta default="2">2</MouseWheelVerticalDelta>
+  <MouseWheelHorizontalDelta default="10">10</MouseWheelHorizontalDelta>
+  <IntensityLargeDelta default="5">5</IntensityLargeDelta>
+  <EnableBackgroundMusic default="False">False</EnableBackgroundMusic>
+  <BackgroundMusicDelay default="10">10</BackgroundMusicDelay>
+  <EnableMusicFade default="False">False</EnableMusicFade>
+  <MusicFadeDuration default="5">5</MusicFadeDuration>
+  <ClientName default="Vixen">Vixen</ClientName>
+  <ResetAtStartup default="False">False</ResetAtStartup>
+  <DefaultProfile default="">Original Peak</DefaultProfile>
+  <PreferredSequenceType default=".vix">.vsp</PreferredSequenceType>
+  <SynchronousData default="Embedded">Original Peak</SynchronousData>
+  <AsynchronousData default="Sync">Original Peak</AsynchronousData>
+  <ShutdownTime default="">
+  </ShutdownTime>
+  <CustomColors default="16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215">16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215,16777215</CustomColors>
+  <ActualLevels default="False">False</ActualLevels>
+  <ShowNaturalChannelNumber default="False">True</ShowNaturalChannelNumber>
+  <DefaultSequenceAudioDevice default="-1">-1</DefaultSequenceAudioDevice>
+  <HistoryImages default="0">0</HistoryImages>
+  <LogAudioManual default="False">False</LogAudioManual>
+  <LogAudioScheduled default="False">False</LogAudioScheduled>
+  <LogAudioMusicPlayer default="False">False</LogAudioMusicPlayer>
+  <AudioLogFilePath default="">
+  </AudioLogFilePath>
+  <BarLevels default="False">False</BarLevels>
+  <FlipScrollBehavior default="False">False</FlipScrollBehavior>
+  <LoadableData>
+    <IAddInData>
+      <IAddIn name="Analog frequency spectrum" enabled="False" />
+      <IAddIn name="Comet conversion" enabled="False" />
+      <IAddIn name="DMX" enabled="False" />
+      <IAddIn name="MIDI reader" enabled="False" />
+      <IAddIn name="EFX-TEK Prop-1 Sequence Generator" enabled="True" />
+      <IAddIn name="EFX-TEK Prop-2 Sequence Generator" enabled="False" />
+      <IAddIn name="Remote client" enabled="True">
+        <AllowLocal>False</AllowLocal>
+        <AllowRemote>False</AllowRemote>
+        <Server />
+        <Execution />
+        <Control />
+      </IAddIn>
+      <IAddIn name="RGBLED" enabled="False" />
+      <IAddIn name="Frequency spectrum" enabled="False" />
+      <IAddIn name="Watt meter" enabled="False" />
+      <IAddIn name="Waveform" enabled="False" />
+    </IAddInData>
+  </LoadableData>
+  <History>
+    <Item>Test.vix</Item>
+    <Item>Bozman Christmas House.vsp</Item>
+    <Item>Peak.vsp</Item>
+    <Item>Christmas1.vix</Item>
+    <Item>Peak3.vsp</Item>
+    <Item>Peak2.vsp</Item>
+    <Item>Peak Sequence2.vix</Item>
+  </History>
+  <ToolStripConfiguration>
+    <reset>
+      <Panel name="TopToolStripPanel">
+        <Strip name="toolStripSequenceSettings" location="3,0" visible="True">
+        </Strip>
+        <Strip name="toolStripExecutionControl" location="3,25" visible="True">
+        </Strip>
+        <Strip name="toolStripEffect" location="3,50" visible="True">
+        </Strip>
+        <Strip name="toolStripEditing" location="3,75" visible="True">
+        </Strip>
+        <Strip name="toolStripText" location="3,100" visible="True">
+        </Strip>
+        <Strip name="toolStripVisualizer" location="3,125" visible="True">
+        </Strip>
+        <Strip name="toolStripDisplaySettings" location="184,125" visible="True">
+        </Strip>
+      </Panel>
+      <Panel name="LeftToolStripPanel">
+      </Panel>
+      <Panel name="RightToolStripPanel">
+      </Panel>
+      <Panel name="BottomToolStripPanel">
+      </Panel>
+    </reset>
+  </ToolStripConfiguration>
+</User>
