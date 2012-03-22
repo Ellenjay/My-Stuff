@@ -1,0 +1,19 @@
+[Project]
+Filename=C:\SJB\Proton Stuff\Proton V3.0 RFID 2nd Generation\Proton V2.5 RFID 2nd Generation\V2.5 RFID 2nd Generation.bas
+[Environment]
+CaretX=8
+CaretY=133
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=7
+[Results]
+Visible=1
+Height=46
+View=1
+[Status]
+Message=Success : 40008 program bytes used, 1014 variable bytes used
+Image=2

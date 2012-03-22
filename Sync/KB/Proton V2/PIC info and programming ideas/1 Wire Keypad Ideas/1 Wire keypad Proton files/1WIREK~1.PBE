@@ -1,0 +1,4 @@
+16F877A,149,9,
+Reminder! Line [11]	In file [1WIREK~1.BAS]		*** Ensure that all fuses are placed in the CONFIG list, as PICmicros have differing default settings! ***
+	PROGRAM COMPILED OK. 149 Words used
+	9 Variables used in the 16F877A from a possible 368

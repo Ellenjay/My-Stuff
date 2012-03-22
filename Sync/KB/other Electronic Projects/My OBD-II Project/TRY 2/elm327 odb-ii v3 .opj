@@ -1,0 +1,71 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (File ".\elm327 odb-ii v3 .dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (NoModify)
+    (DRC_Scope "0")
+    (DRC_Action "0")
+    (DRC_Create_Warnings "FALSE")
+    (DRC_Check_Ports "FALSE")
+    (DRC_Check_Off-Page_Connectors "FALSE")
+    (DRC_Identical_References "TRUE")
+    (DRC_Type_Mismatch "TRUE")
+    (DRC_Report_Ports_and_Off-page_Connectors "FALSE")
+    (DRC_SDT_Compatibility "FALSE")
+    (DRC_Report_Off-grid_Objects "FALSE")
+    (DRC_Check_Unconnected_Nets "TRUE")
+    (DRC_Report_Netnames "FALSE")
+    (DRC_View_Output "FALSE")
+    (DRC_Report_File
+       "C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\TRY 2\ELM327 ODB-II V3 .DRC")
+    (Netlist_TAB "5")
+    (EDIF_Netlist_File
+       "C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\TRY 2\ELM327 ODB-II V3 .EDN")
+    (EDIF_Allow_NonEDIF "FALSE")
+    (EDIF_Pin_Names "FALSE")
+    (EDIF_No_Library "FALSE")
+    (EDIF_Net_Props "FALSE")
+    (EDIF_Part_Props "FALSE")
+    (EDIF_Pin_Props "FALSE")
+    (EDIF_Designators "FALSE")
+    (EDIF_Part_Value "{Value}")
+    (EDIF_PCB_Footprint "{PCB Footprint}")
+    (EDIF_View_Output "FALSE")
+    (LAYOUT_Netlist_File
+       "C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\TRY 2\ELM327 ODB-II V3 .MNL")
+    (LAYOUT_PCB_Footprint "{PCB Footprint}")
+    (FALSE)
+    (LAYOUT_Units "0")
+    (FALSE))
+  (Folder "Outputs"
+    (File ".\elm327 odb-ii v3 .drc"
+      (Type "Report"))
+    (File ".\elm327 odb-ii v3 .edn"
+      (Type "Report"))
+    (File ".\elm327 odb-ii v3 .mnl"
+      (Type "LAYOUT Netlist File")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector)
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "c:\documents and settings\sam\desktop\sam's stuff\my electronic projects\my obd-ii project\try 2\elm327 odb-ii v3 .dsn")
+      (Path "Design Resources"
+         "c:\documents and settings\sam\desktop\sam's stuff\my electronic projects\my obd-ii project\try 2\elm327 odb-ii v3 .dsn"
+         "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "c:\documents and settings\sam\desktop\sam's stuff\my electronic projects\my obd-ii project\try 2\elm327 odb-ii v3 .dsn"
+         "SCHEMATIC1" "ELM327 Schematic"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -4 -23 0 200 0 425"))
+      (Tab 0))))

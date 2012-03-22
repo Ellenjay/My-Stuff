@@ -1,0 +1,169 @@
+Post Processor Report
+OrCAD FILE: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.MAX
+Fri May 23 11:34:04 2008
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.TOP
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.TOP:
+---------------------------------------------------------
+D11:  0.0850 ROUND  --       0 Draws,      81 Flashes
+D12:  0.0780 ROUND  --       0 Draws,      13 Flashes
+D13:  0.1200 ROUND  --       0 Draws,       2 Flashes
+D14:  0.0750 SQUARE --       0 Draws,       2 Flashes
+D15:  0.0780 SQUARE --       0 Draws,       4 Flashes
+D18:  0.0240 ROUND  --     122 Draws,       0 Flashes
+D21:  0.1400 ROUND  --       0 Draws,       3 Flashes
+D24:  0.0080 ROUND  --     211 Draws,       0 Flashes
+D25:  0.0630 SQUARE --       0 Draws,       1 Flashes
+D28:  0.0630 ROUND  --       0 Draws,       2 Flashes
+D30:  0.0580 SQUARE --       0 Draws,       1 Flashes
+D31:  0.0520 ROUND  --       0 Draws,      44 Flashes
+D32:  0.0120 ROUND  --     123 Draws,       0 Flashes
+D34:  0.0620 ROUND  --       0 Draws,       2 Flashes
+D35:  0.0450 ROUND  --       0 Draws,       4 Flashes
+D36:  0.0450 SQUARE --       0 Draws,       4 Flashes
+D37:  0.0610 SQUARE --       0 Draws,       3 Flashes
+D38:  0.0610 ROUND  --       0 Draws,       3 Flashes
+D39:  0.0500 SQUARE --       0 Draws,       4 Flashes
+D40:  0.2000 ROUND  --       0 Draws,       4 Flashes
+---------------------------------------------------------
+ 20 D-Codes      -----     456 Draws,     177 Flashes
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.BOT
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.BOT:
+---------------------------------------------------------
+D11:  0.0850 ROUND  --       0 Draws,      81 Flashes
+D12:  0.0780 ROUND  --       0 Draws,      13 Flashes
+D13:  0.1200 ROUND  --       0 Draws,       2 Flashes
+D14:  0.0750 SQUARE --       0 Draws,       2 Flashes
+D15:  0.0780 SQUARE --       0 Draws,       4 Flashes
+D18:  0.0240 ROUND  --      78 Draws,       0 Flashes
+D21:  0.1400 ROUND  --       0 Draws,       3 Flashes
+D24:  0.0080 ROUND  --     211 Draws,       0 Flashes
+D28:  0.0630 ROUND  --       0 Draws,       3 Flashes
+D30:  0.0580 SQUARE --       0 Draws,       1 Flashes
+D31:  0.0520 ROUND  --       0 Draws,      44 Flashes
+D32:  0.0120 ROUND  --     111 Draws,       0 Flashes
+D34:  0.0620 ROUND  --       0 Draws,       2 Flashes
+D35:  0.0450 ROUND  --       0 Draws,       4 Flashes
+D36:  0.0450 SQUARE --       0 Draws,       4 Flashes
+D37:  0.0610 SQUARE --       0 Draws,       3 Flashes
+D38:  0.0610 ROUND  --       0 Draws,       3 Flashes
+D39:  0.0500 SQUARE --       0 Draws,       4 Flashes
+D40:  0.2000 ROUND  --       0 Draws,       4 Flashes
+---------------------------------------------------------
+ 19 D-Codes      -----     400 Draws,     177 Flashes
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.SMB
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.SMB:
+---------------------------------------------------------
+D11:  0.0850 ROUND  --       0 Draws,      81 Flashes
+D12:  0.0780 ROUND  --       0 Draws,      13 Flashes
+D13:  0.1200 ROUND  --       0 Draws,       2 Flashes
+D14:  0.0750 SQUARE --       0 Draws,       2 Flashes
+D15:  0.0780 SQUARE --       0 Draws,       4 Flashes
+D21:  0.1400 ROUND  --       0 Draws,       3 Flashes
+D28:  0.0630 ROUND  --       0 Draws,       2 Flashes
+D30:  0.0580 SQUARE --       0 Draws,       1 Flashes
+D31:  0.0520 ROUND  --       0 Draws,      44 Flashes
+D35:  0.0450 ROUND  --       0 Draws,       4 Flashes
+D36:  0.0450 SQUARE --       0 Draws,       4 Flashes
+D37:  0.0610 SQUARE --       0 Draws,       3 Flashes
+D38:  0.0610 ROUND  --       0 Draws,       3 Flashes
+D39:  0.0500 SQUARE --       0 Draws,       4 Flashes
+D40:  0.2000 ROUND  --       0 Draws,       4 Flashes
+D41:  0.0670 ROUND  --       0 Draws,       2 Flashes
+D42:  0.0680 ROUND  --       0 Draws,       1 Flashes
+---------------------------------------------------------
+ 17 D-Codes      -----       0 Draws,     177 Flashes
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.SST
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.SST:
+---------------------------------------------------------
+D20:  0.0100 ROUND  --       4 Draws,       0 Flashes
+D24:  0.0080 ROUND  --    1074 Draws,       0 Flashes
+D39:  0.0500 SQUARE --       0 Draws,       4 Flashes
+---------------------------------------------------------
+  3 D-Codes      -----    1078 Draws,       4 Flashes
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.AST
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.AST:
+---------------------------------------------------------
+D11:  0.0850 ROUND  --       0 Draws,      79 Flashes
+D12:  0.0780 ROUND  --       0 Draws,      13 Flashes
+D13:  0.1200 ROUND  --       0 Draws,       2 Flashes
+D15:  0.0780 SQUARE --       0 Draws,       4 Flashes
+D24:  0.0080 ROUND  --     225 Draws,       0 Flashes
+D26:  0.0620 SQUARE --       0 Draws,       2 Flashes
+D28:  0.0630 ROUND  --       0 Draws,       2 Flashes
+D30:  0.0580 SQUARE --       0 Draws,       1 Flashes
+D31:  0.0520 ROUND  --       0 Draws,      44 Flashes
+D33:  0.0050 ROUND  --      23 Draws,       0 Flashes
+D35:  0.0450 ROUND  --       0 Draws,       4 Flashes
+D36:  0.0450 SQUARE --       0 Draws,       4 Flashes
+D37:  0.0610 SQUARE --       0 Draws,       3 Flashes
+D38:  0.0610 ROUND  --       0 Draws,       3 Flashes
+D39:  0.0500 SQUARE --       0 Draws,       4 Flashes
+---------------------------------------------------------
+ 15 D-Codes      -----     248 Draws,     165 Flashes
+
+*********************************************************
+
+Output file: C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.DRD
+
+Aperture totals for C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD\PM_05_19_08V3.DRD:
+---------------------------------------------------------
+D20:  0.0100 ROUND  --    1304 Draws,       0 Flashes
+D33:  0.0050 ROUND  --      23 Draws,       0 Flashes
+---------------------------------------------------------
+  2 D-Codes      -----    1327 Draws,       0 Flashes
+
+
+*********************************************************
+
+Aperture totals for entire project:
+---------------------------------------------------------
+D11:  0.0850 ROUND  --       0 Draws,     322 Flashes
+D12:  0.0780 ROUND  --       0 Draws,      52 Flashes
+D13:  0.1200 ROUND  --       0 Draws,       8 Flashes
+D14:  0.0750 SQUARE --       0 Draws,       6 Flashes
+D15:  0.0780 SQUARE --       0 Draws,      16 Flashes
+D18:  0.0240 ROUND  --     200 Draws,       0 Flashes
+D20:  0.0100 ROUND  --    1308 Draws,       0 Flashes
+D21:  0.1400 ROUND  --       0 Draws,       9 Flashes
+D24:  0.0080 ROUND  --    1721 Draws,       0 Flashes
+D25:  0.0630 SQUARE --       0 Draws,       1 Flashes
+D26:  0.0620 SQUARE --       0 Draws,       2 Flashes
+D28:  0.0630 ROUND  --       0 Draws,       9 Flashes
+D30:  0.0580 SQUARE --       0 Draws,       4 Flashes
+D31:  0.0520 ROUND  --       0 Draws,     176 Flashes
+D32:  0.0120 ROUND  --     234 Draws,       0 Flashes
+D33:  0.0050 ROUND  --      46 Draws,       0 Flashes
+D34:  0.0620 ROUND  --       0 Draws,       4 Flashes
+D35:  0.0450 ROUND  --       0 Draws,      16 Flashes
+D36:  0.0450 SQUARE --       0 Draws,      16 Flashes
+D37:  0.0610 SQUARE --       0 Draws,      12 Flashes
+D38:  0.0610 ROUND  --       0 Draws,      12 Flashes
+D39:  0.0500 SQUARE --       0 Draws,      20 Flashes
+D40:  0.2000 ROUND  --       0 Draws,      12 Flashes
+D41:  0.0670 ROUND  --       0 Draws,       2 Flashes
+D42:  0.0680 ROUND  --       0 Draws,       1 Flashes
+---------------------------------------------------------
+ 25 D-Codes      -----    3509 Draws,     700 Flashes
+
+
+No warnings or errors.

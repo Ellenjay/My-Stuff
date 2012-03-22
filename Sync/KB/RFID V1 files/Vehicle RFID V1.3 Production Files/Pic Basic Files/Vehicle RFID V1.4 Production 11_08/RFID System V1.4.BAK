@@ -1,0 +1,135 @@
+'Main Vehicle RFID System
+'Sam Bozman
+'APRIL 4, 2007	
+'Revised Oct 19, 2007
+'Revised May 2, 2008 (Up to 24 users from 12 users)
+'Revised jUNE 17 2008 Removed Master key
+'Revised Sept 2008.. Shut of BODEN
+'Vehicle Security Project
+
+DEVICE = 16F877A
+CONFIG XT_OSC , WDT_OFF , PWRTE_ON , BODEN_OFF , LVP_OFF , CP_OFF , DEBUG_OFF
+
+XTAL  = 4 
+
+
+	
+DECLARE KEYPAD_PORT PORTB 		'Set PORTB as keypad port. Has internal
+
+DECLARE LCD_TYPE 0 				'Declare Alpha numeric Display
+DECLARE LCD_DTPIN PORTD.0		'Bottom 4-line interface
+DECLARE LCD_ENPIN PORTD.6		'Declare Enable pin
+DECLARE LCD_RSPIN PORTD.7		'Declare Command/Data pin
+DECLARE LCD_INTERFACE 4	 		'4 Line Data interface
+DECLARE LCD_LINES 2	  			'Declare this to be a 2 line LCD
+
+Dim Index as BYTE			'Used to Index a loop
+Dim Index2 as BYTE			'Used to Index a loop
+
+DIM TagOffset as BYTE		'Base Address offset of Tag position in table spot
+DIM B1 as BYTE 				'Variable for temporary storage
+Dim B2 as BYTE				'Variable for temporary storage
+DIM Flag as Bit				'Used to indicate a decision in a sub
+
+DIM CurrentLine as BYTE		'Used as a variable for printing to LCD lines
+DIM StartLine as BYTE		'Used by Scroll and ScrollH for start of table
+DIM EndLine as BYTE			'Used by Scroll and ScrollH for end of table
+DIM LastUser as BYTE		'Used by ScrollH for last user history record address
+
+DIM EmpIN[6] as BYTE		'Set temporary spot of Employee #
+DIM CE[3] as BYTE			'Used to consolidate Emp # (6 digits to 3 using low and high bits of byte)
+DIM TagIn[10] as BYTE		'Set temporary spot for Tag ID
+Dim CT[5] as BYTE			'Used to consolidate Tag Id numbers(10 digits to 5 by simply adding each pair of digits)
+DIM Footer as BYTE			'end (0x0D) of Tag number
+DIM NUA as BYTE				'Next User Address spot in EEprom
+DIM STime as BYTE			'Time in MS to play sound
+SYMBOL GIE = INTCON.7 		' Global interrupt enable/disable 
+SYMBOL StartEnable = PORTD.5  ' This port goes Low to turn on the start solonoid
+
+SYMBOL Green = PortC.2		  'Bi LED Multi-coloured LED ..when both Port C.1 and Port C.2 are
+SYMBOL Red = PortC.1		  'high then LED is Orange
+SYMBOL SPin = PortC.4		  'Pin used to create sound by Piezo speaker
+SYMBOL RFIDEnable = PORTD.4	  'When high the RFID reader is active  	   				 	 				
+SYMBOL HHDetect = PORTC.3	  ' Detects when the Hand-Held is plugged in (Programming Mode)
+
+' Define KeyPad variables
+	  Dim Col     as     Byte            		' Keypad column
+	  Dim Row     as     Byte            		' Keypad row
+	  Dim Key     as     Byte            		' Key value      		 
+
+	  Option_Reg.6 = 0	  'Set to allow PortB.0 to detect a high to low pulse 
+	  'Option_Reg.6 = 1 	   'Set to allow PortB.0 to detect a low to high pulse 
+	  PORTB_PULLUPS = TRUE       				' Enable PORTB pullups
+	  ALL_DIGITAL = TRUE		 		'Sets all Ports to digital inputs and outputs
+	  INPUT HHDetect						'Set HHDetect as input
+	  Output StartEnable					'Set PORTD.5 as OutPut
+
+
+Start:		 					'Start of program
+
+ 
+B1 = "C"   'Set B1 to 'Clear' so that it is not confused when checking Employee Numbers 
+	  Low Red   	  		  'Set Bi-Polar Led Off
+	  Low Green			  'Set Bi-Polar Led Off
+	  High RFIDEnable		   	  				' Turn off RFID Reader	
+	  Low StartEnable							'Shut off start relay
+	  High RFIDEnable							'Shut Off RFID Reader
+	  GIE = 0 					' Turn OFF global interrupts 
+	  WHILE GIE = 1 : GIE = 0 : WEND 	' And make sure they are off 
+	  INTCON.4 = 0	  	  	  	  	'Set wakeup on PortB.0 to off
+
+
+
+
+'IN THE NEXT SEQUENCE THIS PROGRAM WILL CHECK TO SEE IF THIS IS A 'NEW' CHIP
+'If this is a new chip then ERead Address 255 will be 0xFF.
+'If so then we will read the 'Master' chip and intialize the data table.
+	    Print $FE, $0F							'Blinking Cursor ON
+	    CLS	  	   								'Clear LCD
+	    PRINT $FE , 2							'Move Cursor to HOME	
+
+	    TagOffset = 3								'Unit key table OffSet
+	    NUA = EREAD 255								'Set 'NUA' to next empty user address in Table   
+
+If NUA = 0xFF then 	 'If User address spot = 0xFF then chip is new
+   EWrite 255,[5] 	  'This is the first User address spot. (0-4 is used by 'Master Key')
+   NUA = 5
+   EWRITE 254, [202]  'This is the first spot for User History records 
+   GoTo MainMenu 
+ENDIF  
+NUA = EREAD 255
+	
+	If HHDetect = 1 then	'We have detected that the programming HandHeld is plugged in.
+	   	CLS
+		Print AT 1,1, "Welcome to"
+		Print AT 2,1, "KeyBusters..."
+		Pause 3000
+		GOTO MainMenu  
+	
+	ELSE 'HHDetect = 1	 		   	 'Hand Held programmer was not detected so		   				 '
+		CLS
+		Print AT 1,1, "Ready to"	 'we will attempt to get a user key and
+		Print At 2,1, "Start Unit"	 'start the unit.
+		Goto StartUnit
+	
+	ENDIF 'HHDetect = 1	
+
+'=======================Include Files========================================
+INCLUDE "INC\GetKey.inc"      'get the key press from keypad
+INCLUDE "INC\AddNewUser.inc"  'Adding a new user
+INCLUDE "INC\GetUser#.inc"	  'Get employee # from keypad
+INCLUDE "INC\Scroll.inc"	  'Scroll existing Users
+INCLUDE "INC\ScrollH.inc"	  'Scroll User History
+INCLUDE "INC\CheckUser.inc"	  'Check that user does not already exist
+INCLUDE "INC\CheckTag.inc"	  'Check that Tag does not already exist
+INCLUDE "INC\ReadTag.inc"	  'Read a Tag
+INCLUDE "INC\Write.inc"		  'Writing User # and Tags to Table
+INCLUDE "INC\WriteH.inc"	  'Write User History to table
+INCLUDE "INC\UserMenu.inc"	  'Main User Menu to add, delete and view users
+INCLUDE "INC\MainMenu.inc"	  'MainMenu
+INCLUDE "INC\StartUnit.inc"	  'StartUnit routine
+INCLUDE "INC\GoSleep.inc"	  'Sleep and wakeup routine
+INCLUDE "INC\Binary.inc"	  'Used to Split hex number into decimal
+INCLUDE "INC\Sound.inc"		  'Used for sound generation
+'.......................End of Include Files.................................
+

@@ -1,0 +1,16 @@
+18F4525,40010,1011,4
+Reminder! Line [98]	In file [C:\my Proton\Proton  CURRENT\RFID V28.3_Lib.pbp]	*** SD_SSPSTAT Declared but never used ***
+Reminder! Line [78]	In file [C:\my Proton\Proton  CURRENT\RFID V28.3_Lib.pbp]	*** SD_Dir_Direction Declared but never used ***
+Reminder! Line [62]	In file [C:\my Proton\Proton  CURRENT\RFID V28.3_Lib.pbp]	*** SD_Cluster_Num_Prev Declared but never used ***
+Reminder! Line [106]	In file [C:\my Proton\Proton  CURRENT\INC\Initialize.inc]	*** Reset_Cause Declared but never used ***
+Reminder! Line [105]	In file [C:\my Proton\Proton  CURRENT\INC\Initialize.inc]	*** MyNum Declared but never used ***
+Reminder! Line [102]	In file [C:\my Proton\Proton  CURRENT\INC\Initialize.inc]	*** Index2 Declared but never used ***
+Reminder! Line [22]	In file [C:\MY PROTON\PROTON  CURRENT\INC\READ TAG.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [52]	In file [C:\MY PROTON\PROTON  CURRENT\INC\READ TAG.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [5]	In file [C:\MY PROTON\PROTON  CURRENT\INC\GOSLEEP.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [18]	In file [C:\MY PROTON\PROTON  CURRENT\INC\GOSLEEP.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [17]	In file [C:\MY PROTON\PROTON  CURRENT\INC\WRITE_M_SD.INC]	*** Ensure that the assignment String is large enough to accomodate all the characters! ***
+Reminder! Line [31]	In file [C:\MY PROTON\PROTON  CURRENT\INC\WRITE_USERS_SD.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [55]	In file [C:\MY PROTON\PROTON  CURRENT\INC\WRITE_USERS_SD.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+	PROGRAM COMPILED OK. 40010 Bytes used from a possible 49152
+	1011 Variables used in the 18F4525 from a possible 3968

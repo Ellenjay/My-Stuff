@@ -1,0 +1,283 @@
+KEY ("SD_Write")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Write</b> <i><b>Byte</b> As BYTE</i>"
+	Help = "SD_File_System.chm" -> "SD_Write.htm"
+ENDKEY
+
+KEY ("SD_Sector")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Sector</b> <i><b>Sector Number</b> As DWORD, <b>Operation</b> As BYTE (0 = Write, 1 = Read)</i>"
+	Help = "SD_File_System.chm" -> "SD_Sector.htm"
+ENDKEY
+
+KEY ("SD_Init")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Init</b> <i></i><br><b>Var</b> = <b>SD_Init</b> <i>(0 = OK, 1 = Timeout - SD/MMC not inserted)</i>"
+	Help = "SD_File_System.chm" -> "SD_Init.htm"
+ENDKEY
+
+KEY ("SD_Init_MSSP")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Init_MSSP</b> <i> Optional <b>Frequency</b></i><br><b>Var</b> = <b>SD_Init_MSSP</b>  <i> Optional <b>Frequency</b> As BYTE </i><i>(0 = OK, 1 = Timeout - SD/MMC not inserted)</i><br>[<b>Frequency</b> - 0/SD_SPI_FOSC_04 = Fosc/4 (Default), 1/SD_SPI_FOSC_16 = Fosc/16, 2/SD_SPI_FOSC_64 = Fosc/64]"
+	Help = "SD_File_System.chm" -> "SD_Init_MSSP.htm"
+ENDKEY
+
+KEY ("SD_Read")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Read</b> <i></i>"
+	Help = "SD_File_System.chm" -> "SD_Read.htm"
+ENDKEY
+
+KEY ("SD_Init_FS")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Init_FS</b> <br><b>Var</b> = <b>SD_Init_FS</b> <i>(0 = OK, 1 = Timeout - SD/MMC not inserted)</i>"
+	Help = "SD_File_System.chm" -> "SD_Init_FS.htm"
+ENDKEY
+
+KEY ("SD_Init_FS_MSSP")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Init_FS_MSSP</b>  <i> Optional <b>Frequency</b></i><br><b>Var</b> = <b>SD_Init_FS_MSSP</b>  <i> Optional <b>Frequency</b> As BYTE </i><i>(0 = OK, 1 = Timeout - SD/MMC not inserted)</i><br>[<b>Frequency</b> - 0/SD_SPI_FOSC_04 = Fosc/4 (Default), 1/SD_SPI_FOSC_16 = Fosc/16, 2/SD_SPI_FOSC_64 = Fosc/64]"
+	Help = "SD_File_System.chm" -> "SD_Init_FS_MSSP.htm"
+ENDKEY
+
+KEY ("SD_Write_Byte_To_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Write_Byte_to_File</b> <i><b>Byte</b> As BYTE</i> <br><b>Var</b> = <b>SD_Write_Byte_to_File</b> <i><b>Byte</b> As BYTE</i>  <i>(0 = OK, 1 = Write error)</i>"
+	Help = "SD_File_System.chm" -> "SD_Write_Byte_To_File.htm"
+ENDKEY
+
+KEY ("SD_Write_String_To_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Write_String_to_File</b> <br><b>Var</b> = <b>SD_Write_String_to_File</b> <i>(0 = OK, 1 = Write error)</i><br><i>Set <b>SD_IO_String</b> (MAX length 200) first</i>"
+	Help = "SD_File_System.chm" -> "SD_Write_String_To_File.htm"
+ENDKEY
+
+KEY ("SD_Close_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Close_File</b>"
+	Help = "SD_File_System.chm" -> "SD_Close_File.htm"
+ENDKEY
+
+KEY ("SD_New_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_New_File</b> <br><b>Var</b> = <b>SD_New_File</b> <i>(0 = OK, 1 = Disk Full)</i><br><i>Set <b>SD_File_Name</b> (MAX length 8, Upper Case) & <b>SD_File_Ext</b> (MAX length 3, Upper Case) first</i>"
+	Help = "SD_File_System.chm" -> "SD_New_File.htm"
+ENDKEY
+
+KEY ("SD_Check_For_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Check_For_File</b> <i>(0 = File Exists, 1 = File Not Found)</i><br><i>Set <b>SD_File_Name</b> (MAX length 8, Upper Case) & <b>SD_File_Ext</b> (MAX length 3, Upper Case) first</i>"
+	Help = "SD_File_System.chm" -> "SD_Check_For_File.htm"
+ENDKEY
+
+KEY ("SD_Open_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Open_File</b> <i>(0 = File Open Success, 1 = File Not Found)</i><br><i>Set <b>SD_File_Name</b> (MAX length 8, Upper Case) & <b>SD_File_Ext</b> (MAX length 3, Upper Case) first</i>"
+	Help = "SD_File_System.chm" -> "SD_Open_File.htm"
+ENDKEY
+
+KEY ("SD_Read_Byte_From_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Read_Byte_From_File</b>"
+	Help = "SD_File_System.chm" -> "SD_Read_Byte_From_File.htm"
+ENDKEY
+
+KEY ("SD_Dir")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Dir</b> <i> Optional <b>Direction</b></i><br><b>Var</b> = <b>SD_Dir</b> <i> Optional <b>Direction</b> As BYTE</i><i> (0 = File Found, 1 = No File Found)</i><br>[<b>Direction</b> - 0/SD_First = First File, 1/SD_Next = Next File (Default), 2/SD_Prev = Previous File]</i><br><i><b>SD_File_Name</b> & <b>SD_File_Ext</b> set if file found</i>"
+	Help = "SD_File_System.chm" -> "SD_Dir.htm"
+ENDKEY
+
+KEY ("SD_Append_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Append_File</b><br><b>Var</b> = <b>SD_Append_File</b> <i>(0 = File Open For Writing, 1 = File Not Found)</i><br><i>Set <b>SD_File_Name</b> (MAX length 8, Upper Case) & <b>SD_File_Ext</b> (MAX length 3, Upper Case) first</i>"
+	Help = "SD_File_System.chm" -> "SD_Append_File.htm"
+ENDKEY
+
+KEY ("SD_Free_Space")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Free_Space</b> <i>(Var As DWORD, free space in KB)</i>"
+	Help = "SD_File_System.chm" -> "SD_Free_Space.htm"
+ENDKEY
+
+KEY ("SD_Disk_Size")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>Var</b> = <b>SD_Disk_Size</b> <i>(Var As DWORD, disk size in KB)</i>"
+	Help = "SD_File_System.chm" -> "SD_Disk_Size.htm"
+ENDKEY
+
+KEY ("SD_Delete_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Delete_File</b><br><i>Set <b>SD_File_Name</b> (MAX length 8, Upper Case) & <b>SD_File_Ext</b> (MAX length 3, Upper Case) first</i>"
+	Help = "SD_File_System.chm" -> "SD_Delete_File.htm"
+ENDKEY
+
+KEY ("SD_Psuedo_Format")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Psuedo_Format</b> <i>[Note: Psuedo-formatting will remove all entries in Root Directory & FAT]</i>"
+	Help = "SD_File_System.chm" -> "SD_Psuedo_Format.htm"
+ENDKEY
+
+KEY ("SD_Save_File")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Save_File</b>"
+	Help = "SD_File_System.chm" -> "SD_Save_File.htm"
+ENDKEY
+
+KEY ("SD_Seek")
+	DeviceCore = [dc16]
+	Highlighter = Keyword
+	Hint = "<b>SD_Seek</b> <i><b>DWord</b> As DWORD</i> <br><b>Var</b> = <b>SD_Seek</b> <i><b>DWord</b> As DWORD</i>  <i>(0 = OK, 1 = Error)</i>"
+	Help = "SD_File_System.chm" -> "SD_Seek.htm"
+ENDKEY
+
+KEY ("SD_First")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_Next")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_Previous")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_File_Name")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File name (MAX length 8, Upper Case)"
+ENDKEY
+
+KEY ("SD_File_Ext")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File extension (MAX length 3, Upper Case)"
+ENDKEY
+
+KEY ("SD_Day")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Day (1-31)"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_Month")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Month (1-12)"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_Year")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Year (0-99) <i>[represents 2000-2099]</i>"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_Hours")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Hours (0-23)"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_Minutes")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Minutes (0-59)"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_Seconds")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Seconds (0-59)<br><i>N.B. create time is given to nearest millisecond, modified time will be given to nearest 2 seconds</i>"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_MSeconds")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+	Hint = "File create or modified date/time - Milliseconds (0-99)<br><i>N.B. only relevant for create time, not for modified time</i>"
+	Help = "SD_File_System.chm" -> "Setting File Date & Time Info.htm"
+ENDKEY
+
+KEY ("SD_SPI_FOSC_64")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_SPI_FOSC_16")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_SPI_FOSC_04")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_IO_String")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_File_Size")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_EOF")
+	DeviceCore = [dc16]
+	Highlighter = KeywordMacro
+ENDKEY
+
+KEY ("SD_CS")
+	DeviceCore = [dc16]
+	Highlighter = KeywordDeclare
+	Hint = "<i>Symbol = </i><b>SD_CS</b><i> Port.Pin</i>"
+ENDKEY
+
+KEY ("SD_DI")
+	DeviceCore = [dc16]
+	Highlighter = KeywordDeclare
+	Hint = "<i>Symbol = </i><b>SD_DI</b><i> Port.Pin</i>"
+ENDKEY
+
+KEY ("SD_DO")
+	DeviceCore = [dc16]
+	Highlighter = KeywordDeclare
+	Hint = "<i>Symbol = </i><b>SD_DO</b><i> Port.Pin</i>"
+ENDKEY
+
+KEY ("SD_CLK")
+	DeviceCore = [dc16]
+	Highlighter = KeywordDeclare
+	Hint = "<i>Symbol = </i><b>SD_CLK</b><i> Port.Pin</i>"
+ENDKEY

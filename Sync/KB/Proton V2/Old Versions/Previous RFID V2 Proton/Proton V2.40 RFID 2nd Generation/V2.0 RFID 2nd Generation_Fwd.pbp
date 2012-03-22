@@ -1,0 +1,4 @@
+Symbol SD_CS = PORTC.2
+Symbol SD_DI = PORTC.5
+Symbol SD_CLK = PORTC.3
+Symbol SD_DO = PORTC.4

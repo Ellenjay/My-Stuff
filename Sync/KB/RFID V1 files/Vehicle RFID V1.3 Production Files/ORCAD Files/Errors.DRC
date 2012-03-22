@@ -1,0 +1,15 @@
+
+Checking Pins and Pin Connections
+
+--------------------------------------------------
+Checking Schematic: Project Schematics
+--------------------------------------------------
+Checking Electrical Rules 
+
+Checking for Unconnected Nets
+
+Checking for Invalid References
+[DRC0011]  Reference is invalid for this part DSub
+                    Project Schematics, VAS Vehicle Module  (13.30, 5.60) 
+
+Checking for Duplicate References

@@ -1,0 +1,17 @@
+18F4525,40010,73,4
+Reminder! Line [132]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** Reset_Cause Declared but never used ***
+Reminder! Line [131]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** MyNum Declared but never used ***
+Reminder! Line [128]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** Index2 Declared but never used ***
+Reminder! Line [126]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** MyCount Declared but never used ***
+Reminder! Line [124]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** CheckSum Declared but never used ***
+Reminder! Line [123]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** ETX Declared but never used ***
+Reminder! Line [92]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** M_U_Code[ Declared but never used ***
+Reminder! Line [91]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** ModNum[ Declared but never used ***
+Reminder! Line [90]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** TagByte[ Declared but never used ***
+Reminder! Line [89]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** TagIn[ Declared but never used ***
+Warning! Line [45]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\RESET_LOGGER.INC]	*** Value will overflow a BYTE size variable! ***
+Reminder! Line [15]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4 CWRITE TEST.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [52]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4 CWRITE TEST.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+	PROGRAM COMPILED WITH WARNINGS. 40010 Bytes used from a possible 49152
+	73 Variables used in the 18F4525 from a possible 3968
+	THERE ARE WARNINGS!

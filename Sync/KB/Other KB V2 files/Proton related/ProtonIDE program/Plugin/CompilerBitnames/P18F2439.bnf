@@ -1,0 +1,360 @@
+** BITNAMES **
+
+RA0=PORTA.0,"Bi-directional I/O pin"
+AN0=PORTA.0,"Analog input 0"
+RA1=PORTA.1,"Bi-directional I/O pin"
+AN1=PORTA.1,"Analog input 1"
+RA2=PORTA.2,"Bi-directional I/O pin"
+AN2=PORTA.2,"Analog input 2"
+VREF_MINUS=PORTA.2,"A/D Reference Voltage (Low) input"
+RA3=PORTA.3,"Bi-directional I/O pin"
+AN3=PORTA.3,"Analog input 3"
+VREF_PLUS=PORTA.3,"A/D Reference Voltage (High) input"
+RA4=PORTA.4,"Bi-directional I/O pin"
+T0CKI=PORTA.4,"Timer0 external clock input"
+RA5=PORTA.5,"Bi-directional I/O pin"
+AN4=PORTA.5,"Analog input 4"
+NOT_SS=PORTA.5,"SPI Slave Select input."
+LVDIN=PORTA.5,"Low Voltage Detect input"
+RA6=PORTA.6,"Bi-directional I/O pin"
+OSC2=PORTA.6,"Oscillator crystal output. Connects to crystal or <br>resonator in Crystal Oscillator mode."
+CLKO=PORTA.6,"In EC mode, OSC2 pin outputs CLKO which has 1/4 <br>the frequency of OSC1, and denotes the instruction <br>cycle rate."
+
+RB0=PORTB.0,"Bi-directional I/O pin"
+INT0=PORTB.0,"External interrupt 0"
+RB1=PORTB.1,"Bi-directional I/O pin"
+INT1=PORTB.1,"External interrupt 1"
+RB2=PORTB.2,"Bi-directional I/O pin"
+INT2=PORTB.2,"External interrupt 2"
+RB3=PORTB.3,"Bi-directional I/O pin"
+RB4=PORTB.4,"Bi-directional I/O pin"
+RB5=PORTB.5,"Bi-directional I/O pin"
+PGM=PORTB.5,"Low Voltage ICSP programming enable pin"
+RB6=PORTB.6,"Bi-directional I/O pin"
+PGC=PORTB.6,"In-Circuit Debugger and ICSP programming clock pin"
+RB7=PORTB.7,"Bi-directional I/O pin"
+PGD=PORTB.7,"In-Circuit Debugger and ICSP programming data pin"
+
+
+RC0=PORTC.0,"Bi-directional I/O pin"
+T13CKI=PORTC.0,"Timer1/Timer3 external clock input"
+RC3=PORTC.3,"Bi-directional I/O pin"
+SCK=PORTC.3,"Synchronous serial clock input/output for SPI mode"
+SCL=PORTC.3,"Synchronous serial clock input/output for I2C mode"
+RC4=PORTC.4,"Bi-directional I/O pin"
+SDI=PORTC.4,"SPI Data in"
+SDA=PORTC.4,"I2C Data I/O"
+RC5=PORTC.5,"Bi-directional I/O pin"
+SDO=PORTC.5,"SPI Data out"
+RC6=PORTC.6,"Bi-directional I/O pin"
+TX=PORTC.6,"USART Asynchronous Transmit"
+CK=PORTC.6,"USART Synchronous Clock (see related RX/DT)"
+RC7=PORTC.7,"Bi-directional I/O pin"
+RX=PORTC.7,"USART Asynchronous Receive"
+DT=PORTC.7,"USART Synchronous Data (see related TX/CK)"
+
+'LATE="Read PORTE Data Latch, Write PORTE Data Latch"
+'LATD="Read PORTD Data Latch, Write PORTD Data Latch"
+LATC="Read PORTC Data Latch, Write PORTC Data Latch"
+LATB="Read PORTB Data Latch, Write PORTB Data Latch"
+LATA="Read PORTA Data Latch, Write PORTA Data Latch"
+
+TRISA="Data Direction Control Register for PORTA"
+TRISB="Data Direction Control Register for PORTB"
+TRISC="Data Direction Control Register for PORTC"
+'TRISD="Data Direction Control Register for PORTD"
+'TRISE="Data Direction Control Register for PORTE"
+
+'PSPIE=PIE1.7,"Parallel Slave Port Read/Write Interrupt Enable bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIE=PIE1.6,"A/D Converter Interrupt Enable bit"
+RCIE=PIE1.5,"EUSART Receive Interrupt Enable bit"
+TXIE=PIE1.4,"EUSART Transmit Interrupt Enable bit"
+SSPIE=PIE1.3,"Master Synchronous Serial Port Interrupt Enable bit"
+TMR2IE=PIE1.1,"TMR2 to PR2 Match Interrupt Enable bit"
+TMR1IE=PIE1.0,"TMR1 Overflow Interrupt Enable bit"
+
+'PSPIF=PIR1.7,"Parallel Slave Port Read/Write Interrupt Flag bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIF=PIR1.6,"A/D Converter Interrupt Flag bit"
+RCIF=PIR1.5,"EUSART Receive Interrupt Flag bit"
+TXIF=PIR1.4,"EUSART Transmit Interrupt Flag bit"
+SSPIF=PIR1.3,"Master Synchronous Serial Port Interrupt Flag bit"
+TMR2IF=PIR1.1,"TMR2 to PR2 Match Interrupt Flag bit"
+TMR1IF=PIR1.0,"TMR1 Overflow Interrupt Flag bit"
+
+'PSPIP=IPR1.7,"Parallel Slave Port Read/Write Interrupt Priority bit<br>This bit is unimplemented on 28-pin devices and is read as ‘0’"
+ADIP=IPR1.6,"A/D Converter Interrupt Priority bit"
+RCIP=IPR1.5,"EUSART Receive Interrupt Priority bit"
+TXIP=IPR1.4,"EUSART Transmit Interrupt Priority bit"
+SSPIP=IPR1.3,"Master Synchronous Serial Port Interrupt Priority bit"
+TMR2IP=IPR1.1,"TMR2 to PR2 Match Interrupt Priority bit"
+TMR1IP=IPR1.0,"TMR1 Overflow Interrupt Priority bit"
+
+EEIE=PIE2.4,"Data EEPROM/FLASH Write Operation Interrupt Enable bit"
+BCLIE=PIE2.3,"Bus Collision Interrupt Enable bit"
+LVDIE=PIE2.2,"Low Voltage Detect Interrupt Enable bit"
+TMR3IE=PIE2.1,"TMR3 Overflow Interrupt Enable bit"
+
+EEIF=PIR2.4,"Data EEPROM/FLASH Write Operation Interrupt Flag bit"
+BCLIF=PIR2.3,"Bus Collision Interrupt Flag bit"
+LVDIF=PIR2.2,"Low Voltage Detect Interrupt Flag bit"
+TMR3IF=PIR2.1,"TMR3 Overflow Interrupt Flag bit"
+
+EEIP=IPR2.4,"Data EEPROM/FLASH Write Operation Interrupt Priority bit<br>Maintain this bit cleared (= 0)"
+BCLIP=IPR2.3,"Bus Collision Interrupt Priority bit<br>Maintain this bit cleared (= 0) "
+LVDIP=IPR2.2,"Low Voltage Detect Interrupt Priority bit<br>Maintain this bit cleared (= 0)"
+TMR3IP=IPR2.1,"TMR3 Overflow Interrupt Priority bit<br>Maintain this bit cleared (= 0) "
+
+EECON2="EEPROM control register2 (not a physical register)"
+
+EEPGD=EECON1.7,"FLASH Program or Data EEPROM Memory Select bit"
+CFGS=EECON1.6,"FLASH Program/Data EEPROM or Configuration Select bit"
+FREE=EECON1.4,"FLASH Row Erase Enable bit"
+WRERR=EECON1.3,"EEPROM Error Flag"
+WREN=EECON1.2,"EEPROM Write/Enable"
+WR=EECON1.1,"Write Control"
+RD=EECON1.0,"Read Control"
+
+EEADR="Data EEPROM Address Register"
+EEDAT="Data EEPROM Data Register"
+EEDATA="Data EEPROM Data Register"
+
+SPEN=RCSTA.7,"Serial Port Enable (Usart 1)"
+RX9=RCSTA.6,"9-bit Receive Enable (Usart 1)"
+SREN=RCSTA.5,"Single Receive Enable (Usart 1)"
+CREN=RCSTA.4,"Continuous Receive Enable (Usart 1)"
+ADDEN=RCSTA.3,"Address Detect Enable (Usart 1)"
+FERR=RCSTA.2,"Framing Error (Usart 1)"
+OERR=RCSTA.1,"Overrun Error (Usart 1)"
+RX9D=RCSTA.0,"9th bit of received data (Can be parity bit) (Usart 1)"
+
+CSRC=TXSTA.7,"Clock Source Select bit (Usart 1)"
+TX9=TXSTA.6,"9-bit Transmit Enable (Usart 1)"
+TXEN=TXSTA.5,"Transmit Enable (Usart 1)"
+SYNC=TXSTA.4,"USART Mode Select bit (Usart 1)"
+BRGH=TXSTA.2,"High Baud Rate Select bit (Usart 1)"
+TRMT=TXSTA.1,"Transmit Shift Register Status flag (Usart 1)"
+TX9D=TXSTA.0,"9th bit of transmit data. Can be parity bit. (Usart 1)"
+
+TXREG="USART Transmit Register"
+SPBRG="Baud Rate Generator Register, Low Byte"
+SPBRGH="Baud Rate Generator Register, High Byte"
+RCREG="USART Receive Register"
+
+RD16=T3CON.7,"16-bit Read/Write Mode Enable bit"
+T3CKPS1=T3CON.5,"Timer3 Input Clock Prescale Select bits" 
+T3CKPS0=T3CON.4,"Timer3 Input Clock Prescale Select bits" 
+NOT_T3SYNC=T3CON.2,"Timer3 External Clock Input Synchronization Control bit"
+TMR3CS=T3CON.1,"Timer3 Clock Source Select bit"
+TMR3ON=T3CON.0,"Timer3 On enable bit"
+
+TMR3H="Timer3 Register High Byte"
+TMR3="Timer3 Register"
+TMR3L="Timer3 Register Low Byte"
+
+CCP2CON="These bits are retained<br> See datasheet"
+CCPR2H="Capture/Compare/PWM register2 (MSB)"
+CCPR2L="Capture/Compare/PWM register2 (LSB)"
+CCPR2="Capture/Compare/PWM register"
+CCP1CON="These bits are retained<br> See datasheet"
+
+CCPR1H="Capture/Compare/PWM register1 (MSB)"
+CCPR1L="Capture/Compare/PWM register1 (LSB)"
+CCPR1="Capture/Compare/PWM Register"
+
+ADFM=ADCON1.7,"A/D Result Format Select bit"
+ADCS2=ADCON1.6,"A/D Conversion Clock Select bit (ADCON1 bits in bold)"
+PCFG3=ADCON1.3,"A/D Port Configuration Control bits"
+PCFG2=ADCON1.2,"A/D Port Configuration Control bits"
+PCFG1=ADCON1.1,"A/D Port Configuration Control bits"
+PCFG0=ADCON1.0,"A/D Port Configuration Control bits"
+
+ADCS1=ADCON0.7,"A/D Conversion Clock Select bits (ADCON0 bits in bold)"
+ADCS0=ADCON0.6,"A/D Conversion Clock Select bits (ADCON0 bits in bold)"
+CHS2=ADCON0.5,"Analog Channel Select bits"
+CHS1=ADCON0.4,"Analog Channel Select bits"
+CHS0=ADCON0.3,"Analog Channel Select bits"
+NOT_DONE=ADCON0.2,"A/D Conversion Status flag"
+GO=ADCON0.2,"A/D Conversion Enable"
+ADON=ADCON0.0,"A/D ON bit"
+
+ADRESL="A/D Register low byte" 
+ADRESH="A/D Register high byte" 
+ADRES="A/D result as a 16 bit value <br> This feature is specific to the PROTON compiler",[0..0]
+
+GCEN=SSPCON2.7,"General Call Enable bit (Slave mode only)"
+ACKSTAT=SSPCON2.6,"Acknowledge Status bit (Master Transmit mode only)"
+ACKDT=SSPCON2.5," Acknowledge Data bit (Master Receive mode only)"
+ACKEN=SSPCON2.4," Acknowledge Sequence Enable bit (Master Receive mode only)"
+RCEN=SSPCON2.3,"Receive Enable bit (Master mode only)"
+PEN=SSPCON2.2,"Stop Condition Enable bit (Master mode only) "
+RSEN=SSPCON2.1,"Repeated Start Condition Enabled bit (Master mode only) "
+SEN=SSPCON2.0," Start Condition Enabled/Stretch Enabled bit"
+
+WCOL=SSPCON1.7," Write Collision Detect bit"
+SSPOV=SSPCON1.6," Receive Overflow Indicator bit "
+SSPEN=SSPCON1.5," Synchronous Serial Port Enable bit"
+CKP=SSPCON1.4,"SCK Release Control bit"
+SSPM3=SSPCON1.3,"Synchronous Serial Port Mode Select bits"
+SSPM2=SSPCON1.2,"Synchronous Serial Port Mode Select bits"
+SSPM1=SSPCON1.1,"Synchronous Serial Port Mode Select bits"
+SSPM0=SSPCON1.0,"Synchronous Serial Port Mode Select bits"
+
+SMP=SSPSTAT.7,"Sample bit"
+CKE=SSPSTAT.6,"SPI Clock Edge Select"
+D_A=SSPSTAT.5,"Data/NOT Address bit (I2C mode only)"
+DATA_ADDR=SSPSTAT.5,"Data/NOT Address bit (I2C mode only)"
+P=SSPSTAT.4,"I2C Stop"
+S=SSPSTAT.3,"I2C Start"
+R_W=SSPSTAT.2,"Read/Write bit information (I2C mode only)"
+UA=SSPSTAT.1,"Update Address (10-bit I2C mode only)"
+BF=SSPSTAT.0,"Buffer Full Status flag"
+
+SSPBUF="Synchonous serial port receive buffer or transmit register"
+SSPADD="Synchronous serial port (I2C mode) address register"
+
+T2CON="This register is retained to maintain compatibility with PIC18FXX2 devices"
+TMR2="Timer2 module's register"
+PR2="Timer2 period register"
+
+RD16=T1CON.7,"16-bit Read/Write Mode Enable bit"
+T1CKPS1=T1CON.5,"Timer1 Input Clock Prescale Select bits"
+T1CKPS0=T1CON.4,"Timer1 Input Clock Prescale Select bits"
+NOT_T1SYNC=T1CON.2,"Timer1 External Clock Input Synchronization Control"
+TMR1CS=T1CON.1,"Timer1 Clock Source Select"
+TMR1ON=T1CON.0,"Timer1 ON"
+
+TMR1H="Timer1 Register High Byte"
+TMR1L="Timer1 Register Low Byte"
+TMR1="Timer1 Register"
+
+IPEN=RCON.7,"Interrupt Priority Enable bit"
+NOT_RI=RCON.4,"RESET Instruction Flag bit"
+NOT_TO=RCON.3,"Watchdog Time-out Flag bit"
+NOT_PD=RCON.2,"Power-down Detection Flag bit"
+NOT_POR=RCON.1,"Power-on Reset Status bit"
+NOT_BOR=RCON.0,"Brown-out Reset Status bit"
+
+SWDTEN=WDTCON.0,"Software Controlled Watchdog Timer Enable bit"
+
+IRVST=LVDCON.5,"Internal Reference Voltage Stable Flag"
+LVDEN=LVDCON.4,"Low Voltage Detect Power Enable bit"
+LVDL3=LVDCON.3,"Low Voltage Detection Limit bit"
+LVDL2=LVDCON.2,"Low Voltage Detection Limit bit"
+LVDL1=LVDCON.1,"Low Voltage Detection Limit bit"
+LVDL0=HVDCON.0,"Low Voltage Detection Limit bit"
+
+TMR0ON=T0CON.7,"Timer0 On/Off Control bit"
+T08BIT=T0CON.6,"Timer0 8-bit/16-bit Control bit"
+T0CS=T0CON.5,"Timer0 Clock Source Select bit"
+T0SE=T0CON.4,"Timer0 Source Edge Select bit"
+PSA=T0CON.3,"Timer0 Prescaler Assignment bit"
+T0PS2=T0CON.2,"Timer0 Prescaler Select bit"
+T0PS1=T0CON.1,"Timer0 Prescaler Select bit"
+T0PS0=T0CON.0,"Timer0 Prescaler Select bit"
+
+TMR0L="Timer0 Module Low Byte Register"
+TMR0H="Timer0 Module High Byte Register"
+
+N=STATUS.4,"Negative bit"
+OV=STATUS.3,"Overflow bit"
+Z=STATUS.2,"Zero flag"
+DC=STATUS.1,[protect], "Digit Carry flag"
+C=STATUS.0,"Carry flag"
+
+FSR2H="Indirect Data Memory Address Pointer 2 High Byte",[0..3]
+FSR2L="Indirect Data Memory Address Pointer 2 Low Byte"
+
+POSTINC2="Uses contents of FSR2 to address data memory value of FSR2 post-incremented<br>(not a physical register)"
+POSTDEC2="Uses contents of FSR2 to address data memory - value of FSR2 post-decremented <br>(not a physical register)"
+PREINC2="Uses contents of FSR2 to address data memory - value of FSR2 pre-incremented <br>(not a physical register)"
+PLUSW2="Uses contents of FSR2 to address data memory - value of FSR2 pre-incremented<BR>(not a physical register) - value of FSR2 offset by value in WREG"
+BSR="Bank Select Register",[0..3]
+
+INDF2="Uses contents of FSR2 to address data memory value of FSR2 not changed (not a physical register)"
+
+FSR1H="Indirect Data Memory Address Pointer 1 High Byte",[0..3]
+FSR1L="Indirect Data Memory Address Pointer 1 Low Byte"
+
+POSTINC1="Uses contents of FSR1 to address data memory value of FSR1 post-incremented<br>(not a physical register)"
+POSTDEC1="Uses contents of FSR1 to address data memory - value of FSR1 post-decremented <br>(not a physical register)"
+PREINC1="Uses contents of FSR1 to address data memory - value of FSR1 pre-incremented <br>(not a physical register)"
+PLUSW1="Uses contents of FSR1 to address data memory - value of FSR1 pre-incremented<BR>(not a physical register) - value of FSR1 offset by value in WREG"
+
+INDF1="Uses contents of FSR1 to address data memory value of FSR1 not changed (not a physical register)"
+WREG="Working Register"
+
+FSR0H="Indirect Data Memory Address Pointer 0 High Byte",[0..3]
+FSR0L="Indirect Data Memory Address Pointer 0 Low Byte"
+
+POSTINC0="Uses contents of FSR0 to address data memory value of FSR0 post-incremented<br>(not a physical register)"
+POSTDEC0="Uses contents of FSR0 to address data memory - value of FSR0 post-decremented <br>(not a physical register)"
+PREINC0="Uses contents of FSR0 to address data memory - value of FSR0 pre-incremented <br>(not a physical register)"
+PLUSW0="Uses contents of FSR0 to address data memory - value of FSR0 pre-incremented<BR>(not a physical register) - value of FSR0 offset by value in WREG"
+INDF0="Uses contents of FSR0 to address data memory value of FSR0 not changed (not a physical register)"
+
+INT2IP=INTCON3.7,"INT2 External Interrupt Priority bit"
+INT1IP=INTCON3.6,"INT1 External Interrupt Priority bit"
+INT2IE=INTCON3.4,"INT2 External Interrupt Enable"
+INT1IE=INTCON3.3,"INT1 External Interrupt Enable"
+INT2IF=INTCON3.1,"INT2 External Interrupt Flag"
+INT1IF=INTCON3.0,"INT1 External Interrupt Flag"
+
+NOT_RBPU=INTCON2.7,"PORTB Pull-up Enable bit"
+INTEDG0=INTCON2.6,"External Interrupt0 Edge Select bit"
+INTEDG1=INTCON2.5,"External Interrupt1 Edge Select bit"
+INTEDG2=INTCON2.4,"External Interrupt2 Edge Select bit"
+TMR0IP=INTCON2.2,"TMR0 Overflow Interrupt Priority bit"
+RBIP=INTCON2.0,"RB Port Change Interrupt Priority bit"
+
+GIE=INTCON.7,"Global Interrupt Enable"
+GIEH=INTCON.7,"Global Interrupt Enable"
+PEIE=INTCON.6,"Peripheral Interrupt Enable"
+GIEL=INTCON.6,"Peripheral Interrupt Enable"
+TMR0IE=INTCON.5,"TMR0 Overflow Interrupt Enable"
+INT0IE=INTCON.4,"INT0 External Interrupt Enable"
+RBIE=INTCON.3,"RB Port Change Interrupt Enable"
+TMR0IF=INTCON.2,"TMR0 Overflow Interrupt Flag"
+INT0IF=INTCON.1,"INT0 External Interrupt Flag"
+RBIF=INTCON.0,"RB Port Interrupt Flag"
+
+PRODH="Product Register High Byte"
+PRODL="Product Register Low Byte"
+PROD="Product Register"
+
+TBLPTRU="Program Memory Table Pointer<br>Upper Byte (TBLPTR<20:16>",[0..4]
+TBLPTRH="Program Memory Table Pointer High Byte (TBLPTR<15:8>)"
+TBLPTRL="Program Memory Table Pointer Low Byte (TBLPTR<7:0>)"
+TABLAT="Program Memory Table Latch"
+TBLPTR="Table Pointer Register"
+
+PCLATU="Program Counter Upper Byte Latch"
+PCLATH="Program Counter High Byte Latch"
+PCL="PC Low Byte"
+PCH="PC High Byte"
+PC="Program Counter"
+
+STKFUL=STKPTR.7,"Stack Full Flag bit"
+STKUNF=STKPTR.6,"Stack Underflow Flag bit"
+SP4=STKPTR.4,"Stack Pointer Location bit"
+SP3=STKPTR.3,"Stack Pointer Location bit"
+SP2=STKPTR.2,"Stack Pointer Location bit"
+SP1=STKPTR.1,"Stack Pointer Location bit"
+SP0=STKPTR.0,"Stack Pointer Location bit"
+
+TOSU="Top-of-Stack Upper Byte (TOS<20:16>)",[0..4]
+TOSH="Top-of-Stack High Byte (TOS<15:8>)"
+TOSL="Top-of-Stack Low Byte (TOS<7:0>)"
+TOS="Top Of Stack Register"
+
+TMR0="Timer0 Register"
+OSCCON="This register is retained to maintain compatibility with PIC18FXX2 devices",[1..7]
+reserved=OSCCON.0," Users should not alter the values of these bits"
+
+
+
+
+
+
+
+
+

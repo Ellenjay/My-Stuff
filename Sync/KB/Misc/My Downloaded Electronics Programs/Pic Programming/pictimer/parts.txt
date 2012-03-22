@@ -1,0 +1,30 @@
+January, 25, 2004.
+This is the list of the parts for Pic Timer.
+
+I intended to do not use rear parts.
+Usually everything here should be available trough
+www.digi-key.com or
+www.mouser.com
+
+
+Part     Value
+
+C1       30 pf
+C2       30 pf
+C3       47,0x16V
+D1-D5    1N4148
+
+IC1      74HC164N
+IC2      78L05
+K1       relay T7CS5D-12  	Potter & Brumfield	digi-key part PB337-ND mouser.com part 655-T7CS5D-12
+Q1       crystal HC49U 4MHz 	ECS Inc.               	digi-key part CTX006-ND mouser.com part 520-HCA400-20
+Q2-Q6    BC548
+R1, R11  10K
+R2..R9   510
+R10, R12..R19 1k
+RB1      PIC16F628      	microchip
+S1..S4   MJTP1212 		www.apem.com
+U$2, U$3 MAN6440   		Fairchild
+U$4      MKDS1.5/2-5.08      	Phoenix			mouser.com part 651-1715022
+U$5      163-5004       	DGS			mouser.com part 163-5004
+

@@ -1,0 +1,6 @@
+KEY ("Fwd")
+    Devicecore = [dc12, dc14, dc16]
+    Highlighter = KeywordDeclare
+    Hint = "<b>Rem Fwd Dim</b> <i>MyVar</i> <b>As</b> <i>MyVarType</i>"
+    Help = "..\PlugIn\library Tools\libmanhelp.chm" -> "Forward Variable Support.htm"
+ENDKEY

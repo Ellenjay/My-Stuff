@@ -1,0 +1,26 @@
+[Project]
+Filename=C:\Program Files\ProtonIDE\Samples\Proteus\ADPCM.bas
+[Environment]
+CaretX=25
+CaretY=64
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=6
+[Results]
+Visible=1
+Height=117
+View=2
+[Status]
+Message=Success : 1374 program bytes used, 35 variable bytes used
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC18_ALCD_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC18_ALCD_VHB.DSN

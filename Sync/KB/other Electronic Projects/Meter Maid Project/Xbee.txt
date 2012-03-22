@@ -1,0 +1,1877 @@
+00001 /*********************************************************************************
+00002 
+00003  Copyright 2006 MakingThings
+00004 
+00005  Licensed under the Apache License, 
+00006  Version 2.0 (the "License"); you may not use this file except in compliance 
+00007  with the License. You may obtain a copy of the License at
+00008 
+00009  http://www.apache.org/licenses/LICENSE-2.0 
+00010  
+00011  Unless required by applicable law or agreed to in writing, software distributed
+00012  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+00013  CONDITIONS OF ANY KIND, either express or implied. See the License for
+00014  the specific language governing permissions and limitations under the License.
+00015 
+00016 *********************************************************************************/
+00017 #include "config.h"
+00018 #ifdef XBEE
+00019 
+00020 #include "stdlib.h"
+00021 #include <stdio.h>
+00022 #include "string.h"
+00023 #include "xbee.h"
+00024 
+00025 static bool XBee_GetIOValues( XBeePacket* packet, int *inputs );
+00026 void XBeeTask( void* p );
+00027 #define XBEEPACKET_Q_SIZE 5
+00028 #define XBEE_OSC_RX_TIMEOUT 500
+00029 
+00030 typedef struct
+00031 {
+00032   XBeePacket* currentPkt;
+00033   int packetIndex;
+00034   #ifdef OSC
+00035   bool autosend;
+00036   #endif
+00037 } XBeeSubsystem;
+00038 
+00039 XBeeSubsystem* XBee;
+00040 
+00041 /** \defgroup XBee
+00042   Communicate with XBee (Zigbee) wireless modules via the Make Controller's serial port.
+00043   
+00044   XBee modules from \b MaxStream are small, cheap ($19 each), wireless \b RF (radio frequency) modules that
+00045   can easily be used with the Make Controller Kit to create projects that require wireless communication.  Check
+00046   http://www.maxstream.net/products/xbee/xbee-oem-rf-module-zigbee.php for more info.
+00047   
+00048   \section Overview
+00049   XBee modules are <b>ZigBee/IEEE 802.15.4</b> compliant and can operate in several modes:
+00050   - Transparent serial port.  Messages in one side magically end up at the other endpoint.  Great for enabling wireless
+00051   communication between 2 Make Controllers.
+00052   - AT command mode.  Send traditional AT commands to configure the module itself (as opposed to having
+00053   the data go straight through via serial mode.
+00054   - Packet (API) mode.  Lower level communication that doesn't have to wait for the module to be in
+00055   AT command mode.  Check the \ref XBeePacketTypes for a description of how these packets are laid out.  
+00056   Be sure to call XBeeConfig_SetPacketApiMode before trying to do anything in this mode.
+00057 
+00058   The general idea is that you have one XBee module connected directly to your Make Controller Kit, and then
+00059   any number of other XBee modules that can communicate with it in order to get information to and from the
+00060   Make Controller.  Or, several Make Controllers can each have an XBee module connected in order to
+00061   communicate wirelessly among themselves.
+00062 
+00063   XBee modules also have some digital and analog I/O right on them, which means you can directly connect
+00064   sensors to the XBee modules which will both read the values and send them wirelessly.  Check the XBee doc
+00065   for the appropriate commands to send in order to set this up.
+00066 
+00067   \section API
+00068   The Make Controller API for working with the XBee modules makes use of the XBee Packet API.  If you simply want to make use
+00069   of the transparent serial port functionality, you can use the following functions:
+00070     XBee_SetActive( )
+00071     XBee_Write(  );
+00072     XBee_Read( );
+00073     XBee_GetReadable( );
+00074 
+00075   Or if you want to handle setup etc. yourself, you don't need to deal with these - just hook up the module to your 
+00076   Make Controller and start reading and writing over the serial port.
+00077 
+00078   Bytes sent in this way are broadcast to all XBee modules on the same chanel and with the same PAN ID.  All similarly
+00079   configured modules will receive all bytes sent.  However, because these bytes are broadcast, there is no message
+00080   reliability, so there's no guarantee that the messages will actually get there.
+00081 
+00082   The XBee Packet API allows for much more flexible and powerful communication with the modules.  With the Packet API
+00083   you can send messages to a specific module, detect where messages came from, check signal strength, and most importantly
+00084   packets are sent with a send / acknowledges / retry scheme which greatly increases message reliability.
+00085   
+00086   Packet API uses commands to configure the XBee module itself, and then a handful of Zigbee specified packet types can be sent and received.  
+00087   See \ref XBeePacketTypes for details on these packet types.  
+00088   
+00089   The \b XBeeConfig_ functions are convenient wrappers around some of the most common AT commands you might want to send.  For
+00090   any of the other AT commands, check the XBee documentation and create them using XBee_CreateATCommandPacket( ).  These will always 
+00091   be sent to the XBee module attached to the Make Controller.  The \b XBee_ functions deal with sending and receiving 
+00092   messages to other XBee modules not connected to the Make Controller.
+00093 
+00094   \ingroup Controller
+00095   @{
+00096 */
+00097 
+00098 /** 
+00099   Controls the active state of the \b XBee subsystem
+00100   @param state Whether this subsystem is active or not
+00101   @return Zero on success.
+00102 */
+00103 int XBee_SetActive( int state )
+00104 {
+00105   if( state ) 
+00106   { 
+00107     if( XBee == NULL )
+00108     {
+00109       if( CONTROLLER_OK != Serial_SetActive( 1 ) )
+00110         return CONTROLLER_ERROR_SUBSYSTEM_INACTIVE;
+00111       
+00112       // Configure the serial port
+00113       Serial_SetBaud( 9600 );
+00114       Serial_SetBits( 8 );
+00115       Serial_SetParity( 0 );
+00116       Serial_SetStopBits( 1 );
+00117 
+00118       XBee = MallocWait( sizeof( XBeeSubsystem ), 100 );
+00119       XBee->packetIndex = 0;
+00120       #ifdef OSC
+00121         XBee->autosend = XBee_GetAutoSend( true );
+00122       #endif
+00123       XBee->currentPkt = MallocWait( sizeof( XBeePacket ), 100 );
+00124       XBee_ResetPacket( XBee->currentPkt );
+00125     }
+00126   }
+00127   else
+00128   {
+00129     Serial_SetActive( 0 );
+00130 
+00131     if( XBee )
+00132     {
+00133       Free( XBee );
+00134       XBee = NULL;
+00135     }
+00136   }
+00137   return CONTROLLER_OK;
+00138 }
+00139 
+00140 /** 
+00141   Read the active state of the \b XBee subsystem
+00142   @return An integer specifying the active state - 1 (active) or 0 (inactive).
+00143 */
+00144 int XBee_GetActive( )
+00145 {
+00146   return Serial_GetActive( );
+00147 }
+00148 
+00149 
+00150 /** 
+00151   Write the specified number of bytes into the XBee unit.  It is
+00152   assumed that the unit is in TRANSPARENT, not in PACKET API mode.  To write to the 
+00153   unit using packets first set packet mode (using XBeeConfig_SetPacketApiMode) then use
+00154   XBee_CreateXXXPacket() followed by XBee_SendPacket().
+00155   @param buffer The block of bytes to write
+00156   @param count The number of bytes to write
+00157   @param timeout The time in ms to linger waiting to succeed (0 for no wait)
+00158   @return status
+00159 */
+00160 int XBee_Write( uchar *buffer, int count, int timeout )
+00161 {
+00162   return Serial_Write( buffer, count, timeout );
+00163 }
+00164 
+00165 /** 
+00166   Read data from the Xbee unit waiting for the specified time. Use XBee_GetReadable() to 
+00167   determine how many bytes are waiting to avoid waiting.    It is
+00168   assumed that the unit is in TRANSPARENT, not in PACKET API mode.  To write to the 
+00169   unit using packets first set packet mode (using XBeeConfig_SetPacketApiMode) then use
+00170   XBee_CreateXXXPacket() followed by XBee_SendPacket().
+00171   @param buffer A pointer to the buffer to read into.
+00172   @param count An integer specifying the maximum number of bytes to read.
+00173   @param timeout Time in milliseconds to block waiting for the specified number of bytes. 0 means don't wait.
+00174   @return number of bytes read (>=0) or error <0 .
+00175 */
+00176 int XBee_Read( uchar* buffer, int count, int timeout )
+00177 {
+00178   return Serial_Read( buffer, count, timeout );
+00179 }
+00180 
+00181 /** 
+00182   Returns the number of bytes in the queue waiting to be read.
+00183   @return bytes in the receive queue.
+00184 */
+00185 int XBee_GetReadable( void );
+00186 
+00187 /** 
+00188   Receive an incoming XBee packet.
+00189   A single call to this will continue to read from the serial port as long as there are characters 
+00190   to read or until it times out.  If a packet has not been completely received, call it repeatedly
+00191   with the same packet.
+00192 
+00193   Clear out a packet before reading into it with a call to XBee_ResetPacket( )
+00194   @param packet The XBeePacket to receive into.
+00195   @param timeout The number of milliseconds to wait for a packet to arrive.  Set this to 0 to return as
+00196   soon as there are no characters left to process.
+00197   @return 1 if a complete packet has been received, 0 if not.
+00198   @see XBeeConfig_SetPacketApiMode( )
+00199   @todo Probably need some way to reset the parser if there are no bytes for a while
+00200 
+00201   \par Example
+00202   \code
+00203   // we're inside a task here...
+00204   XBeePacket myPacket;
+00205   XBee_ResetPacket( &myPacket );
+00206   while( 1 )
+00207   {
+00208     if( XBee_GetPacket( &myPacket, 100 ) )
+00209     {
+00210       // process the new packet
+00211       XBee_ResetPacket( &myPacket ); // then clear it out before reading again
+00212     }
+00213     Sleep( 10 );
+00214   }
+00215   \endcode
+00216 */
+00217 int XBee_GetPacket( XBeePacket* packet, int timeout )
+00218 {
+00219   if( CONTROLLER_OK != XBee_SetActive( 1 ) )
+00220     return CONTROLLER_ERROR_SUBSYSTEM_INACTIVE;
+00221 
+00222   int time = TaskGetTickCount( );
+00223 
+00224   do
+00225   {
+00226     while( Serial_GetReadable( ) )
+00227     {
+00228       int newChar = Serial_GetChar( );
+00229       if( newChar == -1 )
+00230         break;
+00231   
+00232       // should really have a watchdog to reset the parser if it goes haywire
+00233   
+00234       switch( packet->rxState )
+00235       {
+00236         case XBEE_PACKET_RX_START:
+00237           if( newChar == XBEE_PACKET_STARTBYTE )
+00238             packet->rxState = XBEE_PACKET_RX_LENGTH_1;
+00239           break;
+00240         case XBEE_PACKET_RX_LENGTH_1:
+00241           packet->length = newChar;
+00242           packet->length <<= 8;
+00243           packet->rxState = XBEE_PACKET_RX_LENGTH_2;
+00244           break;
+00245         case XBEE_PACKET_RX_LENGTH_2:
+00246           packet->length += newChar;
+00247           if( packet->length > XBEE_MAX_PACKET_SIZE ) // in case we somehow get some garbage
+00248             packet->length = XBEE_MAX_PACKET_SIZE;
+00249           packet->rxState = XBEE_PACKET_RX_PAYLOAD;
+00250           break;
+00251         case XBEE_PACKET_RX_PAYLOAD:
+00252           *packet->dataPtr++ = newChar;
+00253           if( ++packet->index >= packet->length )
+00254             packet->rxState = XBEE_PACKET_RX_CRC;
+00255           packet->crc += newChar;
+00256           break;
+00257         case XBEE_PACKET_RX_CRC:
+00258           packet->crc += newChar;
+00259           packet->rxState = XBEE_PACKET_RX_START;
+00260           if( packet->crc == 0xFF )
+00261             return 1;
+00262           else
+00263           {
+00264             XBee_ResetPacket( packet );
+00265             return 0;
+00266           }
+00267       }
+00268     }
+00269     if ( timeout > 0 )
+00270       Sleep( 1 );
+00271   } while( ( TaskGetTickCount( ) - time ) < timeout );
+00272   return 0;
+00273 }
+00274 
+00275 /** 
+00276   Send an XBee packet.
+00277   Use the following functions to create packets to be sent:
+00278   - XBee_CreateTX16Packet( ) - create a data packet to be sent out wirelessly with a 16-bit address
+00279   - XBee_CreateTX64Packet( ) - create a data packet to be sent out wirelessly with a 64-bit address
+00280   - XBee_CreateATCommandPacket( ) - create an AT command to configure an attached XBee module
+00281   @param packet The XBeePacket to send.
+00282   @param datalength The length of the actual data being sent (not including headers, options, etc.)
+00283   @return Zero on success.
+00284   @see XBeeConfig_SetPacketApiMode( )
+00285 
+00286   \par Example
+00287   \code
+00288   XBeePacket txPacket;
+00289   uint8 data[] = "ABC"; // 3 bytes of data
+00290   XBee_CreateTX16Packet( &txPacket, 0, 0, 0, data, 3 );
+00291   XBee_SendPacket( &txPacket, 3 );
+00292   \endcode
+00293 */
+00294 int XBee_SendPacket( XBeePacket* packet, int datalength )
+00295 {
+00296   if( CONTROLLER_OK != XBee_SetActive( 1 ) )
+00297     return CONTROLLER_ERROR_SUBSYSTEM_INACTIVE;
+00298   
+00299   Serial_SetChar( XBEE_PACKET_STARTBYTE );
+00300   int size = datalength;
+00301   switch( packet->apiId )
+00302   {
+00303     case XBEE_TX64: //account for apiId, frameId, 8 bytes destination, and options
+00304       size += 11;
+00305       break;
+00306     case XBEE_TX16: //account for apiId, frameId, 2 bytes destination, and options
+00307       size += 5; 
+00308       break;
+00309     case XBEE_ATCOMMAND: // length = API ID + Frame ID, + AT Command (+ Parameter Value)
+00310       size = (datalength > 0) ? 8 : 4; // if we're writing, there are 4 bytes of data, otherwise, just the length above
+00311       break;
+00312     default:
+00313       size = 0;
+00314       break;
+00315   }
+00316 
+00317   Serial_SetChar( (size >> 8) & 0xFF ); // send the most significant bit
+00318   Serial_SetChar( size & 0xFF ); // then the LSB
+00319   packet->crc = 0; // just in case it hasn't been initialized.
+00320   uint8* p = (uint8*)packet;
+00321   while( size-- )
+00322   {
+00323     Serial_SetChar( *p );
+00324     packet->crc += *p++;
+00325   }
+00326   //uint8 test = 0xFF - packet->crc;
+00327   Serial_SetChar( 0xFF - packet->crc );
+00328   return CONTROLLER_OK;
+00329 }
+00330 
+00331 /** 
+00332   Initialize a packet before reading into it.
+00333   @param packet The XBeePacket to initialize.
+00334   @see XBee_GetPacket( )
+00335 */
+00336 void XBee_ResetPacket( XBeePacket* packet )
+00337 {
+00338   packet->dataPtr = (uint8*)packet;
+00339   packet->crc = 0;
+00340   packet->rxState = XBEE_PACKET_RX_START;
+00341   packet->length = 0;
+00342   packet->index = 0;
+00343   packet->apiId = 0;
+00344 }
+00345 
+00346 /** 
+00347   Checks to see if a packet is receiving a message
+00348   @param packet The XBeePacket to check
+00349   @returns true if the packet is busy, false if it's free
+00350 */
+00351 int XBee_IsBusyPacket( XBeePacket* packet )
+00352 {
+00353   return ( packet->rxState != XBEE_PACKET_RX_START );
+00354 }
+00355 
+00356 /** 
+00357   Set a module into packet API mode.  
+00358   XBee modules are in transparent serial port mode by default.  This allows you to work with them
+00359   via the packet API.
+00360 
+00361   When setting this on, the XBee module needs to wait 1 second after sending the command sequence before it's 
+00362   ready to receive any AT commands - this function will block for that amount of time.  Once you turn it off,
+00363   you won't get any responses to packets you send the module until you turn packet mode on again.
+00364   @param value 1 to turn packet mode on, 0 to turn it off.
+00365   
+00366   \par Example
+00367   \code
+00368   MyTask( void * p )
+00369   {
+00370     XBeeConfig_SetPacketApiMode( 1 ); // initialize the module to be in API mode
+00371     while( 1 )
+00372     {
+00373       // your task here.
+00374     }
+00375   }
+00376   \endcode
+00377 */
+00378 void XBeeConfig_SetPacketApiMode( int value )
+00379 {
+00380   if( CONTROLLER_OK != XBee_SetActive( 1 ) )
+00381     return;
+00382   
+00383   if( value )
+00384   {
+00385     char buf[50];
+00386     snprintf( buf, 50, "+++" ); // enter command mode
+00387     Serial_Write( (uchar*)buf, strlen(buf), 0 );
+00388     Sleep( 1025 ); // have to wait one second after +++ to actually get set to receive in AT mode
+00389     snprintf( buf, 50, "ATAP %x,CN\r", 1 ); // turn API mode on, and leave command mode
+00390     Serial_Write( (uchar*)buf, strlen(buf), 0 );
+00391   }
+00392   else
+00393   {
+00394     XBeePacket xbp;
+00395     uint8 params[4];
+00396     memset( params, 0, 4 );
+00397     XBee_CreateATCommandPacket( &xbp, 0, "AP", params, 4 );
+00398     XBee_SendPacket( &xbp, 4 );
+00399   }
+00400 }
+00401 
+00402 /** 
+00403   Query whether the module is in API mode.
+00404   This will block for up to a 1/2 second waiting for a response from the XBee module.
+00405   @return 0 if off, 1 if enabled, 2 if enabled with escape characters.
+00406   
+00407   \par Example
+00408   \code
+00409   int mode = XBeeConfig_RequestPacketApiMode( );
+00410   if( mode >= 0 )
+00411   {
+00412     // then we have our mode
+00413   }
+00414   \endcode
+00415 */
+00416 int XBeeConfig_RequestPacketApiMode( )
+00417 {
+00418   XBeePacket xbp;
+00419   XBee_CreateATCommandPacket( &xbp, 0x52, "AP", NULL, 0 );
+00420   XBee_SendPacket( &xbp, 0 );
+00421   return CONTROLLER_OK;
+00422 }
+00423 
+00424 /** 
+00425   A convenience function for creating an AT command packet.
+00426   As per the XBee spec, AT Command packets that want to set/write a value must have 4 bytes of data.  
+00427   Packets that query the value of an AT parameter send 0 bytes of data.  Note that multi-byte
+00428   data must be sent \b big-endian (most significant byte first) - see XBee_IntToBigEndianArray( ).
+00429   
+00430   Make sure you're in API mode before creating & sending packets - see XBeeConfig_SetPacketApiMode( ).
+00431   See the XBee documentation for the official list of AT commands that the XBee modules understand.
+00432   @param packet The XBeePacket to create.
+00433   @param frameID The frame ID for this packet that subsequent response/status messages can refer to.
+00434   @param cmd The 2-character AT command.
+00435   @param params A pointer to the buffer containing the data to be sent.
+00436   @param datalength The number of bytes to send from the params buffer.
+00437   @return An integer specifying the active state - 1 (active) or 0 (inactive).
+00438   
+00439   \par Example - Writing
+00440   \code
+00441   XBeePacket txPacket;
+00442   uint8 params[4];
+00443   XBee_IntToBigEndianArray( 1000, params ); // set our sampling rate to 1000
+00444   XBee_CreateATCommandPacket( &txPacket, 0, "IR", &params, 4 ); // set the sampling rate of the IO pins
+00445   XBee_SendPacket( &txPacket, 4 );
+00446   \endcode
+00447 
+00448   \par Example - Reading
+00449   \code
+00450   XBeePacket txPacket;
+00451   XBee_CreateATCommandPacket( &txPacket, 0, "IR", NULL, 0 ); // query the sampling rate of the IO pins
+00452   XBee_SendPacket( &txPacket, 0 );
+00453   // then we'll receive a response packet
+00454   \endcode
+00455 */
+00456 void XBee_CreateATCommandPacket( XBeePacket* packet, uint8 frameID, char* cmd, uint8* params, uint8 datalength )
+00457 {
+00458   packet->apiId = XBEE_ATCOMMAND;
+00459   packet->atCommand.frameID = frameID;
+00460   uint8* p = packet->atCommand.command;
+00461   *p++ = *cmd++;
+00462   *p++ = *cmd;
+00463   p = packet->atCommand.parameters;
+00464   while( datalength-- )
+00465     *p++ = *params++;
+00466 }
+00467 
+00468 /** 
+00469   Query the address of the module.
+00470   This will block for up to a 1/2 second waiting for a response from the XBee module.
+00471   @return An integer corresponding to the address of the module, or negative number on failure.
+00472   
+00473   \par Example
+00474   \code
+00475   int address = XBeeConfig_RequestAddress( );
+00476   if( address >= 0 )
+00477   {
+00478     // then we have our address
+00479   }
+00480   \endcode
+00481 */
+00482 int XBeeConfig_RequestATResponse( char* cmd )
+00483 {
+00484   XBeePacket xbp;
+00485   XBee_CreateATCommandPacket( &xbp, 0x52, cmd, NULL, 0 );
+00486   XBee_SendPacket( &xbp, 0 );
+00487   return CONTROLLER_OK;
+00488 }
+00489 
+00490 /** 
+00491   Configure the IO settings on an XBee module.
+00492   IO pins can have one of 5 values:
+00493   - \b XBEE_IO_DISABLED
+00494   - \b XBEE_IO_ANALOGIN - Analog input (10-bit)
+00495   - \b XBEE_IO_DIGITALIN - Digital input
+00496   - \b XBEE_IO_DIGOUT_HIGH - Digital out high
+00497   - \b XBEE_IO_DIGOUT_LOW - Digital out low
+00498   @param pin An integer specifying which pin to configure. There are 9 IO pins (numbered 0-8) on the XBee modules.  
+00499   Only channels 0-7 can be analog inputs - channel 8 can only operate as a digital in or out.
+00500   @param value An int specifying the behavior of this pin (options shown above).
+00501   \par Example
+00502   \code
+00503   // set channel 0 to analog in
+00504   XBeeConfig_SetIO( 0, XBEE_IO_ANALOGIN );
+00505   \endcode
+00506 */
+00507 void XBeeConfig_SetIO( int pin, int value )
+00508 {
+00509   XBeePacket packet;
+00510   XBee_ResetPacket( &packet );
+00511   uint8 params[4];
+00512   char cmd[2];
+00513   sprintf( cmd, "D%d", pin );
+00514   XBee_IntToBigEndianArray( value, params );
+00515   XBee_CreateATCommandPacket( &packet, 0, cmd, params, 4 );
+00516   XBee_SendPacket( &packet, 4 );
+00517 }
+00518 
+00519 /** 
+00520   Query the configuration of an IO pin.
+00521   See XBeeConfig_SetIO( ) for the possible return values.
+00522   This will block for up to a 1/2 second waiting for a response from the XBee module.
+00523   @return An integer corresponding to the config of the requested pin, or negative number on failure.
+00524   
+00525   \par Example
+00526   \code
+00527   int pin = XBeeConfig_RequestIO( 0 ); // request the configuration of pin 0
+00528   if( pin >= 0 )
+00529   {
+00530     // then we have our pin config
+00531   }
+00532   \endcode
+00533 */
+00534 int XBeeConfig_RequestIO( int pin )
+00535 {
+00536   XBeePacket xbp;
+00537   char cmd[2];
+00538   sprintf( cmd, "D%d", pin );
+00539   XBee_CreateATCommandPacket( &xbp, 0x52, cmd, NULL, 0 );
+00540   XBee_SendPacket( &xbp, 0 );
+00541   return CONTROLLER_OK;
+00542 }
+00543 
+00544 /** 
+00545   Create a packet to be transmitted with a 16-bit address.
+00546   If the \b frameID is 0, you won't receive a TX Status message in response.
+00547 
+00548   @param xbp The XBeePacket to create.
+00549   @param frameID The frame ID for this packet that subsequent response/status messages can refer to.  Set to 0 for no response.
+00550   @param destination The destination address for this packet.  Broadcast Address: 0xFFFF.
+00551   @param options The XBee options for this packet (0 if none).
+00552   @param data A pointer to the data to be sent in this packet.  Up to 100 bytes.
+00553   @param datalength The number of bytes of data to be sent. Maximum 100 bytes.
+00554   @return True on success, false on failure.
+00555   
+00556   \par Example
+00557   \code
+00558   XBeePacket txPacket;
+00559   uint8 data[] = "ABC";
+00560   XBee_CreateTX16Packet( &txPacket, 0x52, 0, 0, data, 3 );
+00561   XBee_SendPacket( &txPacket, 3 );
+00562   \endcode
+00563 */
+00564 bool XBee_CreateTX16Packet( XBeePacket* xbp, uint8 frameID, uint16 destination, uint8 options, uint8* data, uint8 datalength )
+00565 {
+00566   xbp->apiId = XBEE_TX16;
+00567   xbp->tx16.frameID = frameID;
+00568   xbp->tx16.destination[0] = destination >> 8;
+00569   xbp->tx16.destination[1] = destination & 0xFF;
+00570   xbp->tx16.options = options;
+00571   xbp->length = datalength + 5;
+00572   uint8* p = xbp->tx16.data;
+00573   while( datalength-- )
+00574     *p++ = *data++;
+00575   return true;
+00576 }
+00577 
+00578 /** 
+00579   Create a packet to be transmitted with a 64-bit address.
+00580 
+00581   @param xbp The XBeePacket to create.
+00582   @param frameID The frame ID for this packet that subsequent response/status messages can refer to.  Set to 0 for no response.
+00583   @param destination The destination address for this packet.  Broadcast Address: 0xFFFF (same as 16b broadcast address)
+00584   @param options The XBee options for this packet (0 if none).
+00585   @param data A pointer to the data to be sent in this packet.  Up to 100 bytes.
+00586   @param datalength The number of bytes of data to be sent. Maximum 100 bytes.
+00587   @return True on success, false on failure.
+00588   
+00589   \par Example
+00590   \code
+00591   XBeePacket txPacket;
+00592   uint8 data[] = "ABCDE";
+00593   XBee_CreateTX16Packet( &txPacket, 0, 0, 0, data, 5 );
+00594   XBee_SendPacket( &txPacket, 5 );
+00595   \endcode
+00596 */
+00597 bool XBee_CreateTX64Packet( XBeePacket* xbp, uint8 frameID, uint64 destination, uint8 options, uint8* data, uint8 datalength )
+00598 {
+00599   uint8* p;
+00600   int i;
+00601   xbp->apiId = XBEE_TX64;
+00602   xbp->tx64.frameID = frameID;
+00603   for( i = 0; i < 8; i++ )
+00604     xbp->tx64.destination[i] = (destination >> 8*i) & (0xFF * i); // ????????
+00605   xbp->tx64.options = options;
+00606   xbp->length = datalength + 5;
+00607   p = xbp->tx64.data;
+00608   while( datalength-- )
+00609     *p++ = *data++;
+00610   return true;
+00611 }
+00612 
+00613 /** 
+00614   Unpack the info from an incoming packet with a 16-bit address.
+00615   Pass \b NULL into any of the parameters you don't care about.
+00616   @param xbp The XBeePacket to read from.
+00617   @param srcAddress The 16-bit address of this packet.
+00618   @param sigstrength The signal strength of this packet.
+00619   @param options The XBee options for this packet.
+00620   @param data A pointer that will be set to the data of this packet.
+00621   @param datalength The length of data in this packet.
+00622   @return True on success, false on failure.
+00623   
+00624   \par Example
+00625   \code
+00626   XBeePacket rxPacket;
+00627   if( XBee_GetPacket( &rxPacket, 0 ) )
+00628   {
+00629     uint16 src;
+00630     uint8 sigstrength;
+00631     uint8* data;
+00632     uint8 datalength;
+00633     if( XBee_ReadRX16Packet( &rxPacket, &src, &sigstrength, NULL, &data, &datalength ) )
+00634     {
+00635       // then process the new packet here
+00636       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00637     }
+00638   }
+00639   \endcode
+00640 */
+00641 bool XBee_ReadRX16Packet( XBeePacket* xbp, uint16* srcAddress, uint8* sigstrength, uint8* options, uint8** data, uint8* datalength )
+00642 {
+00643   if( xbp->apiId != XBEE_RX16 )
+00644     return false;
+00645 
+00646   if( srcAddress )
+00647   {
+00648     *srcAddress = xbp->rx16.source[0];
+00649     *srcAddress <<= 8;
+00650     *srcAddress += xbp->rx16.source[1];
+00651   }
+00652   if( sigstrength )
+00653     *sigstrength = xbp->rx16.rssi;
+00654   if( options )
+00655     *options = xbp->rx16.options;
+00656   if( data )
+00657     *data = xbp->rx16.data;
+00658   if( datalength )
+00659     *datalength = xbp->length - 5;
+00660   return true;
+00661 }
+00662 
+00663 /** 
+00664   Unpack the info from an incoming packet with a 64-bit address.
+00665   Pass \b NULL into any of the parameters you don't care about.
+00666   @param xbp The XBeePacket to read from.
+00667   @param srcAddress The 64-bit address of this packet.
+00668   @param sigstrength The signal strength of this packet.
+00669   @param options The XBee options for this packet.
+00670   @param data A pointer that will be set to the data of this packet.
+00671   @param datalength The length of data in this packet.
+00672   @return True on success, false on failure.
+00673   
+00674   \par Example
+00675   \code
+00676   XBeePacket rxPacket;
+00677   if( XBee_GetPacket( &rxPacket, 0 ) )
+00678   {
+00679     uint64 src;
+00680     uint8 sigstrength;
+00681     uint8* data;
+00682     uint8 datalength;
+00683     if( XBee_ReadRX64Packet( &rxPacket, &src, &sigstrength, NULL, &data, &datalength ) )
+00684     {
+00685       // then process the new packet here
+00686       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00687     }
+00688   }
+00689   \endcode
+00690 */
+00691 bool XBee_ReadRX64Packet( XBeePacket* xbp, uint64* srcAddress, uint8* sigstrength, uint8* options, uint8** data, uint8* datalength )
+00692 {
+00693   if( xbp->apiId != XBEE_RX64 )
+00694     return false;
+00695 
+00696   int i;
+00697   if( srcAddress )
+00698   {
+00699     for( i = 0; i < 8; i++ )
+00700     {
+00701       *srcAddress <<= i*8;
+00702       *srcAddress += xbp->rx64.source[i];
+00703     }
+00704   }
+00705   if( sigstrength )
+00706     *sigstrength = xbp->rx64.rssi;
+00707   if( options )
+00708     *options = xbp->rx64.options;
+00709   if( data )
+00710     *data = xbp->rx64.data;
+00711   if( datalength )
+00712     *datalength = xbp->length - 11;
+00713   return true;
+00714 }
+00715 
+00716 /** 
+00717   Unpack the info from an incoming IO packet with a 16-bit address.
+00718   When an XBee module has been given a sample rate, it will sample its IO pins according to their current configuration
+00719   and send an IO packet with the sample data.  This function will extract the sample info into an array of ints for you.
+00720   There are 9 IO pins on the XBee modules, so be sure that the array you pass in has room for 9 ints.
+00721 
+00722   Pass \b NULL into any of the parameters you don't care about.
+00723   @param xbp The XBeePacket to read from.
+00724   @param srcAddress A pointer to a uint16 that will be filled up with the 16-bit address of this packet.
+00725   @param sigstrength A pointer to a uint8 that will be filled up with the signal strength of this packet.
+00726   @param options A pointer to a uint8 that will be filled up with the XBee options for this packet.
+00727   @param samples A pointer to an array of ints that will be filled up with the sample values from this packet.
+00728   @return True on success, false on failure.
+00729   @see XBeeConfig_SetSampleRate( ), XBeeConfig_SetIOs( )
+00730   
+00731   \par Example
+00732   \code
+00733   XBeePacket rxPacket;
+00734   if( XBee_GetPacket( &rxPacket, 0 ) )
+00735   {
+00736     uint16 src;
+00737     uint8 sigstrength;
+00738     int samples[9];
+00739     if( XBee_ReadIO16Packet( &rxPacket, &src, &sigstrength, NULL, samples ) )
+00740     {
+00741       // then process the new packet here
+00742       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00743     }
+00744   }
+00745   \endcode
+00746 */
+00747 bool XBee_ReadIO16Packet( XBeePacket* xbp, uint16* srcAddress, uint8* sigstrength, uint8* options, int* samples )
+00748 {
+00749   if( xbp->apiId != XBEE_IO16 )
+00750     return false;
+00751   if( srcAddress )
+00752   {
+00753     *srcAddress = xbp->io16.source[0];
+00754     *srcAddress <<= 8;
+00755     *srcAddress += xbp->io16.source[1];
+00756   }
+00757   if( sigstrength )
+00758     *sigstrength = xbp->io16.rssi;
+00759   if( options )
+00760     *options = xbp->io16.options;
+00761   if( samples )
+00762   {
+00763     if( !XBee_GetIOValues( xbp, samples ) )
+00764       return false;
+00765   }
+00766   return true;
+00767 }
+00768 
+00769 /** 
+00770   Unpack the info from an incoming IO packet with a 64-bit address.
+00771   When an XBee module has been given a sample rate, it will sample its IO pins according to their current configuration
+00772   and send an IO packet with the sample data.  This function will extract the sample info into an array of ints for you.
+00773   There are 9 IO pins on the XBee modules, so be sure that the array you pass in has room for 9 ints.
+00774 
+00775   Pass \b NULL into any of the parameters you don't care about.
+00776   @param xbp The XBeePacket to read from.
+00777   @param srcAddress A pointer to a uint64 that will be filled up with the 16-bit address of this packet.
+00778   @param sigstrength A pointer to a uint8 that will be filled up with the signal strength of this packet.
+00779   @param options A pointer to a uint8 that will be filled up with the XBee options for this packet.
+00780   @param samples A pointer to an array of ints that will be filled up with the sample values from this packet.
+00781   @return True on success, false on failure.
+00782   @see XBeeConfig_SetSampleRate( ), XBeeConfig_SetIOs( )
+00783   
+00784   \par Example
+00785   \code
+00786   XBeePacket rxPacket;
+00787   if( XBee_GetPacket( &rxPacket, 0 ) )
+00788   {
+00789     uint64 src;
+00790     uint8 sigstrength;
+00791     int samples[9];
+00792     if( XBee_ReadIO16Packet( &rxPacket, &src, &sigstrength, NULL, samples ) )
+00793     {
+00794       // then process the new packet here
+00795       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00796     }
+00797   }
+00798   \endcode
+00799 */
+00800 bool XBee_ReadIO64Packet( XBeePacket* xbp, uint64* srcAddress, uint8* sigstrength, uint8* options, int* samples )
+00801 {
+00802   if( xbp->apiId != XBEE_RX64 )
+00803     return false;
+00804   if( srcAddress )
+00805   {
+00806     int i;
+00807     for( i = 0; i < 8; i++ )
+00808     {
+00809       *srcAddress <<= i*8;
+00810       *srcAddress += xbp->io64.source[i];
+00811     }
+00812   }
+00813   if( sigstrength )
+00814     *sigstrength = xbp->io64.rssi;
+00815   if( options )
+00816     *options = xbp->io64.options;
+00817   if( samples )
+00818   {
+00819     if( !XBee_GetIOValues( xbp, samples ) )
+00820       return false;
+00821   }
+00822   return true;
+00823 }
+00824 
+00825 /** 
+00826   Unpack the info from an incoming AT Command Response packet.
+00827   In response to a previous AT Command message, the module will send an AT Command Response message.
+00828 
+00829   Pass \b NULL into any of the parameters you don't care about.
+00830   @param xbp The XBeePacket to read from.
+00831   @param frameID A pointer to a uint64 that will be filled up with the 16-bit address of this packet.
+00832   @param command A pointer to a uint8 that will be filled up with the signal strength of this packet.
+00833   @param status A pointer to a uint8 that will be filled up with the XBee options for this packet.
+00834   @param data A pointer that will be set to the data of this packet.
+00835   @return True on success, false on failure.
+00836   
+00837   \par Example
+00838   \code
+00839   XBeePacket rxPacket;
+00840   if( XBee_GetPacket( &rxPacket, 0 ) )
+00841   {
+00842     uint8 frameID;
+00843     char* command;
+00844     uint8 status;
+00845     uint8* data;
+00846     if( XBee_ReadAtResponsePacket( &rxPacket, &frameID, command, &status, &data ) )
+00847     {
+00848       // then process the new packet here
+00849       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00850     }
+00851   }
+00852   \endcode
+00853 */
+00854 bool XBee_ReadAtResponsePacket( XBeePacket* xbp, uint8* frameID, char** command, uint8* status, uint8** data )
+00855 {
+00856   if( xbp->apiId != XBEE_ATCOMMANDRESPONSE )
+00857     return false;
+00858   if( frameID )
+00859     *frameID = xbp->atResponse.frameID;
+00860   if( command )
+00861     *command = (char*)xbp->atResponse.command;
+00862   if( status )
+00863     *status = xbp->atResponse.status;
+00864   if( data )
+00865     *data = xbp->atResponse.value;
+00866   return true;
+00867 }
+00868 
+00869 /** 
+00870   Unpack the info from TX Status packet.
+00871   When a TX is completed, the modules esnds a TX Status message.  This indicates whether the packet was transmitted
+00872   successfully or not.  If the message you sent had a frameID of 0, a TX status message will not be generated.
+00873 
+00874   Pass \b NULL into any of the parameters you don't care about.
+00875   @param xbp The XBeePacket to read from.
+00876   @param frameID A pointer to a uint8 that will be filled up with the frame ID of this packet.
+00877   @param status A pointer to a uint8 that will be filled up with the status of this packet.
+00878   @return True on success, false on failure.
+00879   
+00880   \par Example
+00881   \code
+00882   XBeePacket rxPacket;
+00883   if( XBee_GetPacket( &rxPacket, 0 ) )
+00884   {
+00885     uint8 frameID;
+00886     uint8 status;
+00887     if( XBee_ReadTXStatusPacket( &rxPacket, &frameID, &status ) )
+00888     {
+00889       // then process the new packet here
+00890       XBee_ResetPacket( &rxPacket ); // and clear it out before reading again
+00891     }
+00892   }
+00893   \endcode
+00894 */
+00895 bool XBee_ReadTXStatusPacket( XBeePacket* xbp, uint8* frameID, uint8* status )
+00896 {
+00897   if( xbp->apiId != XBEE_TXSTATUS )
+00898     return false;
+00899   if( frameID )
+00900     *frameID = xbp->txStatus.frameID;
+00901   if( status )
+00902     *status = xbp->txStatus.status;
+00903   return true;
+00904 }
+00905 
+00906 /** 
+00907   Save the configuration changes you've made on the module to memory.
+00908   When you make configuration changes - setting the module to API mode, or configuring the sample rate, for example - 
+00909   those changes will be lost when the module restarts.  Call this function to save the current state to non-volatile memory.
+00910 
+00911   As with the other \b XBeeConfig functions, make sure you're in API mode before trying to use this function.
+00912   @return True on success, false on failure.
+00913   @see XBeeConfig_SetPacketApiMode( )
+00914   
+00915   \par Example
+00916   \code
+00917   XBeeConfig_SetPacketApiMode( );
+00918   XBeeConfig_SetSampleRate( 100 );
+00919   XBeeConfig_WriteStateToMemory( );
+00920   \endcode
+00921 */
+00922 void XBeeConfig_WriteStateToMemory( void )
+00923 {
+00924   XBeePacket xbp;
+00925   uint8 params[4];
+00926   memset( params, 0, 4 );
+00927   XBee_CreateATCommandPacket( &xbp, 0, "WR", params, 4 );
+00928   XBee_SendPacket( &xbp, 4 );
+00929 }
+00930 
+00931 /** 
+00932   Set this module's address.
+00933 
+00934   As with the other \b XBeeConfig functions, make sure you're in API mode before trying to use this function.
+00935   @param address An integer specifying the module's address.
+00936   @return True on success, false on failure.
+00937   @see XBeeConfig_SetPacketApiMode( )
+00938   
+00939   \par Example
+00940   \code
+00941   XBeeConfig_SetPacketApiMode( );
+00942   XBeeConfig_SetAddress( 100 );
+00943   XBeeConfig_WriteStateToMemory( );
+00944   \endcode
+00945 */
+00946 void XBeeConfig_SetAddress( uint16 address )
+00947 {
+00948   XBeePacket xbp;
+00949   uint8 params[4]; // big endian - most significant bit first
+00950   XBee_IntToBigEndianArray( address, params );
+00951   XBee_CreateATCommandPacket( &xbp, 0, "MY", params, 4 );
+00952   XBee_SendPacket( &xbp, 4 );
+00953 }
+00954 
+00955 /** 
+00956   Query the address of the module.
+00957   This will block for up to a 1/2 second waiting for a response from the XBee module.
+00958   @return An integer corresponding to the address of the module, or negative number on failure.
+00959   
+00960   \par Example
+00961   \code
+00962   int address = XBeeConfig_RequestAddress( );
+00963   if( address >= 0 )
+00964   {
+00965     // then we have our address
+00966   }
+00967   \endcode
+00968 */
+00969 int XBeeConfig_RequestAddress( )
+00970 {
+00971   XBeePacket xbp;
+00972   XBee_CreateATCommandPacket( &xbp, 0x52, "MY", NULL, 0 );
+00973   XBee_SendPacket( &xbp, 0 );
+00974   return CONTROLLER_OK;
+00975 }
+00976 
+00977 /** 
+00978   Set this PAN (Personal Area Network) ID.
+00979   Only modules with matching PAN IDs can communicate with each other.  Unique PAN IDs enable control of which
+00980   RF packets are received by a module.  Default is \b 0x3332.
+00981 
+00982   As with the other \b XBeeConfig functions, make sure you're in API mode before trying to use this function.
+00983   @param id A uint16 specifying the PAN ID.
+00984   @return True on success, false on failure.
+00985   @see XBeeConfig_SetPacketApiMode( )
+00986   
+00987   \par Example
+00988   \code
+00989   XBeeConfig_SetPacketApiMode( );
+00990   XBeeConfig_SetPanID( 0x1234 );
+00991   \endcode
+00992 */
+00993 void XBeeConfig_SetPanID( uint16 id )
+00994 {
+00995   XBeePacket xbp;
+00996   uint8 params[4]; // big endian - most significant bit first
+00997   XBee_IntToBigEndianArray( id, params );
+00998   XBee_CreateATCommandPacket( &xbp, 0, "ID", params, 4 );
+00999   XBee_SendPacket( &xbp, 4 );
+01000 }
+01001 
+01002 /** 
+01003   Query the PAN ID of the module.
+01004   This will block for up to a 1/2 second waiting for a response from the XBee module.
+01005   @return An integer corresponding to the PAN ID of the module, or negative number on failure.
+01006   
+01007   \par Example
+01008   \code
+01009   int panid = XBeeConfig_RequestPanID( );
+01010   if( panid >= 0 )
+01011   {
+01012     // then we have our pan id
+01013   }
+01014   \endcode
+01015 */
+01016 int XBeeConfig_RequestPanID( )
+01017 {
+01018   XBeePacket xbp;
+01019   XBee_CreateATCommandPacket( &xbp, 0x52, "ID", NULL, 0 );
+01020   XBee_SendPacket( &xbp, 0 );
+01021   return CONTROLLER_OK;
+01022 }
+01023 
+01024 /** 
+01025   Set the module's channel.
+01026   The channel is one of 3 addressing options available to the module - the others are the PAN ID and the
+01027   destination address.  In order for modules to communicate with each other, the modules must share the same
+01028   channel number.  Default is \b 0x0C.
+01029 
+01030   This value can have the range \b 0x0B - \b 0x1A for XBee modules, and \b 0x0C - \b 0x17 for XBee-Pro modules.
+01031 
+01032   As with the other \b XBeeConfig functions, make sure you're in API mode before trying to use this function.
+01033   @param channel A uint8 specifying the channel.
+01034   @return True on success, false on failure.
+01035   @see XBeeConfig_SetPacketApiMode( )
+01036   
+01037   \par Example
+01038   \code
+01039   XBeeConfig_SetPacketApiMode( );
+01040   XBeeConfig_SetChannel( 0x0D );
+01041   \endcode
+01042 */
+01043 void XBeeConfig_SetChannel( uint8 channel )
+01044 {
+01045   XBeePacket xbp;
+01046   uint8 params[4];
+01047   XBee_IntToBigEndianArray( channel, params );
+01048   XBee_CreateATCommandPacket( &xbp, 0, "CH", params, 4 );
+01049   XBee_SendPacket( &xbp, 4 );
+01050 }
+01051 
+01052 /** 
+01053   Query the channel of the module.
+01054   This will block for up to a 1/2 second waiting for a response from the XBee module.
+01055   @return An integer corresponding to the channel of the module, or negative number on failure.
+01056   
+01057   \par Example
+01058   \code
+01059   int chan = XBeeConfig_RequestChannel( );
+01060   if( chan >= 0 )
+01061   {
+01062     // then we have our channel
+01063   }
+01064   \endcode
+01065 */
+01066 int XBeeConfig_RequestChannel( )
+01067 {
+01068   XBeePacket xbp;
+01069   XBee_CreateATCommandPacket( &xbp, 0x52, "CH", NULL, 0 );
+01070   XBee_SendPacket( &xbp, 0 );
+01071   return CONTROLLER_OK;
+01072 }
+01073 
+01074 /** 
+01075   Set the rate at which the module will sample its IO pins.
+01076   When the sample rate is set, the module will sample all its IO pins according to its current IO configuration and send
+01077   a packet with the sample data.  If this is set too low and the IO configuration is sampling too many channels, 
+01078   the RF module won't be able to keep up.  You can also adjust how many samples are gathered before a packet is sent.
+01079 
+01080   As with the other \b XBeeConfig functions, make sure you're in API mode before trying to use this function.
+01081   @param rate A uint16 specifying the sample rate in milliseconds.
+01082   @return True on success, false on failure.
+01083   @see XBeeConfig_SetIOs( ), XBeeConfig_SetPacketApiMode( )
+01084   
+01085   \par Example
+01086   \code
+01087   XBeeConfig_SetPacketApiMode( );
+01088   XBeeConfig_SetSampleRate( 0x14 );
+01089   \endcode
+01090 */
+01091 void XBeeConfig_SetSampleRate( uint16 rate )
+01092 {
+01093   XBeePacket xbp;
+01094   uint8 params[4]; // big endian - most significant bit first
+01095   XBee_IntToBigEndianArray( rate, params );
+01096   XBee_CreateATCommandPacket( &xbp, 0, "IR", params, 4 );
+01097   XBee_SendPacket( &xbp, 4 );
+01098 }
+01099 
+01100 /** 
+01101   Query the sample rate of the module.
+01102   This will block for up to a 1/2 second waiting for a response from the XBee module.
+01103   @return An integer corresponding to the sample rate of the module, or negative number on failure.
+01104   
+01105   \par Example
+01106   \code
+01107   int rate = XBeeConfig_RequestSampleRate( );
+01108   if( rate >= 0 )
+01109   {
+01110     // then we have our rate
+01111   }
+01112   \endcode
+01113 */
+01114 int XBeeConfig_RequestSampleRate( )
+01115 {
+01116   XBeePacket xbp;
+01117   XBee_CreateATCommandPacket( &xbp, 0x52, "IR", NULL, 0 );
+01118   XBee_SendPacket( &xbp, 0 );
+01119   return CONTROLLER_OK;
+01120 }
+01121 
+01122 /** 
+01123   Convert a 32-bit integer into a big endian array of 4 unsigned 8-bit integers.
+01124   This is mostly useful for sending AT Command packets.
+01125   @param value The value to convert.
+01126   @param array An array of 4 unsigned 8-bit integers (uint8).  Be sure you have 4.
+01127   \par Example
+01128   see XBee_CreateATCommandPacket( ) for an example.
+01129 */
+01130 void XBee_IntToBigEndianArray( int value, uint8* array )
+01131 {
+01132   array[0] = (value >> 24) & 0xFF;
+01133   array[1] = (value >> 16) & 0xFF;
+01134   array[2] = (value >> 8) & 0xFF;
+01135   array[3] = value & 0xFF;
+01136 }
+01137 
+01138 /** @}
+01139 */
+01140 
+01141 /** 
+01142   Unpack IO values from an incoming packet.
+01143   @param packet The XBeePacket to read from.
+01144   @param inputs An array of at least 9 integers, which will be populated with the values of the 9 input lines on the XBee module.
+01145   @return 1 if IO values were successfully retrieved, otherwise zero.
+01146   
+01147   \par Example
+01148   \code
+01149   XBeePacket rxPacket;
+01150   if( XBee_GetPacket( &rxPacket, 0 ) )
+01151   {
+01152     int inputs[9];
+01153     if( XBee_GetIOValues( &rxPacket, inputs ) )
+01154     {
+01155       // process new input values here
+01156     }
+01157   }
+01158   \endcode
+01159 */
+01160 static bool XBee_GetIOValues( XBeePacket* packet, int *inputs )
+01161 {
+01162   if( packet->apiId == XBEE_IO16 || packet->apiId == XBEE_IO64 )
+01163   {
+01164     int i;
+01165     static bool enabled;
+01166     int digitalins = 0;
+01167     uint8* p;
+01168     int channelIndicators;
+01169     if( packet->apiId == XBEE_IO16 )
+01170     {
+01171       p = packet->io16.data;
+01172       channelIndicators = (packet->io16.channelIndicators[0] << 0x08) | packet->io16.channelIndicators[1];
+01173     }
+01174     else // packet->apiId == XBEE_IO64
+01175     {
+01176       p = packet->io64.data;
+01177       channelIndicators = (packet->io64.channelIndicators[0] << 0x08) | packet->io64.channelIndicators[1];
+01178     }
+01179     
+01180     for( i = 0; i < XBEE_INPUTS; i++ )
+01181     {
+01182       enabled = channelIndicators & 1;
+01183       channelIndicators >>= 1;
+01184       if( i < 9 ) // digital ins
+01185       {
+01186         if( enabled )
+01187         {
+01188           if( !digitalins )
+01189           {
+01190             int dig0 = *p++ << 0x08;
+01191             digitalins = dig0 | *p++;
+01192           }
+01193           inputs[i] = ((digitalins >> i) & 1) * 1023;
+01194         }
+01195         else
+01196           inputs[i] = 0;
+01197       }
+01198       else // analog ins
+01199       {
+01200         if( enabled )
+01201         {
+01202           int ain_msb = *p++ << 0x08;
+01203           inputs[i-9] = ain_msb | *p++;
+01204         }
+01205         else
+01206           inputs[i-9] = 0;
+01207       }
+01208     }
+01209     return true;
+01210   }
+01211   else
+01212     return false;
+01213 }
+01214 
+01215 #ifdef OSC
+01216 #include "osc.h"
+01217 
+01218 /** \defgroup XBeeOSC XBee - OSC
+01219   Communicate with XBee modules with the Make Controller Kit via OSC.
+01220   \ingroup OSC
+01221   
+01222   \section devices Devices
+01223   There can only be one XBee board connected to the Make Controller Kit's serial port at a time,
+01224   so there is not a device index in XBee OSC messages.
+01225   
+01226   \section properties Properties
+01227   The XBee system has the following properties:
+01228   - autosend
+01229   - io16
+01230   - io64
+01231   - rx16
+01232   - rx64
+01233   - tx16
+01234   - tx64
+01235   - tx-status
+01236   - active
+01237   
+01238   \par Autosend
+01239   The \b autosend property corresponds to whether the Make Controller will automatically send out 
+01240   messages it receives from a connected XBee module.  By default, this is turned off.
+01241   To turn this on, send the message
+01242   \verbatim /xbee/autosend 1 \endverbatim
+01243   and to turn it off, send
+01244   \verbatim /xbee/autosend 0 \endverbatim
+01245   All autosend messages send at the same interval.  You can set this interval, in 
+01246   milliseconds, by sending the message
+01247   \verbatim /system/autosend-interval 10 \endverbatim
+01248   so that messages will be sent every 10 milliseconds.  This can be anywhere from 1 to 5000 milliseconds.
+01249   \par
+01250   You also need to select whether the board should send to you over USB or Ethernet.  Send
+01251   \verbatim /system/autosend-usb 1 \endverbatim
+01252   to send via USB, and 
+01253   \verbatim /system/autosend-udp 1 \endverbatim
+01254   to send via Ethernet.  Via Ethernet, the board will send messages to the last address it received a message from.
+01255   
+01256   \par io16
+01257   The \b io16 property corresponds to an incoming message from an XBee module with samples
+01258   from its IO pins.  The best way to use this is to turn the XBee system's autosend property
+01259   on - then the Make Controller can relay io16 messages as soon as they're received.
+01260   \par
+01261   Once you've turned on autosend, if there are boards on your network that are sending IO packets, 
+01262   you'll receive messages like
+01263   \verbatim /xbee/io16 1234 28 12 0 0 1023 1023 0 512 0 1023 \endverbatim
+01264   The first two numbers are:
+01265   -# the address of the module that sent the message (1234 in the example above)
+01266   -# signal strength (28 above) 
+01267   \par
+01268   The next 9 numbers are the values from the 9 IO pins on the XBee module.
+01269   
+01270   \par io64
+01271   The \b io64 property corresponds to an incoming message from an XBee module with samples from its IO
+01272   pins.  This message is just like the \b io16 message, except it's coming from a board with a 64-bit
+01273   address, rather than a 16-bit address.  The structure of the message is the same (see above).
+01274   
+01275   \par rx16
+01276   The \b rx16 property corresponds to an incoming message from a 16-bit address XBee module with arbitrary data.  
+01277   The best way to use this is to turn the XBee system's autosend property
+01278   on - then the Make Controller can relay rx16 messages as soon as they're received.
+01279   \par
+01280   Once you've turned on autosend, if there are boards on your network that are sending IO packets, 
+01281   you'll receive messages like
+01282   \verbatim /xbee/rx16 1234 28 0 [43 44 45 32 46 47 48] \endverbatim
+01283   The first three numbers are:
+01284   -# the address of the module that sent the message (1234 in the example above)
+01285   -# signal strength (28 above)
+01286   -# the options byte (0 above), respectively. 
+01287   \par
+01288   Following those is an OSC blob with the data (enclosed in square brackets above).  These are the hex values for each byte of data.
+01289   
+01290   \par rx64
+01291   The \b rx64 property corresponds to an incoming message from an XBee module with samples from its IO
+01292   pins.  This message is just like the \b io16 message, except it's coming from a board with a 64-bit
+01293   address, rather than a 16-bit address.  The structure of the message is the same (see above).
+01294 
+01295   \par Transmit Status
+01296   The \b tx-status property gives you the status of a previously sent message.  It tells you the frameID of the message
+01297   that was sent and its status, which can be one of:
+01298   - \b Success.  Message was successfully transmitted and received.
+01299   - <b> No acknowledgement received</b>.  The message was successfully sent, but not successfully received on the other end.
+01300   - <b> CCA Failure</b>.
+01301   - \b Purged.
+01302   \par
+01303   If you don't include a frameID for the message that you sent, a tx-status message will not be generated.  An example
+01304   tx-status message will look like
+01305   \verbatim /xbee/tx-status 52 Success \endverbatim
+01306   where 52 is the frameID and "Success" is the status.
+01307   
+01308   \par Active
+01309   The \b active property corresponds to the active state of the XBee system.
+01310   If you're not seeing appropriate responses to your messages to the XBee system, 
+01311   check whether it's active by sending the message
+01312   \verbatim /xbee/active \endverbatim
+01313   \par
+01314   You can set the active flag by sending
+01315   \verbatim /xbee/active 1 \endverbatim
+01316 */
+01317 
+01318 
+01319 bool XBee_GetAutoSend( bool init )
+01320 {
+01321   XBee_SetActive( 1 );
+01322   if( init )
+01323   {
+01324     int autosend;
+01325     Eeprom_Read( EEPROM_XBEE_AUTOSEND, (uchar*)&autosend, 4 );
+01326     XBee->autosend = (autosend == 1 ) ? 1 : 0;
+01327   }
+01328   return XBee->autosend;
+01329 }
+01330 
+01331 void XBee_SetAutoSend( int onoff )
+01332 {
+01333   XBee_SetActive( 1 );  
+01334   if( XBee->autosend != onoff )
+01335   {
+01336     XBee->autosend = onoff;
+01337     Eeprom_Write( EEPROM_XBEE_AUTOSEND, (uchar*)&onoff, 4 );
+01338   }
+01339 }
+01340 
+01341 static char* XBeeOsc_Name = "xbee";
+01342 static char* XBeeOsc_PropertyNames[] = { "active", "io16", "rx16", "autosend", "get-message", 0 }; // must have a trailing 0
+01343 
+01344 int XBeeOsc_PropertySet( int property, char* typedata, int channel );
+01345 int XBeeOsc_PropertyGet( int property, int channel );
+01346 
+01347 const char* XBeeOsc_GetName( void )
+01348 {
+01349   return XBeeOsc_Name;
+01350 }
+01351 
+01352 int XBeeOsc_ReceiveMessage( int channel, char* message, int length )
+01353 {
+01354   XBee_SetActive( 1 );
+01355   int status = Osc_GeneralReceiverHelper( channel, message, length, 
+01356                                 XBeeOsc_Name,
+01357                                 XBeeOsc_PropertySet, XBeeOsc_PropertyGet, 
+01358                                 XBeeOsc_PropertyNames );
+01359 
+01360   if ( status != CONTROLLER_OK )
+01361     return Osc_SendError( channel, XBeeOsc_Name, status );
+01362 
+01363   return CONTROLLER_OK;
+01364 }
+01365 
+01366 int XBeeOsc_PropertySet( int property, char* typedata, int channel )
+01367 {
+01368   switch ( property )
+01369   {
+01370     case 0: // active
+01371     {
+01372       int value;
+01373       int count = Osc_ExtractData( typedata, "i", &value );
+01374       if ( count != 1 )
+01375         return Osc_SubsystemError( channel, XBeeOsc_Name, "Incorrect data - need an int" );
+01376 
+01377       XBee_SetActive( value );
+01378       break;
+01379     }
+01380     case 1: // io16
+01381     case 2: // rx16
+01382       return Osc_SubsystemError( channel, XBeeOsc_Name, "Property is read-only" );
+01383     case 3: // autosend
+01384     {
+01385       int value;
+01386       int count = Osc_ExtractData( typedata, "i", &value );
+01387       if ( count != 1 )
+01388         return Osc_SubsystemError( channel, XBeeOsc_Name, "Incorrect data - need an int" );
+01389 
+01390       XBee_SetAutoSend( value );
+01391       break;
+01392     }
+01393   }
+01394   return CONTROLLER_OK;
+01395 }
+01396 
+01397 int XBeeOsc_PropertyGet( int property, int channel )
+01398 {
+01399   switch ( property )
+01400   {
+01401     case 0: // active
+01402     {
+01403       char address[ OSC_SCRATCH_SIZE ];
+01404       int value = XBee_GetActive( );
+01405       snprintf( address, OSC_SCRATCH_SIZE, "/%s/%s", XBeeOsc_Name, XBeeOsc_PropertyNames[ property ] ); 
+01406       Osc_CreateMessage( channel, address, ",i", value );
+01407       break;
+01408     }
+01409     case 1: // io16
+01410     case 2: // rx16
+01411       return Osc_SubsystemError( channel, XBeeOsc_Name, "Can't get specific messages - use /xbee/get-message instead." );
+01412     case 3: // autosend
+01413     {
+01414       char address[ OSC_SCRATCH_SIZE ];
+01415       int value = XBee_GetAutoSend( false );
+01416       snprintf( address, OSC_SCRATCH_SIZE, "/%s/%s", XBeeOsc_Name, XBeeOsc_PropertyNames[ property ] ); 
+01417       Osc_CreateMessage( channel, address, ",i", value );
+01418       break;
+01419     } 
+01420     case 4: // get-message
+01421     {
+01422       XBeePacket xbp;
+01423       if( XBee_GetPacket( &xbp, XBEE_OSC_RX_TIMEOUT ) )
+01424         XBeeOsc_HandleNewPacket( XBee->currentPkt, channel );
+01425       break;
+01426     }
+01427   }
+01428   return CONTROLLER_OK;
+01429 }
+01430 
+01431 /** \defgroup XBeeConfigOSC XBee Configuration - OSC
+01432   Configure an XBee module connected to your Make Controller Kit via OSC.
+01433   \ingroup OSC
+01434   
+01435   \section devices Devices
+01436   There can only be one XBee board connected to the Make Controller Kit's serial port at a time,
+01437   so there is not a device index in XBee Config OSC messages.
+01438   
+01439   \section properties Properties
+01440   The XBee Config system has the following properties:
+01441   - write
+01442   - get-message
+01443   - packet-mode
+01444   - samplerate
+01445   - address
+01446   - panid
+01447   - channel
+01448   - at-command
+01449   - io
+01450   - active
+01451 
+01452   Reading values from the XBee Config system is a bit different than the other systems.  Because we need to see any messages
+01453   that arrive at the XBee module and not just the one we're requesting at a given moment, to get any message back you need to 
+01454   use the \b get-message property.  Imagine the case where we want to ask the module its address, but another module is busy 
+01455   sending us sensor values.  If we waited for the address message, we'd miss all the sensor values.  
+01456 
+01457   So to read a value, first send the request then call \b get-message until you get the response you're looking for.
+01458   If you have autosend turned on, it will get messages for you, so you just need to send the request - this is much
+01459   easier.
+01460   
+01461   \par Write
+01462   When you change any of the paramters of your XBee module, it will by default revert back to its previous settings
+01463   when it gets powered down.  The \b write property sets the current values (all of them) into memory.
+01464   \par
+01465   For example, to set the sample rate to 100 milliseconds, and save it permanently, send the messages
+01466   \verbatim 
+01467   /xbeeconfig/samplerate 100
+01468   /xbeeconfig/write 1 \endverbatim
+01469 
+01470   \par Get Message
+01471   The \b get-message property fetches the most recent message received by the XBee module.  If you have autosend
+01472   turned on, you don't need to use get-message and, in fact, it won't have any effect.
+01473   To get a message from your XBee module, send the message
+01474   \verbatim /xbeeconfig/get-message\endverbatim
+01475   and the board will send one back if there were any available.
+01476   
+01477   \par Sample Rate
+01478   The \b samplerate property corresponds to how often the XBee module will sample its IO pins and send a message
+01479   with those values.  If it's set to 0, the module will not sample its IO pins.  The maximum sample rate is 65535.
+01480   When the sample rate is set very low, the XBee module cannot guarantee that it will be able to keep up with all
+01481   the samples requested of it.
+01482   \par
+01483   To set the sample rate to once a second (every 1000 milliseconds), send the message
+01484   \verbatim /xbeeconfig/samplerate 1000\endverbatim
+01485   To read the sample rate, send the message
+01486   \verbatim /xbeeconfig/samplerate \endverbatim
+01487 
+01488   \par Address
+01489   The \b address property corresponds to the address of the XBee module.  Valid ranges for the address are
+01490   from 0 - 65535.
+01491   \par
+01492   To set the address to 1234, send the message
+01493   \verbatim /xbeeconfig/address 1234\endverbatim
+01494   To read the address, send the message
+01495   \verbatim /xbeeconfig/address \endverbatim
+01496 
+01497   \par Channel
+01498   The \b channel property corresponds to the channel of the XBee module.  Valid ranges for the address are
+01499   from 11 - 26 for XBee modules and 12 - 23 for XBee Pro modules.
+01500   \par
+01501   To set the channel to 15, send the message
+01502   \verbatim /xbeeconfig/channel 15\endverbatim
+01503   To read the channel, send the message
+01504   \verbatim /xbeeconfig/channel \endverbatim
+01505   
+01506   \par AT Command
+01507   The \b at-command property allows you to read/write AT commands to your XBee module via OSC.  The most common
+01508   commands are included - samplerate, channel, address, etc. but this is helpful if you need to send any of the
+01509   other commands to your module.  To write a command, specify the 2-letter command and then the value to set.  
+01510   To enable encryption, for example, send the message
+01511   \verbatim /xbeeconfig/at-command EE 1\endverbatim
+01512   \par
+01513   To read a value back via an AT command, simply send the 2-letter command you'd like to get the value for.
+01514   To read back the hardware version, send the message
+01515   \verbatim /xbeeconfig/at-command HV\endverbatim
+01516   Check the XBee documentation for a complete list of commands the boards will respond to.
+01517 
+01518   \par PAN ID
+01519   The \b panid property corresponds to the Personal Area Network ID of the XBee module.  Valid ranges for the address are
+01520   from 0 - 65535.  The default value is 13106.
+01521   \par
+01522   To set the PAN ID to 512, send the message
+01523   \verbatim /xbeeconfig/panid 512\endverbatim
+01524   To read the PAN ID, send the message
+01525   \verbatim /xbeeconfig/panid \endverbatim
+01526   
+01527   \par Input/Output Pins
+01528   There are several \b io properties that allow you to configure each of the 9 IO pins on the XBee module.  
+01529   Pins can be set to one of 5 values:
+01530   - \b 0 - disabled
+01531   - \b 2 - analogin
+01532   - \b 3 - digital in
+01533   - \b 4 - digital out high
+01534   - \b 5 - digital out low
+01535   
+01536   \par
+01537   There are 9 IO pins on the XBee module, numbered 0 - 8. Send messages to them by specifying \b io + their number.  
+01538   Pin 8 cannot be an analogin - it can only be a digital in or out.
+01539   For example,  to set IO 0 to analogin, send the message
+01540   \verbatim /xbeeconfig/io0 2\endverbatim
+01541   To set IO 6 to a digital in, send the message
+01542   \verbatim /xbeeconfig/io6 3\endverbatim
+01543   To read the configuration of pin 5, send the message
+01544   \verbatim /xbeeconfig/io5 \endverbatim
+01545   
+01546   \par Active
+01547   The \b active property corresponds to the active state of the XBee system.
+01548   If you're not seeing appropriate responses to your messages to the XBee system, 
+01549   check whether it's active by sending the message
+01550   \verbatim /xbee/active \endverbatim
+01551   \par
+01552   You can set the active flag by sending
+01553   \verbatim /xbee/active 1 \endverbatim
+01554 */
+01555 
+01556 static char* XBeeConfigOsc_Name = "xbeeconfig";
+01557 static char* XBeeConfigOsc_PropertyNames[] = { "active", "address", "panid", "channel", "samplerate", 
+01558                                                 "write", "io0", "io1", "io2", "io3", "io4", 
+01559                                                 "io5", "io6", "io7", "io8", "packet-mode", "at-command", 
+01560                                                 "get-message", 0 }; // must have a trailing 0
+01561 
+01562 int XBeeConfigOsc_PropertySet( int property, char* typedata, int channel );
+01563 int XBeeConfigOsc_PropertyGet( int property, int channel );
+01564 
+01565 const char* XBeeConfigOsc_GetName( void )
+01566 {
+01567   return XBeeConfigOsc_Name;
+01568 }
+01569 
+01570 int XBeeConfigOsc_PropertySet( int property, char* typedata, int channel )
+01571 {
+01572   int value = -1;
+01573   int count;
+01574   switch ( property )
+01575   {
+01576     case 0: // active
+01577       count = Osc_ExtractData( typedata, "i", &value );
+01578       if ( count != 1 )
+01579         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01580       XBee_SetActive( value );
+01581       break;
+01582     case 1: // address
+01583       count = Osc_ExtractData( typedata, "i", &value );
+01584       if ( count != 1 )
+01585         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01586       XBeeConfig_SetAddress( value );
+01587       break;
+01588     case 2: // panid
+01589       count = Osc_ExtractData( typedata, "i", &value );
+01590       if ( count != 1 )
+01591         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01592       XBeeConfig_SetPanID( value );
+01593       break;
+01594     case 3: // channel
+01595       count = Osc_ExtractData( typedata, "i", &value );
+01596       if ( count != 1 )
+01597         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01598       XBeeConfig_SetChannel( value );
+01599       break;
+01600     case 4: // samplerate
+01601       count = Osc_ExtractData( typedata, "i", &value );
+01602       if ( count != 1 )
+01603         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01604       XBeeConfig_SetSampleRate( value );
+01605       break;
+01606     case 5: // write
+01607       count = Osc_ExtractData( typedata, "i", &value );
+01608       if ( count != 1 )
+01609         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01610       XBeeConfig_WriteStateToMemory( );
+01611       break;
+01612     case 6: // io0
+01613     case 7: // io1
+01614     case 8: // io2
+01615     case 9: // io3
+01616     case 10: // io4
+01617     case 11: // io5
+01618     case 12: // io6
+01619     case 13: // io7
+01620     case 14: // io8
+01621       count = Osc_ExtractData( typedata, "i", &value );
+01622       if ( count != 1 )
+01623         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01624       XBeeConfig_SetIO( property - 6, value );
+01625       break;
+01626     case 15: // packet-mode
+01627       count = Osc_ExtractData( typedata, "i", &value );
+01628       if ( count != 1 )
+01629         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need an int" );
+01630       XBeeConfig_SetPacketApiMode( value );
+01631       break;
+01632     case 16: // at-command
+01633     {
+01634       char* cmd;
+01635       count = Osc_ExtractData( typedata, "si", &cmd, &value );
+01636       if ( count != 2 && count != 1 )
+01637         return Osc_SubsystemError( channel, XBeeConfigOsc_Name, "Incorrect data - need a string, optionally followed by an int" );
+01638       
+01639       int length = 0;
+01640       if( count == 2 )
+01641       {
+01642         XBeePacket xbp;
+01643         uint8 params[4]; // big endian - most significant bit first
+01644         XBee_IntToBigEndianArray( value, params );
+01645         XBee_CreateATCommandPacket( &xbp, 0, cmd, params, length );
+01646         XBee_SendPacket( &xbp, length );
+01647       }
+01648       if( count == 1 ) // this is a little wonky, but this is actually a read.
+01649         value = XBeeConfig_RequestATResponse( cmd );
+01650       break;
+01651     }
+01652   }
+01653   return CONTROLLER_OK;
+01654 }
+01655 
+01656 int XBeeConfigOsc_PropertyGet( int property, int channel )
+01657 {
+01658   char address[ OSC_SCRATCH_SIZE ];
+01659   switch ( property )
+01660   {
+01661     case 0: // active
+01662     {
+01663       int value = XBee_GetActive( );
+01664       snprintf( address, OSC_SCRATCH_SIZE, "/%s/%s", XBeeConfigOsc_Name, XBeeConfigOsc_PropertyNames[ property ] ); 
+01665       Osc_CreateMessage( channel, address, ",i", value );
+01666       break;
+01667     }
+01668     case 1: // address
+01669       XBeeConfig_RequestAddress( );
+01670       break;
+01671     case 2: // panid
+01672       XBeeConfig_RequestPanID( );
+01673       break;
+01674     case 3: // channel
+01675       XBeeConfig_RequestChannel( );
+01676       break;
+01677     case 4: // samplerate
+01678       XBeeConfig_RequestSampleRate( );
+01679       break;
+01680     case 6: // ios
+01681     case 7:
+01682     case 8:
+01683     case 9:
+01684     case 10:
+01685     case 11:
+01686     case 12:
+01687     case 13:
+01688     case 14:
+01689       XBeeConfig_RequestIO( property - 6 ); // send the query
+01690       break;
+01691     case 15: // packet-mode
+01692       XBeeConfig_RequestPacketApiMode( ); // send the query
+01693       break;
+01694     case 17: // get-message
+01695     {
+01696       XBeePacket xbp;
+01697       if( XBee_GetPacket( &xbp, XBEE_OSC_RX_TIMEOUT ) )
+01698         XBeeOsc_HandleNewPacket( XBee->currentPkt, channel );
+01699       break;
+01700     }
+01701   }
+01702   return CONTROLLER_OK;
+01703 }
+01704 
+01705 int XBeeConfigOsc_ReceiveMessage( int channel, char* message, int length )
+01706 {
+01707   XBee_SetActive( 1 );
+01708   int status = Osc_GeneralReceiverHelper( channel, message, length, 
+01709                                 XBeeConfigOsc_Name,
+01710                                 XBeeConfigOsc_PropertySet, XBeeConfigOsc_PropertyGet, 
+01711                                 XBeeConfigOsc_PropertyNames );
+01712 
+01713   if ( status != CONTROLLER_OK )
+01714     return Osc_SendError( channel, XBeeConfigOsc_Name, status );
+01715 
+01716   return CONTROLLER_OK;
+01717 }
+01718 
+01719 int XBeeOsc_HandleNewPacket( XBeePacket* xbp, int channel )
+01720 {
+01721   char address[OSC_SCRATCH_SIZE];
+01722   int retval = xbp->apiId;
+01723   switch( xbp->apiId )
+01724   {
+01725     case XBEE_RX16:
+01726     {
+01727       uint16 srcAddr;
+01728       uint8 sigStrength;
+01729       uint8 opts;
+01730       uint8* data;
+01731       uint8 datalen;
+01732       if( XBee_ReadRX16Packet( xbp, &srcAddr, &sigStrength, &opts, &data, &datalen ) )
+01733       {
+01734         snprintf( address, OSC_SCRATCH_SIZE, "/%s/rx16", XBeeOsc_Name );
+01735         Osc_CreateMessage( channel, address, ",iiib", srcAddr, sigStrength, opts, data, datalen );
+01736       }
+01737       break;
+01738     }
+01739     case XBEE_RX64:
+01740     {
+01741       uint64 srcAddr;
+01742       uint8 sigStrength;
+01743       uint8 opts;
+01744       uint8* data;
+01745       uint8 datalen;
+01746       if( XBee_ReadRX64Packet( xbp, &srcAddr, &sigStrength, &opts, &data, &datalen ) )
+01747       {
+01748         snprintf( address, OSC_SCRATCH_SIZE, "/%s/rx64", XBeeOsc_Name );
+01749         Osc_CreateMessage( channel, address, ",iiib", srcAddr, sigStrength, opts, data, datalen );
+01750       }
+01751       break;
+01752     }
+01753     case XBEE_IO16:
+01754     {
+01755       int in[9];
+01756       uint16 src;
+01757       uint8 sigstrength;
+01758       if( XBee_ReadIO16Packet( xbp, &src, &sigstrength, NULL, in ) )
+01759       {
+01760         snprintf( address, OSC_SCRATCH_SIZE, "/%s/io16", XBeeOsc_Name );
+01761         Osc_CreateMessage( channel, address, ",iiiiiiiiiii", src, sigstrength, 
+01762                             in[0], in[1], in[2], in[3], in[4], in[5], in[6], in[7], in[8] );
+01763       }
+01764       break;
+01765     }
+01766     case XBEE_IO64:
+01767     {
+01768       int in[9];
+01769       uint64 src;
+01770       uint8 sigstrength;
+01771       if( XBee_ReadIO64Packet( xbp, &src, &sigstrength, NULL, in ) )
+01772       {
+01773         snprintf( address, OSC_SCRATCH_SIZE, "/%s/io64", XBeeOsc_Name );
+01774         Osc_CreateMessage( channel, address, ",iiiiiiiiiii", src, sigstrength, 
+01775                             in[0], in[1], in[2], in[3], in[4], in[5], in[6], in[7], in[8] );
+01776       }
+01777       break;
+01778     }
+01779     case XBEE_TXSTATUS:
+01780     {
+01781       uint8 frameID;
+01782       uint8 status;
+01783       if( XBee_ReadTXStatusPacket( xbp, &frameID, &status ) )
+01784       {
+01785         snprintf( address, OSC_SCRATCH_SIZE, "/%s/tx-status", XBeeOsc_Name );
+01786         char* statusText = "No status received";
+01787         switch( status )
+01788         {
+01789           case 0:
+01790             statusText = "Success";
+01791             break;
+01792           case 1:
+01793             statusText = "No acknowledgement received";
+01794             break;
+01795           case 2:
+01796             statusText = "CCA Failure";
+01797             break;
+01798           case 3:
+01799             statusText = "Purged";
+01800             break;
+01801         }
+01802         Osc_CreateMessage( channel, address, ",is", frameID, statusText );
+01803       }
+01804       break;
+01805     }
+01806     case XBEE_ATCOMMANDRESPONSE:
+01807     {
+01808       uint8 frameID;
+01809       char* command;
+01810       uint8 status;
+01811       uint8* dataPtr;
+01812       int value = 0;
+01813       if( XBee_ReadAtResponsePacket( xbp, &frameID, &command, &status, &dataPtr ) )
+01814       { // grab 16-bit value
+01815         int i;
+01816         for( i = 0; i < 2; i++ )
+01817         {
+01818           value <<= 8;
+01819           value += *dataPtr++;
+01820         }
+01821         char cmd[3];
+01822         cmd[0] = *command;
+01823         cmd[1] = *(command+1);
+01824         cmd[2] = '\0';
+01825         if( strcmp( cmd, "IR" ) == 0 )
+01826         {
+01827           snprintf( address, OSC_SCRATCH_SIZE, "/%s/samplerate", XBeeConfigOsc_Name );
+01828           Osc_CreateMessage( channel, address, ",i", value );
+01829         }
+01830         else if( strcmp( cmd, "MY" ) == 0 )
+01831         {
+01832           snprintf( address, OSC_SCRATCH_SIZE, "/%s/address", XBeeConfigOsc_Name );
+01833           Osc_CreateMessage( channel, address, ",i", value );
+01834         }
+01835         else if( strcmp( cmd, "CH" ) == 0 )
+01836         {
+01837           snprintf( address, OSC_SCRATCH_SIZE, "/%s/channel", XBeeConfigOsc_Name );
+01838           Osc_CreateMessage( channel, address, ",i", value );
+01839         }
+01840         else if( strcmp( cmd, "ID" ) == 0 )
+01841         {
+01842           snprintf( address, OSC_SCRATCH_SIZE, "/%s/panid", XBeeConfigOsc_Name );
+01843           Osc_CreateMessage( channel, address, ",i", value );
+01844         }
+01845         else
+01846         {
+01847           snprintf( address, OSC_SCRATCH_SIZE, "/%s/at-command", XBeeConfigOsc_Name );
+01848           Osc_CreateMessage( channel, address, ",si", cmd, value );
+01849         }
+01850       }
+01851       break;
+01852     }
+01853   }
+01854   XBee_ResetPacket( xbp );
+01855   return retval;
+01856 }
+01857 
+01858 int XBeeOsc_Async( int channel )
+01859 {
+01860   XBee_SetActive( 1 );
+01861   int newMsgs = 0;
+01862 
+01863   if( !XBee_GetAutoSend( false ) )
+01864     return newMsgs;
+01865 
+01866   while( XBee_GetPacket( XBee->currentPkt, 0 ) )
+01867   {
+01868     XBeeOsc_HandleNewPacket( XBee->currentPkt, channel );
+01869     newMsgs++;
+01870   }
+01871   return newMsgs;
+01872 }
+01873 
+01874 #endif // OSC
+01875 
+01876 #endif // XBEE
+01877 

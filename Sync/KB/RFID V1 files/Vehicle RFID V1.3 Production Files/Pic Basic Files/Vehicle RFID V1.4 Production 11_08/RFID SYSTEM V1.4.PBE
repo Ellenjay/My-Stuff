@@ -1,0 +1,4 @@
+16F877A,5834,66,
+Reminder! Line [11]	In file [RFIDSY~1.BAS]		*** Ensure that all fuses are placed in the CONFIG list, as PICmicros have differing default settings! ***
+	PROGRAM COMPILED OK. 5834 Words used
+	66 Variables used in the 16F877A from a possible 368

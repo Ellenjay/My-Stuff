@@ -1,0 +1,2105 @@
+
+@LIB_NAME SD_File_System
+
+@LIB_NOTES 
+
+@LIB_SHARED
+' Code and data shared by more than one subroutine in this library
+Dim SD_ByteR As Byte                                                            'Receive byte from SHIn
+Dim SD_Idx As Byte                                                              'General index byte
+Dim SD_Sector_Num As DWord                                                      'Sector number for read/write
+Dim SD_Address As DWord                                                         'Byte address
+Dim SD_Seek_Response_Idx As Word                                                'Index in SD_Seek_Response
+Dim SD_Seek_Response_Reqd As Byte                                               'Required byte returned from Cmd
+Dim SD_Seek_Response_Return As Byte                                             'Return flag from SD_Seek_Response: 0 = OK, 1 = Timeout
+Dim SD_Return As Byte                                                           'Return flag from Subroutine: 0 = OK, 1 = Timeout
+Dim SD_Buffer0[$100] As Byte                                                    'Read/write buffer - L
+Dim SD_Buffer1[$100] As Byte                                                    'Read/write buffer - H
+Dim SD_Byte0 As Byte                                                            'Cmd Bytes 0-5
+Dim SD_Byte1 As Byte
+Dim SD_Byte2 As Byte
+Dim SD_Byte3 As Byte
+Dim SD_Byte4 As Byte
+Dim SD_Byte5 As Byte
+'Dim SD_Byte_Out As Byte
+'Dim SD_Byte_In As Byte
+Dim SD_Buffer_Idx As Word                                                       'Current position in buffer
+Dim SD_Byte_RW As Byte                                                          'Byte to Read/Write
+Dim SD_RW_Option As Byte
+'Dim FSR0 As FSR0L.Word                                                         'Combine FSR0L/H as a 16-bit register
+Dim SD_Extended_Return As Byte                                                  'Return flag from Extended Subroutine: 0 = OK, 1 = Fail
+Dim SD_Extended_Return_Root_Dir As Byte                                         'Return flag from Root Dir Subroutine: 0 = OK, 1 = Fail
+Dim SD_Data_IO As Byte                                                          'Bytes read/written to SD/MMC card
+Dim SD_Buffer_Pos As Word                                                       'Internal counter of bytes in Sector (i.e. 512)
+Dim SD_Root_Dir_File_Pos As Byte
+Dim SD_Sec_Num As DWord                                                         'Sector of interest
+'Dim SD_Hidden_Secs As DWord
+Dim SD_Secs_Per_Cluster As Byte
+Dim SD_Reserved_Secs As Word
+Dim SD_Secs_Per_FAT As Word
+Dim SD_Num_of_FATs As Byte
+Dim SD_Num_of_Secs As DWord
+Dim SD_Bytes_Per_Sec As Word
+Dim SD_Num_of_Root_Entries As Word
+Dim SD_Secs_in_Root As Word
+Dim SD_Boot_Record As Word
+Dim SD_FAT1 As DWord
+Dim SD_FAT2 As DWord
+Dim SD_Root_Dir As DWord
+Dim SD_Data_Area As DWord
+Dim SD_FAT_Entry As Word
+Dim SD_FAT_Sec As DWord
+Dim SD_FAT_Buffer_Pos As Word
+Dim SD_FAT_Sec_Prev As DWord
+Dim SD_FAT_Buffer_Pos_Prev As Word
+Dim SD_Root_Dir_Sec As DWord
+Dim SD_Root_Dir_Pos As Word
+Dim SD_Data_Sec As DWord
+Dim SD_Data_Buffer_Pos As Word
+Dim SD_File_Name As String * 8
+Dim SD_File_Ext As String * 3
+Dim SD_Root_Dir_File[32] As Byte
+Dim SD_Write_Sec_Num As DWord
+Dim SD_Write_Buffer_Pos As Word
+Dim SD_Null_F As Byte
+Dim SD_Cluster_Num As Word
+Dim SD_Cluster_Num_Prev As Word
+Dim SD_Last_Cluster As Word
+Dim SD_Sec_in_Cluster As Byte
+Dim SD_File_Size As DWord
+Dim SD_IO_Byte As Byte
+Dim SD_Temp_Byte As Byte
+Dim SD_Temp As Word
+Dim SD_Temp_Dword As DWord
+Dim SD_Cluster_Seq_Num As Word
+Dim SD_Cluster_Seq_Idx As Word
+Dim SD_Cluster_Seq_Num_Prev As Word
+Dim SD_Cluster_Seq_Idx_Prev As Word
+Dim SD_Find_Root_Dir_Entry_F As Byte                                            'SD_Find_Root_Dir_Entry request: 0=Free, 1=Existing
+Dim SD_Bytes_Read As DWord                                                      'Sequential Read marker
+Dim SD_EOF As Bit                                                               'EOF marker
+Dim SD_File_Num As Word                                                         'File number for Dir
+Dim SD_Dir_Direction As Byte                                                    'SD_Dir direction flag: 0 - first, 1 - next (default), 2 - previous
+Dim SD_Extended_Return_Int As Byte                                              'Return flag from Init Subroutine: 0 = OK, 1 = Fail
+Dim SD_File_Size_Left As DWord
+Dim SD_RW_Ptr As SD_Bytes_Read
+Dim SD_Free_Cluster_Num As SD_Cluster_Seq_Num
+Dim SD_Free_Space_KB As SD_Bytes_Read
+Dim SD_Disk_Size_KB As SD_Bytes_Read
+Dim SD_Timeout As Byte
+Dim SD_Day As Byte
+Dim SD_Month As Byte
+Dim SD_Year As Byte
+Dim SD_MSeconds As Byte
+Dim SD_Seconds As Byte
+Dim SD_Minutes As Byte
+Dim SD_Hours As Byte
+Dim SD_Is_Dirty As Byte
+Symbol SD_First = 0
+Symbol SD_Next = 1
+Symbol SD_Previous = 2
+Symbol SD_SPI_BF = SSPSTAT.0                                                    'Master Synchronous Serial Port Buffer Full Status Flag
+Dim SD_SSPSTAT As Byte
+Symbol SD_SPI_IF = PIR1.3                                                       'Master Synchronous Serial Port Interrupt Flag
+Symbol SD_SPI_FOSC_64 = %10                                                     'SPI Master mode, clock = FOSC/64
+Symbol SD_SPI_FOSC_16 = %01                                                     'SPI Master mode, clock = FOSC/16
+Symbol SD_SPI_FOSC_04 = %00                                                     'SPI Master mode, clock = FOSC/04
+
+@LOCAL
+' Add Local (non-persistent) variables here
+@CODE
+'------------------------------------------------------------------------------- 
+SD_Write_Sub:                                                                   'Write Byte
+    If SD_Buffer_Idx > $FF Then
+        SD_Buffer1[SD_Buffer_Idx - $100] = SD_Byte_RW
+    Else
+        SD_Buffer0[SD_Buffer_Idx] = SD_Byte_RW
+    EndIf
+    SD_Is_Dirty = 1
+    If SD_Buffer_Idx = $1FF Then
+        Repeat
+            GoSub SD_Write_Sector
+        Until SD_Return = 0
+        SD_Is_Dirty = 0
+        SD_Buffer_Idx = 0
+        Inc SD_Sector_Num
+    Else
+        SD_Buffer_Idx = SD_Buffer_Idx + 1
+    EndIf
+    Return
+'------------------------------------------------------------------------------- 
+SD_Sector_Sub:
+    SD_Buffer_Idx = 0
+    If SD_RW_Option = 0 Then                                                    'SD_RW_Option: 0 = Write, 1 = Read 
+        For SD_Idx = 0 To $FF
+            SD_Buffer0[SD_Idx] = 0
+            SD_Buffer1[SD_Idx] = 0
+        Next SD_Idx
+    Else
+        GoSub SD_Read_Sector
+    EndIf
+    Return         
+'------------------------------------------------------------------------------- 
+'SD_Send_Cmd:
+'    SHOut SD_DI, SD_CLK, msbfirst, [SD_Byte0,SD_Byte1,SD_Byte2,SD_Byte3,SD_Byte4]
+'SD_Send_Byte:
+'    SHOut SD_DI, SD_CLK, msbfirst, [SD_Byte5]
+'    Return
+'------------------------------------------------------------------------------- 
+'SD_Receive_Byte:
+'    SHIn SD_DO, SD_CLK, msbpre, [SD_ByteR]
+'    Return
+'------------------------------------------------------------------------------- 
+SD_Seek_Response:                                                               'Wait for response from SD/MMC or timeout
+'   SD_Seek_Response_Idx = $FFFF
+    Repeat
+        GoSub SD_Receive_Byte
+        Dec SD_Seek_Response_Idx
+    Until SD_ByteR = SD_Seek_Response_Reqd Or SD_Seek_Response_Idx = 0
+    If SD_Seek_Response_Idx = 0 Then
+        SD_Seek_Response_Return = 1                                             'SD_Return = 1: Timeout
+    Else
+        SD_Seek_Response_Return = 0                                             'SD_Return = 0: Response obtained
+    EndIf
+    Return                                                           
+'------------------------------------------------------------------------------- 
+SD_Write_Sector:                                                                'Write to SD/MMC
+    SD_Timeout = 0
+    SD_Return = 1                                                           
+SD_Write_Sector_Start:
+    SD_Address = SD_Sector_Num << 9 
+'SD_Cmd24:
+    Low SD_CS
+    SD_Byte0 = $58
+    SD_Byte1 = SD_Address.BYTE3
+    SD_Byte2 = SD_Address.BYTE2
+    SD_Byte3 = SD_Address.BYTE1
+    SD_Byte4 = SD_Address.BYTE0
+    SD_Byte5 = $FF
+	SD_Seek_Response_Reqd = $00
+	SD_Seek_Response_Idx = $FFFF
+	GoSub SD_Send_Cmd
+    GoSub SD_Seek_Response
+    If SD_Seek_Response_Return = 1 Then GoTo SD_Write_Sector_Error
+'SD_Write_Start_Token:
+    SD_Byte5 = $FE
+    GoSub SD_Send_Byte	                                                        'Data start token
+'SD_Write_Data_Block:
+    For SD_Idx = 0 To $FF
+        SD_Byte5 = SD_Buffer0[SD_Idx]
+        GoSub SD_Send_Byte                                                      'Send SD_Buffer0
+    Next SD_Idx    
+    For SD_Idx = 0 To $FF
+        SD_Byte5 = SD_Buffer1[SD_Idx]
+        GoSub SD_Send_Byte                                                      'Send SD_Buffer1
+    Next SD_Idx    
+'SD_Write_Dummy_CRC:        
+    SD_Byte5 = $FF
+    GoSub SD_Send_Byte
+    GoSub SD_Send_Byte                                                          'Send dummy CRC to conclude data block
+'SD_Data_Response_Token:
+	SD_Seek_Response_Reqd = $FF
+    SD_Seek_Response_Idx = $FFFF
+    GoSub SD_Receive_Byte
+    SD_Temp_Byte = SD_ByteR
+    GoSub SD_Seek_Response
+    SD_Temp_Byte = SD_Temp_Byte & $0F
+    If SD_Temp_Byte <> $05 Then GoTo SD_Write_Sector_Error
+    If SD_Seek_Response_Return = 1 Then GoTo SD_Write_Sector_Error
+    SD_Return = 0                                                               'SD_Write completed successfully
+    High SD_CS
+    GoTo SD_Write_Sector_End                                                    
+SD_Write_Sector_Error:
+    High SD_CS
+    SD_Timeout = SD_Timeout + 1
+    If SD_Timeout < $03 Then
+        GoTo SD_Write_Sector_Start
+    EndIf
+SD_Write_Sector_End:      
+    Return
+'-------------------------------------------------------------------------------
+SD_Read_Sector:                                                                 'Read from SD/MMC
+    SD_Timeout = 0
+    SD_Return = 1                                                           
+SD_Read_Sector_Start:
+	SD_Address = SD_Sector_Num << 9 
+'SD_Cmd17:
+    Low SD_CS
+    SD_Byte0 = $51
+    SD_Byte1 = SD_Address.BYTE3
+    SD_Byte2 = SD_Address.BYTE2
+    SD_Byte3 = SD_Address.BYTE1
+    SD_Byte4 = SD_Address.BYTE0
+    SD_Byte5 = $FF
+	GoSub SD_Send_Cmd
+	SD_Seek_Response_Reqd = $00
+    SD_Seek_Response_Idx = $FFFF
+    GoSub SD_Seek_Response
+    If SD_Seek_Response_Return = 1 Then GoTo SD_Read_Sector_Error
+'SD_Read_Start_Token:
+	SD_Seek_Response_Reqd = $FE
+    SD_Seek_Response_Idx = $FFFF
+    GoSub SD_Seek_Response
+    If SD_Seek_Response_Return = 1 Then GoTo SD_Read_Sector_Error
+'SD_Read_Data_Block:
+    For SD_Idx = 0 To $FF
+        GoSub SD_Receive_Byte                                                   'Read SD_Buffer0
+        SD_Buffer0[SD_Idx] = SD_ByteR
+    Next SD_Idx    
+    For SD_Idx = 0 To $FF
+        GoSub SD_Receive_Byte                                                   'Read SD_Buffer1
+        SD_Buffer1[SD_Idx] = SD_ByteR
+    Next SD_Idx    
+'SD_Read_Dummy_CRC:        
+    GoSub SD_Receive_Byte                                                       'Read dummy CRC to conclude data block
+    GoSub SD_Receive_Byte                                     
+    High SD_CS
+    SD_Byte5 = $FF
+    GoSub SD_Send_Byte                                                          'Clock SD/MMC to complete job
+    SD_Return = 0                                                               'SD_Read completed successfully
+    GoTo SD_Read_Sector_End
+SD_Read_Sector_Error:
+    High SD_CS
+    SD_Timeout = SD_Timeout + 1
+    If SD_Timeout < $03 Then
+        GoTo SD_Read_Sector_Start
+    EndIf
+SD_Read_Sector_End:      
+    Return                                                                
+'-------------------------------------------------------------------------------
+SD_Read_FAT_Entry:
+    If SD_Buffer_Pos > $0FF Then
+        SD_FAT_Entry.BYTE0 = SD_Buffer1[SD_Buffer_Pos - $100]                   'Read FAT entry as 2-byte word
+        SD_FAT_Entry.BYTE1 = SD_Buffer1[SD_Buffer_Pos + 1 - $100]
+    Else
+        SD_FAT_Entry.BYTE0 = SD_Buffer0[SD_Buffer_Pos]                          'Read FAT entry as 2-byte word
+        SD_FAT_Entry.BYTE1 = SD_Buffer0[SD_Buffer_Pos + 1]
+    EndIf
+    Return
+'-------------------------------------------------------------------------------
+SD_Find_Free_Cluster:
+    SD_Temp_Dword = SD_FAT1 + SD_Secs_Per_FAT - 1
+    For SD_Sec_Num = (SD_FAT_Sec + SD_FAT1) To SD_Temp_Dword                    'Scan SD_FAT1 for free cluster address
+        SD_Sector_Num = SD_Sec_Num
+        SD_RW_Option = 1
+        GoSub SD_Sector_Sub
+'       SD_Sector SD_Sec_Num, 1                                                 'Set sector & read sector to SD_Buffer
+        For SD_Buffer_Pos = $0000 To $1FF Step 2
+            If SD_Sec_Num > (SD_FAT_Sec + SD_FAT1) Or SD_Buffer_Pos >= (SD_FAT_Buffer_Pos + (2 * SD_Cluster_Seq_Num)) Then            
+                GoSub SD_Read_FAT_Entry
+                If SD_FAT_Entry = $0000 Then GoTo SD_Store_FAT_Position
+            EndIf
+        Next SD_Buffer_Pos
+    Next SD_Sec_Num
+    SD_Extended_Return = 1
+    Return
+SD_Store_FAT_Position:  
+    SD_FAT_Sec = SD_Sec_Num - SD_FAT1                                           'Store FAT Sec &
+    SD_FAT_Buffer_Pos = SD_Buffer_Pos                                           'Buffer Position for Free Cluster
+    SD_Cluster_Num = (SD_FAT_Sec * $100) 
+    SD_Cluster_Num = (SD_FAT_Buffer_Pos / 2) + SD_Cluster_Num
+    SD_Cluster_Seq_Num = 0
+    For SD_Buffer_Pos = SD_FAT_Buffer_Pos To $1FF Step 2
+        GoSub SD_Read_FAT_Entry
+        If SD_FAT_Entry = $0000 Then
+            Inc SD_Cluster_Seq_Num                                              'Number of empty clusters in Sector of FAT1
+        Else
+            GoTo SD_Store_Cluster_Seq
+        EndIf
+    Next SD_Buffer_Pos
+SD_Store_Cluster_Seq:
+    SD_Cluster_Seq_Idx = 1                                                      'Initilise Cluster Sequence
+    SD_Extended_Return = 0
+    Return
+'-------------------------------------------------------------------------------
+SD_Modify_File_Name:
+    SD_Null_F = 0
+    For SD_Root_Dir_File_Pos = $00 To $07                                       'Replace Blank File Name Chr with $20
+        If SD_Null_F = 1 Or SD_File_Name[SD_Root_Dir_File_Pos] = 0 Then
+            SD_File_Name[SD_Root_Dir_File_Pos] = $20
+            SD_Null_F = 1
+        EndIf                            
+    Next SD_Root_Dir_File_Pos
+    SD_Null_F = 0
+    For SD_Root_Dir_File_Pos = $08 To $0A                                       'Replace Blank File Name Chr with $20
+        If SD_Null_F = 1 Or SD_File_Ext[SD_Root_Dir_File_Pos - $08] = 0 Then
+            SD_File_Ext[SD_Root_Dir_File_Pos - $08] = $20
+            SD_Null_F = 1
+        EndIf                                                               
+    Next SD_Root_Dir_File_Pos
+    Return
+'-------------------------------------------------------------------------------
+SD_Find_Root_Dir_Entry:
+    GoSub SD_Modify_File_Name
+    SD_Num_of_Root_Entries = 0
+    SD_Temp_Dword = SD_Root_Dir + SD_Secs_in_Root - 1
+    For SD_Sec_Num = SD_Root_Dir To SD_Temp_Dword                               'Scan Root Dir for free entry
+        SD_Sector_Num = SD_Sec_Num
+        SD_RW_Option = 1
+        GoSub SD_Sector_Sub
+'       SD_Sector SD_Sec_Num, 1                                                 'Set sector & read sector to SD_Buffer
+        For SD_Buffer_Pos = $000 To $1FF Step 32
+            For SD_Root_Dir_File_Pos = 0 To 31
+                SD_Temp = SD_Buffer_Pos + SD_Root_Dir_File_Pos
+                If SD_Temp > $0FF Then
+                    SD_Root_Dir_File[SD_Root_Dir_File_Pos] = SD_Buffer1[SD_Temp - $100]                            
+                Else
+                    SD_Root_Dir_File[SD_Root_Dir_File_Pos] = SD_Buffer0[SD_Temp]
+                EndIf                            
+            Next SD_Root_Dir_File_Pos
+            Select SD_Find_Root_Dir_Entry_F
+            Case 0                                                              'Search for free position
+                If SD_Root_Dir_File[0] = $00 Or SD_Root_Dir_File[0] = $E5 Then
+                    GoTo SD_Store_Root_Direct_Position
+                EndIf
+            Case 1                                                              'Search for file
+                SD_Null_F = 0
+                For SD_Root_Dir_File_Pos = $00 To $07                           'Check File Name
+                    If SD_Root_Dir_File[SD_Root_Dir_File_Pos] <> SD_File_Name[SD_Root_Dir_File_Pos] Then 
+                        SD_Null_F = 1
+                        Break
+                    EndIf
+                Next SD_Root_Dir_File_Pos
+                For SD_Root_Dir_File_Pos = $08 To $0A                           'Check File Ext
+                    If SD_Root_Dir_File[SD_Root_Dir_File_Pos] <> SD_File_Ext[SD_Root_Dir_File_Pos - $08] Then 
+                        SD_Null_F = 1
+                        Break
+                    EndIf
+                Next SD_Root_Dir_File_Pos
+                If SD_Null_F = 0 Then GoTo SD_Store_Root_Direct_Position
+            Case 2                                                              'SD_Dir command
+                If SD_Root_Dir_File[$0B] | %11110000 <> $FF Then                'Not Long Filename entry
+                    If SD_Root_Dir_File[$00] <> $00 Then                        'Not empty entry
+                        If SD_Root_Dir_File[$00] <> $E5 Then                    'Not deleted entry
+                            If SD_Root_Dir_File[$0B] & %00011110 = 0 Then       'Not System, Hidden, Directory or Volume (File attributes (00ADVSHR) - 0: unused bit, A: archive bit, D: Dir bit, V: volume bit, S: system bit, R: read-only bit)
+                                Inc SD_Num_of_Root_Entries
+                                If SD_Num_of_Root_Entries = SD_File_Num Then    'Found required entry in directory
+                                    For SD_Root_Dir_File_Pos = $00 To $07       'Copy File Name
+                                        SD_File_Name[SD_Root_Dir_File_Pos] = SD_Root_Dir_File[SD_Root_Dir_File_Pos]
+                                    Next SD_Root_Dir_File_Pos
+                                    For SD_Root_Dir_File_Pos = $08 To $0A       'Copy File Ext
+                                        SD_File_Ext[SD_Root_Dir_File_Pos - $08] = SD_Root_Dir_File[SD_Root_Dir_File_Pos] 
+                                    Next SD_Root_Dir_File_Pos
+                                    GoTo SD_Store_Root_Direct_Position          'Returns with SD_Extended_Return_Root_Dir = 0 & Filename & Extension set
+                                EndIf
+                            EndIf
+                        EndIf
+                    EndIf
+                EndIf
+            EndSelect
+        Next SD_Buffer_Pos
+    Next SD_Sec_Num
+    SD_Extended_Return_Root_Dir = 1
+    Return
+SD_Store_Root_Direct_Position:
+    SD_Root_Dir_Sec = SD_Sec_Num - SD_Root_Dir                                  'Store Root Dir Position &
+    SD_Root_Dir_Pos = SD_Buffer_Pos                                             'Buffer Position
+    SD_Extended_Return_Root_Dir = 0
+    Return
+'-------------------------------------------------------------------------------
+SD_Insert_Byte_Into_Buffer:
+    If SD_Write_Buffer_Pos > $0FF Then
+        SD_Buffer1[SD_Write_Buffer_Pos - $100] = SD_Data_IO
+    Else
+        SD_Buffer0[SD_Write_Buffer_Pos] = SD_Data_IO
+    EndIf
+    Return         
+'-------------------------------------------------------------------------------
+SD_Assemble_FAT_Sector:
+    SD_Write_Buffer_Pos = SD_FAT_Buffer_Pos_Prev
+    SD_Cluster_Num = (SD_FAT_Sec_Prev * $100)                                   'Derive first Cluster Number
+    SD_Cluster_Num = (SD_FAT_Buffer_Pos_Prev / 2) + SD_Cluster_Num
+    Inc SD_Cluster_Num
+    While SD_Cluster_Seq_Num_Prev > 1
+        SD_Data_IO = SD_Cluster_Num.BYTE0                                  
+        GoSub SD_Insert_Byte_Into_Buffer
+        Inc SD_Write_Buffer_Pos
+        SD_Data_IO = SD_Cluster_Num.BYTE1                                  
+        GoSub SD_Insert_Byte_Into_Buffer
+        Inc SD_Write_Buffer_Pos      
+        Inc SD_Cluster_Num
+        Dec SD_Cluster_Seq_Num_Prev
+    Wend 
+    Return
+'-------------------------------------------------------------------------------
+SD_Assemble_FAT_Sector_End_Cont:
+    SD_Cluster_Num = (SD_FAT_Sec * $100) 
+    SD_Cluster_Num = (SD_FAT_Buffer_Pos / 2) + SD_Cluster_Num
+    SD_Data_IO = SD_Cluster_Num.BYTE0                                  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_Cluster_Num.BYTE1                                  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Return
+'-------------------------------------------------------------------------------
+SD_Assemble_FAT_Sector_End_Close:
+    SD_Data_IO = $FF                                  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Inc SD_Write_Buffer_Pos
+    GoSub SD_Insert_Byte_Into_Buffer
+    Return
+'-------------------------------------------------------------------------------
+SD_Write_Byte_To_File_Sub:
+    Inc SD_RW_Ptr
+    If SD_RW_Ptr > SD_File_Size Then
+        Inc SD_File_Size
+        SD_EOF = 1
+    EndIf
+    Inc SD_Data_Buffer_Pos
+    If SD_Data_Buffer_Pos > SD_Bytes_Per_Sec Then
+        Inc SD_Data_Sec
+        Inc SD_Sec_in_Cluster
+        If SD_Sec_in_Cluster > SD_Secs_Per_Cluster Then
+            If SD_EOF = 0 Then                                                      'Not extending file
+                SD_FAT_Sec = SD_Cluster_Num / $100                                  'Find FAT position for existing cluster
+                SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+                SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+                SD_Sector_Num = SD_FAT1 + SD_FAT_Sec
+                SD_RW_Option = 1
+                GoSub SD_Sector_Sub
+                SD_Buffer_Pos = SD_FAT_Buffer_Pos
+                GoSub SD_Read_FAT_Entry
+                SD_Cluster_Num = SD_FAT_Entry
+                SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster
+                SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+                SD_Sector_Num = SD_Data_Sec
+                SD_RW_Option = 1
+                GoSub SD_Sector_Sub
+                SD_Sec_in_Cluster = 1
+                
+                SD_FAT_Sec = SD_Cluster_Num / $100                                  'Find new FAT position for existing cluster
+                SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+                SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+                         
+            Else                                                                    'Extending file
+                Inc SD_Cluster_Seq_Idx
+                If SD_Cluster_Seq_Idx > SD_Cluster_Seq_Num Then
+                    SD_FAT_Buffer_Pos_Prev = SD_FAT_Buffer_Pos                      
+                    SD_FAT_Sec_Prev = SD_FAT_Sec
+                    SD_Cluster_Seq_Idx_Prev = SD_Cluster_Seq_Idx
+                    SD_Cluster_Seq_Num_Prev = SD_Cluster_Seq_Num
+    '               Inc SD_FAT_Sec
+                    GoSub SD_Find_Free_Cluster
+                    If SD_Extended_Return = 1 Then Return
+                    SD_Write_Sec_Num = SD_FAT1 + SD_FAT_Sec_Prev                    'Write complete sector to FAT1    
+                    SD_Sector_Num = SD_Write_Sec_Num
+                    SD_RW_Option = 1
+                    GoSub SD_Sector_Sub
+    '               SD_Sector SD_Write_Sec_Num, 1                                   'Set sector & read sector to SD_Buffer
+                    GoSub SD_Assemble_FAT_Sector                                    'Modify Buffer to assemble FAT
+                    GoSub SD_Assemble_FAT_Sector_End_Cont
+                    GoSub SD_Write_Sector                                           'Write FAT1
+                    SD_Sector_Num = SD_FAT2 + SD_FAT_Sec_Prev                       'Write complete sector to FAT2    
+                    GoSub SD_Write_Sector                                           'Write FAT2 as copy of FAT1 without re-assembly
+                    SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster
+                    SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+                    SD_Sector_Num = SD_Data_Sec
+                    SD_RW_Option = 0
+                    GoSub SD_Sector_Sub
+    '               SD_Sector SD_Data_Sec, 0
+                Else
+                    Inc SD_Cluster_Num
+                EndIf
+                SD_Sec_in_Cluster = 1
+            EndIf
+        Else
+        GoSub SD_Read_Sector        
+        EndIf      
+        SD_Data_Buffer_Pos = 1
+    EndIf
+    SD_Byte_RW = SD_IO_Byte
+    GoSub SD_Write_Sub
+    SD_Extended_Return = 0
+    Return        
+'-------------------------------------------------------------------------------
+SD_Check_For_File_Sub:
+    SD_Find_Root_Dir_Entry_F = 1
+    GoSub SD_Find_Root_Dir_Entry
+    Return
+'-------------------------------------------------------------------------------
+SD_Read_Sub:                                                                    'Read Byte
+    If SD_Buffer_Idx > $1FF Then                                                'Inc Sector if read past end of previous sector
+'        If SD_Is_Dirty = 1 Then                                                'If bytes have been written in current sector, write sector back to SD card and reset SD_Is_Dirty
+'            Repeat
+'                GoSub SD_Write_Sector
+'            Until SD_Return = 0
+'            SD_Is_Dirty = 0
+'        EndIf
+        SD_Buffer_Idx = 0
+        Inc SD_Sector_Num
+        SD_RW_Option = 1
+        GoSub SD_Sector_Sub                                                     
+    EndIf
+    If SD_Buffer_Idx > $0FF Then
+        SD_Byte_RW = SD_Buffer1[SD_Buffer_Idx - $100]
+    Else
+        SD_Byte_RW = SD_Buffer0[SD_Buffer_Idx]
+    EndIf
+    Inc SD_Buffer_Idx
+    Return
+'-------------------------------------------------------------------------------
+
+@END
+
+@MACRO_START SD_Check_For_File
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Check_For_File MACRO  
+ GoSub SD_Check_For_File_Sub 
+ #IF (SD_Check_For_File_RETURN != 1) 
+  #ERROR "SD_Check_For_File -  Mandatory return parameter missing" 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) && (RETURN_TYPE != Word) && (RETURN_TYPE != DWord) 
+   #ERROR "SD_Check_For_File - Return variable should be a Byte, Word or DWord variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Extended_Return_Root_Dir, RETURN_VAR 
+  #ENDIF 
+  #IF (RETURN_TYPE == Word) 
+   BYTE_WORD SD_Extended_Return_Root_Dir, RETURN_VAR 
+  #ENDIF 
+  #IF (RETURN_TYPE == DWord) 
+   BYTE_DWORD SD_Extended_Return_Root_Dir, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+@END
+
+@MACRO_START SD_Close_File
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Close_File MACRO                                                          
+    #IF(PRM_COUNT != 0)         
+     #ERROR "No parameters required for SD_Close_File" 
+     EXITM 
+    #ENDIF 
+    GoSub SD_Close_File_Sub 
+    ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Close_File_Sub:
+'   SD_Byte_RW = $00
+'   While SD_Data_Buffer_Pos < SD_Bytes_Per_Sec 
+'       SD_Data_IO = $00
+'       SD_Write SD_Data_IO
+'       GoSub SD_Write_Sub
+'       Inc SD_Data_Buffer_Pos
+'   Wend
+    If SD_Is_Dirty = 1 Then
+        Repeat
+            GoSub SD_Write_Sector                                               'Write current sector to file
+        Until SD_Return = 0
+    EndIf
+    SD_Write_Sec_Num = SD_Root_Dir + SD_Root_Dir_Sec              
+    SD_Sector_Num = SD_Write_Sec_Num
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Write_Sec_Num, 1                                               'Set sector & read sector to SD_Buffer
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos + $1C
+    SD_Data_IO = SD_File_Size.BYTE0                                             'File Size  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_File_Size.BYTE1                                             'File Size  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_File_Size.BYTE2                                             'File Size  
+    GoSub SD_Insert_Byte_Into_Buffer
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_File_Size.BYTE3                                             'File Size  
+    GoSub SD_Insert_Byte_Into_Buffer
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos + $16                                 'Position Write_Buffer_Pos to start of modified time & date
+    GoSub SD_Set_File_Time_Modified                                             'Set file modified time & date
+    GoSub SD_Write_Sector
+    If SD_EOF = 1 Then
+        SD_FAT_Buffer_Pos_Prev = SD_FAT_Buffer_Pos                      
+        SD_FAT_Sec_Prev = SD_FAT_Sec
+        SD_Write_Sec_Num = SD_FAT1 + SD_FAT_Sec_Prev                            'Write complete sector to FAT1    
+        SD_Sector_Num = SD_Write_Sec_Num
+        SD_RW_Option = 1
+        GoSub SD_Sector_Sub
+    '   SD_Sector SD_Write_Sec_Num, 1                                           'Set sector & read sector to SD_Buffer
+        SD_Cluster_Seq_Num_Prev = SD_Cluster_Seq_Idx
+        GoSub SD_Assemble_FAT_Sector                                            'Modify Buffer to assemble FAT
+        GoSub SD_Assemble_FAT_Sector_End_Close                                  
+        GoSub SD_Write_Sector                                                   'Write FAT1
+        SD_Sector_Num = SD_FAT2 + SD_FAT_Sec_Prev                               'Write complete sector to FAT2    
+        GoSub SD_Write_Sector                                                   'Write FAT2 as copy of FAT1 without re-assembly
+    EndIf
+    Return        
+
+
+SD_Set_File_Time_Create:
+    SD_Data_IO = SD_MSeconds + ((SD_Seconds // 2) * 100)                        'Create Time/Date - MSeconds
+    GoSub SD_Insert_Byte_Into_Buffer      
+    Inc SD_Write_Buffer_Pos
+SD_Set_File_Time_Modified:
+    SD_Data_IO = (SD_Seconds / 2) | (SD_Minutes << 5)                           'Create Time/Date - Seconds/Minutes
+    GoSub SD_Insert_Byte_Into_Buffer      
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = (SD_Minutes >> 3) | (SD_Hours << 3)                            'Create Time/Date - Minutes/Hours
+    GoSub SD_Insert_Byte_Into_Buffer      
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_Day | (SD_Month << 5)                                       'Create Time/Date - Day/Month
+    GoSub SD_Insert_Byte_Into_Buffer      
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = (SD_Month >> 3) | ((SD_Year + 20) << 1)                        'Create Time/Date - Month/Year
+    GoSub SD_Insert_Byte_Into_Buffer
+    Return     
+
+
+@END
+
+@MACRO_START SD_Init
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Init MACRO  
+    GoSub SD_Init_Sub 
+ #IF (SD_Init_RETURN != 1) 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) 
+   #ERROR "SD_Init - Return variable should be a Byte variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Return, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+'------------------------------------------------------------------------------- 
+SD_Send_Cmd: 'Software SPI Version
+    SHOut SD_DI, SD_CLK, msbfirst, [SD_Byte0,SD_Byte1,SD_Byte2,SD_Byte3,SD_Byte4]
+SD_Send_Byte:
+    SHOut SD_DI, SD_CLK, msbfirst, [SD_Byte5]
+    Return
+'------------------------------------------------------------------------------- 
+SD_Receive_Byte: 'Software SPI Version
+    SHIn SD_DO, SD_CLK, msbpre, [SD_ByteR]
+    Return
+'------------------------------------------------------------------------------- 
+
+SD_Init_Sub:                                                                    'Initialise SD/MMC card
+    Output SD_CS : Output SD_DI : Output SD_CLK : Input SD_DO                   'Setup direction for SPI bus
+	High SD_CS                                                                  'Pull CS high
+    SD_Byte0 = $FF
+    SD_Byte1 = $FF
+    SD_Byte2 = $FF
+    SD_Byte3 = $FF
+    SD_Byte4 = $FF
+    SD_Byte5 = $FF
+	GoSub SD_Send_Cmd
+	GoSub SD_Send_Cmd
+'SD_Cmd0:                                                                       'SD/MMC Cmd 0 & CRC
+    DelayMS 100
+    Low SD_CS                                                                   'Pull CS low
+    SD_Byte0 = $40
+    SD_Byte1 = $00
+    SD_Byte2 = $00
+    SD_Byte3 = $00
+    SD_Byte4 = $00
+    SD_Byte5 = $95
+	GoSub SD_Send_Cmd
+	SD_Seek_Response_Reqd = $01
+    SD_Seek_Response_Idx = $FF
+    GoSub SD_Seek_Response
+    If SD_Seek_Response_Return = 1 Then
+        High SD_CS
+        SD_Return = 1                                                           
+        Return
+    EndIf
+'SD_Cmd1:                                                                       'SD/MMC Cmd 1 & CRC - Init from idle
+	SD_Idx = $FF
+    Repeat
+        SD_Byte0 = $41
+        SD_Byte1 = $00
+        SD_Byte2 = $00
+        SD_Byte3 = $00
+        SD_Byte4 = $00
+        SD_Byte5 = $FF
+    	GoSub SD_Send_Cmd
+	    SD_Seek_Response_Reqd = $00
+        SD_Seek_Response_Idx = $FF
+        GoSub SD_Seek_Response
+        Dec SD_Idx
+	Until SD_Seek_Response_Return = 0 Or SD_Idx = 0
+    If SD_Idx = 0 Then
+        High SD_CS
+        SD_Return = 1                                                           'SD_Init Failed @ Cmd 1
+        Return
+    EndIf
+    High SD_CS
+    SD_Byte5 = $FF
+    GoSub SD_Send_Byte                                                          'Clock SD/MMC to complete job
+    SD_Buffer_Idx = 0                                                           'Reset buffer index for R/W
+    SD_Return = 0                                                               'SD_Init completed successfully
+    Return
+
+
+@END
+
+@MACRO_START SD_Init_FS
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Init_FS MACRO
+ GoSub SD_Init_FS_Sub 
+ #IF (SD_Init_FS_RETURN != 1) 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) 
+   #ERROR "SD_Init_FS - Return variable should be a Byte variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Init_FS_Sub:                                                                 'Init SD/MMC & locate structure
+    SD_Extended_Return_Int = SD_Init                                            'Init SD/MMC
+    If SD_Extended_Return_Int = 1 Then
+        SD_Extended_Return = 1
+        Return
+    EndIf
+    SD_Sector_Num = $00
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector $00, 1                                                            'Read Master Boot Record               
+    If SD_Buffer0[0] = $EB And SD_Buffer0[2] = $90 Then
+'       SD_Hidden_Secs = 0                                                      'Sector0 is Boot Record (no MBR)
+        SD_Boot_Record = $0000                                                  'Locate Boot Record                
+    ElseIf SD_Buffer0[0] = $E9 Then
+'       SD_Hidden_Secs = 0                                                      'Sector0 is Boot Record (no MBR)
+        SD_Boot_Record = $0000                                                  'Locate Boot Record                
+    Else
+'       SD_Hidden_Secs = SD_Buffer1[$0C6]                                       'Sector0 is Master Boot Record (MBR)
+        SD_Boot_Record = SD_Buffer1[$0C6] + 0                                   'Locate Boot Record - Hidden Sectors + 0 
+    EndIf                                                                                
+    SD_Sector_Num = SD_Boot_Record
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Boot_Record, 1                                                 'Read Boot Record                                                     
+    SD_Bytes_Per_Sec.BYTE0 = SD_Buffer0[$0B]                                    'Read Bytes Per Sec           
+    SD_Bytes_Per_Sec.BYTE1 = SD_Buffer0[$0C]                                  
+    SD_Secs_Per_Cluster = SD_Buffer0[$0D]                                       'Read Secs Per Cluster                
+    SD_Reserved_Secs.BYTE0 = SD_Buffer0[$0E]                                    'Read Num of Reserved Sectors
+    SD_Reserved_Secs.BYTE1 = SD_Buffer0[$0F]                                          
+    SD_Num_of_FATs = SD_Buffer0[$10]                                            'Read Num of FATs           
+    SD_Num_of_Root_Entries.BYTE0 = SD_Buffer0[$11]                              'Read Num of Root Entries      
+    SD_Num_of_Root_Entries.BYTE1 = SD_Buffer0[$12]      
+    SD_Secs_Per_FAT.BYTE0 = SD_Buffer0[$16]                                     'Read Secs Per FAT            
+    SD_Secs_Per_FAT.BYTE1 = SD_Buffer0[$17]                                
+    SD_Num_of_Secs.BYTE0 = SD_Buffer0[$20]                                      'Read Num of Secs                    
+    SD_Num_of_Secs.BYTE1 = SD_Buffer0[$21]                                        
+    SD_Num_of_Secs.BYTE2 = SD_Buffer0[$22]                                        
+    SD_Num_of_Secs.BYTE3 = SD_Buffer0[$23]                                       
+    SD_FAT1 = SD_Boot_Record + SD_Reserved_Secs                                 'Locate SD_FAT1
+    SD_FAT2 = SD_Boot_Record + SD_Reserved_Secs + SD_Secs_Per_FAT               'Locate SD_FAT2
+    SD_Root_Dir = SD_Num_of_FATs * SD_Secs_Per_FAT                              'Locate Root Dir
+    SD_Root_Dir = SD_Boot_Record + SD_Reserved_Secs + SD_Root_Dir  
+    SD_Secs_in_Root = SD_Num_of_Root_Entries * 32                               'Calculate Secs in Root Dir
+    SD_Secs_in_Root = SD_Secs_in_Root / SD_Bytes_Per_Sec
+    SD_Data_Area = SD_Root_Dir + SD_Secs_in_Root                                'Locate start of Data, Cluster 2
+
+    SD_Sector_Num = SD_Boot_Record + SD_Num_of_Secs - 1                         'Locate last cluster
+    SD_Sector_Num = SD_Sector_Num - SD_Data_Area + 1
+    SD_Sector_Num = SD_Sector_Num / SD_Secs_Per_Cluster
+    SD_Last_Cluster = SD_Sector_Num + 1
+
+    SD_File_Name = "        "
+    SD_File_Ext = "   "
+    SD_Day = 1
+    SD_Month = 1
+    SD_Year = 0
+    SD_MSeconds = 0
+    SD_Seconds = 0
+    SD_Minutes = 0
+    SD_Hours = 0
+    SD_File_Num = 0
+    SD_Extended_Return = 0
+    Return
+
+
+@END
+
+'-------------------------------------------------------------------------------
+
+@MACRO_START SD_Init_MSSP
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Init_MSSP MACRO P1  
+ #IF (PRM_COUNT > 1) 
+  #ERROR "SD_Init_MSSP - Too many parameters" 
+ #ELSE 
+  #IF (PRM_COUNT == 0) 
+   SSPCON1 = %00100000
+  #ELSE                                            
+   #IF(PRM_1 != Byte) && (PRM_1 != NUM8)
+    #ERROR "SD_Init_MSSP - Speed(Param1) should be a Byte variable or number" 
+   #ENDIF 
+   #IF (PRM_1 == Byte) 
+    BYTE_BYTE P1, SSPCON1
+    SSPCON1 = SSPCON1 | %00100000 
+   #ENDIF 
+   #IF (PRM_1 == NUM8) 
+    NUM_DWORD P1, SSPCON1 
+    SSPCON1 = SSPCON1 | %00100000 
+   #ENDIF 
+  #ENDIF
+ #ENDIF 
+ GoSub SD_Init_MSSP_Sub 
+ #IF (SD_Init_MSSP_RETURN != 1) 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) 
+   #ERROR "SD_Init_MSSP - Return variable should be a Byte variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Return, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+'------------------------------------------------------------------------------- 
+SD_Send_Cmd: 'MSSP Version
+    SSPBUF = SD_Byte0
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    SSPBUF = SD_Byte1
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    SSPBUF = SD_Byte2
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    SSPBUF = SD_Byte3
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    SSPBUF = SD_Byte4
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+SD_Send_Byte:
+    SSPBUF = SD_Byte5
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    Return
+'------------------------------------------------------------------------------- 
+SD_Receive_Byte: 'MSSP Version
+    SSPBUF = $FF
+    btfss SSPSTAT.0                                                             'Data received (transmit complete)? 
+    bra $ - 2
+    movff SSPBUF,SD_ByteR                                                       'Return the received byte
+    Return
+'------------------------------------------------------------------------------- 
+
+SD_Init_MSSP_Sub:                                                               'Initialise SD/MMC card
+    SSPSTAT = %01000000                                                         'Setup MSSP module
+    Output SD_CS : Output SD_DI : Output SD_CLK : Input SD_DO                   'Setup direction for SPI bus
+	High SD_CS                                                                  'Pull CS high
+    SD_Byte0 = $FF
+    SD_Byte1 = $FF
+    SD_Byte2 = $FF
+    SD_Byte3 = $FF
+    SD_Byte4 = $FF
+    SD_Byte5 = $FF
+	GoSub SD_Send_Cmd
+	GoSub SD_Send_Cmd
+'SD_Cmd0:                                                                       'SD/MMC Cmd 0 & CRC
+    DelayMS 100
+    Low SD_CS                                                                   'Pull CS low
+    SD_Byte0 = $40
+    SD_Byte1 = $00
+    SD_Byte2 = $00
+    SD_Byte3 = $00
+    SD_Byte4 = $00
+    SD_Byte5 = $95
+	GoSub SD_Send_Cmd
+	SD_Seek_Response_Reqd = $01
+    SD_Seek_Response_Idx = $FF
+    GoSub SD_Seek_Response
+    If SD_Seek_Response_Return = 1 Then
+        High SD_CS
+        SD_Return = 1                                                           
+        Return
+    EndIf
+'SD_Cmd1:                                                                       'SD/MMC Cmd 1 & CRC - Init from idle
+	SD_Idx = $FF
+    Repeat
+        SD_Byte0 = $41
+        SD_Byte1 = $00
+        SD_Byte2 = $00
+        SD_Byte3 = $00
+        SD_Byte4 = $00
+        SD_Byte5 = $FF
+    	GoSub SD_Send_Cmd
+	    SD_Seek_Response_Reqd = $00
+        SD_Seek_Response_Idx = $FF
+        GoSub SD_Seek_Response
+        Dec SD_Idx
+	Until SD_Seek_Response_Return = 0 Or SD_Idx = 0
+    If SD_Idx = 0 Then
+        High SD_CS
+        SD_Return = 1                                                           'SD_Init Failed @ Cmd 1
+        Return
+    EndIf
+    High SD_CS
+    SD_Byte5 = $FF
+    GoSub SD_Send_Byte                                                          'Clock SD/MMC to complete job
+    SD_Buffer_Idx = 0                                                           'Reset buffer index for R/W
+    SD_Return = 0                                                               'SD_Init completed successfully
+    Return
+
+
+@END
+
+@MACRO_START SD_Init_FS_MSSP
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Init_FS_MSSP MACRO P1
+ #IF (PRM_COUNT > 1) 
+  #ERROR "SD_Init_FS_MSSP - Too many parameters" 
+ #ELSE 
+  #IF (PRM_COUNT == 0) 
+   SSPCON1 = %00100000
+  #ELSE 
+   #IF(PRM_1 != Byte) && (PRM_1 != NUM8)
+    #ERROR "SD_Init_FS_MSSP - Speed(Param1) should be a Byte variable or number" 
+   #ENDIF 
+   #IF (PRM_1 == Byte) 
+    BYTE_BYTE P1, SSPCON1
+    SSPCON1 = SSPCON1 | %00100000 
+   #ENDIF 
+   #IF (PRM_1 == NUM8) 
+    NUM_DWORD P1, SSPCON1 
+    SSPCON1 = SSPCON1 | %00100000 
+   #ENDIF 
+  #ENDIF
+ #ENDIF 
+ GoSub SD_Init_FS_MSSP_Sub 
+ #IF (SD_Init_FS_MSSP_RETURN != 1) 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) 
+   #ERROR "SD_Init_FS_MSSP - Return variable should be a Byte variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Init_FS_MSSP_Sub:                                                            'Init SD/MMC & locate structure
+    SD_Extended_Return_Int = SD_Init_MSSP SSPCON1                               'Init SD/MMC
+    If SD_Extended_Return_Int = 1 Then
+        SD_Extended_Return = 1
+        Return
+    EndIf
+    SD_Sector_Num = $00
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector $00, 1                                                            'Read Master Boot Record               
+    If SD_Buffer0[0] = $EB And SD_Buffer0[2] = $90 Then
+'       SD_Hidden_Secs = 0                                                      'Sector0 is Boot Record (no MBR)
+        SD_Boot_Record = $0000                                                  'Locate Boot Record                
+    ElseIf SD_Buffer0[0] = $E9 Then
+'       SD_Hidden_Secs = 0                                                      'Sector0 is Boot Record (no MBR)
+        SD_Boot_Record = $0000                                                  'Locate Boot Record                
+    Else
+'       SD_Hidden_Secs = SD_Buffer1[$0C6]                                       'Sector0 is Master Boot Record (MBR)
+        SD_Boot_Record = SD_Buffer1[$0C6] + 0                                   'Locate Boot Record - Hidden Sectors + 0  
+    EndIf                                                                                
+    SD_Sector_Num = SD_Boot_Record
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Boot_Record, 1                                                 'Read Boot Record                                                     
+    SD_Bytes_Per_Sec.BYTE0 = SD_Buffer0[$0B]                                    'Read Bytes Per Sec           
+    SD_Bytes_Per_Sec.BYTE1 = SD_Buffer0[$0C]                                  
+    SD_Secs_Per_Cluster = SD_Buffer0[$0D]                                       'Read Secs Per Cluster                
+    SD_Reserved_Secs.BYTE0 = SD_Buffer0[$0E]                                    'Read Num of Reserved Sectors
+    SD_Reserved_Secs.BYTE1 = SD_Buffer0[$0F]                                          
+    SD_Num_of_FATs = SD_Buffer0[$10]                                            'Read Num of FATs           
+    SD_Num_of_Root_Entries.BYTE0 = SD_Buffer0[$11]                              'Read Num of Root Entries      
+    SD_Num_of_Root_Entries.BYTE1 = SD_Buffer0[$12]      
+    SD_Secs_Per_FAT.BYTE0 = SD_Buffer0[$16]                                     'Read Secs Per FAT            
+    SD_Secs_Per_FAT.BYTE1 = SD_Buffer0[$17]                                
+    SD_Num_of_Secs.BYTE0 = SD_Buffer0[$20]                                      'Read Num of Secs                    
+    SD_Num_of_Secs.BYTE1 = SD_Buffer0[$21]                                        
+    SD_Num_of_Secs.BYTE2 = SD_Buffer0[$22]                                        
+    SD_Num_of_Secs.BYTE3 = SD_Buffer0[$23]                                       
+    SD_FAT1 = SD_Boot_Record + SD_Reserved_Secs                                 'Locate SD_FAT1
+    SD_FAT2 = SD_Boot_Record + SD_Reserved_Secs + SD_Secs_Per_FAT               'Locate SD_FAT2
+    SD_Root_Dir = SD_Num_of_FATs * SD_Secs_Per_FAT                              'Locate Root Dir
+    SD_Root_Dir = SD_Boot_Record + SD_Reserved_Secs + SD_Root_Dir  
+    SD_Secs_in_Root = SD_Num_of_Root_Entries * 32                               'Calculate Secs in Root Dir
+    SD_Secs_in_Root = SD_Secs_in_Root / SD_Bytes_Per_Sec
+    SD_Data_Area = SD_Root_Dir + SD_Secs_in_Root                                'Locate start of Data, Cluster 2
+
+    SD_Sector_Num = SD_Boot_Record + SD_Num_of_Secs - 1                         'Locate last cluster
+    SD_Sector_Num = SD_Sector_Num - SD_Data_Area + 1
+    SD_Sector_Num = SD_Sector_Num / SD_Secs_Per_Cluster
+    SD_Last_Cluster = SD_Sector_Num + 1
+
+    SD_File_Name = "        "
+    SD_File_Ext = "   "
+    SD_Day = 1
+    SD_Month = 1
+    SD_Year = 0
+    SD_MSeconds = 0
+    SD_Seconds = 0
+    SD_Minutes = 0
+    SD_Hours = 0
+    SD_File_Num = 0
+    SD_Extended_Return = 0
+    Return
+
+
+@END
+
+'-------------------------------------------------------------------------------
+
+@MACRO_START SD_New_File
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_New_File MACRO                                                                
+    #IF(PRM_COUNT != 0)         
+     #ERROR "No parameters required for SD_New_File" 
+        EXITM 
+    #ENDIF 
+    GoSub SD_New_File_Sub 
+    #IF (SD_New_File_RETURN != 1) 
+    #ELSE 
+     #IF (RETURN_TYPE != Byte) 
+      #ERROR "SD_New_File - Return variable should be a Byte variable" 
+     #ENDIF 
+     #IF (RETURN_TYPE == Byte) 
+      BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+     #ENDIF 
+    #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+Dim SD_Return_F As Byte
+
+@CODE
+
+
+SD_New_File_Sub:
+    SD_Return_F = 0
+    SD_FAT_Sec = 0
+    SD_FAT_Buffer_Pos = 0
+    SD_Cluster_Seq_Num = 0
+    GoSub SD_Find_Free_Cluster
+    If SD_Extended_Return = 1 Then Return                                       'Disk full error
+    SD_Find_Root_Dir_Entry_F = 0                                                  
+    GoSub SD_Find_Root_Dir_Entry                                                'Find free cluster
+    If SD_Extended_Return_Root_Dir = 1 Then                                     'No free root directory entries
+        SD_Extended_Return = 1
+        Return
+    EndIf
+    SD_Write_Sec_Num = SD_Root_Dir + SD_Root_Dir_Sec
+    SD_Sector_Num = SD_Write_Sec_Num
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Write_Sec_Num, 1                                               'Set sector & read sector to SD_Buffer
+    For SD_Root_Dir_File_Pos = $00 To $1F                                       'Erase Root Dir Position
+        SD_Write_Buffer_Pos = SD_Root_Dir_Pos + SD_Root_Dir_File_Pos
+        SD_Data_IO = 0                           
+        GoSub SD_Insert_Byte_Into_Buffer      
+    Next SD_Root_Dir_File_Pos
+    GoSub SD_Modify_File_Name
+    For SD_Root_Dir_File_Pos = $00 To $07                                       'Write File Name
+        SD_Write_Buffer_Pos = SD_Root_Dir_Pos + SD_Root_Dir_File_Pos
+        SD_Data_IO = SD_File_Name[SD_Root_Dir_File_Pos]
+        GoSub SD_Insert_Byte_Into_Buffer      
+    Next SD_Root_Dir_File_Pos
+    For SD_Root_Dir_File_Pos = $08 To $0A                                       'Write File Ext
+        SD_Write_Buffer_Pos = SD_Root_Dir_Pos + SD_Root_Dir_File_Pos
+        SD_Data_IO = SD_File_Ext[SD_Root_Dir_File_Pos - $08]
+        GoSub SD_Insert_Byte_Into_Buffer      
+    Next SD_Root_Dir_File_Pos
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos + $0B
+    SD_Data_IO = %00100000                                                      'File attributes (00ADVSHR) - 0: unused bit, A: archive bit, D: Dir bit, V: volume bit, S: system bit, R: read-only bit    
+    GoSub SD_Insert_Byte_Into_Buffer      
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos + $0D                                 'Position Write_Buffer_Pos to start of create time & date
+    GoSub SD_Set_File_Time_Create                                               'Set file create time & date
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos + $1A
+    SD_Data_IO = SD_Cluster_Num.BYTE0                                           'Cluster Num  
+    GoSub SD_Insert_Byte_Into_Buffer      
+    Inc SD_Write_Buffer_Pos
+    SD_Data_IO = SD_Cluster_Num.BYTE1                                           'Cluster Num  
+    GoSub SD_Insert_Byte_Into_Buffer      
+    GoSub SD_Write_Sector
+    SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster                    'Set start Sec for data
+    SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+    SD_Sec_in_Cluster = 1
+    SD_Sector_Num = SD_Data_Sec
+    SD_RW_Option = 0
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Data_Sec, 0
+    SD_Data_Buffer_Pos = 0                                                      'Set start buffer pos for Sec
+    SD_File_Size = 0
+    SD_RW_Ptr = 0
+    SD_EOF = 1
+    SD_Return_F = 1
+    Return
+
+
+@END
+
+@MACRO_START SD_Read
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Read MACRO  
+    GoSub SD_Read_Sub 
+ #IF (SD_Read_RETURN != 1) 
+  #ERROR "SD_Read -  Mandatory return parameter missing" 
+ #ELSE 
+  #IF (RETURN_TYPE != Byte) 
+   #ERROR "SD_Read - Return variable should be a Byte variable" 
+  #ENDIF 
+  #IF (RETURN_TYPE == Byte) 
+   BYTE_BYTE SD_Byte_RW, RETURN_VAR 
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+@END
+
+@MACRO_START SD_Sector
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Sector MACRO P1, P2 
+#IF (PRM_COUNT >  2) 
+ #ERROR "SD_Sector - Too many parameters" 
+#ELSE 
+ #IF (PRM_COUNT <  2) 
+  #ERROR "SD_Sector - Too few parameters" 
+ #ELSE 
+  #IF (PRM_1 != DWord) && (PRM_1 != NUM32) && (PRM_1 != NUM16) && (PRM_1 != NUM8) && (PRM_1 != Word) && (PRM_1 != Byte) 
+   #ERROR "SD_Sector - Sector(Param 1) should be a Dword, Word or Byte variable or number" 
+  #ENDIF 
+  #IF (PRM_2 != Byte) && (PRM_2 != NUM8) && (PRM_2 != NUM16) && (PRM_2 != NUM32) 
+   #ERROR "SD_Sector - R/W(Param 2) should be a Byte variable or number" 
+  #ENDIF 
+  #IF (PRM_1 == DWord) 
+   DWORD_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_1 == NUM32) 
+   NUM_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_1 == NUM16) 
+   NUM_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_1 == NUM8) 
+   NUM_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_1 == Word) 
+   BYTE_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_1 == Byte) 
+   WORD_DWORD P1, SD_Sector_Num 
+  #ENDIF 
+  #IF (PRM_2 == Byte) 
+   BYTE_BYTE P2, SD_RW_Option 
+  #ENDIF 
+  #IF (PRM_2 == NUM8) 
+   NUM_BYTE P2, SD_RW_Option 
+  #ENDIF 
+  #IF (PRM_2 == NUM16) 
+   NUM_BYTE P2, SD_RW_Option 
+  #ENDIF 
+  #IF (PRM_2 == NUM32) 
+   NUM_BYTE P2, SD_RW_Option 
+  #ENDIF 
+  GoSub SD_Sector_Sub 
+ #ENDIF 
+#ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+@END
+
+@MACRO_START SD_Write
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Write MACRO P1 
+#IF (PRM_COUNT >  1) 
+ #ERROR "SD_Write - Too many parameters" 
+#ELSE 
+ #IF (PRM_COUNT <  1) 
+  #ERROR "SD_Write - Too few parameters" 
+ #ELSE 
+  #IF (PRM_1 != Byte) && (PRM_1 != NUM8) && (PRM_1 != NUM16) && (PRM_1 != NUM32) && (PRM_1 != Word) && (PRM_1 != DWord) 
+   #ERROR "SD_Write - Byte(Param 1) should be a Byte, Word or DWord variable or number" 
+  #ENDIF 
+  #IF (PRM_1 == Byte) 
+   BYTE_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  #IF (PRM_1 == NUM8) 
+   NUM_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  #IF (PRM_1 == NUM16) 
+   NUM_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  #IF (PRM_1 == NUM32) 
+   NUM_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  #IF (PRM_1 == Word) 
+   BYTE_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  #IF (PRM_1 == DWord) 
+   BYTE_BYTE P1, SD_Byte_RW 
+  #ENDIF 
+  GoSub SD_Write_Sub 
+ #ENDIF 
+#ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+@END
+
+@MACRO_START SD_Write_Byte_To_File
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Write_Byte_To_File MACRO P1 
+#IF (PRM_COUNT >  1) 
+ #ERROR "SD_Write_Byte_to_File - Too many parameters" 
+#ELSE 
+ #IF (PRM_COUNT <  1) 
+  #ERROR "SD_Write_Byte_to_File - Too few parameters" 
+ #ELSE 
+  #IF (PRM_1 != Byte) && (PRM_1 != NUM8) && (PRM_1 != NUM16) && (PRM_1 != NUM32) && (PRM_1 != Word) && (PRM_1 != DWord)
+   #ERROR "SD_Write_Byte_to_File - Byte(Param 1) should be a Byte, Word or DWord variable or number" 
+  #ENDIF 
+  #IF (PRM_1 == Byte) 
+   BYTE_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == NUM8) 
+   NUM_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == NUM16) 
+   NUM_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == NUM32) 
+   NUM_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == Word) 
+   BYTE_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == DWord) 
+   BYTE_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  #IF (PRM_1 == Float) 
+   FLOAT_BYTE P1, SD_IO_Byte 
+  #ENDIF 
+  GoSub SD_Write_Byte_To_File_Sub
+  #IF (SD_Write_Byte_To_File_RETURN != 1) 
+  #ELSE 
+   #IF (RETURN_TYPE != Byte) 
+    #ERROR "SD_Write_Byte_To_File - Return variable should be a Byte variable" 
+   #ENDIF 
+   #IF (RETURN_TYPE == Byte) 
+    BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+   #ENDIF 
+  #ENDIF 
+ #ENDIF 
+#ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+'SD_Write_Byte_To_File_Sub:
+'Code Shared
+
+
+@END
+
+@MACRO_START SD_Write_String_To_File
+
+@TARGET 16 Bit
+
+@HELP 
+
+SD_Write_String_To_File MACRO 
+    #IF(PRM_COUNT != 0)         
+     #ERROR "No parameters required for SD_Write_String_To_File" 
+        EXITM 
+    #ENDIF 
+    GoSub SD_Write_String_To_File_Sub 
+    #IF (SD_Write_String_To_File_RETURN != 1) 
+    #ELSE 
+     #IF (RETURN_TYPE != Byte) 
+      #ERROR "SD_Write_String_To_File - Return variable should be a Byte variable" 
+     #ENDIF 
+     #IF (RETURN_TYPE == Byte) 
+      BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+     #ENDIF
+    #ENDIF 
+    ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+Dim SD_IO_String_Length As Byte
+Dim SD_IO_String_Pos As Byte
+Dim SD_IO_String As String * 200
+
+SD_Write_String_To_File_Sub:
+    SD_IO_String_Length = Len(SD_IO_String)
+    SD_IO_String_Length = SD_IO_String_Length - 1
+    For SD_IO_String_Pos = 0 To SD_IO_String_Length
+        SD_IO_Byte = SD_IO_String[SD_IO_String_Pos]
+        GoSub SD_Write_Byte_To_File_Sub
+        If SD_Extended_Return = 1 Then Return
+    Next SD_IO_String_Pos
+    Return
+
+
+@END
+
+
+@MACRO_START SD_Open_File
+
+@TARGET 16 Bit
+
+SD_Open_File MACRO                                                               
+ GoSub SD_Open_File_Sub 
+ #IF(RETURN_TYPE !=Byte) && (RETURN_TYPE !=Word) && (RETURN_TYPE !=DWord) 
+  #ERROR "SD_Open_File - Return variable should be a Byte, Word, or DWord variable" 
+ #ELSE 
+  #IF (RETURN_TYPE == Byte)  
+   BYTE_BYTE SD_Extended_Return, RETURN_VAR  
+  #ENDIF  
+  #IF (RETURN_TYPE == Word)  
+   BYTE_WORD SD_Extended_Return, RETURN_VAR  
+  #ENDIF  
+  #IF (RETURN_TYPE == DWord)  
+   BYTE_DWORD SD_Extended_Return, RETURN_VAR  
+  #ENDIF  
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Open_File_Sub:
+    GoSub SD_Check_For_File_Sub                                                 'Check if file exists
+    If SD_Extended_Return_Root_Dir <> 0 Then
+        SD_Extended_Return = 1                                                  'Error - file does not exist
+        Return                                                                    
+    EndIf
+    SD_Cluster_Num.BYTE0 = SD_Root_Dir_File[$1A]                                'Locate cluster number
+    SD_Cluster_Num.BYTE1 = SD_Root_Dir_File[$1B]
+    SD_File_Size.BYTE0 = SD_Root_Dir_File[$1C]                                  'Obtain file size (bytes)
+    SD_File_Size.BYTE1 = SD_Root_Dir_File[$1D]
+    SD_File_Size.BYTE2 = SD_Root_Dir_File[$1E]
+    SD_File_Size.BYTE3 = SD_Root_Dir_File[$1F]
+    SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster                    'Set start Sec for data
+    SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+    SD_Sec_in_Cluster = 1
+    SD_Sector_Num = SD_Data_Sec
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Data_Sec, 1
+    If SD_Return = 1 Then
+        SD_Extended_Return = 1                                                  'Error - read failure
+        Return                                                                    
+    EndIf
+    SD_Data_Buffer_Pos = 0                                                      'Set start buffer pos for Sec 
+    SD_Bytes_Read = 0                                                           'Zero sequential read marker
+    If SD_File_Size > 0 Then
+        SD_EOF = 0
+    Else
+        SD_EOF = 1
+    EndIf
+    SD_Is_Dirty = 0                                                             'Start with SD_Is_Dirty not set
+    SD_Cluster_Seq_Num = 1
+    SD_Extended_Return = 0                                                      'Success - file open for reading
+    Return                                                                        
+
+
+@END
+
+
+@MACRO_START SD_Seek
+
+@TARGET 16 Bit
+
+SD_Seek MACRO P1                                                              
+#IF (PRM_COUNT > 1) 
+ #ERROR "SD_Seek - Too many parameters" 
+#ELSE 
+ #IF (PRM_COUNT < 1) 
+  #ERROR "SD_Seek - Too few parameters" 
+ #ELSE 
+  #IF (PRM_1 != Byte) && (PRM_1 != NUM8) && (PRM_1 != NUM16) && (PRM_1 != NUM32) && (PRM_1 != Word) && (PRM_1 != DWord) 
+   #ERROR "SD_Seek - Byte(Param 1) should be a Byte, Word or DWord variable or number" 
+  #ENDIF 
+  #IF (PRM_1 == Byte) 
+   BYTE_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  #IF (PRM_1 == NUM8) 
+   NUM_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  #IF (PRM_1 == NUM16) 
+   NUM_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  #IF (PRM_1 == NUM32) 
+   NUM_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  #IF (PRM_1 == Word) 
+   WORD_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  #IF (PRM_1 == DWord) 
+   DWORD_DWORD P1, SD_RW_Ptr 
+  #ENDIF 
+  GoSub SD_Seek_Sub 
+  #IF(RETURN_TYPE !=Byte) && (RETURN_TYPE !=Word) && (RETURN_TYPE !=DWord) 
+   #ERROR "SD_Seek - Return variable should be a Byte, Word, or DWord variable" 
+  #ELSE 
+   #IF (RETURN_TYPE == Byte)  
+    BYTE_BYTE SD_Extended_Return, RETURN_VAR  
+   #ENDIF  
+   #IF (RETURN_TYPE == Word)  
+    BYTE_WORD SD_Extended_Return, RETURN_VAR  
+   #ENDIF  
+   #IF (RETURN_TYPE == DWord)  
+    BYTE_DWORD SD_Extended_Return, RETURN_VAR  
+   #ENDIF  
+  #ENDIF
+ #ENDIF
+#ENDIF   
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Seek_Sub:
+    If SD_Is_Dirty = 1 Then                                                     'If bytes have been written in current sector, write sector back to SD card and reset SD_Is_Dirty
+        Repeat
+            GoSub SD_Write_Sector
+        Until SD_Return = 0
+        SD_Is_Dirty = 0
+    EndIf  
+    If SD_EOF = 1 Then
+        GoSub SD_Close_File_Sub
+    EndIf
+    SD_Cluster_Num.BYTE0 = SD_Root_Dir_File[$1A]                                'Locate cluster number
+    SD_Cluster_Num.BYTE1 = SD_Root_Dir_File[$1B]
+    If SD_RW_Ptr <= SD_File_Size Then
+        SD_File_Size_Left = SD_RW_Ptr
+    Else
+        SD_Extended_Return = 1                                                  'Error - pointer beyond eof
+        Return                                                                       
+    EndIf
+    If SD_RW_Ptr = SD_File_Size Then                                            'R/W Pointer set just beyond eof (for appending)
+        SD_EOF = 1
+    Else
+        SD_EOF = 0
+    EndIf   
+    SD_Sector_Num = 0
+    While SD_File_Size_Left > (SD_Bytes_Per_Sec * SD_Secs_Per_Cluster)
+        SD_FAT_Sec = SD_Cluster_Num / $100                                      'Find FAT position for existing cluster
+        SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+        SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+        If SD_Sector_Num <> (SD_FAT1 + SD_FAT_Sec) Then
+            SD_Sector_Num = SD_FAT1 + SD_FAT_Sec
+            SD_RW_Option = 1
+            GoSub SD_Sector_Sub
+'           SD_Sector SD_Sec_Num, 1                                             'Set sector & read sector to SD_Buffer
+        EndIf
+        SD_Buffer_Pos = SD_FAT_Buffer_Pos
+        GoSub SD_Read_FAT_Entry
+        SD_Cluster_Num = SD_FAT_Entry
+        SD_File_Size_Left = SD_File_Size_Left - (SD_Bytes_Per_Sec * SD_Secs_Per_Cluster)
+    Wend
+    SD_FAT_Sec = SD_Cluster_Num / $100                                          'Find FAT position for last cluster
+    SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+    SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+    If SD_File_Size_Left = 0 Then                                               'Test for zero length file - others will not meet this condition
+        SD_Sec_in_Cluster = 0
+    Else
+        SD_Sec_in_Cluster = (SD_File_Size_Left - 1) / SD_Bytes_Per_Sec
+    EndIf
+    SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster                    'Set Sec for data
+    SD_Data_Sec = SD_Data_Sec + SD_Sec_in_Cluster 
+    SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+    SD_Sec_in_Cluster = SD_Sec_in_Cluster + 1
+    SD_Sector_Num = SD_Data_Sec
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Data_Sec, 1
+    If SD_Return = 1 Then
+        SD_Extended_Return = 1                                                  'Error - read failure
+        Return                                                                    
+    EndIf
+    SD_Data_Buffer_Pos = SD_File_Size_Left // SD_Bytes_Per_Sec                  'Set buffer pos for Sec 
+    SD_Buffer_Idx = SD_Data_Buffer_Pos
+    If SD_Data_Buffer_Pos = 0 Then                                              
+        If SD_File_Size_Left > 0 Then                                           'Test not zero length file - others will meet this condition
+            SD_Data_Buffer_Pos = SD_Bytes_Per_Sec
+            Inc SD_Sector_Num
+        EndIf
+    EndIf
+    SD_Cluster_Seq_Idx = 1
+    SD_Cluster_Seq_Num = 1
+    SD_Extended_Return = 0                                                      'Success - seek pointer found
+    Return
+
+
+@END
+
+
+@MACRO_START SD_Read_Byte_From_File
+
+@TARGET 16 Bit
+
+SD_Read_Byte_From_File MACRO  
+ GoSub SD_Read_Byte_From_File_Sub 
+ #IF (SD_Read_Byte_From_File_RETURN != 1)  
+  #ERROR "SD_Read_Byte_From_File -  Mandatory return parameter missing"  
+ #ELSE  
+  #IF(RETURN_TYPE !=Byte) && (RETURN_TYPE !=Word) && (RETURN_TYPE !=DWord) 
+   #ERROR "SD_Read_Byte_From_File - Return variable should be a Byte, Word or DWord variable" 
+  #ELSE 
+   #IF (RETURN_TYPE == Byte)  
+    BYTE_BYTE SD_Byte_RW, RETURN_VAR  
+   #ENDIF  
+   #IF (RETURN_TYPE == Word)  
+    BYTE_WORD SD_Byte_RW, RETURN_VAR  
+   #ENDIF  
+   #IF (RETURN_TYPE == DWord)  
+    BYTE_DWORD SD_Byte_RW, RETURN_VAR  
+   #ENDIF  
+  #ENDIF 
+ #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Read_Byte_From_File_Sub:
+    If SD_EOF = 0 Then
+        Inc SD_Data_Buffer_Pos
+        If SD_Data_Buffer_Pos > SD_Bytes_Per_Sec Then
+            If SD_Is_Dirty = 1 Then                                                 'If bytes have been written in current sector, write sector back to SD card and reset SD_Is_Dirty
+                Repeat
+                    GoSub SD_Write_Sector
+                Until SD_Return = 0
+                SD_Is_Dirty = 0
+            EndIf
+            Inc SD_Data_Sec
+            Inc SD_Sec_in_Cluster
+            If SD_Sec_in_Cluster > SD_Secs_Per_Cluster Then
+                SD_FAT_Sec = SD_Cluster_Num / $100                                  'Find FAT position for existing cluster
+                SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+                SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+                SD_Sector_Num = SD_FAT1 + SD_FAT_Sec
+                SD_RW_Option = 1
+                GoSub SD_Sector_Sub
+    '           SD_Sector SD_Sec_Num, 1                                             'Set sector & read sector to SD_Buffer
+                SD_Buffer_Pos = SD_FAT_Buffer_Pos
+                GoSub SD_Read_FAT_Entry
+                SD_Cluster_Num = SD_FAT_Entry
+                SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster
+                SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+                SD_Sector_Num = SD_Data_Sec
+                SD_RW_Option = 1
+                GoSub SD_Sector_Sub
+    '           SD_Sector SD_Data_Sec, 1
+                SD_Sec_in_Cluster = 1
+            EndIf
+            SD_Data_Buffer_Pos = 1
+        EndIf
+        GoSub SD_Read_Sub
+        Inc SD_Bytes_Read
+        If SD_Bytes_Read >= SD_File_Size Then SD_EOF = 1
+    EndIf
+    Return        
+
+
+@END
+
+
+
+@MACRO_START SD_Dir
+
+@TARGET 16 Bit
+
+SD_Dir MACRO  P1 
+#IF (PRM_COUNT > 1) 
+    #ERROR "SD_Dir - Too many parameters" 
+#ELSE 
+    #IF (PRM_COUNT == 0) 
+     SD_Dir_Direction = 1 
+    #ELSE 
+     #IF(PRM_1 != Byte) && (PRM_1 != NUM8) && (PRM_1 != NUM16) && (PRM_1 != NUM32) && (PRM_1 != Word) && (PRM_1 != DWord) 
+      #ERROR "SD_Dir - Direction(Param1) should be a Byte, Word or DWord variable or number" 
+     #ENDIF 
+     #IF (PRM_1 == Byte) 
+      BYTE_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+     #IF (PRM_1 == NUM8) 
+      NUM_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+     #IF (PRM_1 == NUM16) 
+      NUM_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+     #IF (PRM_1 == NUM32) 
+      NUM_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+     #IF (PRM_1 == Word) 
+      BYTE_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+     #IF (PRM_1 == DWord) 
+      BYTE_BYTE P1, SD_Dir_Direction 
+     #ENDIF 
+    #ENDIF 
+    GoSub SD_Dir_Sub 
+#ENDIF 
+#IF(RETURN_TYPE != Byte) 
+ #ERROR "SD_Dir - Return variable should be a Byte variable" 
+#ELSE 
+ #IF (RETURN_TYPE == Byte) 
+  BYTE_BYTE SD_Extended_Return_Root_Dir, RETURN_VAR 
+ #ENDIF 
+#ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Dir_Sub:
+    SD_Find_Root_Dir_Entry_F = 2
+    Select SD_Dir_Direction
+    Case 0
+        SD_File_Num = 1
+    Case 1 
+        Inc SD_File_Num
+    Case 2
+        Dec SD_File_Num
+    EndSelect
+    GoSub SD_Find_Root_Dir_Entry
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Append_File
+
+@TARGET 16 Bit
+
+SD_Append_File MACRO  
+    GoSub SD_Append_File_Sub 
+    #IF(RETURN_TYPE !=Byte) 
+     #ERROR "SD_Append_File - Return variable should be a Byte variable" 
+    #ELSE 
+     #IF (RETURN_TYPE == Byte) 
+      BYTE_BYTE SD_Extended_Return, RETURN_VAR 
+     #ENDIF 
+    #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Append_File_Sub:
+    GoSub SD_Check_For_File_Sub                                                 'Check if file exists already
+    If SD_Extended_Return_Root_Dir <> 0 Then
+        SD_Extended_Return = 1                                                  'Error - file does not exist
+        Return                                                                    
+    EndIf
+    SD_Cluster_Num.BYTE0 = SD_Root_Dir_File[$1A]                                'Locate cluster number
+    SD_Cluster_Num.BYTE1 = SD_Root_Dir_File[$1B]
+    SD_File_Size.BYTE0 = SD_Root_Dir_File[$1C]                                  'Obtain file size (bytes)
+    SD_File_Size.BYTE1 = SD_Root_Dir_File[$1D]
+    SD_File_Size.BYTE2 = SD_Root_Dir_File[$1E]
+    SD_File_Size.BYTE3 = SD_Root_Dir_File[$1F]
+    SD_File_Size_Left = SD_File_Size
+    SD_Sector_Num = 0
+    While SD_File_Size_Left > (SD_Bytes_Per_Sec * SD_Secs_Per_Cluster)
+        SD_FAT_Sec = SD_Cluster_Num / $100                                      'Find FAT position for existing cluster
+        SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+        SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+        If SD_Sector_Num <> (SD_FAT1 + SD_FAT_Sec) Then
+            SD_Sector_Num = SD_FAT1 + SD_FAT_Sec
+            SD_RW_Option = 1
+            GoSub SD_Sector_Sub
+'           SD_Sector SD_Sec_Num, 1                                             'Set sector & read sector to SD_Buffer
+        EndIf
+        SD_Buffer_Pos = SD_FAT_Buffer_Pos
+        GoSub SD_Read_FAT_Entry
+        SD_Cluster_Num = SD_FAT_Entry
+        SD_File_Size_Left = SD_File_Size_Left - (SD_Bytes_Per_Sec * SD_Secs_Per_Cluster)
+    Wend
+    SD_FAT_Sec = SD_Cluster_Num / $100                                          'Find FAT position for last cluster
+    SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+    SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+    If SD_File_Size_Left = 0 Then                                               'Test for zero length file - others will not meet this condition
+        SD_Sec_in_Cluster = 0
+    Else
+        SD_Sec_in_Cluster = (SD_File_Size_Left - 1) / SD_Bytes_Per_Sec
+    EndIf
+    SD_Data_Sec = (SD_Cluster_Num - 2) * SD_Secs_Per_Cluster                    'Set append Sec for data
+    SD_Data_Sec = SD_Data_Sec + SD_Sec_in_Cluster 
+    SD_Data_Sec = SD_Data_Sec + SD_Data_Area
+    SD_Sec_in_Cluster = SD_Sec_in_Cluster + 1
+    SD_Sector_Num = SD_Data_Sec
+    SD_RW_Option = 1
+    GoSub SD_Sector_Sub
+'   SD_Sector SD_Data_Sec, 1
+    If SD_Return = 1 Then
+        SD_Extended_Return = 1                                                  'Error - read failure
+        Return                                                                    
+    EndIf
+    SD_Data_Buffer_Pos = SD_File_Size_Left // SD_Bytes_Per_Sec                  'Set append buffer pos for Sec 
+    SD_Buffer_Idx = SD_Data_Buffer_Pos
+    If SD_Data_Buffer_Pos = 0 Then                                              
+        If SD_File_Size_Left > 0 Then                                           'Test not zero length file - others will meet this condition
+            SD_Data_Buffer_Pos = SD_Bytes_Per_Sec
+            Inc SD_Sector_Num
+        EndIf
+    EndIf
+    SD_Cluster_Seq_Idx = 1
+    SD_Cluster_Seq_Num = 1
+    SD_EOF = 1
+    SD_RW_Ptr = SD_File_Size
+    SD_Extended_Return = 0                                                      'Success - file open for appending
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Free_Space
+
+@TARGET 16 Bit
+
+SD_Free_Space MACRO 
+    GoSub SD_Free_Space_Sub  
+    #IF (SD_Free_Space_RETURN != 1) 
+     #ERROR "SD_Free_Space - Mandatory return parameter missing" 
+    #ELSE 
+     #IF(RETURN_TYPE !=DWord) 
+      #ERROR "SD_Free_Space - Return variable should be a DWord variable or number" 
+     #ELSE 
+         DWORD_DWORD SD_Free_Space_KB, RETURN_VAR 
+     #ENDIF 
+    #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Free_Space_Sub:
+    SD_Free_Cluster_Num = 0
+    For SD_Sec_Num = SD_FAT1 To (SD_FAT1 + SD_Secs_Per_FAT - 1)                 'Scan SD_FAT1 for free clusters
+        SD_Sector_Num = SD_Sec_Num
+        SD_RW_Option = 1
+        GoSub SD_Sector_Sub
+        For SD_Buffer_Pos = $0000 To $1FF Step 2
+            GoSub SD_Read_FAT_Entry
+            If SD_FAT_Entry = $0000 Then Inc SD_Free_Cluster_Num
+        Next SD_Buffer_Pos
+    Next SD_Sec_Num
+    SD_Temp_Dword = SD_Secs_Per_FAT * $100                                      'Correction
+    SD_Temp_Dword = SD_Temp_Dword - SD_Last_Cluster - 1                      
+
+    SD_Free_Space_KB = SD_Free_Cluster_Num - SD_Temp_Dword
+    SD_Free_Space_KB = SD_Free_Space_KB * SD_Secs_Per_Cluster
+    SD_Free_Space_KB = SD_Free_Space_KB / 2
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Disk_Size
+
+@TARGET 16 Bit
+
+SD_Disk_Size MACRO 
+    GoSub SD_Disk_Size_Sub  
+    #IF (SD_Disk_Size_RETURN != 1) 
+     #ERROR "SD_Disk_Size - Mandatory return parameter missing" 
+    #ELSE 
+     #IF(RETURN_TYPE !=DWord) 
+      #ERROR "SD_Disk_Size - Return variable should be a DWord variable or number" 
+     #ELSE 
+         DWORD_DWORD SD_Disk_Size_KB, RETURN_VAR 
+     #ENDIF 
+    #ENDIF 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Disk_Size_Sub:
+'   SD_Disk_Size_KB = (SD_Secs_Per_FAT * 256) - 2                               'Number of clusters
+'   SD_Disk_Size_KB = SD_Disk_Size_KB * SD_Secs_Per_Cluster                     'Number of bytes
+'   SD_Disk_Size_KB = SD_Disk_Size_KB / 2                                       'Number of KB
+
+    SD_Disk_Size_KB = (SD_Last_Cluster - 1) * SD_Secs_Per_Cluster
+    SD_Disk_Size_KB = SD_Disk_Size_KB / 2
+
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Delete_File
+
+@TARGET 16 Bit
+
+SD_Delete_File MACRO  
+    GoSub SD_Delete_File_Sub 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Delete_File_Sub:
+    GoSub SD_Check_For_File_Sub                                                 'Check if file exists
+    If SD_Extended_Return_Root_Dir <> 0 Then
+        SD_Extended_Return = 1                                                  'Error - file does not exist
+        Return                                                                    
+    EndIf
+    SD_Cluster_Num.BYTE0 = SD_Root_Dir_File[$1A]                                'Locate 1st cluster number
+    SD_Cluster_Num.BYTE1 = SD_Root_Dir_File[$1B]
+    SD_Write_Buffer_Pos = SD_Root_Dir_Pos                                       'Delete entry in root directory
+    SD_Data_IO = $E5
+    GoSub SD_Insert_Byte_Into_Buffer    
+    GoSub SD_Write_Sector
+    SD_RW_Option = 0                                                            'Use as flag for first pass through repeat-until loop
+    Repeat
+        SD_FAT_Sec = SD_Cluster_Num / $100                                      'Find next FAT position
+        SD_FAT_Buffer_Pos = SD_Cluster_Num // $100
+        SD_FAT_Buffer_Pos = SD_FAT_Buffer_Pos * 2
+        If SD_Sector_Num <> (SD_FAT1 + SD_FAT_Sec) Then                         'Accessing new sector
+            If SD_RW_Option > 0 Then
+                GoSub SD_Write_Sector                                           'Write FAT1 sector before read next sector, except on first pass
+                SD_Sector_Num = SD_Sector_Num - SD_FAT1 + SD_FAT2
+                GoSub SD_Write_Sector                                           'Write FAT2 sector before read next sector, except on first pass
+            EndIf
+            SD_Sector_Num = SD_FAT1 + SD_FAT_Sec
+            SD_RW_Option = 1
+            GoSub SD_Sector_Sub
+'           SD_Sector SD_Sec_Num, 1                                             'Set sector & read sector to SD_Buffer
+        EndIf
+        SD_Buffer_Pos = SD_FAT_Buffer_Pos
+        GoSub SD_Read_FAT_Entry
+        SD_Cluster_Num = SD_FAT_Entry
+        SD_Write_Buffer_Pos = SD_FAT_Buffer_Pos                                 
+        SD_Data_IO = $00
+        GoSub SD_Insert_Byte_Into_Buffer                                        'Clear first cluster byte in FAT
+        SD_Write_Buffer_Pos = SD_FAT_Buffer_Pos + 1                             
+        GoSub SD_Insert_Byte_Into_Buffer                                        'Clear second cluster byte in FAT
+    Until SD_Cluster_Num = $FFFF
+    GoSub SD_Write_Sector                                                       'Write last FAT1 sector
+    SD_Sector_Num = SD_Sector_Num - SD_FAT1 + SD_FAT2
+    GoSub SD_Write_Sector                                                       'Write last FAT2 sector
+    SD_Extended_Return = 0                                                      'Success - file deleted
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Psuedo_Format
+
+@TARGET 16 Bit
+
+SD_Psuedo_Format MACRO  
+    GoSub SD_Psuedo_Format_Sub 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+
+@CODE
+
+
+SD_Psuedo_Format_Sub:
+    For SD_Idx = 0 To $FF
+        SD_Buffer0[SD_Idx] = 0
+        SD_Buffer1[SD_Idx] = 0
+    Next SD_Idx
+    For SD_Sector_Num = SD_Root_Dir To (SD_Root_Dir + SD_Secs_in_Root - 1)      'Scan Root Dir & delete
+        GoSub SD_Write_Sector
+    Next
+    For SD_Sector_Num = (SD_FAT1 + 1) To (SD_FAT1 + SD_Secs_Per_FAT - 1)        'Scan SD_FAT1 & delete
+        GoSub SD_Write_Sector
+    Next
+    For SD_Sector_Num = (SD_FAT2 + 1) To (SD_FAT2 + SD_Secs_Per_FAT - 1)        'Scan SD_FAT2 & delete
+        GoSub SD_Write_Sector
+    Next
+    SD_Buffer0[0] = $F8
+    SD_Buffer0[1] = $FF
+    SD_Buffer0[2] = $FF
+    SD_Buffer0[3] = $FF
+    SD_Sector_Num = SD_FAT1
+    GoSub SD_Write_Sector
+    SD_Sector_Num = SD_FAT2
+    GoSub SD_Write_Sector    
+    Return
+
+
+@END
+
+
+
+@MACRO_START SD_Save_File
+
+@TARGET 16 Bit
+
+SD_Save_File MACRO  
+    GoSub SD_Save_File_Sub 
+ENDM 
+
+@LOCAL
+'Add Local (non-persistent) variables here
+Dim SD_Data_Buffer_Pos_Temp As Word
+Dim SD_Sector_Num_Temp As DWord
+Dim SD_Buffer_Idx_Temp As Word
+
+@CODE
+
+
+SD_Save_File_Sub:
+    SD_Data_Buffer_Pos_Temp = SD_Data_Buffer_Pos                                'Store pointers to temp pointers
+    SD_Buffer_Idx_Temp = SD_Buffer_Idx
+    SD_Sector_Num_Temp = SD_Sector_Num
+    GoSub SD_Close_File_Sub                                                     'Save file size etc..
+    SD_Sector_Num = SD_Sector_Num_Temp                                          'Recover pointers from temp pointers
+    GoSub SD_Read_Sector                                                        'Recover buffer contents
+    SD_Data_Buffer_Pos = SD_Data_Buffer_Pos_Temp
+    SD_Buffer_Idx = SD_Buffer_Idx_Temp                                    
+    Return
+
+
+@END
+
+
+@LIB_END
+

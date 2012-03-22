@@ -1,0 +1,26 @@
+[Project]
+Filename=C:\Plus_Source\IDE\Samples\AutoBaud_14.bas
+[Environment]
+CaretX=53
+CaretY=29
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=3
+[Results]
+Visible=0
+Height=117
+View=1
+[Status]
+Message=Success : 359 program words used, 18 variable bytes used
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN

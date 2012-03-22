@@ -1,0 +1,112 @@
+﻿<HTML><HEAD><TITLE>Pic timer on PIC16F628</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<META content="MSHTML 6.00.2800.1276" name=GENERATOR><meta name="Microsoft Theme" content="network 011, default">
+</HEAD>
+<BODY background="../../../_themes/network/netbkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#0066CC" vlink="#999999" alink="#669999">
+<P align=right>&nbsp; <FONT face=Verdana size=2>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width="98%">&nbsp; <A 
+      href="http://www.dontronics.com/" target=new><IMG height=26 
+      alt="DonTronics Home Page" src="dtlogolink.gif" 
+      width=142 border=0></A>&nbsp; <FONT face=Verdana color=brown size=2><B>One 
+      of my favourites PIC websites</B></FONT> </TD>
+    <TD align=righ width="2%">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD align=middle><IMG src="ukflag.gif" width="36" height="23"></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD><A href="pictimer.html"><FONT 
+            face=Verdana size=2>English</FONT></A></TD></TR></TBODY></TABLE></TD>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD align=middle><IMG src="rusflag.gif" width="36" height="23"></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD><FONT face=Verdana 
+      size=2><U>Русский</U></FONT></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<P align=center><FONT size=3><B>Timer on PIC16F628</B></FONT></P>
+
+<P align=center> <A href=http://www.radier.ca/pic/pictimer.php?russian>Pic Timer он-лайн</A>
+
+<P>Проэкт представляет собой часы с таймером, который может быть 
+запрограммирован на включение и на выключение. Я начал его делать так как мне 
+было лень включать и выключать каждый день аквариум. Не стал использовать уже 
+готовые вещи по нескольким причинам - в том числе и потому что планирую добавить 
+автоматическую систему для кормежки рыб. </P>
+<P>Схема часов довольно проста, если не сказать очень проста. Главная часть, 
+безусловно - программа на ассемблере. Для программирования я использовал <A 
+href="http://www.microchip.com/">Microchip's</A> MPASMP, а для рисования схемы - 
+Eagle от <A href="http://www.cadsoftusa.com/">http://www.cadsoftusa.com/</A>. 
+</P>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top noWrap width="50%"><FONT face=Verdana size=2>
+      <P>Часы имеют 4 кнопки для:&nbsp; 
+      <LI>увеличения часов (1) 
+      <LI>увеличения минут (2) 
+      <LI>режима программирования включения(3) 
+      <LI>режима программирования выключения(4) 
+      <P>Часы имеют 4 режима: </P>
+      <LI>часы 
+      <LI>программирование часов 
+      <LI>программирование включения 
+      <LI>программирование отключения </FONT></LI></TD>
+    <TD vAlign=top align=right width="50%"><A 
+      href="fish.gif"><IMG height=400 
+      src="fish.gif" width=600 border=0></A> 
+</TD></TR></TBODY></TABLE>
+<P>Новый режим устанавливается при нажатии на соответствующую кнопку. После 
+того, как кнопка нажата или отпущена новый режим индицируется примерно в течение 
+секунды символами <B>ClOC</B>, <B>Prog</B>, <B>Pron</B>, <B>ProF</B> 
+соответственно. При нажатии кнопки (1) или (2) устанавливается режим 
+программирования часов и часы (кнопка 1) или минуты (кнопка 2) будут 
+увеличиватся каждую секунду. При нажатии кнопки (3) или (4) часы показывают 
+время включения или отключения. Чтобы установить новое время 
+включения/выключения - не отпуская кнопки (3) или (4) следует нажать кнопку (1) 
+или (2). Если нажать вместе кнопки (3) и (4) секунды обнуляются и часы не идут 
+до отпускания этих кнопок - это для установки точного времени. Защита от 
+дребезга контактов - программная задержка на 16 миллисекунд (4 цикла) при 
+нажатии и отпускании. 4 вывода PIC16F628 использованы для динамической индикации 
+7-сегментных индикаторов и сканирования клавиатуры. Программа работает по 
+прерываниям. До вызова прерывания программа ничего не делает и может быть 
+использована для других целей. Прерывания происходят каждые 4 миллисекунды. 
+Каждый цикл новый 7-сегментный индикатор подключается. Каждый раз, когда 
+проходит секунда вызывается подпрограмма проверки времени включения/выключения 
+реле. </P>
+<P>&nbsp;Организовать индикацию прямо с микроконтроллера не хватает выводов, 
+поэтому я использовал дополнительную микросхему - сдвиговый регистр CD4015. Реле 
+и многие детали как транзисторы или диоды могут использованы практически любые 
+того же классa. Я оставил свободными выводы RB0, RB1, RB2 для дальнейшего 
+развития - подключения RS232 и так далее. Система автоматической кормежки 
+большей частью механическая и может забрать много времени и будет добавлена 
+позже.</P>
+<P align=center><A href="http://www.radier.ca/pic/pictimer.zip">pictimer.zip</A> 
+<P> <U>Январь, 25, 2004</U>
+<P>CD4015 была заменена на более мощную 74HC164.
+Сделал несколько мелких доработок.
+
+<P>Закончил разработку печатной платы. 
+Желающие печатные платы и кит (печатные платы с набором компонентов) можно обращатся сюда 
+<A href=http://www.radier.ca/pic/pictimer.php?board>
+http://www.radier.ca/pic/pictimer.php?board</A> через 1-2-3 недели.
+Спасибо.
+<BR>Плата 3,1 дюйма в высоту и 3,9 дюйма в длину. Примерно 78 мм высоты и 
+чуть больше 100 мм длины. 4 кнопки (верхние на рисунке) и 
+7-сегментные индикаторы расположены на верхней стороне, остальные елементы снизу. 
+
+<P>
+<A href="pictimer_pcb.gif"><IMG src="pictimer_pcb.gif" height=310 width=390 border=0></A>
+
+<P align=center>send any comments/questions to <A 
+href="mailto:info@radier.ca?Subject=PicTimer">Dmitriy Fitisov</A> 
+
+</FONT></P></BODY></HTML>

@@ -1,0 +1,215 @@
+Post Processor Report
+OrCAD FILE: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.MAX
+Fri Mar 16 08:47:34 2007
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.TOP
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.TOP:
+---------------------------------------------------------
+D10:  0.0800 ROUND  --       0 Draws,     183 Flashes
+D11:  0.1200 ROUND  --       0 Draws,       8 Flashes
+D12:  0.0800 SQUARE --       0 Draws,      11 Flashes
+D13:  0.0700 ROUND  --       0 Draws,       5 Flashes
+D14:  0.0700 SQUARE --       0 Draws,      16 Flashes
+D15:  0.0750 ROUND  --       0 Draws,       4 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       2 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D18:  0.0350 ROUND  --       7 Draws,       0 Flashes
+---------------------------------------------------------
+  9 D-Codes      -----       7 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.BOT
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.BOT:
+---------------------------------------------------------
+D10:  0.0800 ROUND  --       0 Draws,     183 Flashes
+D11:  0.1200 ROUND  --       0 Draws,       8 Flashes
+D12:  0.0800 SQUARE --       0 Draws,      11 Flashes
+D13:  0.0700 ROUND  --       0 Draws,       5 Flashes
+D14:  0.0700 SQUARE --       0 Draws,      16 Flashes
+D15:  0.0750 ROUND  --       0 Draws,       4 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       2 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D18:  0.0350 ROUND  --     614 Draws,       0 Flashes
+D19:  0.0100 ROUND  --     244 Draws,       0 Flashes
+---------------------------------------------------------
+ 10 D-Codes      -----     858 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.GND
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.GND:
+---------------------------------------------------------
+D10:  0.0800 ROUND  --       0 Draws,     183 Flashes
+D11:  0.1200 ROUND  --       0 Draws,       8 Flashes
+D12:  0.0800 SQUARE --       0 Draws,      11 Flashes
+D13:  0.0700 ROUND  --       0 Draws,       5 Flashes
+D14:  0.0700 SQUARE --       0 Draws,      16 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D20:  0.0910 ROUND  --       0 Draws,       2 Flashes
+D21:  0.0910 SQUARE --       0 Draws,       1 Flashes
+D22:  0.0950 ROUND  --       0 Draws,       2 Flashes
+D23:  0.0950 SQUARE --       0 Draws,       1 Flashes
+D36:  0.0500 ROUND  --       6 Draws,       0 Flashes
+---------------------------------------------------------
+ 11 D-Codes      -----       6 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.PWR
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.PWR:
+---------------------------------------------------------
+D10:  0.0800 ROUND  --       0 Draws,     183 Flashes
+D11:  0.1200 ROUND  --       0 Draws,       8 Flashes
+D12:  0.0800 SQUARE --       0 Draws,      11 Flashes
+D13:  0.0700 ROUND  --       0 Draws,       5 Flashes
+D14:  0.0700 SQUARE --       0 Draws,      16 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D20:  0.0910 ROUND  --       0 Draws,       2 Flashes
+D21:  0.0910 SQUARE --       0 Draws,       1 Flashes
+D22:  0.0950 ROUND  --       0 Draws,       2 Flashes
+D23:  0.0950 SQUARE --       0 Draws,       1 Flashes
+D36:  0.0500 ROUND  --       6 Draws,       0 Flashes
+---------------------------------------------------------
+ 11 D-Codes      -----       6 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SMT
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SMT:
+---------------------------------------------------------
+D11:  0.1200 ROUND  --       0 Draws,       4 Flashes
+D15:  0.0750 ROUND  --       0 Draws,       2 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       1 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D24:  0.0550 ROUND  --       0 Draws,     120 Flashes
+D25:  0.0520 ROUND  --       0 Draws,      13 Flashes
+D26:  0.0630 ROUND  --       0 Draws,      16 Flashes
+D27:  0.0630 SQUARE --       0 Draws,       2 Flashes
+D28:  0.0550 SQUARE --       0 Draws,      17 Flashes
+D29:  0.1050 ROUND  --       0 Draws,       4 Flashes
+D30:  0.0520 SQUARE --       0 Draws,       5 Flashes
+D31:  0.0580 ROUND  --       0 Draws,      39 Flashes
+D32:  0.0580 SQUARE --       0 Draws,       3 Flashes
+D33:  0.0710 ROUND  --       0 Draws,       2 Flashes
+D34:  0.0710 SQUARE --       0 Draws,       1 Flashes
+---------------------------------------------------------
+ 15 D-Codes      -----       0 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SMB
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SMB:
+---------------------------------------------------------
+D11:  0.1200 ROUND  --       0 Draws,       4 Flashes
+D15:  0.0750 ROUND  --       0 Draws,       2 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       1 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D24:  0.0550 ROUND  --       0 Draws,     120 Flashes
+D25:  0.0520 ROUND  --       0 Draws,      13 Flashes
+D26:  0.0630 ROUND  --       0 Draws,      16 Flashes
+D27:  0.0630 SQUARE --       0 Draws,       2 Flashes
+D28:  0.0550 SQUARE --       0 Draws,      17 Flashes
+D29:  0.1050 ROUND  --       0 Draws,       4 Flashes
+D30:  0.0520 SQUARE --       0 Draws,       5 Flashes
+D31:  0.0580 ROUND  --       0 Draws,      39 Flashes
+D32:  0.0580 SQUARE --       0 Draws,       3 Flashes
+D33:  0.0710 ROUND  --       0 Draws,       2 Flashes
+D34:  0.0710 SQUARE --       0 Draws,       1 Flashes
+---------------------------------------------------------
+ 15 D-Codes      -----       0 Draws,     239 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SST
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.SST:
+---------------------------------------------------------
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D19:  0.0100 ROUND  --      93 Draws,       0 Flashes
+D35:  0.0080 ROUND  --    1941 Draws,       0 Flashes
+---------------------------------------------------------
+  3 D-Codes      -----    2034 Draws,      10 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.AST
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.AST:
+---------------------------------------------------------
+D11:  0.1200 ROUND  --       0 Draws,       4 Flashes
+D15:  0.0750 ROUND  --       0 Draws,       2 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       1 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      10 Flashes
+D19:  0.0100 ROUND  --      93 Draws,       0 Flashes
+D24:  0.0550 ROUND  --       0 Draws,     120 Flashes
+D25:  0.0520 ROUND  --       0 Draws,      13 Flashes
+D26:  0.0630 ROUND  --       0 Draws,      16 Flashes
+D27:  0.0630 SQUARE --       0 Draws,       2 Flashes
+D28:  0.0550 SQUARE --       0 Draws,      17 Flashes
+D30:  0.0520 SQUARE --       0 Draws,       5 Flashes
+D31:  0.0580 ROUND  --       0 Draws,      39 Flashes
+D32:  0.0580 SQUARE --       0 Draws,       3 Flashes
+D33:  0.0710 ROUND  --       0 Draws,       2 Flashes
+D34:  0.0710 SQUARE --       0 Draws,       1 Flashes
+D35:  0.0080 ROUND  --    3947 Draws,       0 Flashes
+D36:  0.0500 ROUND  --       6 Draws,       0 Flashes
+---------------------------------------------------------
+ 17 D-Codes      -----    4046 Draws,     235 Flashes
+
+*********************************************************
+
+Output file: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.DRD
+
+Aperture totals for C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II FINAL.DRD:
+---------------------------------------------------------
+D19:  0.0100 ROUND  --    1292 Draws,       0 Flashes
+D36:  0.0500 ROUND  --       6 Draws,       0 Flashes
+---------------------------------------------------------
+  2 D-Codes      -----    1298 Draws,       0 Flashes
+
+
+*********************************************************
+
+Aperture totals for entire project:
+---------------------------------------------------------
+D10:  0.0800 ROUND  --       0 Draws,     732 Flashes
+D11:  0.1200 ROUND  --       0 Draws,      44 Flashes
+D12:  0.0800 SQUARE --       0 Draws,      44 Flashes
+D13:  0.0700 ROUND  --       0 Draws,      20 Flashes
+D14:  0.0700 SQUARE --       0 Draws,      64 Flashes
+D15:  0.0750 ROUND  --       0 Draws,      14 Flashes
+D16:  0.0750 SQUARE --       0 Draws,       7 Flashes
+D17:  0.0900 ROUND  --       0 Draws,      80 Flashes
+D18:  0.0350 ROUND  --     621 Draws,       0 Flashes
+D19:  0.0100 ROUND  --    1722 Draws,       0 Flashes
+D20:  0.0910 ROUND  --       0 Draws,       4 Flashes
+D21:  0.0910 SQUARE --       0 Draws,       2 Flashes
+D22:  0.0950 ROUND  --       0 Draws,       4 Flashes
+D23:  0.0950 SQUARE --       0 Draws,       2 Flashes
+D24:  0.0550 ROUND  --       0 Draws,     360 Flashes
+D25:  0.0520 ROUND  --       0 Draws,      39 Flashes
+D26:  0.0630 ROUND  --       0 Draws,      48 Flashes
+D27:  0.0630 SQUARE --       0 Draws,       6 Flashes
+D28:  0.0550 SQUARE --       0 Draws,      51 Flashes
+D29:  0.1050 ROUND  --       0 Draws,       8 Flashes
+D30:  0.0520 SQUARE --       0 Draws,      15 Flashes
+D31:  0.0580 ROUND  --       0 Draws,     117 Flashes
+D32:  0.0580 SQUARE --       0 Draws,       9 Flashes
+D33:  0.0710 ROUND  --       0 Draws,       6 Flashes
+D34:  0.0710 SQUARE --       0 Draws,       3 Flashes
+D35:  0.0080 ROUND  --    5888 Draws,       0 Flashes
+D36:  0.0500 ROUND  --      24 Draws,       0 Flashes
+---------------------------------------------------------
+ 27 D-Codes      -----    8255 Draws,    1679 Flashes
+
+
+No warnings or errors.

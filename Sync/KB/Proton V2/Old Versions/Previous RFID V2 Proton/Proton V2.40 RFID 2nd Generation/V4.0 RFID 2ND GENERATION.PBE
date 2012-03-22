@@ -1,0 +1,22 @@
+18F4525,40008,1017,4
+Reminder! Line [98]	In file [C:\my Proton\Proton V2.40 RFID 2nd Generation\V4.0 RFID 2nd Generation_Lib.pbp]	*** SD_SSPSTAT Declared but never used ***
+Reminder! Line [78]	In file [C:\my Proton\Proton V2.40 RFID 2nd Generation\V4.0 RFID 2nd Generation_Lib.pbp]	*** SD_Dir_Direction Declared but never used ***
+Reminder! Line [62]	In file [C:\my Proton\Proton V2.40 RFID 2nd Generation\V4.0 RFID 2nd Generation_Lib.pbp]	*** SD_Cluster_Num_Prev Declared but never used ***
+Reminder! Line [34]	In file [C:\my Proton\Proton V2.40 RFID 2nd Generation\V4.0 RFID 2nd Generation.bas]	*** SD_IO Declared but never used ***
+Reminder! Line [71]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\V4.0 RFID 2ND GENERATION.BAS]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [91]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\V4.0 RFID 2ND GENERATION.BAS]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [96]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\V4.0 RFID 2ND GENERATION.BAS]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [18]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\READ TAG.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [33]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\READ SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [49]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\READ SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [57]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\READ SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [73]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\READ SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [24]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\INIT SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [8]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\CHECK TAG.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [16]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\WRITE_M_SD.INC]	*** Ensure that the assignment String is large enough to accomodate all the characters! ***
+Reminder! Line [28]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\WRITE_USERS_SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [53]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\WRITE_USERS_SD.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [5]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\GOSLEEP.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [18]	In file [C:\MY PROTON\PROTON V2.40 RFID 2ND GENERATION\INC\GOSLEEP.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+	PROGRAM COMPILED OK. 40008 Bytes used from a possible 49152
+	1017 Variables used in the 18F4525 from a possible 3968

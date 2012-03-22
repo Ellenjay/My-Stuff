@@ -1,0 +1,24 @@
+AutoECO Report
+FILE-A: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II V3 .MAX
+FILE-B: C:\DOCUMENTS AND SETTINGS\SAM\DESKTOP\SAM'S STUFF\MY ELECTRONIC PROJECTS\MY OBD-II PROJECT\ELM327 ODB-II V3 .MNL
+If "*EOF*" immediately follows, no changes were made
+Adding package FUSE
+Adding component F1
+Adding net N10833
+Net N42416 renamed to N44569
+Deleting R38.1 from net +5V
+Adding U1.15 to net +5V
+Deleting R37.2 from net N44569
+Adding COMPUTER IN.8 to net N44569
+Deleting CON5.9 from net VBAT
+Adding F1.2 to net VBAT
+Adding F1.1 to net N10833
+Adding CON5.9 to net N10833
+Deleting component R38
+Deleting component R37
+Deleting component R36
+Deleting net N42871
+Deleting net N42838
+Deleting net N42649
+*EOF*
+No errors found

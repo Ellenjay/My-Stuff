@@ -1,0 +1,4 @@
+16F877A,317,16,
+Reminder! Line [6]	In file [USARTV~2.BAS]		*** Ensure that all fuses are placed in the CONFIG list, as PICmicros have differing default settings! ***
+	PROGRAM COMPILED OK. 317 Words used
+	16 Variables used in the 16F877A from a possible 368

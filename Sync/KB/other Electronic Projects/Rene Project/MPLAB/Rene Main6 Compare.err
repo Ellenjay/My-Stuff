@@ -1,0 +1,8 @@
+Message[302] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 37 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 38 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 39 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 104 : Found label after column 1. (Are_they_equal)
+Message[305] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 134 : Using default destination of 1 (file).
+Message[305] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 135 : Using default destination of 1 (file).
+Message[305] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 136 : Using default destination of 1 (file).
+Message[302] C:\MY PIC\RENE PROJECT\MPLAB\RENE MAIN6 COMPARE.ASM 171 : Register in operand not in bank 0.  Ensure that bank bits are correct.

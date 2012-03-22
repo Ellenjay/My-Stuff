@@ -1,0 +1,222 @@
+'
+' FONT information for 11 pixel ARIAL BOLD
+'
+'---------------------------------------------------------------------------------------------------
+'
+' Pointers to the actual font table
+'
+ARIAL_BOLD11:		
+	CDATA 	Word 11												' Font is 11 pixels high
+    CDATA	ARIAL_BOLD_0,ARIAL_BOLD_1,ARIAL_BOLD_2,ARIAL_BOLD_3,ARIAL_BOLD_4,ARIAL_BOLD_5,ARIAL_BOLD_6,_
+   			ARIAL_BOLD_7,ARIAL_BOLD_8,ARIAL_BOLD_9,ARIAL_BOLD_10,ARIAL_BOLD_11,ARIAL_BOLD_12,ARIAL_BOLD_13,_
+   			ARIAL_BOLD_14,ARIAL_BOLD_15,ARIAL_BOLD_16,ARIAL_BOLD_17,ARIAL_BOLD_18,ARIAL_BOLD_19,ARIAL_BOLD_20,_
+   			ARIAL_BOLD_21,ARIAL_BOLD_22,ARIAL_BOLD_23,ARIAL_BOLD_24,ARIAL_BOLD_25,ARIAL_BOLD_26,ARIAL_BOLD_27,_
+    		ARIAL_BOLD_28,ARIAL_BOLD_29,ARIAL_BOLD_30,ARIAL_BOLD_31,ARIAL_BOLD_32,ARIAL_BOLD_33,ARIAL_BOLD_34,_
+    		ARIAL_BOLD_35,ARIAL_BOLD_36,ARIAL_BOLD_37,ARIAL_BOLD_38,ARIAL_BOLD_39,ARIAL_BOLD_40,ARIAL_BOLD_41,_
+    		ARIAL_BOLD_42,ARIAL_BOLD_43,ARIAL_BOLD_44,ARIAL_BOLD_45,ARIAL_BOLD_46,ARIAL_BOLD_47,ARIAL_BOLD_48,_
+    		ARIAL_BOLD_49,ARIAL_BOLD_50,ARIAL_BOLD_51,ARIAL_BOLD_52,ARIAL_BOLD_53,ARIAL_BOLD_54,ARIAL_BOLD_55,_
+    		ARIAL_BOLD_56,ARIAL_BOLD_57,ARIAL_BOLD_58,ARIAL_BOLD_59,ARIAL_BOLD_60,ARIAL_BOLD_61,ARIAL_BOLD_62,_
+    		ARIAL_BOLD_63,ARIAL_BOLD_64,ARIAL_BOLD_65,ARIAL_BOLD_66,ARIAL_BOLD_67,ARIAL_BOLD_68,ARIAL_BOLD_69,_
+    		ARIAL_BOLD_70,ARIAL_BOLD_71,ARIAL_BOLD_72,ARIAL_BOLD_73,ARIAL_BOLD_74,ARIAL_BOLD_75,ARIAL_BOLD_76,_
+    		ARIAL_BOLD_77,ARIAL_BOLD_78,ARIAL_BOLD_79,ARIAL_BOLD_80,ARIAL_BOLD_81,ARIAL_BOLD_82,ARIAL_BOLD_83,_
+    		ARIAL_BOLD_84,ARIAL_BOLD_85,ARIAL_BOLD_86,ARIAL_BOLD_87,ARIAL_BOLD_88,ARIAL_BOLD_89,ARIAL_BOLD_90,_
+    		ARIAL_BOLD_91,ARIAL_BOLD_92,ARIAL_BOLD_93,ARIAL_BOLD_94,ARIAL_BOLD_95
+
+'---------------------------------------------------------------------------------------------------   
+'
+' Font data for Arial Bold 11 pixels
+'
+ARIAL_BOLD_0:
+	CDATA 2,0,0,0,0,0 											' Code for char    
+ARIAL_BOLD_1:
+	CDATA 3,190,1,190,1,0,0,0 									' Code for char !  
+ARIAL_BOLD_2:
+	CDATA 6,14,0,14,0,0,0,14,0,14,0,0,0,0 						' Code for char "  
+ARIAL_BOLD_3:
+	CDATA 7,200,1,120,0,78,0,200,1,120,0,78,0,0,0,0 			' Code for char #  
+ARIAL_BOLD_4:
+	CDATA 6,156,0,50,1,255,3,50,1,228,0,0,0,0 					' Code for char $  
+ARIAL_BOLD_5:
+	CDATA 9,30,0,18,0,158,1,96,0,24,0,230,1,32,1,224,1,0,0,0 	' Code for char %  
+ARIAL_BOLD_6:
+	CDATA 8,192,0,236,1,62,1,58,1,254,1,204,1,160,1,0,0,0 		' Code for char &  
+ARIAL_BOLD_7:
+	CDATA 3,14,0,14,0,0,0,0 									' Code for char '  
+ARIAL_BOLD_8:
+	CDATA 4,240,0,252,3,2,6,0,0,0 								' Code for char (  
+ARIAL_BOLD_9:
+	CDATA 4,2,6,252,3,240,0,0,0,0 								' Code for char )  
+ARIAL_BOLD_10:
+	CDATA 4,20,0,14,0,20,0,0,0,0 								' Code for char *  
+ARIAL_BOLD_11:
+	CDATA 6,32,0,32,0,248,0,32,0,32,0,0,0,0 					' Code for char +  
+ARIAL_BOLD_12:
+	CDATA 3,128,5,128,3,0,0,0 									' Code for char ,  
+ARIAL_BOLD_13:
+	CDATA 4,64,0,64,0,64,0,0,0,0 								' Code for char -  
+ARIAL_BOLD_14:
+	CDATA 3,128,1,128,1,0,0,0 									' Code for char .  
+ARIAL_BOLD_15:
+	CDATA 4,128,1,120,0,6,0,0,0,0 								' Code for char /  
+ARIAL_BOLD_16:
+	CDATA 6,252,0,254,1,2,1,254,1,252,0,0,0,0 					' Code for char 0  
+ARIAL_BOLD_17:
+	CDATA 5,24,0,12,0,254,1,254,1,0,0,0 						' Code for char 1  
+ARIAL_BOLD_18:
+	CDATA 6,132,1,198,1,98,1,62,1,28,1,0,0,0 					' Code for char 2  
+ARIAL_BOLD_19:
+	CDATA 6,132,0,134,1,18,1,254,1,236,0,0,0,0 					' Code for char 3  
+ARIAL_BOLD_20:
+	CDATA 7,96,0,88,0,68,0,254,1,254,1,64,0,0,0,0 				' Code for char 4  
+ARIAL_BOLD_21:
+	CDATA 6,176,0,158,1,22,1,242,1,226,0,0,0,0 					' Code for char 5  
+ARIAL_BOLD_22:
+	CDATA 6,248,0,254,1,18,1,246,1,228,0,0,0,0 					' Code for char 6  
+ARIAL_BOLD_23:
+	CDATA 6,2,0,194,1,250,1,30,0,6,0,0,0,0 						' Code for char 7  
+ARIAL_BOLD_24:
+	CDATA 6,236,0,254,1,18,1,254,1,236,0,0,0,0 					' Code for char 8  
+ARIAL_BOLD_25:
+	CDATA 6,156,0,190,1,34,1,254,1,124,0,0,0,0 					' Code for char 9  
+ARIAL_BOLD_26:
+	CDATA 3,152,1,152,1,0,0,0 									' Code for char :  
+ARIAL_BOLD_27:
+	CDATA 3,152,5,152,3,0,0,0 									' Code for char ;  
+ARIAL_BOLD_28:
+	CDATA 6,48,0,48,0,72,0,72,0,132,0,0,0,0 					' Code for char <  
+ARIAL_BOLD_29:
+	CDATA 6,80,0,80,0,80,0,80,0,80,0,0,0,0 						' Code for char =  
+ARIAL_BOLD_30:
+	CDATA 6,132,0,72,0,72,0,48,0,48,0,0,0,0 					' Code for char >  
+ARIAL_BOLD_31:
+	CDATA 7,0,0,4,0,166,1,178,1,30,0,12,0,0,0,0 					' Code for char ?  
+ARIAL_BOLD_32:
+	CDATA 11,240,0,8,3,228,2,26,5,10,5,138,5,250,5,26,5,132,2,120,2,0,0,0 ' Code for char @  
+ARIAL_BOLD_33:
+	CDATA 8,192,1,248,0,126,0,78,0,126,0,248,1,192,1,0,0,0 	' Code for char A  
+ARIAL_BOLD_34:
+	CDATA 7,254,1,254,1,18,1,18,1,254,1,236,0,0,0,0 			' Code for char B  
+ARIAL_BOLD_35:
+	CDATA 8,120,0,252,0,134,1,2,1,2,1,134,1,132,0,0,0,0 		' Code for char C  
+ARIAL_BOLD_36:
+	CDATA 7,254,1,254,1,2,1,2,1,254,1,124,0,0,0,0 				' Code for char D  
+ARIAL_BOLD_37:
+	CDATA 6,254,1,254,1,18,1,18,1,18,1,0,0,0 					' Code for char E  
+ARIAL_BOLD_38:
+	CDATA 6,254,1,254,1,18,0,18,0,18,0,0,0,0 					' Code for char F  
+ARIAL_BOLD_39:
+	CDATA 8,120,0,252,0,134,1,2,1,34,1,230,1,228,0,0,0,0 		' Code for char G  
+ARIAL_BOLD_40:
+	CDATA 7,254,1,254,1,16,0,16,0,254,1,254,1,0,0,0 			' Code for char H  
+ARIAL_BOLD_41:
+	CDATA 3,254,1,254,1,0,0,0 									' Code for char I  
+ARIAL_BOLD_42:
+	CDATA 6,128,0,128,1,0,1,254,1,254,0,0,0,0 					' Code for char J  
+ARIAL_BOLD_43:
+	CDATA 7,254,1,254,1,48,0,124,0,238,1,130,1,0,0,0 			' Code for char K  
+ARIAL_BOLD_44:
+	CDATA 7,254,1,254,1,0,1,0,1,0,1,0,1,0,0,0 					' Code for char L  
+ARIAL_BOLD_45:
+	CDATA 10,254,1,254,1,30,0,248,0,192,1,248,0,30,0,254,1,254,1,0,0,0 ' Code for char M  
+ARIAL_BOLD_46:
+	CDATA 7,254,1,254,1,24,0,96,0,254,1,254,1,0,0,0 			' Code for char N  
+ARIAL_BOLD_47:
+	CDATA 8,120,0,252,0,134,1,2,1,134,1,252,0,120,0,0,0,0 		' Code for char O  
+ARIAL_BOLD_48:
+	CDATA 7,254,1,254,1,34,0,34,0,62,0,28,0,0,0,0 				' Code for char P  
+ARIAL_BOLD_49:
+	CDATA 8,120,0,252,0,134,1,66,1,134,1,252,1,120,2,0,0,0 		' Code for char Q  
+ARIAL_BOLD_50:
+	CDATA 8,254,1,254,1,34,0,98,0,254,0,156,1,0,1,0,0,0 		' Code for char R  
+ARIAL_BOLD_51:
+	CDATA 7,156,0,158,1,50,1,50,1,230,1,196,0,0,0,0 			' Code for char S  
+ARIAL_BOLD_52:
+	CDATA 7,2,0,2,0,254,1,254,1,2,0,2,0,0,0,0 					' Code for char T  
+ARIAL_BOLD_53:
+	CDATA 7,254,0,254,1,0,1,0,1,254,1,254,0,0,0,0 				' Code for char U  
+ARIAL_BOLD_54:
+	CDATA 8,6,0,126,0,248,1,192,1,248,1,126,0,6,0,0,0,0 		' Code for char V  
+ARIAL_BOLD_55:
+	CDATA 11,62,0,248,1,224,1,124,0,30,0,124,0,224,1,248,1,126,0,6,0,0,0,0 ' Code for char W  
+ARIAL_BOLD_56:
+	CDATA 7,134,1,206,1,120,0,120,0,206,1,134,1,0,0,0 			' Code for char X  
+ARIAL_BOLD_57:
+	CDATA 7,6,0,30,0,240,1,240,1,30,0,6,0,0,0,0 				' Code for char Y  
+ARIAL_BOLD_58:
+	CDATA 7,130,1,194,1,114,1,58,1,14,1,6,1,0,0,0 				' Code for char Z  
+ARIAL_BOLD_59:
+	CDATA 4,254,7,254,7,2,4,0,0,0 								' Code for char [  
+ARIAL_BOLD_60:
+	CDATA 4,6,0,120,0,128,1,0,0,0 								' Code for char \  
+ARIAL_BOLD_61:
+	CDATA 4,2,4,254,7,254,7,0,0,0 								' Code for char ]  
+ARIAL_BOLD_62:
+	CDATA 6,16,0,28,0,14,0,28,0,16,0,0,0,0 						' Code for char ^  
+ARIAL_BOLD_63:
+	CDATA 7,0,4,0,4,0,4,0,4,0,4,0,4,0,0,0 						' Code for char _  
+ARIAL_BOLD_64:
+	CDATA 4,2,0,6,0,4,0,0,0,0 									' Code for char `  
+ARIAL_BOLD_65:
+	CDATA 6,208,0,232,1,40,1,248,1,240,1,0,0,0 					' Code for char a  
+ARIAL_BOLD_66:
+	CDATA 7,254,1,254,1,8,1,8,1,248,1,240,0,0,0,0 				' Code for char b  
+ARIAL_BOLD_67:
+	CDATA 6,240,0,248,1,8,1,152,1,144,0,0,0,0 					' Code for char c  
+ARIAL_BOLD_68:
+	CDATA 7,240,0,248,1,8,1,8,1,254,1,254,1,0,0,0 				' Code for char d  
+ARIAL_BOLD_69:
+	CDATA 7,240,0,248,1,40,1,40,1,184,1,176,0,0,0,0 			' Code for char e  
+ARIAL_BOLD_70:
+	CDATA 5,252,1,254,1,10,0,2,0,0,0,0 							' Code for char f  
+ARIAL_BOLD_71:
+	CDATA 7,240,2,248,5,8,5,8,5,248,7,248,3,0,0,0 				' Code for char g  
+ARIAL_BOLD_72:
+	CDATA 7,254,1,254,1,8,0,8,0,248,1,240,1,0,0,0 				' Code for char h  
+ARIAL_BOLD_73:
+	CDATA 3,250,1,250,1,0,0,0 									' Code for char i  
+ARIAL_BOLD_74:
+	CDATA 3,250,7,250,3,0,0,0 									' Code for char j  
+ARIAL_BOLD_75:
+	CDATA 7,254,1,254,1,96,0,240,0,216,1,8,1,0,0,0 				' Code for char k  
+ARIAL_BOLD_76:
+	CDATA 3,254,1,254,1,0,0,0 									' Code for char l  
+ARIAL_BOLD_77:
+	CDATA 11,248,1,248,1,8,0,8,0,248,1,240,1,8,0,8,0,248,1,240,1,0,0,0 ' Code for char m  
+ARIAL_BOLD_78:
+	CDATA 7,248,1,248,1,8,0,8,0,248,1,240,1,0,0,0 				' Code for char n  
+ARIAL_BOLD_79:
+	CDATA 7,240,0,248,1,8,1,8,1,248,1,240,0,0,0,0 				' Code for char o  
+ARIAL_BOLD_80:
+	CDATA 7,248,7,248,7,8,1,8,1,248,1,240,0,0,0,0 				' Code for char p  
+ARIAL_BOLD_81:
+	CDATA 7,240,0,248,1,8,1,8,1,248,7,248,7,0,0,0 				' Code for char q  
+ARIAL_BOLD_82:
+	CDATA 5,248,1,248,1,8,0,8,0,0,0,0 							' Code for char r  
+ARIAL_BOLD_83:
+	CDATA 7,176,0,184,1,104,1,104,1,216,1,208,0,0,0,0 			' Code for char s  
+ARIAL_BOLD_84:
+	CDATA 4,252,0,254,1,8,1,0,0,0 								' Code for char t  
+ARIAL_BOLD_85:
+	CDATA 7,248,0,248,1,0,1,0,1,248,1,248,1,0,0,0 				' Code for char u  
+ARIAL_BOLD_86:
+	CDATA 6,120,0,248,1,192,1,248,1,120,0,0,0,0 				' Code for char v  
+ARIAL_BOLD_87:
+	CDATA 10,24,0,248,1,192,1,240,0,56,0,240,0,192,1,248,1,56,0,0,0,0 ' Code for char w  
+ARIAL_BOLD_88:
+	CDATA 6,152,1,248,1,240,0,248,1,152,1,0,0,0 				' Code for char x  
+ARIAL_BOLD_89:
+	CDATA 7,56,4,240,7,128,3,240,1,120,0,8,0,0,0,0 				' Code for char y  
+ARIAL_BOLD_90:
+	CDATA 6,136,1,200,1,104,1,56,1,24,1,0,0,0 					' Code for char z  
+ARIAL_BOLD_91:
+	CDATA 4,252,3,190,7,2,4,0,0,0 								' Code for char {  
+ARIAL_BOLD_92:
+	CDATA 3,0,0,254,7,0,0,0 									' Code for char |  
+ARIAL_BOLD_93:
+	CDATA 5,2,4,190,7,252,3,64,0,0,0,0 							' Code for char }  
+ARIAL_BOLD_94:
+	CDATA 6,32,0,16,0,16,0,32,0,16,0,0,0,0 						' Code for char ~  
+ARIAL_BOLD_95:
+	CDATA 7,0,0,255,1,255,1,1,1,255,1,255,1,0,0,0 				' Code for char  
+    
+    

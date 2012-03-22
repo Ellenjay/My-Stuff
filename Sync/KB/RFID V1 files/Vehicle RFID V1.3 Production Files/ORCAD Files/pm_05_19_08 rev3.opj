@@ -1,0 +1,57 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (File ".\pm_05_19_08 rev3.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (DRC_Scope "1")
+    (DRC_Action "0")
+    (DRC_Create_Warnings "FALSE")
+    (DRC_Check_Ports "FALSE")
+    (DRC_Check_Off-Page_Connectors "FALSE")
+    (DRC_Identical_References "TRUE")
+    (DRC_Type_Mismatch "TRUE")
+    (DRC_Report_Ports_and_Off-page_Connectors "FALSE")
+    (DRC_SDT_Compatibility "FALSE")
+    (DRC_Report_Off-grid_Objects "FALSE")
+    (DRC_Check_Unconnected_Nets "TRUE")
+    (DRC_Report_Netnames "FALSE")
+    (DRC_View_Output "FALSE")
+    (DRC_Report_File
+       "C:\My Vehicle RFID Files\Vehicle Production Project\ORCAD Files\Errors.DRC")
+    (Netlist_TAB "5")
+    (LAYOUT_Netlist_File
+       "C:\MY VEHICLE RFID FILES\VEHICLE PRODUCTION PROJECT\ORCAD FILES\PM_05_19_08 REV3.MNL")
+    (LAYOUT_PCB_Footprint "{PCB Footprint}")
+    (FALSE)
+    (LAYOUT_Units "0")
+    (NoModify)
+    (FALSE)
+    (FALSE))
+  (Folder "Outputs"
+    (File ".\errors.drc"
+      (Type "Report"))
+    (File ".\pm_05_19_08 rev3.mnl"
+      (Type "LAYOUT Netlist File")))
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (TIP29A_1
+      (FullPartName "TIP29A_1.Normal")
+      (LibraryName
+         "C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\PM_05_19_08.DSN")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Outputs")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -4 -23 0 557 0 425"))
+      (Tab 0)))
+  (MPSSessionName "Sam"))

@@ -1,0 +1,4 @@
+ERROR
+Reminder! Line [179]	In file [C:\my Proton\Proton  Mar 2012\Cwrite_test.bas]	*** OffsetReadAlias Declared but never used ***
+Reminder! Line [173]	In file [C:\my Proton\Proton  Mar 2012\Cwrite_test.bas]	*** USBOutBuffer[ Declared but never used ***
+Cannot find USB descriptor file JGBBOOTLDESCMC.INC

@@ -1,0 +1,6 @@
+18F4525,670,19,4
+Reminder! Line [76]	In file [C:\RFID FILES HOME\V4 RFID 2ND GENERATION\AD TEST.BAS]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [5]	In file [C:\RFID FILES HOME\V4 RFID 2ND GENERATION\INC\GOSLEEP.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+Reminder! Line [18]	In file [C:\RFID FILES HOME\V4 RFID 2ND GENERATION\INC\GOSLEEP.INC]	*** PAUSE is recognised in PROTON+ but it's more appropriate to use DELAYMS! ***
+	PROGRAM COMPILED OK. 670 Bytes used from a possible 49152
+	19 Variables used in the 18F4525 from a possible 3968

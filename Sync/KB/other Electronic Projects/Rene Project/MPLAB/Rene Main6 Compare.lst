@@ -1,0 +1,731 @@
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;------------------------------------------------------------------- 
+                      00002 ; 
+                      00003 
+                      00004 ; 
+                      00005         LIST P=16F628, R=DEC   ; Use the PIC16F628 and Hexidecimal system 
+                      00006         #include "P16F628.INC"  ; Include header file 
+                      00001         LIST
+                      00002 ; P16F628.INC  Standard Header File, Version 1.01    Microchip Technology, Inc.
+                      00261         LIST
+2007   3F70           00007         __config  _INTRC_OSC_NOCLKOUT & _LVP_OFF & _WDT_OFF & _PWRTE_ON & _BODEN_ON     
+                      00008         
+                      00009         
+                      00010         CBLOCK 0x20   
+  00000020            00011                 NumH,NumL
+  00000022            00012                 counter:2       
+  00000024            00013                 TenK,Thou,Hund,Tens,Ones
+  00000029            00014                 DiC,BiC,BitCount,DigitCount
+  0000002D            00015                 Scaler
+  0000002E            00016         Counter1
+  0000002F            00017         Counter2        
+  00000030            00018                 CountA
+  00000031            00019                 CountB
+  00000032            00020                 CountC
+  00000033            00021                 UserH,UserL
+  00000035            00022                 ProbeH,ProbeL
+  00000037            00023                 temp
+                      00024         endc
+                      00025   
+                      00026 ; 
+                      00027 ; ----------- 
+                      00028 ; INITIALIZE 
+                      00029 ; ----------- 
+                      00030 ; 
+0000                  00031         ORG    0x000            ; Program starts at 0x000 
+0000   20A4           00032                 Call LDelay                             ; a delay to allow chips to stabalize
+0001   0185           00033         CLRF   PORTA            ; Initialize port A 
+0002   0186           00034         CLRF   PORTB            ; Initialize port B 
+0003   1683           00035                 BSF    STATUS,RP0       ; RAM bank 1 
+0004   3005           00036         MOVLW   0X05                    ;set pins RA0 and Ra2 to inputs 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0005   0085           00037         MOVWF   TRISA                   ;all other PortA pins to output
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0006   0186           00038         CLRF   TRISB            ; All pins port B output 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   1506           00039                 BSF             TRISB,2
+0008   1283           00040                 BCF    STATUS,RP0       ; RAM bank 0 
+                      00041                        
+                      00042         
+                      00043 ; 
+                      00044 ; ----------- 
+                      00045 ; Main Program 
+                      00046 ; ----------- 
+                      00047 ;        
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00048                
+0009   01A0           00049 Start   CLRF    NumH
+000A   01A1           00050                 CLRF    NumL 
+000B   2050           00051                 Call    InitDeltaSigA2D ; Initialize 
+000C   2058           00052         Call    DeltaSigA2D             ; Read Variable resistor into 16-bit binary number in NumH:NumL 
+                                    
+                      00053         
+000D   0820           00054         movfw   NumH            ; copy variable resitor setting
+000E   00B3           00055         movwf   UserH           ; to User High
+000F   0821           00056         Movfw   NumL            ; and
+0010   00B4           00057         movwf   UserL           ; User Low. Will be used for comparing Set temp to actual temp later in 
+                            program
+                      00058         
+0011   20B8           00059         Call    Convert                 ; Convert above reading into BCD equivalent in TenK:Thou:Hund:Te
+                            ns:Ones.
+                      00060         
+0012   3025           00061         movlw   0x25    ;set Indirect Address to
+0013   0084           00062         movwf   FSR             ;Thou Place
+0014   3004           00063         movlw   4               ;set counter to number 
+0015   00A9           00064                 movwf   DiC             ;of digits of converted number
+0016   3000           00065                 movlw   0                                       ;Set top of digits
+0017   00AC           00066                 movwf   DigitCount                      ;to be displayed (0 =0 to 3 and 4 = 4 to 7)
+0018   2078           00067                 Call    Display
+                      00068                 
+                      00069         
+0019   2034           00070                 Call    GetTemp
+                      00071                 
+001A   0820           00072                 movfw   NumH            ; copy probe reading
+001B   00B5           00073         movwf   ProbeH          ; to Probe High
+001C   0821           00074         Movfw   NumL            ; and
+001D   00B6           00075         movwf   ProbeL          ; Probe Low. Will be used for comparing Set temp to actual temp later in
+                             program
+                      00076                                                 
+001E   20B8           00077                 Call    Convert
+001F   3025           00078                 movlw   0x25    ;set Indirect Address to
+0020   0084           00079         movwf   FSR             ;Thou Place
+0021   3004           00080         movlw   4               ;set counter to number 
+0022   00A9           00081                 movwf   DiC             ;of digits of converted number
+0023   3004           00082                 movlw   4                                       ;Set top of digits
+0024   00AC           00083                 movwf   DigitCount                      ;to be displayed (0 =0 to 3 and 4 = 4 to 7)
+0025   2078           00084                 Call    Display 
+                      00085                 
+                      00086                 
+0026   202D           00087                 Call Compare ;Compare Probe and user setting
+0027   1C03           00088                 skpc    ;skip next instruction if User setting is higher than Probe
+0028   1406           00089                 BSF             PORTB,0
+0029   1803           00090                 skpnc   ;skip next instruction if User setting is = or lower than Probe
+002A   1006           00091                 BCF             PORTB,0 
+002B   0000           00092                 nop
+002C   2809           00093                 Goto    Start
+                      00094 
+                      00095 
+                      00096 ;--- END Main Program -------
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00097 
+                      00098 ;----------------
+                      00099 ;Compare Routine
+                      00100 ;----------------
+                      00101 
+002D   0833           00102 Compare         movf UserH,w
+002E   0235           00103                         subwf ProbeH,w ; subtract Y-X
+Warning[207]: Found label after column 1. (Are_they_equal)
+002F                  00104                         Are_they_equal:
+                      00105                         ; Are they equal ?
+002F   1D03           00106                         skpz
+0030   2833           00107                         goto results16
+                      00108                         ; yes, they are equal -- compare lo
+0031   0834           00109                         movf UserL,w
+0032   0236           00110                         subwf ProbeL,w  ; subtract Y-X
+0033                  00111 results16:
+                      00112                         ; if X=Y then now Z=1.
+                      00113                         ; if Y<X then now C=0.
+                      00114                         ; if X<=Y then now C=1.
+0033   0008           00115                         Return
+                      00116                         
+                      00117 
+                      00118 
+                      00119 
+                      00120 ;----------------
+                      00121 ;GET TEMP Routine
+                      00122 ;----------------
+0034   01A0           00123 GetTemp         CLRF    NumH
+0035   01A1           00124                         CLRF    NumL 
+                      00125                         
+0036   20B3           00126                         Call Flash
+                      00127                         ; Here we would normally read first bit and it should be zero
+0037   300B           00128                         MOVLW   0XB
+0038   00AB           00129                         MOVWF   BitCount                        
+0039   204B           00130 BitLoop         Call GetNextBit
+003A   1906           00131                         BTFSC   PORTB,2
+003B   1421           00132                         BSF             NumL,0
+003C   1003           00133                         BCF             STATUS,0
+Message[305]: Using default destination of 1 (file).
+003D   0DA1           00134                         RLF             NumL
+Message[305]: Using default destination of 1 (file).
+003E   0DA0           00135                         RLF             NumH
+Message[305]: Using default destination of 1 (file).
+003F   0BAB           00136                         DECFSZ  BitCount
+0040   2839           00137                         GOTO    BitLoop
+0041   204B           00138                         Call GetNextBit
+0042   1906           00139                         BTFSC   PORTB,2
+0043   1421           00140                         BSF             NumL,0
+                      00141                         ; Bit D2 would be high if the thermocouple is open.
+                      00142                 
+0044   1003           00143                         BCF             STATUS,0        ;divide the Low and
+0045   0CA0           00144                         RRF             NumH,1          ;high parts of
+0046   0CA1           00145                         RRF             NumL,1          ;4 (Shift both twice)
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0047   1003           00146                         BCF             STATUS,0        
+0048   0CA0           00147                         RRF             NumH,1          
+0049   0CA1           00148                         RRF             NumL,1
+004A   0008           00149                         Return                                  
+                      00150                         
+                      00151                         
+                      00152                         
+                      00153                                                                                 
+                      00154 ;--------------
+                      00155 ;GetNextBit Routine
+                      00156 ;--------------
+                      00157 
+004B                  00158 GetNextBit      
+004B   209E           00159                         Call SDelay
+004C   1486           00160                         BSF             PORTB,1 ; Clock High
+004D   209E           00161                         Call    SDelay
+004E   1086           00162                         BCF             PORTB,1 ; Clock low again and ready to read TEMP bit
+004F   0008           00163                         Return
+                      00164                                 
+                      00165 ;* InitDeltaSigA2D sets up the voltage reference and comparator
+                      00166 ;* in the "idle" state.
+                      00167 
+0050                  00168 InitDeltaSigA2D
+0050   1683           00169                 bsf     STATUS,RP0
+0051   30EC           00170                 movlw   0xEC            ;set voltage reference on with 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0052   009F           00171                 movwf   VRCON           ; Voltage reference output on RA2 pin (Low Range)
+0053   1185           00172                 bcf     PORTA,3         ;set comparator pin to output
+0054   1283           00173                 bcf     STATUS,RP0
+0055   3006           00174                 movlw   0x06            ;set up for 2 analog comparators with 
+0056   009F           00175                 movwf   CMCON           ;common reference
+0057   0008           00176                 return
+                      00177 ;---END InitDeltaSigA2D------------
+                      00178 
+                      00179 
+                      00180 ; Delta Sigma A2D
+                      00181 ; The code below contains a lot of nops and goto next instruction. These
+                      00182 ; are necessary to ensure that each pass through the loop takes the same
+                      00183 ; amount of time, no matter the path through the code.
+                      00184 ;
+0058                  00185 DeltaSigA2D
+0058   01A2           00186         clrf    counter
+0059   01A3           00187         clrf    counter+1
+005A   01A1           00188         clrf    NumL
+005B   01A0           00189         clrf    NumH
+005C   3003           00190         movlw   0x03                    ; set up for 2 analog comparators with common reference
+005D   009F           00191         movwf   CMCON
+005E                  00192 loop
+005E   1B1F           00193         btfsc   CMCON,C1OUT     ; Is comparator high or low?
+005F   2866           00194         goto    complow                 ; Go the low route
+0060                  00195 comphigh
+0060   0000           00196         nop                                     ; necessary to keep timing even
+0061   1185           00197         bcf     PORTA,3                 ; PORTA.3 = 0
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0062   0FA1           00198         incfsz  NumL,f          ; bump counter
+0063   2869           00199         goto    eat2cycles 
+0064   0AA0           00200         incf    NumH,f 
+0065   286A           00201         goto    endloop 
+0066                  00202 complow
+0066   1585           00203         bsf     PORTA,3                 ; Comparator is low
+0067   0000           00204         nop                                     ; necessary to keep timing even
+0068   2869           00205         goto eat2cycles                         ; same here
+0069                  00206 eat2cycles
+0069   286A           00207         goto    endloop                 ; eat 2 more cycles
+006A                  00208 endloop
+006A   0FA2           00209         incfsz  counter,f               ; Count this lap through the loop.
+006B   2872           00210         goto    eat5cycles 
+006C   0AA3           00211         incf    counter+1,f 
+006D   0823           00212         movf    counter+1,w 
+006E   3904           00213         andlw   0x04                    ; Are we done? (We're done when bit2 of
+006F   1903           00214         btfsc   STATUS,Z                ; the high order byte overflows to 1).
+0070   285E           00215         goto    loop 
+0071   2875           00216         goto    exit
+0072                  00217 eat5cycles
+0072   2873           00218         goto    $+1                     ; more wasted time to keep the loops even
+0073   0000           00219         nop ;
+0074   285E           00220         goto loop 
+0075                  00221 exit
+0075   3006           00222         movlw   0x06                    ; set up for 2 analog comparators with common reference
+0076   009F           00223         movwf   CMCON
+                      00224 
+0077   0008           00225         return
+                      00226 ;---END Delta Sigma A2D-------------
+                      00227 
+                      00228 ;---Display Routine------
+0078   0800           00229 Display         movf    INDF,0          ;Get Current digit fron Indirect Address
+0079   00AA           00230                         movwf   BiC                     ; and place it in variable BiC          
+007A   2090           00231                         Call    Shift           
+007B   1706           00232                         BSF             PORTB,6         ;Set B-enable Bit
+007C   20A4           00233                         Call    LDelay
+007D   1306           00234                         BCF             PORTB,6         ;Clear the B-enable BIT
+007E   20A4           00235                         Call    LDelay          
+007F   11AC           00236                         BCF             DigitCount,3            ;Clear hold bit for digit Display       
+                                    
+0080   2088           00237                         Call    SetDigit                
+0081   15AC           00238                         BSF             DigitCount,3            ;Set hold bit for digit display         
+0082   2088           00239                         Call    SetDigit                        
+0083   0AAC           00240                         incf    DigitCount,1
+0084   0A84           00241                         incf    FSR,1                           ;Get next Digit
+0085   0BA9           00242                         decfsz  DiC,1   ;are we finished?
+0086   2878           00243                         goto    Display                 ; if not, then do another digit
+0087   0008           00244                 Return
+                      00245 ;---END of Display-----------
+                      00246 
+                      00247 
+                      00248 ;-----Set Digit Routine---
+                      00249 
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0088   082C           00250 SetDigit                movf    DigitCount,0            ;Get digit to be displayed
+0089   00AA           00251                                 movwf   BiC                     ; and place it in variable BiC
+008A   2090           00252                                 Call    Shift
+008B   1386           00253                                 BCF             PORTB,7         ;Clear D-enable Bit
+008C   20A4           00254                                 Call    LDelay
+008D   1786           00255                                 BSF             PORTB,7         ;Set the D-enable BIT
+008E   20A4           00256                                 Call    LDelay
+008F   0008           00257                                 Return
+                      00258 
+                      00259 ;----END Set Digit Routine---
+                      00260 
+                      00261 
+                      00262 ;---Shift Routine---        
+                      00263                 
+0090                  00264 Shift   
+0090   0EAA           00265                 swapf   BiC,1           ; Move Lower bits to HIGH position
+0091   3004           00266                 MOVLW   4                       ;Place the count of 4 into
+0092   00AB           00267                 MOVWF   BitCount        ;variable BitCount
+0093   1206           00268 LP1             BCF             PORTB,4         ;Clear PortB, pin 4
+0094   0DAA           00269                 RLF             BiC,1           ;Rotate Bic through Carry
+0095   1803           00270                 BTFSC   STATUS,C        ;check the carry for a '1'
+0096   1606           00271                 BSF             PORTB,4         ; and set the PortB, pin 4 if the carry is a 1
+0097   1686           00272                 BSF             PORTB,5         ;Set shift Bit
+0098   20A4           00273                 Call    LDelay
+0099   1286           00274                 BCF             PORTB,5         ;Clear the shift BIT
+009A   20A4           00275                 Call    LDelay
+009B   0BAB           00276                 DECFSZ  BitCount,1      ;dec the bit count      
+009C   2893           00277                 GoTo    LP1                     ; get next bit if count is not zero
+009D   0008           00278                 Return
+                      00279         
+                      00280 ;---END of Shift Routine---             
+                      00281         
+                      00282 
+                      00283 ;--- 1 Millisec Delay----
+                      00284 
+009E   30F9           00285 SDelay                  MOVLW 0F9h          ;put 249 into W          
+009F   0000           00286                 NOP
+00A0   3EFF           00287 SDL                     ADDLW 0FFh          ;This is effectively subtracting 1 from W
+00A1   1D03           00288                 BTFSS 03,2            ;Look at the zero bit of the Status register. Skip when Zero bit i
+                            s SET.
+00A2   28A0           00289                 GOTO SDL
+00A3   0008           00290                 RETURN 
+                      00291 ;--- END 1 MilliSec Delay---    
+                      00292 
+                      00293         
+                      00294 ;----- 250 Millisec Delay--- 
+                      00295 
+00A4   3003           00296 LDelay          MOVLW 003H          ;put 249 into W          
+00A5   0000           00297                 NOP
+00A6   3EFF           00298 LDL             ADDLW 0FFh          ;This is effectively subtracting 1 from W
+00A7   1D03           00299                 BTFSS 03,2            ;Look at the zero bit of the Status register. Skip when Zero bit i
+                            s SET.
+00A8   28A6           00300                 GOTO LDL
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00A9   0008           00301                 RETURN  
+                      00302 
+                      00303 ;---END 250 Millisec Delay-----
+                      00304                 
+                      00305 ;--- Flash Delay----------              
+                      00306                 
+00AA   3001           00307 SLDelay         MOVLW 1h        ;Set Number for deley  
+00AB   00B2           00308             MOVWF CountC  
+00AC   0BB0           00309 Delay1      DECFSZ CountA,1  
+00AD   28AC           00310             GOTO Delay1  
+00AE   0BB1           00311             DECFSZ CountB,1  
+00AF   28AC           00312             GOTO Delay1  
+00B0   0BB2           00313             DECFSZ CountC,1  
+00B1   28AC           00314             GOTO Delay1  
+00B2   0008           00315             RETURN 
+                      00316 ;-----END 2 Sec Delay-----------
+                      00317 
+                      00318 ;----Led Flash Routine------
+00B3   1705           00319 Flash    BSF    PORTA,6       ; Turn on LED 
+00B4   20AA           00320         CALL    SLDelay 
+00B5   1305           00321         BCF     PORTA,6       ; Turn off LED  
+00B6   20AA           00322         CALL    SLDelay 
+00B7   0008           00323         Return
+                      00324 
+                      00325 ;-----Convert Routine-----
+                      00326 ; Binary-to-BCD.  Written by John Payson. 
+                      00327 ; 
+                      00328 ; Enter with 16-bit binary number in NumH:NumL. 
+                      00329 ; Exits with BCD equivalent in TenK:Thou:Hund:Tens:Ones. 
+                      00330 
+00B8                  00331 Convert                      
+00B8   0E20           00332         swapf   NumH,w                          ;Takes number in NumH:NumL 
+00B9   390F           00333                 andlw   0x0F                            ; Returns decimal in 
+00BA   3EF0           00334                 addlw   0xF0                            ; TenK:Thou:Hund:Tens:Ones             
+00BB   00A5           00335         movwf   Thou 
+00BC   07A5           00336         addwf   Thou,f 
+00BD   3EE2           00337         addlw   0xE2 
+00BE   00A6           00338         movwf   Hund 
+00BF   3E32           00339         addlw   0x32 
+00C0   00A8           00340         movwf   Ones 
+                      00341 
+00C1   0820           00342         movf    NumH,w 
+00C2   390F           00343         andlw   0x0F 
+00C3   07A6           00344         addwf   Hund,f 
+00C4   07A6           00345         addwf   Hund,f 
+00C5   07A8           00346         addwf   Ones,f 
+00C6   3EE9           00347         addlw   0xE9 
+00C7   00A7           00348         movwf   Tens 
+00C8   07A7           00349         addwf   Tens,f 
+00C9   07A7           00350         addwf   Tens,f 
+                      00351 
+00CA   0E21           00352         swapf   NumL,w 
+00CB   390F           00353         andlw   0x0F 
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00CC   07A7           00354         addwf   Tens,f 
+00CD   07A8           00355         addwf   Ones,f 
+                      00356 
+00CE   0DA7           00357         rlf     Tens,f 
+00CF   0DA8           00358         rlf     Ones,f 
+00D0   09A8           00359         comf    Ones,f 
+00D1   0DA8           00360         rlf     Ones,f 
+                      00361 
+00D2   0821           00362         movf    NumL,w 
+00D3   390F           00363         andlw   0x0F 
+00D4   07A8           00364         addwf   Ones,f 
+00D5   0DA5           00365         rlf     Thou,f 
+                      00366 
+00D6   3007           00367         movlw   0x07 
+00D7   00A4           00368         movwf   TenK 
+                      00369 
+                      00370                         ; At this point, the original number is 
+                      00371                         ; equal to TenK*10000+Thou*1000+Hund*100+Tens*10+Ones 
+                      00372                         ; if those entities are regarded as two's compliment 
+                      00373                         ; binary.  To be precise, all of them are negative 
+                      00374                         ; except TenK.  Now the number needs to be normal- 
+                      00375                         ; ized, but this can all be done with simple byte 
+                      00376                         ; arithmetic. 
+                      00377 
+00D8   300A           00378         movlw   0x0A     ; Ten 
+00D9                  00379 Lb1 
+00D9   07A8           00380         addwf   Ones,f 
+00DA   03A7           00381         decf    Tens,f 
+00DB   1C03           00382         btfss   3,0 
+00DC   28D9           00383          goto   Lb1 
+00DD                  00384 Lb2 
+00DD   07A7           00385         addwf   Tens,f 
+00DE   03A6           00386         decf    Hund,f 
+00DF   1C03           00387         btfss   3,0 
+00E0   28DD           00388          goto   Lb2 
+00E1                  00389 Lb3 
+00E1   07A6           00390         addwf   Hund,f 
+00E2   03A5           00391         decf    Thou,f 
+00E3   1C03           00392         btfss   3,0 
+00E4   28E1           00393          goto   Lb3 
+00E5                  00394 Lb4 
+00E5   07A5           00395         addwf   Thou,f 
+00E6   03A4           00396         decf    TenK,f 
+00E7   1C03           00397         btfss   3,0 
+00E8   28E5           00398          goto   Lb4 
+                      00399 
+00E9   3400           00400         retlw   0
+                      00401                 END
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ADEN                              00000003
+Are_they_equal                    0000002F
+BRGH                              00000002
+BiC                               0000002A
+BitCount                          0000002B
+BitLoop                           00000039
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CIS                               00000003
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000001F
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+Compare                           0000002D
+Convert                           000000B8
+CountA                            00000030
+CountB                            00000031
+CountC                            00000032
+Counter1                          0000002E
+Counter2                          0000002F
+DC                                00000001
+Delay1                            000000AC
+DeltaSigA2D                       00000058
+DiC                               00000029
+DigitCount                        0000002C
+Display                           00000078
+EEADR                             0000009B
+EECON1                            0000009C
+EECON2                            0000009D
+EEDATA                            0000009A
+EEIE                              00000007
+EEIF                              00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+Flash                             000000B3
+GIE                               00000007
+GetNextBit                        0000004B
+GetTemp                           00000034
+Hund                              00000026
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+InitDeltaSigA2D                   00000050
+LDL                               000000A6
+LDelay                            000000A4
+LP1                               00000093
+Lb1                               000000D9
+Lb2                               000000DD
+Lb3                               000000E1
+Lb4                               000000E5
+NOT_BO                            00000000
+NOT_BOD                           00000000
+NOT_BOR                           00000000
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NumH                              00000020
+NumL                              00000021
+OERR                              00000001
+OPTION_REG                        00000081
+OSCF                              00000003
+Ones                              00000028
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PIE1                              0000008C
+PIR1                              0000000C
+PORTA                             00000005
+PORTB                             00000006
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+ProbeH                            00000035
+ProbeL                            00000036
+RBIE                              00000003
+RBIF                              00000000
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RCSTA                             00000018
+RD                                00000000
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+SDL                               000000A0
+SDelay                            0000009E
+SLDelay                           000000AA
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+STATUS                            00000003
+SYNC                              00000004
+Scaler                            0000002D
+SetDigit                          00000088
+Shift                             00000090
+Start                             00000009
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRMT                              00000001
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TXSTA                             00000098
+TenK                              00000024
+Tens                              00000027
+Thou                              00000025
+UserH                             00000033
+UserL                             00000034
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             0000009F
+VREN                              00000007
+VROE                              00000006
+VRR                               00000005
+W                                 00000000
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_CP_50                            00002BFF
+_CP_75                            000017FF
+_CP_ALL                           000003FF
+_CP_OFF                           00003FFF
+_DATA_CP_OFF                      00003FFF
+_DATA_CP_ON                       00003EFF
+_ER_OSC_CLKOUT                    00003FFF
+_ER_OSC_NOCLKOUT                  00003FFE
+_EXTCLK_OSC                       00003FEF
+_HS_OSC                           00003FEE
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FEC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FED
+__16F628                          00000001
+comphigh                          00000060
+complow                           00000066
+counter                           00000022
+eat2cycles                        00000069
+eat5cycles                        00000072
+endloop                           0000006A
+exit                              00000075
+loop                              0000005E
+results16                         00000033
+MPASM 03.60 Released                   RENE MAIN6 COMPARE.ASM   12-3-2004  14:36:16         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+temp                              00000037
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXX------ ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   234
+Program Memory Words Free:  1814
+
+
+Errors   :     0
+Warnings :     1 reported,     0 suppressed
+Messages :     7 reported,     0 suppressed
+
+

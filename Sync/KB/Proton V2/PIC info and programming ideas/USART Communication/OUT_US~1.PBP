@@ -1,0 +1,278 @@
+	LIST
+;{
+;FILE F1 = C:\MYVEHI~1\PICBAS~1\USARTC~1\OUT_US~1.BAS
+;}
+;[Variable Listing]
+;VAR1,0027,DT_BYTE,1
+;[End Listing]
+	NOLIST
+;*******************************************************
+;*                 Code Produced by the                *
+;*             PROTON+ Compiler. Version 2.1.3         *
+;* Copyright Rosetta Technologies/Crownhill Associates *
+;*              Written by Les Johnson. 2003           *
+;*******************************************************
+	LIST
+ #define CONFIG_REQ 1
+	LIST  P = 16F877A,f = INHX8M ,w = 2, x = on, r = DEC, mm = ON, n = 0, c = 255
+	#include C:\PROGRA~1\CROWNH~1\INC\P16F877A.lpb
+XTAL = 4
+_CORE = 14
+_MAXRAM = 368
+_RAM_END = 0
+_MAXMEM = 8192
+_ADC = 8
+_ADC_RES = 10
+_EEPROM = 256
+_PAGES = 4
+_BANKS = 3
+RAM_BANKS = 4
+_USART = 1
+_USB = 0
+_FLASH = 1
+BANK0_START = 32
+BANK0_END = 127
+BANK1_START = 160
+BANK1_END = 239
+BANK2_START = 272
+BANK2_END = 367
+BANK3_START = 400
+BANK3_END = 495
+_SYSTEM_VARIABLE_COUNT = 7
+ram_bank = 0
+	__CONFIG XT_OSC&WDT_OFF&PWRTE_ON&BODEN_OFF&LVP_OFF&CP_OFF&DEBUG_OFF 
+f@call macro dest
+	if (dest < 1)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if (dest > $)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if ((dest & 6144) == 0)
+	clrf 10
+	else
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endif
+	endif
+	endif
+	call dest
+	endm
+f@jump macro dest
+	if (dest < 1)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if (dest > $)
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	else
+	if ((dest & 6144) == 0)
+	clrf 10
+	else
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endif
+	endif
+	endif
+	goto dest
+	endm
+set@page macro dest
+	if ((dest & 2048) == 0)
+	bcf 10,3
+	else
+	bsf 10,3
+	endif
+	if ((dest & 4096) == 0)
+	bcf 10,4
+	else
+	bsf 10,4
+	endif
+	endm
+s@b	macro varin
+	if((varin & 384) == 0)
+	if(ram_bank == 1)
+	bcf 3,5
+	endif
+	if(ram_bank == 2)
+	bcf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,5
+	bcf 3,6
+	endif
+ram_bank = 0
+	endif
+	if((varin & 384) == 128)
+	if(ram_bank == 0)
+	bsf 3,5
+	endif
+	if(ram_bank == 2)
+	bsf 3,5
+	bcf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,6
+	endif
+ram_bank = 1
+	endif
+	if((varin & 384) == 256)
+	if(ram_bank == 0)
+	bsf 3,6
+	endif
+	if(ram_bank == 1)
+	bcf 3,5
+	bsf 3,6
+	endif
+	if(ram_bank == 3)
+	bcf 3,5
+	endif
+ram_bank = 2
+	endif
+	if((varin & 384) == 384)
+	if(ram_bank == 0)
+	bsf 3,5
+	bsf 3,6
+	endif
+	if(ram_bank == 1)
+	bsf 3,6
+	endif
+	if(ram_bank == 2)
+	bsf 3,5
+	endif
+ram_bank = 3
+	endif
+	endm
+r@b	macro
+	if((ram_bank & 1) != 0)
+	bcf 3,5
+	endif
+	if((ram_bank & 2) != 0)
+	bcf 3,6
+	endif
+ram_bank = 0
+	endm
+	#include C:\PROGRA~1\CROWNH~1\INC\REG_LD14.INC
+BPF = 32
+BPFH = 33
+PP0 = 34
+PP0H = 35
+PP1 = 36
+PP1H = 37
+PP4 = 38
+HSERIAL_SPBRG = 6
+HSERIAL_TXSTA = 32
+HSERIAL_RCSTA = 144
+HSERIAL_BAUD = 9600
+	org 0
+	nop
+	movlw high Start@
+	movwf 10
+	goto Start@
+	org 4
+rsout@
+hrsout
+	btfss 12,TXIF
+	goto $ - 1
+	movwf 25
+	setc
+	goto i@nt
+dl@ms clrf 37
+dly@w movwf 36
+	movlw 255
+	addwf 36,f
+	skpc
+	addwf 37,f
+	skpc
+	goto i@nt
+	movlw 3
+	movwf 35
+	movlw 223
+	call dlus@w
+	goto $ - 10
+dl@us clrf 35
+dlus@w addlw 232
+	movwf 34
+	comf 35,f
+	movlw 252
+	skpc
+	goto $ + 4
+	addwf 34,f
+	skpnc
+	goto $ - 2
+	addwf 34,f
+	nop
+	incfsz 35,f
+	goto $ - 6
+	btfsc 34,0
+	goto $ + 1
+	btfss 34,1
+	goto $ + 3
+	nop
+	goto $ + 1
+	return
+i@nt bcf 3,7
+i@nt2 bcf 3,5
+	bcf 3,6
+	nop
+	return
+Start@
+	bsf 3,5
+	movlw 6
+	movwf 153
+	movlw 32
+	movwf 152
+	bcf 3,5
+	movlw 144
+	movwf 24
+	clrf 32

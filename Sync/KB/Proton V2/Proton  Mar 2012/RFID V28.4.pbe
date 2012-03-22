@@ -1,0 +1,27 @@
+18F4525,40008,1025,4
+Reminder! Line [98]	In file [C:\my Proton\Proton  Mar 2012\RFID V28.4_Lib.pbp]	*** SD_SSPSTAT Declared but never used ***
+Reminder! Line [78]	In file [C:\my Proton\Proton  Mar 2012\RFID V28.4_Lib.pbp]	*** SD_Dir_Direction Declared but never used ***
+Reminder! Line [62]	In file [C:\my Proton\Proton  Mar 2012\RFID V28.4_Lib.pbp]	*** SD_Cluster_Num_Prev Declared but never used ***
+Reminder! Line [126]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** Reset_Cause Declared but never used ***
+Reminder! Line [125]	In file [C:\my Proton\Proton  Mar 2012\INC\Initialize.inc]	*** MyNum Declared but never used ***
+Warning! Line [49]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\RESET_LOGGER.INC]	*** Value will overflow a BYTE size variable! ***
+Reminder! Line [13]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [16]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [21]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [24]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [32]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [43]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [50]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [62]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [72]	In file [C:\MY PROTON\PROTON  MAR 2012\RFID V28.4.BAS]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [23]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\READ TAG.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [58]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\READ TAG.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [78]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\READ SD.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [6]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\GOSLEEP.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [19]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\GOSLEEP.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [6]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\STARTUNIT.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+Reminder! Line [17]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\WRITE_M_SD.INC]	*** Ensure that the assignment String is large enough to accomodate all the characters! ***
+Reminder! Line [47]	In file [C:\MY PROTON\PROTON  MAR 2012\INC\RESET_LOGGER.INC]	*** Pause is recognised in Proton+ but it's more appropriate to use DelayMs! ***
+	PROGRAM COMPILED WITH WARNINGS. 40008 Bytes used from a possible 49152
+	1025 Variables used in the 18F4525 from a possible 3968
+	THERE ARE WARNINGS!

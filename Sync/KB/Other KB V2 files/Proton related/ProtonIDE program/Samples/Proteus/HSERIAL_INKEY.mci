@@ -1,0 +1,26 @@
+[Project]
+Filename=C:\Plus_Source\IDE\Samples\PROTEUS\HSERIAL_INKEY.bas
+[Environment]
+CaretX=6
+CaretY=23
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=1
+[Results]
+Visible=0
+Height=117
+View=1
+[Status]
+Message=Ready
+Image=0
+[Labcenter Electronics PROTEUS VSM...]
+PopUpName=Virtual Hardware Boards
+PopUpImageIndex=1
+ParamDefaultName=VHB Explorer
+ParamFileValidate=1
+Param0=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN
+ParamSelected=$PLUGIN\VHBExplorer\VHBoards\PIC16_ALCD_VHB.DSN

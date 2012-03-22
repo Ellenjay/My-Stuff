@@ -1,0 +1,13 @@
+
+'===============Move Last Spot into Spot to be erased=========================
+MoveSpot:			 PT1 = PT1 - 16
+					 GoSub WritePointers 
+					 
+					 For Index = 0 to 15
+					 B1 = EREAD PT1 + Index
+					 EWRITE Index2 + Index, [B1]
+					 Next
+					 B1 = "C"
+Return
+
+'...............End of Move last spot.........................................

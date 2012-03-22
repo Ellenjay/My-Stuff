@@ -1,0 +1,281 @@
+;Oscillator Selection:
+[OSC]
+LP_OSC,Low Power (KHz)
+HS_OSC,High Speed (Over 4MHz)
+XT_OSC,Low Power (Under 4MHz)
+RC_OSC,Resistor/Capacitor
+
+EC_OSC,External Clock
+H4_OSC,High Speed Crystal/Resonator (PLL enabled)
+E4_OSC,External Clock (PLL Enabled)
+
+RC_OSC_CLKOUT,RC - Clock Out Pin is Clock Out 
+RC_OSC_NOCLKOUT,RC - Clock Out pin is I/O
+
+INTRC_OSC_CLKOUT,Internal RC - Clock Out Pin is Clock Out
+INTRC_OSC_NOCLKOUT,Internal RC - Clock Out Pin is I/O
+
+IntRC_OSC,Internal RC
+ExtRC_OSC,External RC
+EXTRC_OSC_CLKOUT,External RC - Clock Out Pin is Clock Out
+EXTRC_OSC_NOCLKOUT,External RC, Clock Out Pin is I/O
+
+IntRC_OSC_RB4EN,Internal RC - RB4 is I/O
+IntRC_OSC_CLKOUTEN,Internal RC - RB4 is Clock Out
+ExtRC_OSC_RB4EN,External RC - RB4 is I/O
+ExtRC_OSC_CLKOUTEN,External RC - RB4 is Clock Out
+
+INTRC_IO,Internal RC - Clock Out Pin is I/O
+INTRC_CLKOUT,Internal RC - Clock Out Pin is Clock Out
+EXTRC_IO,External RC - Clock Out Pin is I/O
+EXTRC_CLKOUT,External RC - Clock Out Pin is Clock Out
+
+EXTCLK,External Clock
+EXTCLK_OSC,External Oscillator
+
+#IFN 16F627A OR 16F628A OR 16F648A
+ER_OSC_CLKOUT,External R - Clock Out Pin is Clock out
+ER_OSC_NOCLKOUT,External R - Clock Out Pin is I/O
+#END
+
+;Fail Safe Clock Monitor:
+[FCM]
+FCMEN_ON,Enabled
+FCMEN_OFF,Disabled
+
+;Internal/External Switch Over:
+[IESO]
+IESO_ON,Enabled
+IESO_OFF,Disabled
+
+;Power-up Timer:
+[PWRTE]
+PWRTE_ON,Enabled
+PWRTE_OFF,Disabled
+
+;Watchdog Timer:
+[WDT]
+WDTE_ON,Enabled
+WDTE_OFF,Disabled
+WDT_ON,Enabled
+WDT_OFF,Disabled
+
+;Data Code Protection:
+[CPD]
+CPD_ON,Enabled
+CPD_OFF,Disabled
+DP_ON,Enabled
+DP_OFF,Disabled
+DATA_CP_ON,Enabled
+DATA_CP_OFF,Disabled
+CPD,Enabled
+
+;Program Code Protection:
+[CP]
+CP_ON,All Code Protected
+CP_OFF,Disabled
+#IFN 16F716
+CP_ALL,All Code Protected
+#END
+CP_75,See Data Sheet
+CP_HALF,See Data Sheet
+CP_UPPER,See Data Sheet
+CP_UPPER_256,See Data Sheet
+CP,Enabled
+#IFN 12CE673 Or 12C671
+CP_50,See Data Sheet
+#END
+
+;Master Clear Enable:
+[MCLRE]
+MCLRE_ON,Enabled
+MCLRE_OFF,Disabled
+#IFN 16F818 OR 16F819
+MCLR_ON,Enabled
+MCLR_OFF,Disabled
+#END
+
+;Master Clear Pull-up:
+[MCPU]
+MCPU_ON, Enabled
+MCPU_OFF, Disabled
+
+;Brown-out Detect:
+[BOD]
+BOD_ON,Enabled
+BOD_OFF,Disabled 
+BOD_NSLEEP,Enabled in Run - Disabled in Sleep
+BOD_SBODEN,SBODEN controls BOR 
+BODEN_ON,Enabled
+BODEN_OFF,Disabled
+BODEN,Enabled
+
+;Brown-out Reset:
+[BOR]
+BOR_ON,Enabled 
+BOR_OFF,Disabled 
+BOR_NSLEEP,Enabled in Run - Disabled in Sleep
+BOR_SBODEN,SBODEN controls BOR
+BOR_SBOREN,SBOREN controls BOR
+BOREN_ON,Enabled
+BOREN_OFF,Disabled
+BOREN_0,See Data Sheet
+BOREN_1,See Data Sheet
+
+;Brown-out Voltage:
+[BOV]
+VBOR_20,2V 
+VBOR_2_0,2V
+BOR21V,2.1V
+VBOR_25,2.5V
+VBOR_2_5,2.5V
+VBOR_27,2.7V
+VBOR_2_7,2.7V
+VBOR_40,4.0V
+VBOR_4_0,4.0V
+BOR40V,4.0V
+VBOR_42,4.2V
+VBOR_4_2,4.2V
+VBOR_45,4.5V
+VBOR_4_5,4.5V
+
+;Wake Up Reset:
+[WUREN]
+WUREN_ON,Enabled
+WUREN_OFF,Disabled
+
+;Low Voltage Programming:
+[LVP]
+LVP_ON,Enabled
+LVP_OFF,Disabled
+
+;Background Debugger:
+[DEBUG]
+DEBUG_ON,Enabled
+DEBUG_OFF,Disabled
+
+;Parity Error Reset:
+[MPEEN]
+MPEEN_ON,Enabled
+MPEEN_OFF,Disabled
+
+;Internal Oscillator Frequency:
+[IOSCFS]
+IOSCFS_8MHZ,8MHz
+IOSCFS_4MHZ,4MHz
+IOSCFS_ON,8MHz
+IOSCFS_OFF,4MHz
+
+;Capture and Compare Module 1:
+[CCP1]
+CCP1_RB0,Multiplex with RB0
+CCP1_RB2,Multiplex with RB2
+CCP1_RB3,Multiplex with RB3
+
+;Capture and Compare Module 2:
+[CCP2]
+CCP2_RC1,Multiplex with RC1
+CCP2_RB3,Multiplex with RB3
+
+;Flash Write Protect:
+[WRT]
+WRT_PROTECT_ALL,All flash protected
+WRT_PROTECT_256,See Data Sheet
+WRT_PROTECT_2048,See Data Sheet
+WRT_PROTECT_OFF,No flash protected
+WRT_256,See Data Sheet
+WRT_1FOURTH,See Data Sheet
+WRT_HALF,See Data Sheet
+WRT_OFF,No flash protected
+WRT_ENABLE_ON,All flash protected
+WRT_ENABLE_512,See Data Sheet
+WRT_ENABLE_1024,See Data Sheet
+WRT_ENABLE_1536,See Data Sheet
+WRT_ENABLE_OFF,No flash protected
+
+;Software Brown Out Reset:
+[BORSEN]
+BORSEN_1,See Data Sheet
+BORSEN_0,See Data Sheet
+
+[DEFAULTFUSEVALUES]
+10F***,0X0FFF
+12C508,0X0FFF
+12C508A,0X0FFF
+12C509,0X0FFF
+12C509A,0X0FFF
+12CE518,0X0FFF
+12CE519,0X0FFF
+12F508,0X0FFF
+12F509,0X0FFF
+12F510,0X0FFF
+
+16C62,0X3FBF
+16C64,0X3FBF
+16C65,0X3FBF
+16C73,0X3FBF
+16C74,0X3FBF
+
+16C505,0X0FFF
+16C54,0X0FFF
+16C54A,0X0FFF
+16C54B,0X0FFF
+16C54C,0X0FFF
+16C55,0X0FFF
+16C55A,0X0FFF
+16C56,0X0FFF
+16C56A,0X0FFF
+16C57,0X0FFF
+16C57C,0X0FFF
+16C58A,0X0FFF
+16C58B,0X0FFF
+
+16CR54,0X0FFF
+16CR54A,0X0FFF
+16CR57A,0X0FFF
+16CR57B,0X0FFF
+16CR57C,0X0FFF
+16CR58A,0X0FFF
+16CR58B,0X0FFF
+
+16F54,0X0FFF
+16F57,0X0FFF
+16F506,0X0FFF
+
+F509AF,0X0FFF
+F509AG,0X0FFF
+
+DEFFUSEVAL,0X3FFF
+
+[DEVICEFORMATS]
+16F87,FMT1
+16F88,FMT1
+
+16F882,FMT2
+16F883,FMT2
+16F884,FMT2
+16F887,FMT2
+
+16F737,FMT3
+16F747,FMT3
+16F767,FMT3
+16F777,FMT3
+
+DEFFMT,FMT4
+
+[FORMATSPECS]
+;     Header-------Prefix line1-----Exclude---CR-Prefix line 2
+FMT1,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-FCM,-IESO]",\n, "@__CONFIG _CONFIG2," , "[+FCM, +IESO]"
+FMT2,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-BOV,-WRT]",\n, "@__CONFIG _CONFIG2," , "[+BOV, +WRT]"
+FMT3,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-FCM,-IESO,-BORSEN]",\n, "@__CONFIG _CONFIG2," , "[+FCM, +IESO, +BORSEN]"
+FMT4,,CONFIG,">,",[]
+
+;FMT1,"Reminders = Off",\n,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-FCM,-IESO]",\n, "@__CONFIG _CONFIG2," , "[+FCM, +IESO]",\n,"Reminders = On"
+;FMT2,"Reminders = Off",\n,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-BOV,-WRT]",\n, "@__CONFIG _CONFIG2," , "[+BOV, +WRT]",\n,"Reminders = On"
+;FMT3,"Reminders = Off",\n,@CONFIG_REQ ,\n, "@__CONFIG _CONFIG1," , "> &","[-FCM,-IESO,-BORSEN]",\n, "@__CONFIG _CONFIG2," , "[+FCM, +IESO, +BORSEN]",\n,"Reminders = On"
+;FMT4,"Reminders = Off",\n,,CONFIG,">,",[],\n,"Reminders = On"
+
+[END] 
+
+
+

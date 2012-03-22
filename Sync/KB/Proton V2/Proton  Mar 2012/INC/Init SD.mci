@@ -1,0 +1,19 @@
+[Project]
+Filename=C:\my Proton\Proton  Jan 2012\INC\Init SD.inc
+[Environment]
+CaretX=14
+CaretY=23
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=0
+[Results]
+Visible=0
+Height=117
+View=1
+[Status]
+Message=Compiling, please wait...
+Image=1

@@ -1,0 +1,15 @@
+
+Checking Pins and Pin Connections
+
+--------------------------------------------------
+Checking Schematic: SCHEMATIC1
+--------------------------------------------------
+Checking Electrical Rules 
+
+Checking for Unconnected Nets
+
+Checking for Invalid References
+[DRC0011]  Reference is invalid for this part Computer IN
+                    SCHEMATIC1, ELM327 Schematic  (14.20, 4.50) 
+
+Checking for Duplicate References

@@ -1,0 +1,34 @@
+[PDF]
+Version=1.0
+[Package Definition]
+Product=IOOcx
+Version=1.0.0
+Comment=IOOcx
+SetupVariations=Automated, Manual, Uninstall
+[Automated Setup]
+CommandLine=SETUP.EXE -s -sms -m
+CommandName=Automated
+UserInputRequired=FALSE
+SupportedPlatforms=Windows95, Windows NT (x86)
+[Manual Setup]
+CommandLine=SETUP.EXE
+CommandName=Manual
+UserInputRequired=TRUE
+SupportedPlatforms=Windows95, Windows NT (x86)
+[Uninstall Setup]
+CommandLine=UNSTUB.EXE "IOOcx"
+CommandName=Uninstall
+UserInputRequired=FALSE
+SupportedPlatforms=Windows95
+[Setup Package for Sharing]
+ShareName=IOOcxsh
+ShareAccess=UserRead, UserWrite, GuestRead, GuestWrite
+[Program Item Properties 1]
+CommandLine=IOOcx.ocx
+Description=IOOcx
+ConfigurationScript=setup.exe -s -sms
+RunMinimized=FALSE
+RunLocalCopylfPresent=FALSE
+DriveMode=UNC
+SupportedPlatforms=Windows95
+DisplayIconInProgGroup=TRUE

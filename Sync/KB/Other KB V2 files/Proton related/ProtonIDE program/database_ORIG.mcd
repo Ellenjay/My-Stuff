@@ -1,0 +1,3711 @@
+' ****************************************************
+' * Proton Development Suite                         *
+' * IDE Highlighter Database                         *
+' *                                                  *
+' * Version  : 1.0                                   *
+' * Date     : 24th August 2004                      *
+' * Modified : 15th October 2004                     *
+' *          : 29th November 2004                    *
+' *          : 10th February 2005                    *
+' *          : 7th March 2005                        *
+' *          : 22nd June 2005 (LJ)                   *
+' *          : 30th Jan 2006 (DJB)
+' * Author   : David John Barker                     *
+' *          : Les Johnson                           *
+' *                                                  *
+' * Notes    :         === Warning ===               *
+' *          :                                       *
+' *          : Editing this database may impact on   *
+' *          : the operation of the IDE. Always make *
+' *          : a backup before performing changes.   *
+' *          :                                       *
+' ****************************************************
+
+DATABASE
+
+' *********************************
+' * COMPILER DEFAULT (LITE)
+' *********************************
+'Core    = dc14
+'Device  = "16F628A"
+'OSC     = 4
+'Override = false
+
+' *********************************
+' * COMPILER DEFAULT (FULL)
+' *********************************
+
+Core     = dc14
+Device   = "16F84"
+OSC      = 4
+Override = false
+
+' *********************************
+' * Keywords
+' * Current highlighter types:
+' *    Keyword
+' *    KeywordUser
+' *    KeywordDeclare
+' *    KeywordASM
+' *    KeywordMacro
+' *    KeywordImportant
+' *
+' *********************************
+
+KEY ("NUM8") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("NUM16") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("NUM32") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("SNUM8") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("SNUM16") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("SNUM32") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+ENDKEY
+
+KEY ("Include") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>INCLUDE</b> <i>&quot;Filename&quot;</i>"
+   Help = "ProtonIDE.chm" -> "hs1369.htm"
+ENDKEY
+
+KEY ("ALPHANUMERIC") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Choose an alphanumeric LCD based upon the Hitachi HD44780 chipset </i>"
+   Help = ""
+ENDKEY
+
+KEY ("Auto")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = ""
+ENDKEY
+
+KEY ("And")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs535.htm"
+ENDKEY
+
+KEY ("Or")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs535.htm"
+ENDKEY
+
+KEY ("Not")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs535.htm"
+ENDKEY
+
+KEY ("Abs")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>ABS</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2439.htm"
+ENDKEY
+
+KEY ("ACos") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>ACOS</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2525.htm"
+ENDKEY
+
+KEY ("ADIn") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>ADIN</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs550.htm"
+ENDKEY
+
+KEY ("As") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>AS</b><i> BIT or BYTE or WORD or DWORD or FLOAT or STRING</i><br><b>AS</b> <i>ConstantExpression</i><br><b>AS</b><i> AliasName</i>"
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("ASIn") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>ASIN</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2523.htm"
+ENDKEY
+
+KEY ("ATan")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>ATAN</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2521.htm"
+ENDKEY
+
+KEY ("At")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>AT</b> <i>Ypos, Xpos</i>"   
+   Help = "ProtonIDE.chm" -> "hs1789.htm"
+ENDKEY
+
+KEY ("BIN","BIN1","BIN2","BIN3","BIN4","BIN5","BIN6","BIN7",
+     "BIN8","BIN9","BIN10","BIN11","BIN12","BIN13","BIN14","BIN15", 
+     "BIN16","BIN17","BIN18","BIN19","BIN20","BIN21","BIN22","BIN23",
+     "BIN24","BIN25","BIN26","BIN27","BIN28","BIN29","BIN30","BIN31")   
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BIN..BIN31</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("Bit", "Byte", "Word")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("BYTE0")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("BYTE1")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("BYTE2")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("BYTE3")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("WORD0")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("WORD1")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("DWord")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("Float")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("String")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs531.htm"
+ENDKEY
+
+KEY ("Box") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BOX</b> <i>Set_Clear, Xpos Centre, Ypos Centre, Size</i>"
+   Help = "ProtonIDE.chm" -> "hs684.htm"
+ENDKEY
+
+KEY ("Branch")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BRANCH</b> <i>Value or Variable or Expression, [Label {,Label}]</i>"
+   Help = "ProtonIDE.chm" -> "hs590.htm"
+ENDKEY
+
+KEY ("BranchL") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BRANCHL</b> <i>Value or Variable or Expression, [Label {,Label}]</i>"
+   Help = "ProtonIDE.chm" -> "hs610.htm"
+ENDKEY
+
+KEY ("Break") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BREAK</b><br><br><i><font color='#008000'>Exit a <b>FOR, WHILE</b> or <b>REPEAT</b> loop</font></i>"
+   Help = "ProtonIDE.chm" -> "hs615.htm"
+ENDKEY
+
+KEY ("BREStart") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BRESTART</b><br><br><i><font color='#008000'>Send a <b>RESTART</b> command to I2C</font></i>"
+   Help = "ProtonIDE.chm" -> "hs627.htm"
+ENDKEY
+
+KEY ("BStart") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BSTART</b><br><br><i><font color='#008000'>Send a <b>START</b> command to I2C</font></i>"
+   Help = "ProtonIDE.chm" -> "hs620.htm"
+ENDKEY
+
+KEY ("BStop") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BSTOP</b><br><br><i><font color='#008000'>Send a <b>STOP</b> command to I2C</font></i>"
+   Help = "ProtonIDE.chm" -> "hs625.htm"
+ENDKEY
+
+KEY ("BusAck") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BUSACK</b><br><br><i><font color='#008000'>Send an <b>ACKNOWLEDGE</b> command to I2C</font></i>"
+   Help = "ProtonIDE.chm" -> "hs629.htm"
+ENDKEY
+
+KEY ("BusIn") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>BUSIN</b><br><b>BUSIN</b> <i>Variable</i><br><i>Variable = </i><b>BUSIN</b> <i>Control, {Address}</i><br><b>BUSIN</b><i> Control, {Address}, [Variable {, Variable}]</i>"
+   Help = "ProtonIDE.chm" -> "hs649.htm"
+ENDKEY
+
+KEY ("BusOut")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BUSOUT</b> <i>Variable</i><br><b>BUSOUT</b> <i>Control, {Address,} [Data {, Data}]</i>"
+   Help = "ProtonIDE.chm" -> "hs669.htm"
+ENDKEY
+
+KEY ("Button") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>BUTTON</b> <i>Port, DownState, Delay, Rate, WorkspaceVariable, TargetState, BranchLabel</i>"
+   Help = "ProtonIDE.chm" -> "hs679.htm"
+ENDKEY
+
+KEY ("Call") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CALL</b> <i>Label</i>"
+   Help = "ProtonIDE.chm" -> "hs560.htm"
+ENDKEY
+
+KEY ("Case") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CASE</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2044.htm"
+ENDKEY
+
+KEY ("CData") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CDATA</b> <i>Value or Variable or ConstantExpression</i>"
+   Help = "ProtonIDE.chm" -> "hs689.htm"
+ENDKEY
+
+KEY ("CErase") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+ENDKEY
+
+KEY ("CF_Init") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CF_Init</b>"
+   Help = "ProtonIDE.chm" -> "hs703.htm"
+ENDKEY
+
+KEY ("CF_Sector") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CF_Sector</b> <i>Sector Number, READ or WRITE, Amount of Sectors</i>"
+   Help = "ProtonIDE.chm" -> "hs700.htm"
+ENDKEY
+
+KEY ("CF_Read") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>CF_Read</b>"
+   Help = "ProtonIDE.chm" -> "hs702.htm"
+ENDKEY
+
+KEY ("CF_Write") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CF_Write</b> <i>Address Data</i>,[<i>Variable, {Variable,Variable,etc}</i>]<br><b>CF_Write</b> [<i>Variable, {Variable,Variable,etc}</i>]<br><b>CF_Write</b> <i>Address Data</i>,[ ]"
+   Help = "ProtonIDE.chm" -> "hs701.htm"
+ENDKEY
+
+KEY ("Circle") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CIRCLE</b> <i>Set_Clear, Xpos, Ypos, Radius</i>"
+   Help = "ProtonIDE.chm" -> "hs699.htm"
+ENDKEY
+
+KEY ("Clear")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CLEAR<b><br><b>CLEAR</b> <i>Variable or PortBit</i>"
+   Help = "ProtonIDE.chm" -> "hs709.htm"
+ENDKEY
+
+KEY ("ClearBit") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CLEARBIT</b> <i>Variable, Index</i>"   
+   Help = "ProtonIDE.chm" -> "hs719.htm"
+ENDKEY
+
+KEY ("Cls")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CLS</b><br><br><i><font color='#008000'>Clears the alphanumeric or graphic LCD</font></i>"
+   Help = "ProtonIDE.chm" -> "hs729.htm"
+ENDKEY
+
+KEY ("Config") 
+   DeviceCore = [dc12, dc14]
+   Highlighter = Keyword
+   Hint = "<b>CONFIG</b> <i>FuseSetting {, FuseSetting}</i>"
+   Help = "ProtonIDE.chm" -> "hs749.htm"
+ENDKEY
+
+KEY ("Context") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CONTEXT <font color='808080'>SAVE</font></b><br><b>CONTEXT <font color='808080'>RESTORE</font></b>"
+   Help = "ProtonIDE.chm" -> "hs1589.htm"
+ENDKEY
+
+KEY ("Cos") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>COS</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2449.htm"
+ENDKEY
+
+KEY ("Counter") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>COUNTER</b> <i>PortPin, Period</i>"
+   Help = "ProtonIDE.chm" -> "hs769.htm"
+ENDKEY
+
+KEY ("CRead") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>CREAD</b> <i>Address</i>"
+   Help = "ProtonIDE.chm" -> "hs789.htm"
+ENDKEY
+
+KEY ("CStr") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+ENDKEY
+
+KEY ("Cursor") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CURSOR</b> <i>Line, Position</i>"
+   Help = "ProtonIDE.chm" -> "hs809.htm"
+ENDKEY
+
+KEY ("CWrite")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>CWRITE</b> <i>Address, [Variable {, Variable}]</i>"
+   Help = "ProtonIDE.chm" -> "hs829.htm"
+ENDKEY
+
+KEY ("Data") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DATA</b> <i>Value or Variable or ConstantExpression</i>"
+   Help = "ProtonIDE.chm" -> "hs849.htm"
+ENDKEY
+
+KEY ("Debug") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b><font color='808080'>ON</font> DEBUG <font color='808080'>GOTO</font></b> <i>SoftwareDebugLabel</i>"
+ENDKEY
+
+KEY ("Dec")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1384.htm"
+ENDKEY
+
+KEY ("DEC1")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC1</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC2")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC2</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC3")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC3</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC4")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC4</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC5")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC5</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC6")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC6</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC7")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC7</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC8</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC9")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC9</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("DEC10")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEC10</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("Declare") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs869.htm"
+ENDKEY
+
+KEY ("DelayMS") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DELAYMS</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs889.htm"
+ENDKEY
+
+KEY ("DelayUS") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DELAYUS</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs909.htm"
+ENDKEY
+
+KEY ("Device")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DEVICE</b> <i>= PIC Microcontroller Name</i>"
+   Help = "ProtonIDE.chm" -> "hs929.htm"
+ENDKEY
+
+KEY ("Dig") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>DIG</b> <i>Value, Digit Number</i><br><i>Variable = </i><b>DIG</b> <i>Digit Number <font color='008000'>(Stamp Version)</font></i>"
+   Help = "ProtonIDE.chm" -> "hs949.htm"
+ENDKEY
+
+KEY ("DCD") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>DCD</b> <i>Value</i>"
+   Help = "ProtonIDE.chm" -> "hs2459.htm"
+ENDKEY
+KEY ("Dim") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DIM</b> <i>VariableName</i>"
+   Help = "ProtonIDE.chm" -> "hs969.htm"
+ENDKEY
+
+KEY ("Disable") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DISABLE <font color='808080'>INTERRUPT</font></b><br><b>DISABLE <font color='808080'>DEBUG</font></b>"
+   Help = "ProtonIDE.chm" -> "hs545.htm"
+ENDKEY
+
+KEY ("Div32") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DIV32</b> <i>Value or Variable or Expression<br><br><i><font color='008000'>This operand provides compatibility with the microEngineering Labs<br>PICBasic compiler. PROTON provides 32-bit integer and floating point<br>capability, making the DIV32 instruction obsolete for all new code</font></i>"
+   Help = "ProtonIDE.chm" -> "div32.html"
+ENDKEY
+
+KEY ("DTMFOut") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>DTMFOUT</b> <i>PortPin, {OnTime}, {OffTime,} [Tone{, Tone}]</i>"
+   Help = "ProtonIDE.chm" -> "hs989.htm"
+ENDKEY
+
+KEY ("EData") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>EDATA</b> <i>Value or Variable or ConstantExpression</i>"
+   Help = "ProtonIDE.chm" -> "hs1009.htm"
+ENDKEY
+
+KEY ("Else") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ELSE</b> <i> {Instructions}</i>"
+   Help = "ProtonIDE.chm" -> "hs1349.htm"
+ENDKEY
+
+KEY ("ElseIf") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ELSEIF</b> <i>Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1349.htm"
+ENDKEY
+
+KEY ("Enable") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ENABLE <font color='808080'>INTERRUPT</font></b><br><b>ENABLE <font color='808080'>DEBUG</font></b>"
+   Help = "ProtonIDE.chm" -> "hs547.htm"
+ENDKEY
+
+KEY ("End") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1029.htm"
+ENDKEY
+
+KEY ("EndSelect") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2044.htm"
+ENDKEY
+
+KEY ("EndIf")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1349.htm"
+ENDKEY
+
+KEY ("ERead") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>EREAD</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1049.htm"
+ENDKEY
+
+KEY ("EStr") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs531.htm"
+ENDKEY
+
+KEY ("EWrite") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>EWRITE</b> <i>Address, [Variable {, Variable}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1069.htm"
+ENDKEY
+
+KEY ("Exp")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>EXP</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2474.htm"
+ENDKEY
+
+KEY ("Exp10")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>EXP10</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("Font")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>FONT</b> <i>Value or Variable <font color='008000'>(Used only in PRINT)</font></i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"
+ENDKEY
+
+KEY ("For")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>FOR</b> <i>Variable = Startcount</i> <b><font color='808080'>TO</font></b> <i>Endcount [</i><b><font color='808080'>STEP</font></b> <i>{StepValue}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1089.htm"
+ENDKEY
+
+KEY ("FreqOut")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>FREQOUT</b> <i>PortPin, Period, Freq1 {,Freq2}</i>"
+   Help = "ProtonIDE.chm" -> "hs1109.htm"
+ENDKEY
+
+KEY ("GetBit")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>GETBIT</b> <i>Variable, Index</i>"
+   Help = "ProtonIDE.chm" -> "hs1119.htm"
+ENDKEY
+
+KEY ("GoSub")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>GOSUB</b> <i>Label</i><br><b>GOSUB</b> <i>[ParamVariable {, ParamVariable}], ReturnVariable</i>"
+   Help = "ProtonIDE.chm" -> "hs1129.htm"
+ENDKEY
+
+KEY ("GoTo")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>GOTO</b><i> Label</i><br><b><font color='#808080'>ON</b><i> IndexVariable </i></font><b>GOTO</b><i> Label {, Label}</i>"
+   Help = "ProtonIDE.chm" -> "hs1149.htm"
+ENDKEY
+
+KEY ("GoToL")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>GOTOL</b><i> Label</i><br><b><font color='#808080'>ON</b><i> IndexVariable </i></font><b>GOTOL</b><i> Label {, Label}</i>"
+   Help = "ProtonIDE.chm" -> "hs1606.htm"
+ENDKEY
+
+KEY ("HBREStart")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HBRESTART</b><br><br><i><font color='#008000'>Send a <b>RESTART</b> command to I2C using MSSP</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1209.htm"
+ENDKEY
+
+KEY ("HBStart")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HBSTART</b><br><br><i><font color='#008000'>Send a <b>START</b> command to I2C using MSSP</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1169.htm"
+ENDKEY
+
+KEY ("HBStop") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HBSTOP</b><br><br><i><font color='#008000'>Send a <b>STOP</b> command to I2C using MSSP</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1189.htm"
+ENDKEY
+
+KEY ("HBusAck")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HBUSACK</b><br><br><i><font color='#008000'>Send an <b>ACKNOWLEDGE</b> command to I2C using MSSP</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1229.htm"
+ENDKEY
+
+KEY ("HBusIn")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint =  "<b>HBUSIN</b> <i>Variable</i><br><b>HBUSIN</b> <i>Control, {Address}, [Variable {, Variable}]</i><br><i>Variable = </i><b>HBUSIN</b><br><i>Variable = </i><b>HBUSIN</b> <i>Control , {Address}</i>"
+   Help = "ProtonIDE.chm" -> "hs1249.htm"
+ENDKEY
+
+KEY ("HBusOut") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HBUSOUT</b> <i>Variable</i><br><b>HBUSOUT</b> <i>Control, {Address}, [OutputData]</i>"
+   Help = "ProtonIDE.chm" -> "hs1269.htm"
+ENDKEY
+
+KEY ("HEX", "HEX1", "HEX2", "HEX3", "HEX4", "HEX5", "HEX6", "HEX7", "HEX8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HEX..HEX8</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("High")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HIGH</b> <i>Port</i><br><b>HIGH</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs1289.htm"
+ENDKEY
+
+KEY ("HighByte")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs380.htm"
+ENDKEY
+
+KEY ("HighWord")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs380.htm"
+ENDKEY
+
+KEY ("HPWM") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>HPWM</b> <i>Channel, Dutycycle, Frequency</i>"
+   Help = "ProtonIDE.chm" -> "hs1299.htm"
+ENDKEY
+
+KEY ("HRSin") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>HRSIN</b> <i>{Timeout, TimeoutLabel}</i><br><b>HRSIN</b> <i>{Timeout, TimeoutLabel}, {ParityErrorLabel}, Modifiers, Variable {, Variable}</i>"
+   Help = "ProtonIDE.chm" -> "hs1309.htm"
+ENDKEY
+
+KEY ("HRSOut")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HRSOUT</b> <i>Item {, Item}</i>"
+   Help = "ProtonIDE.chm" -> "hs1329.htm"
+ENDKEY
+
+KEY ("HRSIn2")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>HRSIN2</b> <i>{,Timeout, TimeoutLabel}</i><br><b>HRSIN2</b> <i>{Timeout, TimeoutLabel}, {ParityErrorLabel}, Modifiers, Variable {, Variable}</i>"
+   Help = "ProtonIDE.chm" -> "hs1309.htm"
+ENDKEY
+
+KEY ("HRSOut2")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HRSOUT2</b> <i>Item {, Item}</i>"
+   Help = "ProtonIDE.chm" -> "hs1329.htm"
+ENDKEY
+
+KEY ("HSerIn")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HSERIN</b> <i>{Timeout,} {TimeoutLabel,}  {ParityErrorLabel,} [{Modifier} Variable {, {Modifier} Variable}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1339.htm"
+ENDKEY
+
+KEY ("HSerOut")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HSEROUT</b> <i>[Item {,Item}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1329.htm"
+ENDKEY
+
+KEY ("HSerIn2") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<b>HSERIN2</b> <i>{Timeout,} {TimeoutLabel,}  {ParityErrorLabel,} [{Modifier} Variable {, {Modifier} Variable}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1339.htm"
+ENDKEY
+
+KEY ("HSerOut2")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<b>HSEROUT2</b> <i>[Item {,Item}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1329.htm"
+ENDKEY
+
+KEY ("IBIN", "IBIN1", "IBIN2", "IBIN3", "IBIN4", "IBIN5", "IBIN6", "IBIN7",
+     "IBIN8", "IBIN9", "IBIN10", "IBIN11", "IBIN12", "IBIN13", "IBIN14", "IBIN15", 
+     "IBIN16", "IBIN17", "IBIN18", "IBIN19", "IBIN20", "IBIN21", "IBIN22", "IBIN23", 
+     "IBIN24", "IBIN25", "IBIN26", "IBIN27", "IBIN28", "IBIN29", "IBIN30", "IBIN31")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>IBIN..IBIN31</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("If")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>IF</b> <i>Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1349.htm"
+ENDKEY
+
+KEY ("IHEX", "IHEX1", "IHEX2", "IHEX3", "IHEX4", "IHEX5", "IHEX6", "IHEX7", "IHEX8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>IHEX..IHEX8</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("Inc")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>INC</b> <i>Variable</i>"
+   Help = "ProtonIDE.chm" -> "hs1379.htm"
+ENDKEY
+
+KEY ("InKey") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>INKEY</b>"
+   Help = "ProtonIDE.chm" -> "hs1389.htm"
+ENDKEY
+
+KEY ("Input") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>INPUT</b> <i>Port</i><br><b>INPUT</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs1409.htm"
+ENDKEY
+
+KEY ("Interrupt") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b><font color='#808080'>ON</font> INTERRUPT <font color='#808080'>GOTO</font></b> <i>SoftwareInterruptLabel</i>"
+   Help = "ProtonIDE.chm" -> "hs540.htm"
+ENDKEY
+
+KEY ("Inverse") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Help = "ProtonIDE.chm" -> "hs1789.htm"
+ENDKEY
+
+KEY ("ISBIN", "ISBIN1", "ISBIN2", "ISBIN3", "ISBIN4", "ISBIN5", "ISBIN6", "ISBIN7",
+     "ISBIN8", "ISBIN9", "ISBIN10", "ISBIN11", "ISBIN12", "ISBIN13", "ISBIN14", "ISBIN15",
+     "ISBIN16", "ISBIN17", "ISBIN18", "ISBIN19", "ISBIN20", "ISBIN21", "ISBIN22", "ISBIN23",
+     "ISBIN24", "ISBIN25", "ISBIN26", "ISBIN27", "ISBIN28", "ISBIN29", "ISBIN30", "ISBIN31")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ISBIN..ISBIN31</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("ISDEC", "ISDEC1", "ISDEC2", "ISDEC3", "ISDEC4", "ISDEC5", "ISDEC6", "ISDEC7","ISDEC8", "ISDEC9", "ISDEC10")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ISDEC..ISDEC10</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("ISHEX", "ISHEX1", "ISHEX2", "ISHEX3", "ISHEX4", "ISHEX5", "ISHEX6", "ISHEX7", "ISHEX8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ISHEX..ISHEX8</b><i> Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("LCDRead") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LCDREAD</b> <i>Line Number, Xpos</i>"
+   Help = "ProtonIDE.chm" -> "hs1449.htm"
+ENDKEY
+
+KEY ("LCDWrite")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>LCDWRITE</b> <i>LineNumber, Xpos, [Value {, Value}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1469.htm"
+ENDKEY
+
+KEY ("LData")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>LDATA</b> <i>Value or Variable or Constant Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1474.htm"
+ENDKEY
+
+KEY ("Left$") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>DestinationString = </i><b>LEFT$</b> <i>(SourceString, NumberOfCharacters)</i>"
+   Help = "ProtonIDE.chm" -> "hs1475.htm"
+ENDKEY
+
+KEY ("Len") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LEN</b> <i>(SourceString)</i>"
+   Help = "ProtonIDE.chm" -> "hs1439.htm"
+ENDKEY
+
+KEY ("Let")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>LET</b> <i>Variable = Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1429.htm"
+ENDKEY
+
+KEY ("Line")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>LINE</b> <i>Set_Clear, Xpos Start, Ypos Start, Xpos End, Ypos End</i>"
+   Help = "ProtonIDE.chm" -> "hs1579.htm"
+ENDKEY
+
+KEY ("LineTo")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>LINETO</b> <i>Set_Clear, Xpos End, Ypos End</i>"
+   Help = "ProtonIDE.chm" -> "hs1584.htm"
+ENDKEY
+
+KEY ("LoadBit")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>LOADBIT</b> <i>Variable, Index, Value</i>"
+   Help = "ProtonIDE.chm" -> "hs1479.htm"
+ENDKEY
+
+KEY ("Log") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOG</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2526.htm"
+ENDKEY
+
+KEY ("Log10")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOG10</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2528.htm"
+ENDKEY
+
+KEY ("LookDown")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOOKDOWN</b> <i>Index, [Constant {, Constant}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1489.htm"
+ENDKEY
+
+KEY ("LookDownL")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOOKDOWNL</b> <i>Index, {Operator} [Value {, Value}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1509.htm"
+ENDKEY
+
+KEY ("LookUp") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOOKUP</b> <i>Index, [Constant {,Constant}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1529.htm"
+ENDKEY
+
+KEY ("LookUpL") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LOOKUPL</b> <i>Index, [Value {, Value}]</i>"
+   Help = "ProtonIDE.chm" -> "hs1549.htm"
+ENDKEY
+
+KEY ("Low")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>LOW</b> <i>Port</i><br><b>LOW</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs1569.htm"
+ENDKEY
+
+KEY ("LowByte")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs380.htm"
+ENDKEY
+
+KEY ("LowWord")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs380.htm"
+ENDKEY
+
+KEY ("LRead")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LREAD</b> <i>Label or Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1476.htm"
+ENDKEY
+
+KEY ("LRead8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LREAD8</b> <i>Label</i> [<i>Offset Value or Variable or Expression</i>]"
+   Help = "ProtonIDE.chm" -> "hs1477.htm"
+ENDKEY
+
+KEY ("LRead16")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LREAD16</b> <i>Label</i> [<i>Offset Value or Variable or Expression</i>]"
+   Help = "ProtonIDE.chm" -> "hs1477.htm"
+ENDKEY
+
+KEY ("LRead32")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>LREAD32</b> <i>Label</i> [<i>Offset Value or Variable or Expression</i>]"
+   Help = "ProtonIDE.chm" -> "hs1477.htm"
+ENDKEY
+
+KEY ("Max") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2479.htm"
+ENDKEY
+
+KEY ("Mid$")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<i>DestinationString = </i><b>MID$</b><i> (SourceString, PositionInString, NumberOfCharacters)</i>"
+   Help = "ProtonIDE.chm" -> "hs1586.htm"
+ENDKEY
+
+KEY ("Min")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2489.htm"
+ENDKEY
+
+KEY ("NCD") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2499.htm"
+ENDKEY
+
+KEY ("Next")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1089.htm"
+ENDKEY
+
+KEY ("On") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>ON <font color='#808080'>INTERRUPT GOTO</font></b> <i>SoftwareInterruptLabel</i><br><b>ON <font color='#808080'>DEBUG GOTO</font></b> <i>SoftwareDebugLabel</i>"
+ENDKEY
+
+KEY ("ON_INTERRUPT")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordImportant
+   Hint = "<b>ON_INTERRUPT <font color='#808080'>GOTO</font></b> <i>HardwareInterruptLabel</i>"
+   Help = "ProtonIDE.chm" -> "hs1589.htm"
+ENDKEY
+
+KEY ("ON_HARDWARE_INTERRUPT")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordImportant
+   Hint = "<b>ON_HARDWARE_INTERRUPT <font color='#808080'>GOTO</font></b> <i>HardwareInterruptLabel</i>"
+   Help = "ProtonIDE.chm" -> "hs1589.htm"
+ENDKEY
+
+KEY ("ON_LOW_INTERRUPT")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordImportant
+   Hint = "<b>ON_LOW_INTERRUPT <font color='#808080'>GOTO</font></b> <i>HardwareInterruptLabel</i>"
+   Help = "ProtonIDE.chm" -> "hs1599.htm"
+ENDKEY
+
+KEY ("ORead")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>OREAD</b> <i>PortPin, Mode, [Inputdata]</i>"
+   Help = "ProtonIDE.chm" -> "hs1649.htm"
+ENDKEY
+
+KEY ("Org")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>ORG</b> <i>ConstantProgramAddress</i>"
+   Help = "ProtonIDE.chm" -> "hs1629.htm"
+ENDKEY
+
+KEY ("Output")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>OUTPUT</b> <i>Port</i><br><b>OUTPUT</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs1609.htm"
+ENDKEY
+
+KEY ("OWrite")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>OWRITE</b> <i>PortPin, Mode, [OutputData]</i>"
+   Help = "ProtonIDE.chm" -> "hs1669.htm"
+ENDKEY
+
+KEY ("Peek")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>PEEK</b> <i>Address</i><br><br><i><font color='#008000'>Using the <b>PEEK</b> command is not recommended. A more efficient way of<br>retrieving the value from a register is by accessing the register directly</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1689.htm"
+ENDKEY
+
+KEY ("Pixel") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>PIXEL</b> <i>Ypos, Xpos</i>"
+   Help = "ProtonIDE.chm" -> "hs1709.htm"
+ENDKEY
+
+KEY ("Plot") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>PLOT</b> <i>Ypos, Xpos</i>"
+   Help = "ProtonIDE.chm" -> "hs1729.htm"
+ENDKEY
+
+KEY ("Poke")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>POKE</b> <i>Address, Variable</i><br><br><i><font color='#008000'>Using the <b>POKE</b> command is not recommended. A more efficient way<br>of assigning a value to a register is by accessing the register directly</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1749.htm"
+ENDKEY
+
+KEY ("Pot")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>POT</b> <i>PortPin, Scale</i>"
+   Help = "ProtonIDE.chm" -> "hs1769.htm"
+ENDKEY
+
+KEY ("Push")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<b>PUSH</b> <i>Variable {, Variable}</i>"
+   Help = "ProtonIDE.chm" -> "hs1839.htm"
+ENDKEY
+
+KEY ("Pop")
+   DeviceCore = [dc16] 
+   Highlighter = Keyword
+   Hint = "<b>POP</b> <i>Variable {, Variable}</i>"
+   Help = "ProtonIDE.chm" -> "hs1844.htm"
+ENDKEY
+
+KEY ("Print")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>PRINT</b> <i>Item {, Item}</i>"
+   Help = "ProtonIDE.chm" -> "hs1789.htm"
+ENDKEY
+
+KEY ("PulsIn")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>PULSIN</b> <i>PortPin, State</i>"
+   Help = "ProtonIDE.chm" -> "hs1809.htm"
+ENDKEY
+
+KEY ("PulsOut")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>PULSOUT</b> <i>PortPin, Period {, InitialState}</i>"
+   Help = "ProtonIDE.chm" -> "hs1829.htm"
+ENDKEY
+
+KEY ("PWM")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>PWM</b> <i>PortPin, Duty, Cycles</i>"
+   Help = "ProtonIDE.chm" -> "hs1849.htm"
+ENDKEY
+
+KEY ("Random")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>RANDOM</b>"
+   Help = "ProtonIDE.chm" -> "hs1869.htm"
+ENDKEY
+
+KEY ("RC5In")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>RC5IN</b>" 
+   Help = "ProtonIDE.chm" -> "hs2011.htm"
+ENDKEY
+
+KEY ("RCIn") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>RCIN</b> <i>PortPin, State</i>"
+   Help = "ProtonIDE.chm" -> "hs1889.htm"
+ENDKEY
+
+KEY ("Read")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>READ</b> <i>Variable</i>"
+   Help = "ProtonIDE.chm" -> "hs1909.htm"
+ENDKEY
+
+KEY ("Rem") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>REM</b><br><br><i><font color='#008000'>Add a line comment to the code</font></i>"
+   Help = "ProtonIDE.chm" -> "hs1929.htm"
+ENDKEY
+
+KEY ("Rep")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1789.htm"
+ENDKEY
+
+KEY ("Repeat") 
+   Highlighter = Keyword
+   Hint = "<b>REPEAT</b><i> {Instructions} </i><b><font color='#808080'>UNTIL</b> <i>Expression</i></font>"
+   Help = "ProtonIDE.chm" -> "hs1949.htm"
+ENDKEY
+
+KEY ("Restore") 
+   Highlighter = Keyword
+   Hint = "<b>RESTORE</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1969.htm"
+ENDKEY
+
+KEY ("Resume") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>RESUME</b><br><br><i><font color='#008000'>Re-enables and returns from a software interrupt</font></i>"
+   Help = "ProtonIDE.chm" -> "hs540.htm"
+ENDKEY
+
+KEY ("Return")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1989.htm"
+ENDKEY
+
+KEY ("Rev")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2509.htm"
+ENDKEY
+
+KEY ("Right$")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>DestinationString = </i><b>RIGHT$</b><i> (SourceString, NumberOfCharacters)</i>"
+   Help = "ProtonIDE.chm" -> "hs1999.htm"
+ENDKEY
+
+KEY ("RSIn")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>RSIN</b><i> {, TimeoutLabel}</i><br><b>RSIN</b><i> {TimeoutLabel,} {Modifier} Variable {, {Modifier} Variable}</i>" 
+   Help = "ProtonIDE.chm" -> "hs2009.htm"
+ENDKEY
+
+KEY ("RSOut")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>RSOUT</b> <i>Item {, Item}</i>"
+   Help = "ProtonIDE.chm" -> "hs2029.htm"
+ENDKEY
+
+KEY ("SAMSUNG") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = ""
+ENDKEY
+
+KEY ("SAVE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+ENDKEY
+
+KEY ("SBIN", "SBIN1", "SBIN2", "SBIN3", "SBIN4", "SBIN5", "SBIN6", "SBIN7", 
+     "SBIN8", "SBIN9", "SBIN10", "SBIN11", "SBIN12", "SBIN13", "SBIN14", "SBIN15", 
+     "SBIN16", "SBIN17", "SBIN18", "SBIN19", "SBIN20", "SBIN21", "SBIN22", "SBIN23", 
+     "SBIN24", "SBIN25", "SBIN26", "SBIN27", "SBIN28", "SBIN29", "SBIN30", "SBIN31")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SBIN..SBIN31</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("SDEC", "SDEC1", "SDEC2", "SDEC3", "SDEC4", "SDEC5", "SDEC6", "SDEC7",
+     "SDEC8", "SDEC9", "SDEC10")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SDEC..SDEC10</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("Seed") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SEED</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2039.htm"
+ENDKEY
+
+KEY ("Select") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SELECT</b> <i>Value or Variable or ConstantExpression</i>"
+   Help = "ProtonIDE.chm" -> "hs2044.htm"
+ENDKEY
+
+KEY ("SerIn") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SERIN</b> <i>ReceivePin {\FlowPin}, Baudmode, {Paritylabel,} {Timeout, TimeoutLabel,} [InputData {, InputData}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2049.htm"
+ENDKEY
+
+KEY ("SerOut")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SEROUT</b> <i>TransmitPin {\FlowPin}, Baudmode, {Pace,} {Timeout, TimoutLabel, } [OutputData {, OutputData}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2069.htm"
+ENDKEY
+
+KEY ("Servo")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SERVO</b> <i>PortPin, RotationValue</i>"
+   Help = "ProtonIDE.chm" -> "hs2089.htm"
+ENDKEY
+
+KEY ("Set")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SET</b> <i>Variable or Port or PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs2119.htm"
+ENDKEY
+
+KEY ("SetBit")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SETBIT</b> <i>Variable, Index</i>"
+   Help = "ProtonIDE.chm" -> "hs724.htm"
+ENDKEY
+
+KEY ("SET_OSCCAL")
+   DeviceCore = [dc12, dc14]
+   Highlighter = Keyword
+   Hint = "<b>SET_OSCCAL</b><br><br><i><font color='#008000'>Calibrate on-chip RC oscillator, found on some PIC microcontroller devices</font></i>"
+   Help = "ProtonIDE.chm" -> "hs2109.htm"
+ENDKEY
+
+KEY ("Shared")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SHARED</b><br><br><i><font color='#008000'>Enable sharing of a variable name</font></i>"
+ENDKEY
+
+KEY ("SHEX", "SHEX1", "SHEX2", "SHEX3", "SHEX4", "SHEX5", "SHEX6", "SHEX7", "SHEX8")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SHEX..SHEX8</b> <i>Value or Variable or Expression</i>"
+ENDKEY
+
+KEY ("SHIn") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SHIN</b> <i>DataPortPin, ClockPortPin, Mode, [Result {\Bits} {,Result{\Bits}}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2129.htm"
+ENDKEY
+
+KEY ("SHOut")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SHOUT</b> <i>DataPortPin, ClockPortPin, Mode, [OutputData {\Bits} {,OutputData {\Bits}}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2149.htm"
+ENDKEY
+
+KEY ("Sin") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>SIN</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2519.htm"
+ENDKEY
+
+KEY ("Sleep") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SLEEP</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2189.htm"
+ENDKEY
+
+KEY ("Snooze")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SNOOZE</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2169.htm"
+ENDKEY
+
+KEY ("SonyIn")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>SONYIN</b>" 
+   Help = "ProtonIDE.chm" -> "hs2010.htm"
+ENDKEY
+
+KEY ("Sound")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SOUND</b> <i>PortPin, [Note, Duration {, Note, Duration}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2209.htm"
+ENDKEY
+
+KEY ("Sound2")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>SOUND2</b> <i>PortPin1, PortPin2, [Note1\Note2\Duration {,Note1\Note2\Duration}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2219.htm"
+ENDKEY
+
+KEY ("Sqr") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>SQR</b> <i>Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2529.htm"
+ENDKEY
+
+KEY ("Pow") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>POW</b> <i>Value, PowValue</i>"
+   Help = "ProtonIDE.chm" -> "hs2534.htm"
+ENDKEY
+
+KEY ("Step")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs1089.htm"
+ENDKEY
+
+KEY ("Stop") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>STOP</b><br><br><i><font color='#008000'>Halts program execution by sending the<br>PIC microcontroller into an infinite loop</font></i>"
+   Help = "ProtonIDE.chm" -> "hs2229.htm"
+ENDKEY
+
+KEY ("Str")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>STR</b> <i>ByteArray</i>"
+   Help = "ProtonIDE.chm" -> "hs534.htm"
+ENDKEY
+
+KEY ("StrN") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>STRN</b> <i>ByteArray = Item</i>"
+   Help = "ProtonIDE.chm" -> "hs2239.htm"
+ENDKEY
+
+KEY ("Str$")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>STR$</b> <i>(Modifier, Variable)</i>"
+   Help = "ProtonIDE.chm" -> "hs557.htm"
+ENDKEY
+
+KEY ("Swap")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SWAP</b> <i>Variable, Variable</i>"
+   Help = "ProtonIDE.chm" -> "hs2249.htm"
+ENDKEY
+
+KEY ("Symbol")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>SYMBOL</b> <i>Name {=} Value</i>"
+   Help = "ProtonIDE.chm" -> "hs2269.htm"
+ENDKEY
+
+KEY ("SAMSUNG") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Choose a graphic LCD based upon the Samsung KS0108 chipset </i>"
+   Help = ""
+ENDKEY
+
+KEY ("Tan") 
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>TAN</b><i> Value or Variable or Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs2524.htm"
+ENDKEY
+
+KEY ("Then")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b><font color='#808080'>IF</b> <i>Expression </i></font><b>THEN</b><i> {Instructions} </i>"
+   Help = "ProtonIDE.chm" -> "hs1349.htm"
+ENDKEY
+
+KEY ("To") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>TO</b> <i>Endcount</i>"
+   Help = "ProtonIDE.chm" -> "hs1089.htm"
+ENDKEY
+
+KEY ("TOSHIBA") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Choose a graphic LCD based upon the Toshiba T6963 chipset </i>"
+   Help = ""
+ENDKEY
+
+KEY ("Toshiba_Command") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>TOSHIBA_COMMAND</b> , <i>Command</i> , <i>Parameter</i>"
+   Help = ""
+ENDKEY
+
+KEY ("Toshiba_Udg") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>TOSHIBA_UDG</b> , <i>Character</i> , [<i>UDG data {,UDG data}</i>]"
+   Help = ""
+ENDKEY
+
+KEY ("Toggle")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>TOGGLE</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs2279.htm"
+ENDKEY
+
+KEY ("ToLower")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>DestinationString = </i><b>TOLOWER</b><i> (SourceString)</i>"
+   Help = "ProtonIDE.chm" -> "hs2284.htm"
+ENDKEY
+
+KEY ("ToUpper")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>DestinationString = </i><b>TOUPPER</b><i> (SourceString)</i>"
+   Help = "ProtonIDE.chm" -> "hs2286.htm"
+ENDKEY
+
+KEY ("UnPlot")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>UNPLOT</b> <i>Ypos, Xpos</i>"
+   Help = "ProtonIDE.chm" -> "hs2289.htm"
+ENDKEY
+
+KEY ("Until")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>UNTIL</b> <i>Expression</i>"
+   Help = "ProtonIDE.chm" -> "hs1949.htm"
+ENDKEY
+
+KEY ("USBInit")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>USBINIT</b><br> <i><font color='#0000FF'>Initialise the USB hardware of the PIC microcontroller<br>and wait until the USB bus is configured and enabled</font></i><br><b>Not required for 16-bit core devices</b>"
+   Help = "ProtonIDE.chm" -> "hs2549.htm"
+ENDKEY
+
+KEY ("USBPoll")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<b>USBPOLL</b><br> <i><font color='#0000FF'>Poll the USB hardware of the PIC microcontroller</font></i>"
+   Help = ""
+ENDKEY
+
+KEY ("USBIn")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>USBIN</b> <i>Endpoint, Buffer, CountVariable (or AUTO if using a 16-bit core device), Label (Label is optional with a 16-bit core device)</i>"
+   Help = "ProtonIDE.chm" -> "hs2559.htm"
+ENDKEY
+
+KEY ("USBOut")
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>USBOUT</b> <i>Endpoint, Buffer, CountVariable (or AUTO if using a 16-bit core device), Label (Label is optional with a 16-bit core device)</i>"
+   Help = "ProtonIDE.chm" -> "hs2569.htm"
+ENDKEY
+
+KEY ("Val") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>VAL</b><i> (Variable, Modifier)</i>"
+   Help = "ProtonIDE.chm" -> "hs555.htm"
+ENDKEY
+
+KEY ("VarPtr")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<i>Variable = </i><b>VARPTR</b><i> (Variable)</i>"
+   Help = "ProtonIDE.chm" -> "hs2299.htm"
+ENDKEY
+
+KEY ("Wait") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+ENDKEY
+
+KEY ("Wend") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2309.htm"
+ENDKEY
+
+KEY ("While") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = Keyword
+   Hint = "<b>WHILE</b> <i>{Instructions}</i> <b><font color='#808080'>WEND</font></b>"
+   Help = "ProtonIDE.chm" -> "hs2309.htm"
+ENDKEY
+
+KEY ("XIn")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = Keyword
+   Hint = "<b>XIN</b> <i>DataPortPin, ZeroPortPin, {Timeout, TimeoutLabel}, [Variable {, ...}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2579.htm"
+ENDKEY
+
+KEY ("XOut")
+   DeviceCore = [dc14, dc16]  
+   Highlighter = Keyword
+   Hint = "<b>XOUT</b> <i>DataPortPin, ZeroPortPin, [HouseCode\KeyCode {\Repeat} {, ...}]</i>"
+   Help = "ProtonIDE.chm" -> "hs2579.htm"
+ENDKEY
+
+' *********************************
+' * DECLARES
+' *********************************
+KEY ("ASM") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ASM</b> <i>{ASMInstructions} </i><b><font color='#808080'> ENDASM</font></b>"   
+   Help = "ProtonIDE.chm" -> "hs570.htm"
+ENDKEY
+
+KEY ("ASM-") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ASM-</b> <i>{ASMInstructions} </i><b><font color='#808080'> ENDASM</font></b>"   
+   Help = "ProtonIDE.chm" -> "hs570.htm"
+ENDKEY
+
+KEY ("ENDASM")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs570.htm"
+ENDKEY
+
+KEY ("ENDASM-")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs570.htm"
+ENDKEY
+
+KEY ("MACRO")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<i>MacroName</i> <b>MACRO</b> <i>Parameters {,Parameters}</i>"
+ENDKEY
+
+KEY ("MACRO-")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<i>MacroName</i> <b>MACRO-</b> <i>Parameters {,Parameters}</i>"
+ENDKEY
+
+KEY ("ENDM") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ENDM</b><br><br><i><font color='#008000'>End a <b>MACRO</b> declaration</font></i>"
+ENDKEY
+
+KEY ("EXITM") 
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>EXITM</b><br><br><i><font color='#008000'>Exit a <b>MACRO</b> prematurely</font></i>"
+ENDKEY
+
+KEY ("ACTUAL_BANKS")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ACTUAL_BANKS</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("ADIN_RES")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ADIN_RES</b> <i>0 or 8 or 10</i>"
+   Help = "ProtonIDE.chm" -> "hs550.htm"
+ENDKEY 
+ 
+KEY ("ADIN_TAD")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ADIN_TAD</b> <i>FRC or FRC_8 or FRC_16 or FRC_32 or FRC_64"
+   Help = "ProtonIDE.chm" -> "hs550.htm"
+ENDKEY
+
+KEY ("ADIN_STIME")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ADIN_STIME</b> <i>0 to 65535</i>"
+   Help = "ProtonIDE.chm" -> "hs550.htm"
+ENDKEY
+ 
+KEY ("ALL_DIGITAL")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ALL_DIGITAL</b> <i> TRUE or FALSE</i><br><b>ALL_DIGITAL</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs300.htm"                
+ENDKEY 
+
+KEY ("AVAILABLE_RAM")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>AVAILABLE_RAM</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK0_END")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK0_END</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK0_START")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK0_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK10_END") 
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK10_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK10_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK10_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK11_END")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK11_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK11_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK11_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK12_END") 
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK12_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK12_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK12_START</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK13_END")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK13_END</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK13_START")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK13_START</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK14_END")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK14_END</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK14_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK14_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK15_END") 
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK15_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK15_START")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK15_START</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK1_END")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK1_END</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK1_START")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK1_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK2_END")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK2_END</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK2_START")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK2_START</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK3_END")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK3_END</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK3_START")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK3_START</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK4_END")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK4_END</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK4_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK4_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK5_END")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK5_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK5_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK5_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK6_END")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK6_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK6_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK6_START</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK7_END")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK7_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK7_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK7_START</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANK8_END")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK8_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK8_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK8_START</b> <i>0 to n</i>"
+ENDKEY 
+
+KEY ("BANK9_END")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK9_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK9_START")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK9_START</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANK_SELECT_SWITCH")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANK_SELECT_SWITCH</b> <i>0 to n</i>"
+ENDKEY
+ 
+KEY ("BANKA_END") 
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANKA_END</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BANKA_START")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BANKA_START</b> <i>0 to n</i>"
+ENDKEY
+
+KEY ("BOOTLOADER")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BOOTLOADER</b> <i> TRUE or FALSE</i><br><b>BOOTLOADER</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+ 
+KEY ("BUTTON_DELAY")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>BUTTON_DELAY</b> <i>0 to 65535 milliseconds</i>"
+ENDKEY 
+
+KEY ("CCP1_PIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>CCP1_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("CCP2_PIN")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>CCP2_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("CORE")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>CORE</b> <i>12 or 14 or 16</i>"
+ENDKEY
+
+KEY ("COUNT_ERRORS")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>COUNT_ERRORS</b> <i> TRUE or FALSE</i><br><b>COUNT_ERRORS</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("EEPROM_SIZE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>EEPROM_SIZE</b> <i>0 to 1024</i>"
+ENDKEY 
+
+KEY ("FLASH_CAPABLE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>FLASH_CAPABLE</b> <i> TRUE or FALSE</i><br><b>FLASH_CAPABLE</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("FLOAT_DISPLAY_TYPE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>FLOAT_DISPLAY_TYPE</b> <i>STANDARD or LARGE</i>"
+   Help = "ProtonIDE.chm" -> "hs370.htm"                
+ENDKEY
+
+KEY ("FONT_ADDR") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>FONT_ADDR</b> <i>0 to 65535</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("GLCD_CS_INVERT")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>GLCD_CS_INVERT</b> <i> TRUE or FALSE</i><br><b>GLCD_CS_INVERT</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("GLCD_FAST_STROBE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>GLCD_FAST_STROBE</b> <i> TRUE or FALSE</i><br><b>GLCD_FAST_STROBE</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("HBUS_BITRATE") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HBUS_BITRATE</b> <i>100 to 400</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL_BAUD") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_BAUD</b> <i> BaudRate</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL_CLEAR") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_CLEAR</b> <i> TRUE or FALSE</i><br><b>HSERIAL_CLEAR</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL_PARITY")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_PARITY</b> <i>ODD or EVEN</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("HSERIAL_RCSTA") 
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_RCSTA</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL_SPBRG")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_SPBRG</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("HSERIAL_TXSTA")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL_TXSTA</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL2_PARITY")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL2_PARITY</b> <i>ODD or EVEN</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("HSERIAL2_RCSTA")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL2_RCSTA</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("HSERIAL2_SPBRG")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL2_SPBRG</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("HSERIAL2_TXSTA")
+   DeviceCore = [dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>HSERIAL2_TXSTA</b> <i>0 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("ICD_REQ")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>ICD_REQ</b> <i> TRUE or FALSE</i><br><b>ICD_REQ</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("INTERNAL_BUS")
+   DeviceCore = [dc12, dc14]
+   Highlighter = KeywordDeclare
+   Hint = "<b>INTERNAL_BUS</b> <i> TRUE or FALSE</i><br><b>INTERNAL_BUS</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("INTERNAL_FONT")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>INTERNAL_FONT</b> <i> TRUE or FALSE</i><br><b>INTERNAL_FONT</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("KEYPAD_PORT")
+   DeviceCore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>KEYPAD_PORT</b> <i>Port</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_CS1PIN")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_CS1PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("LCD_CS2PIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_CS2PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_COMMANDUS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_COMMANDUS</b> <i>1 to 65535 microseconds</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("LCD_DATAUS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_DATAUS</b> <i>1 to 255 microseconds</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("LCD_DTPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_DTPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("LCD_DTPORT")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_DTPORT</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("LCD_ENPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_ENPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("LCD_CDPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_CDPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_CEPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_CEPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_RDPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RDPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_WRPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_WRPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_RSTPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RSTPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_FONT_WIDTH")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_FONT_WIDTH</b> <i>6 or 8</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_FONT_HEIGHT")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_FONT_HEIGHT</b> <i>1 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_X_RES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_X_RES</b> <i>1 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_Y_RES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_Y_RES</b> <i>1 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_TEXT_PAGES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_TEXT_PAGES</b> <i>1 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_GRAPHIC_PAGES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_GRAPHIC_PAGES</b> <i>1 to 255</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_RAM_SIZE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RAM_SIZE</b> <i>1 to 65535</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("LCD_TEXT_HOME_ADDRESS")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_TEXT_HOME_ADDRESS</b> <i>0 to RAM size</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_INTERFACE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_INTERFACE</b> <i>4 or 8</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_LINES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_LINES</b> <i>1 or 2 or 4</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("LCD_RSPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RSPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("LCD_RWPIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RWPIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("LCD_TYPE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_TYPE</b> <i>GRAPHIC or ALPHA or SAMSUNG or TOSHIBA</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("MSSP_TYPE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>MSSP_TYPE</b> <i>1 or 2 or 3</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("ONBOARD_ADC")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>ONBOARD_ADC</b> <i> TRUE or FALSE</i><br><b>ONBOARD_ADC</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("ONBOARD_UART")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>ONBOARD_UART</b> <i> TRUE or FALSE</i><br><b>ONBOARD_UART</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("ONBOARD_USB")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>ONBOARD_USB</b> <i> TRUE or FALSE</i><br><b>ONBOARD_USB</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("OPTIMISER_LEVEL")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>OPTIMISER_LEVEL</b> <i>0 to 6</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("PAGE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>PAGE</b> <i>1 to 4</i>"
+ENDKEY 
+
+KEY ("PICMICRO_PAGES")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>PICMICRO_PAGES</b> <i>1 to 4</i>"
+ENDKEY
+
+KEY ("PORTB_PULLUPS")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>PORTB_PULLUPS</b> <i> TRUE or FALSE</i><br><b>PORTB_PULLUPS</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("PULSIN_MAXIMUM")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>PULSIN_MAXIMUM</b> <i>0 to 65535 microseconds</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("RAM_BANK")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RAM_BANK</b> <i>1 to 16</i>"
+ENDKEY 
+
+KEY ("RAM_BANKS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RAM_BANKS</b> <i>1 to 16</i>"
+ENDKEY
+
+KEY ("REMARKS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>REMARKS</b> <i> TRUE or FALSE</i><br><b>REMARKS</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("REMINDERS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>REMINDERS</b> <i> TRUE or FALSE</i><br><b>REMINDERS</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("RESET_BANK")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = ""
+   Help = "ProtonIDE.chm" -> "hs2034.htm"                
+ENDKEY 
+
+KEY ("RESERVE_RAM")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RESERVE_RAM</b> <i>1 to n</i>"
+ENDKEY
+ 
+KEY ("RSIN_MODE")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSIN_MODE</b> <i>INVERTED or TRUE</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("RSIN_PIN")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSIN_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("RSIN_TIMEOUT")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSIN_TIMEOUT</b> <i>0 to 65535 milliseconds</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("RSOUT_MODE")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSOUT_MODE</b> <i>INVERTED or TRUE</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("RSOUT_PACE")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSOUT_PACE</b> <i>0 to 65535 milliseconds</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("RSOUT_PIN")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>RSOUT_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("RC5IN_PIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_RC5IN_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("SONYIN_PIN")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>LCD_SONYIN_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("SCL_PIN")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SCL_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+ 
+KEY ("SDA_PIN")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SDA_PIN</b> <i>PortPin</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("SERIAL_BAUD")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SERIAL_BAUD</b> <i>BaudRate</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("SERIAL_PARITY")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SERIAL_PARITY</b> <i>ODD or EVEN</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("SET_BANK")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = ""
+ENDKEY 
+
+KEY ("SET_DEFAULTS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SET_DEFAULTS</b> <i>DefaultFileName</i>"
+ENDKEY 
+
+KEY ("SHIFT_DELAYUS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SHIFT_DELAYUS</b> <i>1 to 65535 milliseconds</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY ("SLOW_BUS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SLOW_BUS</b> <i> TRUE or FALSE</i><br><b>SLOW_BUS</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+
+KEY ("SMALL_MICRO_MODEL")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SMALL_MICRO_MODEL</b> <i> TRUE or FALSE</i><br><b>SLOW_BUS</b> <i> 1 or 0</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("SINGLE_PAGE_MICRO")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SINGLE_PAGE_MICRO</b> <i> TRUE or FALSE</i><br><b>SLOW_BUS</b> <i> 1 or 0</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("STAMP_SIN")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>STAMP_SIN</b> <i> TRUE or FALSE</i><br><b>STAMP_SIN</b> <i> 1 or 0</i>"
+ENDKEY
+ 
+KEY ("STAMP_COS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>STAMP_COS</b> <i> TRUE or FALSE</i><br><b>STAMP_COS</b> <i> 1 or 0</i>"
+ENDKEY
+ 
+KEY ("STAMP_SQR")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>STAMP_SQR</b> <i> TRUE or FALSE</i><br><b>STAMP_SQR</b> <i> 1 or 0</i>"
+ENDKEY
+
+KEY ("STACK_SIZE")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>STACK_SIZE</b> <i>1 to n</i>"
+   Help = "ProtonIDE.chm" -> "hs1129.htm"                
+ENDKEY
+
+KEY ("SYSTEM")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>SYSTEM</b><br><br><i><font color='#008000'>Change variable to a <b>SYSTEM</b> variable</font></i>"
+   Help = "ProtonIDE.chm" -> "hs360.htm"                
+ENDKEY 
+
+KEY ("USB_CLASS_FILE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USB_CLASS_FILE</b> <i>USBClassFileName</i>"
+   Help = "ProtonIDE.chm" -> "hs2549.htm"                
+ENDKEY
+ 
+KEY ("USB_DESCRIPTOR")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USB_DESCRIPTOR</b> <i>USBDescriptorFileName</i>"
+   Help = "ProtonIDE.chm" -> "hs2549.htm"                
+ENDKEY 
+
+KEY ("USB_SHOW_ENUM")
+   DeviceCore = [dc14] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USB_SHOW_ENUM</b> <i> TRUE or FALSE</i><br><b>USB_SHOW_ENUM</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs2549.htm"                
+ENDKEY
+
+KEY ("USB_SENSE_PIN")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USB_SENSE_PIN</b> <i>PortPin</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("USB_SELF_POWER_PIN")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USB_SELF_POWER_PIN</b> <i>PortPin</i>"
+   Help = ""                
+ENDKEY
+
+KEY ("USBIN_AUTO_POLL")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USBIN_AUTO_POLL</b><i> TRUE or FALSE</i><br><i><font color='#008000'>Enable\Disable Auto polling within the USBIN command</font></i>"
+ENDKEY
+
+KEY ("USBOUT_AUTO_POLL")
+   DeviceCore = [dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>USBOUT_AUTO_POLL</b><i> TRUE or FALSE</i><br><i><font color='#008000'>Enable\Disable Auto polling within the USBOUT command</font></i>"
+ENDKEY
+
+KEY ("VARIABLE")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>VARIABLE</b><br><br><i><font color='#008000'>Create an ASM variable, <u>not</u> a BASIC variable</font></i>"
+ENDKEY 
+
+KEY ("WARNINGS")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>WARNINGS</b> <i> TRUE or FALSE</i><br><b>WARNINGS</b> <i> 1 or 0</i>"
+ENDKEY 
+
+KEY ("WATCHDOG")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>WATCHDOG</b> <i> TRUE or FALSE</i><br><b>WATCHDOG</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY 
+KEY ("XIN_TRANSLATE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>XIN_TRANSLATE</b> <i> TRUE or FALSE</i><br><b>XIN_TRANSLATE</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs2579.htm"                
+ENDKEY
+ 
+KEY ("XOUT_TRANSLATE")
+   DeviceCore = [dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>XOUT_TRANSLATE</b> <i> TRUE or FALSE</i><br><b>XOUT_TRANSLATE</b> <i> 1 or 0</i>"
+   Help = "ProtonIDE.chm" -> "hs2589.htm"                
+ENDKEY
+ 
+KEY ("XTAL")
+   DeviceCore = [dc12, dc14, dc16] 
+   Highlighter = KeywordDeclare
+   Hint = "<b>XTAL</b> <i>CrystalFrequency</i>"
+   Help = "ProtonIDE.chm" -> "hs869.htm"                
+ENDKEY
+
+KEY("#IFNDEF")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#IFNDEF</b><br><br><i><font color='#008000'>Assembler <b>IF NOT DEFINE</b> statement</font></i>"
+ENDKEY
+
+KEY("#IFDEF")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#IFDEF</b><br><br><i><font color='#008000'>Assembler <b>IF DEFINE</b> statement</font></i>"
+ENDKEY
+
+KEY("#DEFINE")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#DEFINE</b><br><br><i><font color='#008000'>Assembler <b>DEFINE</b> statement</font></i>"
+ENDKEY
+
+KEY("#UNDEFINE")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#UNDEFINE</b><br><br><i><font color='#008000'>Assembler <b>UNDEFINE</b></font></i>"
+ENDKEY
+
+KEY("#IF")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#IF</b><br><br><i><font color='#008000'>Assembler <b>IF</b> statement</font></i>"
+ENDKEY
+
+KEY("#ELSE")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#ELSE</b><br><br><i><font color='#008000'>Assembler <b>ELSE</b> statement</font></i>"
+ENDKEY
+
+KEY("#ENDIF")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#ENDIF</b><br><br><i><font color='#008000'>Assembler <b>END IF</b> statement</font</i>>"
+ENDKEY
+
+KEY("#WHILE")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#WHILE</b><br><br><i><font color='#008000'>Assembler <b>WHILE</b> statement</font></i>"
+ENDKEY
+
+KEY("#ENDW")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#ENDW</b><br><br><i><font color='#008000'>Assembler <b>ENDW</b> statement</font></i>"
+ENDKEY
+
+KEY("#ERROR")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#ERROR</b><br><br><i><font color='#008000'>Assembler <b>ERROR</b> statement</font></i>"
+ENDKEY
+
+KEY("#LOCAL")
+   Devicecore = [dc12, dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>#LOCAL</b><br><br><i><font color='#008000'>Assembler <b>LOCAL</b> variable</font></i>"
+ENDKEY
+
+KEY ("AUTO_CONTEXT_SAVE")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>AUTO_CONTEXT_SAVE</b> <i> ON or OFF</i>"
+   Help = ""                
+ENDKEY 
+
+KEY ("UNSIGNED_DWORDS")
+   DeviceCore = [dc14, dc16]
+   Highlighter = KeywordDeclare
+   Hint = "<b>UNSIGNED_DWORDS</b> <i> ON or OFF</i>"
+   Help = ""                
+ENDKEY 
+
+' *********************************
+' * ASM MNEMONICS
+' *********************************
+
+KEY ("addlw")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("addwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("addwfc")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("andlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("andwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bcf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bk")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bn")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnn")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnov")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bov")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bra")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bsf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btfsc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btfss")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("btg")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("bz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrwdt")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("clrz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("comf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config1h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config1l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config2h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config2l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config3h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config3l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config4h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config4l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config5h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config5l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config6h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config6l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config7h")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("config7l")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfseq")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfsgt")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("cpfslt")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("daw")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("dcfsnz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("decf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("decfsz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("djc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("djnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("djnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("djz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("fast")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ijc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ijnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ijnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ijz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("incf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("incfsz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("infsnz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("iorlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("iorwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("jump")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lfsr")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbfirst")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbfirst_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbfirst_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpost")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpost_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpost_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpre")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpre_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("lsbpre_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movff")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movfw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movlb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("movwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbfirst")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbfirst_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbfirst_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpost")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpost_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpost_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpre")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpre_h")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("msbpre_l")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("mullw")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("mulwf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("negf")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("nop")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rcall")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("reset")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ret")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("retfie")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("retlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rlncf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rol")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("ror")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("rrncf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("setz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpdc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpnc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpndc")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpnz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("skpz")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subdcf")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subfwb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("sublw")
+	Devicecore = [dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("subwfb")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("swapf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tblrd*","tblrd*+","tblrd+*","tblrd*-")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tblwr*","tblwr*+","tblwr+*","tblwr*-")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tstf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("tstfsz")
+	Devicecore = [dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("xorlw")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY
+
+KEY ("xorwf")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordASM
+   	Hint = ""
+ENDKEY  
+
+
+' *********************************
+' * SYSTEM VARIABLES
+' *********************************
+
+KEY ("__USBIN_BUFFER")
+	Devicecore = [dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Internal USB receive buffer (128 bytes in length)</i>"
+ENDKEY 
+  	
+KEY ("__USBOUT_BUFFER")
+	Devicecore = [dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Internal USB transmit buffer (128 bytes in length)</i>" 
+ENDKEY
+   	 
+KEY ("__USB_DEVICE_STATE")
+	Devicecore = [dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>State of the USB connection</i>" 
+ENDKEY 
+ 
+KEY ("__LCD_DTPORT")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's Data port</i>"
+ENDKEY 
+ 
+KEY ("__LCD_RSPORT")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's RS port</i>"
+ENDKEY 
+ 
+KEY ("__LCD_ENPORT")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's EN port</i>"
+ENDKEY 
+  
+KEY ("__LCD_DTPIN")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's Data pin</i>"
+ENDKEY 
+ 
+KEY ("__LCD_RSPIN")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's RS pin</i>"
+ENDKEY 
+ 
+KEY ("__LCD_ENPIN")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>LCD's EN pin</i>"
+ENDKEY 
+  
+KEY ("__LCD_INTERFACE")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Alphanumeric LCD's Interface type (4 or 8)</i>"
+ENDKEY 
+    
+KEY ("__LCD_LINES")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Amount of lines on an alphanumeric LCD</i>"
+ENDKEY 
+  
+KEY ("__LCD_TYPE")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Type of LCD used (0 = Alphanumeric, 1 = Samsung, 2 = Toshiba)</i>"
+ENDKEY 
+    	  		
+KEY ("__XTAL")
+	Devicecore = [dc12, dc14, dc16]
+   	Highlighter = KeywordUser
+   	Hint = "<i>Crystal frequency used</i>"	  	 	  
+ENDKEY 
+
+KEY ("CONFIG_START")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>Start of fuse configuration block</i>"
+   Help = ""
+ENDKEY
+
+KEY ("CONFIG_END")
+   DeviceCore = [dc16]
+   Highlighter = Keyword
+   Hint = "<i>End of fuse configuration block</i>"
+   Help = ""
+ENDKEY
+    	  		
+END DATABASE

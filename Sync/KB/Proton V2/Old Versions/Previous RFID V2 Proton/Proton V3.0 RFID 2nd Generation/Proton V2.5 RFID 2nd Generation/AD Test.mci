@@ -1,0 +1,19 @@
+[Project]
+Filename=C:\RFID Files Home\V4 RFID 2nd Generation\AD Test.bas
+[Environment]
+CaretX=1
+CaretY=81
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=72
+[Results]
+Visible=1
+Height=117
+View=1
+[Status]
+Message=Success : 670 program bytes used, 19 variable bytes used
+Image=2

@@ -1,0 +1,19 @@
+[Project]
+Filename=C:\RFID Files\V1 RFID 2nd Generation\INC\Read String SD.inc
+[Environment]
+CaretX=1
+CaretY=1
+[Version]
+Enable=1
+Rollover=255
+Major=0
+Minor=0
+Release=0
+Build=0
+[Results]
+Visible=0
+Height=117
+View=1
+[Status]
+Message=Ready
+Image=0

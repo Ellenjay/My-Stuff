@@ -1,0 +1,29 @@
+:Base soltn90.hlp>Right
+:Index Developer Solutions Help =soltn90.hlp
+1 Overview of Developer Solutions=Overview@soltn90.hlp>Right
+1 How to Create the Forms in Developer Solutions
+2 AboutSolutions=HLAboutBox@soltn90.hlp>Right
+2 AddAllToList=HLAddAllToList@soltn90.hlp>Right
+2 AddCategory=HLAddCategory@soltn90.hlp>Right
+2 Assistant=HighlightsOfAssistantForm@soltn90.hlp>Right
+2 CommandBarsForm=HighlightsCommandBarsForm@soltn90.hlp>Right
+2 CustomerPhoneList=HLCustomerPhoneListForm@soltn90.hlp>Right
+2 CustomersDialog=HLCustomersDialog@soltn90.hlp>Right
+2 DeveloperSolutions=HLSolutions@soltn90.hlp>Right
+2 EditProducts=HLEditProducts@soltn90.hlp>Right
+2 EmployeeSalesDialogBox=HLFormEmployeeSales@soltn90.hlp>Right
+2 EnterOrEditProducts=HLEnterEditProducts@soltn90.hlp>Right
+2 LimitListContents=HLLimitListContents@soltn90.hlp>Right
+2 SalesTotals=HLSalesTotals@soltn90.hlp>Right
+2 ShowSales=HLShowSales@soltn90.hlp>Right
+2 SolutionsHyperForm=HighlightsSolutionsHyperForm@soltn90.hlp>Right
+2 SolutionsIntro=HLSolutionsIntro@soltn90.hlp>Right
+2 Startup=HLStartup@soltn90.hlp>Right
+2 WebBrowseTable=HighlightsWebBrowseTableForm@soltn90.hlp>Right
+1 How to Create the Reports in Developer Solutions
+2 CustomerPhoneList=HLCustomerPhoneListReport@soltn90.hlp>Right
+2 EmployeeSales=HLEmployeeSales@soltn90.hlp>Right
+2 Invoice=HLInvoice@soltn90.hlp>Right
+2 SalesAverages=HLSalesAverages@soltn90.hlp>Right
+2 SalesLetter=HLSalesLetter@soltn90.hlp>Right
+2 ShippingLog=HLShippingLog@soltn90.hlp>Right

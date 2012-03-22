@@ -1,0 +1,112 @@
+﻿<HTML><HEAD><TITLE>Pic timer on PIC16F628</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=UTF-8">
+<meta name="Microsoft Theme" content="network 011, default">
+</HEAD>
+<BODY background="../../../_themes/network/netbkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#0066CC" vlink="#999999" alink="#669999">
+<P align=right>&nbsp; <FONT face=Verdana size=2>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top align=left width="98%">&nbsp; <A 
+      href="http://www.dontronics.com/" target=new><IMG height=26 
+      alt="DonTronics Home Page" 
+      src="dtlogolink.gif" width=142 
+      border=0></A>&nbsp; <FONT face=Verdana color=brown size=2><B>One of my 
+      favourites PIC websites</B></FONT> </TD>
+    <TD align=righ width="2%">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD align=middle><IMG 
+          src="ukflag.gif" width="36" height="23"></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD><U><FONT face=Verdana 
+      size=2>English</FONT></U></TD></TR></TBODY></TABLE></TD>
+    <TD>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD align=middle><IMG 
+          src="rusflag.gif" width="36" height="23"></TD></TR>
+        <TR>
+          <TD>&nbsp;</TD>
+          <TD><A href="pictimer_rus.html"><FONT 
+            face=Verdana 
+  size=2>Русский</FONT></A></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+<P align=center><FONT size=3><B>Timer on PIC16F628</B></FONT></P>
+<P align=center> <A href=http://www.radier.ca/pic/pictimer.php>Pic Timer on the Web</A>
+
+<P>This is a 24 hours clock which may be programmed to turn on and off some 
+device at proogrammed time. I made it because I'm too lazy to turn light in my 
+aquarium in the morning and turn it off in the evening. Still have to do 
+automatic fish feeding system - this will be further development in some future. 
+Now, back to the project. </P>
+<P>It&nbsp;has very basic schematic and most important is a program written in 
+assembler. Obviously, I've used <A 
+href="http://www.microchip.com/">Microchip's</A> MPASM. For drawing schematic 
+I'm using Eagle from <A 
+href="http://www.cadsoftusa.com/">http://www.cadsoftusa.com/</A> Since I left 
+embedded technology sector I enjoy&nbsp;doing some projects as amateur, so give 
+me some discount on this. :) </P>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD vAlign=top noWrap width="50%"><FONT face=Verdana size=2>
+      <P>The&nbsp;clock has 4 buttons for: 
+      <LI>increment hours (1) 
+      <LI>increment minutes (2) 
+      <LI>mode-program time ON (3) 
+      <LI>mode-program time OFF (4) 
+      <P>There&nbsp;is 4 clock modes. </P>
+      <LI>clock 
+      <LI>programming clock 
+      <LI>programming ON time 
+      <LI>Programmin OFF time </FONT></LI></TD>
+    <TD vAlign=top align=right width="50%"><A 
+      href="fish.gif"><IMG height=400 
+      src="fish.gif" width=600 border=0></A> 
+  </TD></TR></TBODY></TABLE>
+<P>New mode is set by pressing appropriate button, the new mode is indicated 
+during approximately 1 second with symbols <B>ClOC</B>, <B>Prog</B>, 
+<B>Pron</B>, <B>ProF</B> respectively. Pressing button (1) or button (2) sets 
+programming clock mode and will increment hours or minutes respectively every 
+second. Pressing button (3) or (4) will indicate time ON or time OFF. To set the 
+time use button (1) or (2) while pressing (3) or (4). Pressing buttons (3) and 
+(4) altogether will clear seconds of the clock and stop the clock until the 
+buttons are released. Useful to correct exact time. 16 ms program delay used for 
+debounce. 4 pins of PIC16F628 used for both - dynamic 7 segment LED indication 
+and keyboard scanning. Program works of timer TMR0 interrupts every 4 ms. Every 
+cycle new LED digit is displayed, and keyboard status read. Debounce delay (both 
+- for pressing and releasing key) is calcualted for every key and is 4 cycles. 
+When new second is calculated subroutine to chek time ON and OFF is called and 
+depending on result status of the ON/OFF relay may be changed.</P>
+<P>&nbsp;There is not enough pins to organize dynamic indication, so CD4015 
+shift register is used. May be used any similar, of course, but I've used what I 
+had at the moment. Relay may be used any apropriate. In addition I did not use 
+RB0, RB1, RB2 for futhure development - it may have RS232 connection as well as 
+accept external interrupts through RB0. Adding automatic fish feeding system may 
+require significant amount of time dedicated to this project so I leave it to 
+the future. Meanwhile you may download the project in current state.</P>
+<P align=center><A href="http://www.radier.ca/pic/pictimer.zip">pictimer.zip</A> 
+
+<P> <U>January, 25, 2004</U>
+<P> Changed CD4015 for 74HC164, which is more powerfull. Made some small changes.
+
+<P>Just finished development of printed circuit board. Will sell in coming weeks PCB and
+kit. If interested, visit the page <A href=http://www.radier.ca/pic/pictimer.php?board>
+http://www.radier.ca/pic/pictimer.php?board</A> in 1-2-3 weeks. Thanks.
+<BR> The PCB is 3.9 inch width and 3.1 inch height.
+This is the parts layout picture. 
+<P>
+Please, note - 7 segment LED indicators and 4 buttons at the top of the picture (RACON12)
+ are the only elements located on the top. Everything else is on other side.
+<P>
+<A href="pictimer_pcb.gif"><IMG src="pictimer_pcb.gif" height=310 width=390 border=0></A>
+
+<P align=center>send any comments/questions to <A 
+href="mailto:info@radier.ca?Subject=PicTimer">Dmitriy Fitisov</A> 
+
+</FONT></P></BODY></HTML>

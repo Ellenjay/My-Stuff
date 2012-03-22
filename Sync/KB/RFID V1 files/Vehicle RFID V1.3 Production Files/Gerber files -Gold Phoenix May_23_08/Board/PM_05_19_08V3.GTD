@@ -1,0 +1,77 @@
+{Environment
+	{FilesPath  C:\MY VEHICLE RFID FILES\VEHICLE ORCAD FILES\PRODUCTION MODEL MAY 19 2008\BOARD}
+}
+{Layers
+	{Layer  1
+		{File        PM_05_19_08V3.TOP}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  red}
+		{DrawColor   red}
+		{Type        Top}
+	}
+	{Layer  2
+		{File        PM_05_19_08V3.BOT}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  yellow}
+		{DrawColor   yellow}
+		{Type        Bottom}
+	}
+	{Layer  3
+		{File        PM_05_19_08V3.SMB}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  tan}
+		{DrawColor   tan}
+		{Type        Other}
+	}
+	{Layer  4
+		{File        PM_05_19_08V3.SST}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  green}
+		{DrawColor   green}
+		{Type        Other}
+	}
+	{Layer  5
+		{File        PM_05_19_08V3.AST}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  orange}
+		{DrawColor   orange}
+		{Type        Other}
+	}
+	{Layer  6
+		{File        PM_05_19_08V3.DRD}
+		{LyrName     -}
+		{ApList      }
+		{Visibility  On}
+		{FlashColor  blue}
+		{DrawColor   blue}
+		{Type        Other}
+	}
+}
+{Format Gerber
+	{Dialect           RS274X}
+	{m.n               3.4}
+	{Mode              Absolute}
+	{ZeroSuppression   Leading}
+	{Terminator        0x2a, 0xD, 0xA}
+	{Metric            No}
+	{Modal             No}
+	{UserData          Yes}
+	{Nets              No}
+	{Gcmds             Yes}
+	{CharSet           ASCII}
+	{Arcs360           No}
+	{ArcsModal         Yes}
+	{HonorCrLf         No}
+	{Comments          Yes}
+	{Flags             0}
+}
